@@ -1,0 +1,165 @@
+.allTeacher {
+    word-break: keep-all;
+    b {
+        color: @title-color;
+        font-weight: @title-weight;
+    }
+    .sm-rect-btns-wrapper {
+        padding: 0 55px;
+        text-align: left;
+    }
+
+    .modalPopup2 {
+        .close-box {
+            float: right;
+            text-align: bottom;
+        }
+        .modal-body {
+            padding: 20px 70px 70px;
+            .content-title{
+                .sub-title{
+                    font-weight:300;
+                    white-space: pre-line;
+                }
+            }
+
+            .content-detail{
+                div
+                {
+                    margin-top:5px;
+                }
+                .field{
+                    font-size: @summery-size;
+                    font-weight: 300;
+                    color: black;
+                    white-space: pre-line;
+                }
+
+            }
+
+            p {
+                line-height: 23px;
+                white-space: pre-line;
+                .red-bar {
+                    font-size: 18px;
+                    font-weight: 400;
+                    color: black;
+                    line-height: 26px;
+                    &:before {
+                        display:inline-block;
+                        margin-top:4px;
+                        margin-right:10px;
+                        content:" ";
+                        width:3px;
+                        height:16px;
+                        vertical-align:top;
+                        background-color:@main-color;
+                    }
+                }
+                .carrer{
+                    font-weight: 300;
+                }
+            }
+        }
+        .profile-box {
+            overflow: hidden;
+            margin-bottom:10px;
+            padding: 0 100px 0 60px;
+            border-bottom:1px @sub-color-second solid;
+        }
+        .profile-text {
+            float: right;
+            padding-top:128px;
+        }
+        .teacher_img {
+            .inlineblock();
+            width: 280px;
+            height: 360px;
+        }
+        .body-left,
+        .body-right {
+            padding-top: 50px;
+        }
+        .body-right {
+            padding: 5px;
+        }
+        strong {
+            margin-bottom: 10px;
+        }
+        .br-sm {
+            margin: 5px 0;
+        }
+    }
+    @media(max-width:@tablet-size){
+        .modalPopup2{
+            .modal-body{
+                padding:20px 3% 69px;
+                .content-title{
+                    .sub-title{
+                        font-size: @content-size;
+                    }
+                }
+                p{
+                    text-align: center;
+                    line-height: 13px;
+                    .red-bar{
+                        &:before{
+                            display: none;
+                        }
+                        &:after{
+                            content: "";
+                            display: block;
+                            margin: 10px auto;
+                            height:1px;
+                            width:19px;
+                            background:@main-color;
+                        }
+                    }
+                }
+                .content-title{
+                    .name{
+                        font-size:@summery-size;
+                    }
+                }
+            }
+            .teacher_img{
+                width: 40%;
+                min-width:124px;
+                height:auto;
+                margin-left: 34px;
+                display: table-cell;
+            }
+            .profile-box{
+                padding:0;
+                text-align: center;
+                border-bottom:none;
+                display: table;
+                margin:0 auto;
+                width:85%;
+                float: none;
+            }
+            .profile-text{
+                text-align: center;
+                padding:0 3%;
+                float:none;
+                vertical-align: middle;
+                display: table-cell;
+            }
+            .cont:before{
+                content: "";
+                display: block;
+                margin:0 auto 10px;
+                width:90%;
+                background:#ccc;
+                height:1px;
+            }
+        }
+    }
+    @media(max-width: @mobile-size){
+        .modalPopup2{
+            .profile-text{
+                text-align: right;
+            }
+        }
+    }
+}

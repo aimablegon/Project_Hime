@@ -1,0 +1,313 @@
+<script type="text/javascript">
+
+angular.module('app').controller('myCtrl', ['$scope', '$rootScope', '$http', '$sce', '$stateParams', '$location', '$state', '$httpParamSerializerJQLike',  '$window', 
+	function($scope, $rootScope, $http, $sce, $stateParams, $location, $state, $httpParamSerializerJQLike, $window) {
+
+		$scope.mode = $stateParams.id ? 'modify' : 'new';
+		$scope.basePath = '#'+$location.$$path;
+		$scope.parentPath = $location.$$path.substring(0, $location.$$path.indexOf("/detail"));
+		$scope.data = {
+	    	groupId : 'ask_service'
+	    }
+	    
+	   	$scope.loadData = function () {
+	    	
+			$http({
+				method : "POST",
+				url : "/admin/api/askService/"+$stateParams.id,
+				data : {groupId : 'ask_service'}
+			}).success(function(data) {
+				console.log(data);
+				$scope.data = data;
+				$scope.comment = null;				
+			});
+	    };
+
+		if($scope.mode == "modify") {
+			$scope.loadData();
+		}
+		
+		$scope.submit = function () {
+
+			var url = "";
+			if($scope.mode == "modify") {
+				url = "/admin/api/askService/"+$stateParams.id+"/update";
+			} else {
+				url = "/admin/api/askService/insert";
+			}
+			console.log($scope.data);
+			$scope.data.groupId = 'ask_service';
+			$http({
+				method : "POST",
+				url : url,
+				data:$scope.data
+				
+			}).success(function(data) {
+
+				if($scope.mode == "modify") {
+					alert("저장되었습니다.");
+					$scope.loadData();
+				}else {
+					$location.path($scope.parentPath);
+				}
+			});
+
+		};
+		
+		$scope.writeComment = function () {
+			$scope.comment.boardId = $scope.data.boardId;
+			console.log($scope.comment)
+			$http({
+				method : "POST",
+				url : "/admin/api/board/insertComment",
+				data: $scope.comment
+			}).success(function(data) {
+				alert("등록되었습니다.");
+				$scope.loadData();
+			});
+		};
+		
+		$scope.modifyComment = function (boardComment) {
+			
+			$http({
+				method : "POST",
+				url : "/admin/api/board/updateComment",
+				data: boardComment
+			}).success(function(data) {
+				alert("수정되었습니다.");
+				$scope.loadData();
+				
+			});
+		};
+
+		
+		$scope.removeComment = function (boardComment) {
+			if(confirm("삭제 하시겠습니까?")) {
+				$http({
+					method : "POST",
+					url : "/admin/api/board/deleteComment",
+					data: boardComment
+				}).success(function(data) {
+					alert("삭제되었습니다.");
+					$scope.loadData();		
+				});
+			}
+		};
+
+	    $scope.delete = function () {
+	    	if(confirm("삭제 하시겠습니까?")) {
+
+			$http({
+				method : "POST",
+				url : "/admin/api/board/"+$stateParams.id+'/delete',
+			}).success(function(data) {
+				$location.path($scope.parentPath);
+			});
+
+	    	}
+	    }
+	    
+	  //listen for the file selected event
+	    $scope.$on("fileSelected", function (event, args) {
+		    if($scope.mode == "new") {
+	    		$scope.data.AttachSets = [];
+	    	}		
+	    	var files = [];	
+	    	for(i=0;i<args.files.length;i++) {
+	    		files.push(args.files[i]);	
+	    	}
+	    	
+			$http({
+				method : "POST",
+				url : "/admin/api/attach",
+				headers : {'Content-Type': undefined},
+				transformRequest: function (data, headersGetter) {
+			                var formData = new FormData();
+			                for (var i = 0; i < files.length; i++) {
+			                	formData.append("files", files[i]);
+			                }	                
+		                	return formData;
+				}
+			}).success(function(data) {				
+				for(i=0;i<data.length;i++) {
+					$scope.data.AttachSets.push(data[i]);					
+				}				
+			});
+	    });
+	    
+	    
+	    $scope.removeThumb = function(index) {		    
+			$scope.data.AttachSets[index].delYn = 'Y';
+		}
+	    $scope.returnThumb = function(index) {		    
+			$scope.data.AttachSets[index].delYn = 'N';
+		}
+	}]
+);
+angular.module('app').directive('fileUpload', function () {
+    return {
+        scope: true,        //create a new scope
+        link: function (scope, el, attrs) {
+            el.bind('change', function (event) {
+                scope.$emit("fileSelected", { files: event.target.files });
+                el.val(null);
+            });
+        }
+    };
+});
+</script>
+<style>
+	.form-horizontal .ignore .form-group{
+		margin-left : 0px;
+		margin-right : 0px;
+	}	
+	
+	#horizontal-container {
+	    display: inline-block;
+	}
+	
+	#horizontal-container .as-sortable-item,
+	#horizontal-container .as-sortable-placeholder {
+	    display: inline-block;
+	    width: 382px;
+	    height: 334px;
+	    float: left;
+	    border: solid 1px darkgrey;
+	    background-color: #ffffff;
+	    margin:10px;
+	}
+	
+	#horizontal-container .sortable-row:after {
+	    content: ".";
+	    display: block;
+	    height: 0;
+	    clear: both;
+	    visibility: hidden;
+	}
+	.bootstrap-filestyle.input-group > input.form-control {
+		display:none !important;
+	}	
+
+</style>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">과정 요청</h1>
+</div>
+<div class="wrapper-md">
+	<div class="panel panel-default" ng-controller="myCtrl">
+		<div class="panel-heading">내용</div>
+		<div class="panel-body">
+			<form class="form-horizontal" method="get" ng-submit="submit()">
+				<div class="form-group" ng-show="mode == 'modify'">
+					<label class="col-sm-2 control-label">번호</label>
+					<div class="col-sm-10">
+						<span class="help-block m-b-none">{{data.boardId}}</span>
+					</div>
+				</div>
+				<div class="form-group" ng-show="mode == 'modify'">
+					<label class="col-sm-2 control-label">이름</label>
+					<div class="col-sm-10">
+						<span class="help-block m-b-none">{{data.Admin.name}}</span>
+					</div>
+				</div>	
+				<div class="form-group">
+					<label class="col-sm-2 control-label">제목</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required ng-touched" ng-model="data.title" required="required" tabindex="0" aria-required="true" aria-invalid="true">						
+					</div>					
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">내용</label>
+					<div class="col-sm-10">
+						<summernote min-height="300" ng-model="data.content" on-image-upload="imageUpload(files)" editor="editor"></summernote>						
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">파일 첨부</label>
+					<div class="col-sm-10">
+						<span>* 원천과정에 과정소개로 등록할 "운영계획서 " 또는 "학습안내서"를 첨부해주시기 바랍니다.</span>						
+						<div class="wrapper-md bg-light dk b-b">
+						      <span class="pull-right m-t-xs">첨부한 파일 개수: <b class="badge bg-info">{{ data.AttachSets.length }}</b></span>
+						      <input ui-jq="filestyle" type="file" accept="*/*" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control v-middle input-s"  multiple file-upload>						      
+						    </div>
+						    <div class="wrapper-md">
+						      <table class="table bg-white-only b-a">
+						          <thead>
+						              <tr>
+						                  <th width="60%" class="text-center">파일명</th>
+						                  <th>크기</th>
+						                  <th>상태</th>						                  						                  
+						                  <th></th>
+						              </tr>
+						          </thead>
+						          <tbody>
+						              <tr ng-repeat="item in data.AttachSets">
+						                  <td><a href="{{item.url}}" download="{{ item.fileName }}"><strong>{{ item.fileName }}</strong></a></td>
+								  <td>{{item.fileSize / 1024 | number:0}}KB</td>
+						                  <td>
+						                  	<span ng-show="item.delYn =='Y'">삭제
+							                  	<button style="margin-left:10px;" type="button" class="btn btn-default btn-xs" ng-click="returnThumb($index)" >							                  	
+							                          삭제취소
+							                      </button>
+						                      </span>
+						                      <span ng-show="item.delYn =='N'">등록							                  	
+						                      </span>
+				                      		</td>
+						                  <td nowrap class="text-right">
+						                      <button type="button" class="btn btn-default btn-xs" ng-click="removeThumb($index)" >
+						                          삭제
+						                      </button>
+						                  </td>
+						              </tr>
+						          </tbody>
+						      </table>						      
+						    </div>
+				          </div>
+				</div>
+				
+				<div class="line line-dashed b-b line-lg pull-in" ng-show="data.BoardComments.length > 0"></div>
+				<div class="form-group" ng-repeat="boardComment in data.BoardComments">
+					<label class="col-sm-2 control-label"></label>
+					<div class="col-sm-10 ignore">
+						<input type="text" class="form-control" placeholder="제목을 입력하세요." ng-model="boardComment.title"  ng-readonly="currentUser.adminRoll !='A'" required="required"><br/> 
+						<textarea class="form-control" rows="6" placeholder="내용을 입력하세요." ng-model="boardComment.content" ng-readonly="currentUser.adminRoll !='A'"  required="required"></textarea>
+						{{boardComment.registDate | date:'yyyy-MM-dd HH:mm:ss'}}
+						<br/>
+						<button type="button" ng-click="removeComment(boardComment)" ng-if="currentUser.adminRoll =='A'" class="btn btn-danger">삭제</button> 		
+						<button type="button" ng-click="modifyComment(boardComment)" ng-if="currentUser.adminRoll =='A'" class="btn btn-primary">수정</button>
+						<br />
+					</div>					
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+				</div>
+				<div ng-show=" currentUser.adminRoll == 'A' && data.BoardComments.length == 0">				
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">답변</label>
+					<div class="col-sm-10 ignore">
+						<input type="text" class="form-control" placeholder="제목을 입력하세요." ng-model="comment.title"  ng-init="comment.title='답변드립니다.'"><br/> 
+						<textarea class="form-control" rows="6" placeholder="내용을 입력하세요." ng-model="comment.content" ></textarea> 		
+						<br/>
+						<button type="button" ng-click="writeComment()" class="btn btn-primary">답변 등록</button>
+					</div>
+				</div>
+				</div>
+								
+				<div class="form-group">
+					
+					<div class="col-sm-5 col-sm-offset-2">
+						
+						<button type="button" onclick="history.back()" class="btn btn-default m-r-sm">목록</a>
+						<button type="button" ng-click="delete()"  class="btn btn-danger" ng-show="mode=='modify'">삭제</button>
+						
+	
+					</div>
+					<div class="col-sm-5 text-right">
+						<button type="submit" class="btn btn-primary">변경사항 저장</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div> 
+</div>
+<script>
+</script>

@@ -1,0 +1,227 @@
+.intro{
+	.intro_cont1_wrap
+	{
+		background:url('/img/site_img/intro_bg.png')
+	}
+	div.intro_cont1{
+		font-size:0;
+		.intro_box{
+			width:25%;
+			height:256px;
+			display:table;
+			float:left;
+			text-align: center;
+			position:relative;
+			overflow: hidden;
+			.intro_show{
+				display: table-cell !important;
+				vertical-align: middle;
+				text-align: center;
+				.bar{
+					display:block;
+					height:3px;
+					width:45px;
+					margin:0 auto;
+					background:#fff;
+					margin-bottom:25px;
+				}
+				.text{
+					display:block;
+					font-size:18px;
+					line-height:23px;
+					color:#fff;
+					letter-spacing: 1px;
+				}
+			}
+			.intro_hide{
+				display:none;
+			    vertical-align: middle;
+			    text-align: center;
+				right:-100%;
+				position:relative;
+				span{
+					display:block;
+					font-size:@menu-size;
+					line-height:20px;
+					color:#fff;
+				}
+			}
+			&:hover{
+				.intro_show{
+					// display:none !important;
+					position:absolute;
+					width:100%;
+					height:100%;
+					display: block;
+					background:rgba(0,0,0,0.5);
+					.bar{
+						display: none;
+					}
+					.text{
+						font-size:0;
+					}
+				}
+				.intro_hide{
+					display:table-cell !important;
+				}
+			}
+		}
+		.box1{
+			background:#e62e2e;
+			// &&:hover{
+			// 	background:url('/img/site_img/intro_onbg1.png')
+			// }
+		}
+		.box2{
+			background:#252e33;
+			// &&:hover{
+			// 	background:url('/img/site_img/intro_onbg2.png')
+			// }
+		}
+		.box3{
+			background:url('/img/site_img/intro_img1.png');
+			// &&:hover{
+			// 	background:url('/img/site_img/intro_img1_on.png')
+			// }
+		}
+		.box4{
+			background:url('/img/site_img/intro_img2.png');
+			// &&:hover{
+			// 	background:url('/img/site_img/intro_img2_on.jpg')
+			// }
+		}
+		.box5{
+			background:url('/img/site_img/intro_img3.png');
+			// &&:hover{
+			// 	background:url('/img/site_img/intro_img3_on.jpg')
+			// }
+		}
+		.box6{
+			background:url('/img/site_img/intro_img4.png');
+			// &&:hover{
+			// 	background:url('/img/site_img/intro_img4_on.png')
+			// }
+		}
+		.box7{
+			background:#3b4852;
+			// &&:hover{
+			// 	background:url('/img/site_img/intro_onbg3.png')
+			// }
+		}
+		.box8{
+			background:#7e7d87;
+			// &&:hover{
+			// 	background:url('/img/site_img/intro_onbg4.png')
+			// }
+		}
+
+	}
+	div.intro_cont2_wrap{
+		padding:70px 0;
+		background:#edeff0;
+		line-height:20px;
+		.goal,.policy{
+			h2{
+				font-size:@subject-size;
+				line-height:32px;
+				color:@title-color;
+				font-weight: @gnb-weight;
+				margin-bottom:20px;
+				padding-top:69px;
+
+				&:before{
+					.inlineblock();
+	                content: "";
+	                margin-right:20px;
+	                width:7px;
+	                height:32px;
+	                vertical-align: top;
+	                background-color:@main-color;
+				}
+			}
+		}
+		.goal{
+			padding-left:530px;
+			background:url('/img/site_img/intro_img5.png') no-repeat 0 0;
+		}
+		.policy{
+			padding-right:550px;
+			margin-top:70px;
+			background:url('/img/site_img/intro_img6.png') no-repeat right 0;
+
+			h2{
+				padding-top:23px;
+			}
+		}
+		.introcont1{
+			font-size:@menu-size;
+			color:@title-color;
+			font-weight: @gnb-weight;
+			margin-bottom:10px;
+		}
+		.introcont2{
+			color:@subject-color;
+			span{
+				display:block;
+				letter-spacing: -0.5px;
+			}
+		}
+	}
+	@media(max-width:@tablet-size){
+		.intro_cont1_wrap{
+			width:97%;
+			margin:0 auto;
+		}
+		div.intro_cont1{
+			.intro_box{
+				width:50%;
+				background-size: cover !important;
+				.intro_show{
+					.text{
+						font-size:@menu-size;
+					}
+				}
+				.intro_hide{
+					padding:0 15%;
+					span{
+						font-size:@mobilefont-smallsize;
+						display: inline;
+					}
+				}
+			}
+		}
+		div.intro_cont2_wrap{
+			.goal,.policy{
+				background:none;
+				padding:0;
+				width:97%;
+				margin:0 auto 35px;
+				text-align: center;
+				h2{
+					font-size:@summery-size;
+				}
+				h2:before{
+					display: none;
+				}
+				h2:after{
+					content:"";
+					width:30px;
+					height: 2px;
+					background:@main-color;
+					margin: 10px auto;
+					display: block;
+					font-weight: @title-weight;
+				}
+			}
+			.introcont1{
+				font-size:@content-size;
+			}
+			.introcont2{
+				span{
+					font-size:@mobilefont-size;
+					display:inline;
+				}
+			}
+		}
+	}
+}

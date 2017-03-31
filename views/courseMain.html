@@ -1,0 +1,128 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="courseMain">
+    <!-- 본문 -->
+    <div class="contents">
+        <!-- 서브 네비 -->
+        <div class="sub-navi">
+            <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+            <span>교육과정</span><span>&#183;</span>
+            <span class="this-page">교육과정 소개</span>
+        </div>
+        <!-- // 서브 네비 -->
+
+        <!-- 대제목 -->
+        <div class="title-l">
+            <div class="bg">Course</div>
+            <div class="text-box">
+                <h1>교육과정 소개</h1>
+                <p>하이미디어의 다양하고 전문적인 교육과정을 소개합니다.</p>
+            </div>
+        </div>
+        <!-- // 대제목 -->
+        <div class="lnb-course">
+            <div>
+                <div class="inner wow fadeInUp">
+                    <ul>
+                        {% for field in fields %}
+                            <li>
+                                <button href="#">
+                                    <span class="img-box"><img src="{{field.AttachFile.url}}" alt="{{field.fieldName}}" /></span>
+                                    <span class="txt-box">{{field.fieldNameHTML|safe}}</span>
+                                </button>
+                                <div class="location">
+                                    <img src="/img/icon/lnb_position.png" alt="화살표">
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- Add Arrows -->
+               <div class="lnb_btn_left"></div>
+               <div class="lnb_btn_right"></div>
+            </div>
+            {% for  data in courseData %}
+	        <div class="hide_cont">
+	            <div class="wrap">
+	                <div class="box box1">
+	                    <p>{{data.courses[0].codeName}}</p>
+	                    <ul>
+	                    	{% set temp = data.courses[0] %}
+	                    	{% for item in temp.list %}
+	                        	<li title="{{item.courseName}}"><a href="courseDetail.html?courseId={{item.courseId}}">{{item.courseName}}</a></li>
+	                        {% endfor %}
+	                    </ul>
+	                </div>
+	                <div class="box box2">
+	                    <p>{{data.courses[1].codeName}} </p>
+	                    <ul>
+	                 	{% set temp = data.courses[1] %}
+	                    	{% for item in temp.list %}
+	                        	<li title="{{item.courseName}}"><a href="courseDetail.html?courseId={{item.courseId}}">{{item.courseName}}</a></li>
+	                        {% endfor %}
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+         {% endfor %}
+        </div>
+
+        <p class="course_title">
+            하이미디어의 과정들은 체계적이고 전문적인 교육을 통해<br>
+            실무에 최적화된  인재로서 그 역할을 다 할 수 있도록<br>
+            <span>전문성을 극대화시킨 과정들로 구성되어 있습니다.</span>
+        </p>
+        <div class="course_cont common_wrap">
+            <ul>
+                <li>
+                    <a href="checkSystem.html">
+                        <span class="icon course_icon1"></span>
+                        <p class="title">자격확인 시스템</p>
+                        <p class="sub_title">자신이 어떤 과정을 진행할 수 있는지 간단하게 확인할 수 있는<br><span>하이미디어만의 확인시스템입니다.</span></p>
+
+                        <button class="common_btn arrow_nay_btn">확인하러가기 <span class="icon arrow red">오른쪽 화살표</span> </button>
+                    </a>
+                </li>
+                <li>
+                    <a href="jobSeeker.html">
+                        <span class="icon course_icon4">구직자 국비지원과정</span>
+                        <p class="title">구직자 국비지원과정</p>
+                        <p class="sub_title">
+                            구직활동을 하고 있는 실업자 중 만 15세 이상이면 진행 가능합니다.<br>
+                            국가기간전략사업직종훈련, 취업성공패키지, 내일배움카드제로<br>
+                            <span>새로운 배움과 함께 취업까지 진행해보세요.</span>
+                        </p>
+
+                        <button class="common_btn arrow_nay_btn">확인하러가기 <span class="icon arrow red">오른쪽 화살표</span> </button>
+                    </a>
+                </li>
+                <li>
+                    <a href="worker.html">
+                        <span class="icon course_icon3"></span>
+                        <p class="title">직장인 국비지원과정</p>
+                        <p class="sub_title">
+                            정규직, 비정규직 직장인이면 누구나 지원받을 수 있는 프로그램입니다.<br>
+                            재직자근로자카드 및 사업주위탁훈련에 관심이 있으신 분은<br>
+                            <span>꼭 확인해보세요.</span>
+                        </p>
+
+                        <button class="common_btn arrow_nay_btn">확인하러가기 <span class="icon arrow red">오른쪽 화살표</span> </button>
+                    </a>
+                </li>    
+                <li>
+                    <a href="general.html">
+                        <span class="icon course_icon2"></span>
+                        <p class="title">학생 및 일반과정</p>
+                        <p class="sub_title">하이미디어에는 국비지원 사업 외에도 학생, 일반과정들이 있습니다. <br><span>직장인, 실업자가 아니더라도 문의해 보세요.</span></p>
+
+                        <button class="common_btn arrow_nay_btn">확인하러가기 <span class="icon arrow red">오른쪽 화살표</span> </button>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+    <!-- // 본문 -->
+</div>
+{% endblock %}

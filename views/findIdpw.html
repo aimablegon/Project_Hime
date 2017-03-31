@@ -1,0 +1,296 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="findIdpw">
+        <!-- 본문 -->
+        <div class="contents">
+            <!-- 서브 네비 -->
+            <div class="sub-navi">
+                <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+                <span class="this-page">아이디/비밀번호 찾기</span>
+            </div>
+            <!-- // 서브 네비 -->
+
+            <div class="inputtable_wrap">
+                <form class="input_fromwrap">
+                    <fieldset class="input_tablewrap id_fieldset">
+                        <legend>아이디찾기 양식테이블입니다.</legend>
+                        <p class="find_id">
+                            <span class="icon idicon"></span><span>아이디 찾기</span>
+                        </p>
+                        <table class="input_table wow fadeInLeft" data-wow-duration="1s">
+                            <caption>이름,핸드폰순으로 되어있는표입니다.</caption>
+                            <colgroup>
+                                <col style="width:13%">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        <label for="name1">이름</label>
+                                    </th>
+                                    <td>
+                                        <div class="input_wrap w_20p">
+                                            <input id="name1" type="text" name="userName" maxlength="20" size="20"/>
+                                            <button type="button" class="input_del">삭제버튼</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <label for="askTell1">핸드폰</label>
+                                    </th>
+                                    <td>
+                                        <div class="input_wrap w_11p">
+                                            <input id="askTell1" type="text" maxlength="3" class="tel" size="3" name="cell1"/>
+                                            <button type="button" class="input_del">삭제버튼</button>
+                                        </div>
+                                        <span>-</span>
+                                        <div class="input_wrap w_11p">
+                                            <input title="연락처 중간번호" id="askTellmiddle1" type="text" maxlength="4" size="4" class="tel" name="cell2"/>
+                                            <button type="button" class="input_del">삭제버튼</button>
+                                        </div>
+                                        <span>-</span>
+                                        <div class="input_wrap w_11p">
+                                            <input title="연락처 마지막번호" id="askTelllast1" type="text" maxlength="4" size="4" class="tel" name="cell3"/>
+                                            <button type="button" class="input_del">삭제버튼</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="btn_wrap">
+                            <input type="button" name="name" value="확인">
+                        </div>
+                        <!--검색결과 있을시 block-->
+                        <div class="result_on" style="display:none">
+                            <p class="id_title">회원님의 아이디는 아래와 같습니다.</p>
+                            <p class="id id_in"></p>
+                            <p class="date date_in"></p>
+                            <p class="cont">
+                                <span>정확한 아이디를 찾으시는 경우 info@himedia.co.kr로 메일을 보내주시거나</span>
+                                <span>고객센터 1588-7805로 연락주시면 친절히 안내해드립니다.</span>
+                            </p>
+                            <a href="login.html">로그인 <span class="icon arrow red">오른쪽 화살표</span> </a>
+                        </div>
+                        <!--//검색결과 있을시 block-->
+                    </fieldset>
+
+                    <fieldset class="input_tablewrap pw_fieldset">
+                        <legend>비밀번호찾기 양식테이블입니다.</legend>
+                        <p class="find_pw">
+                            <span class="icon pwicon"></span><span>비밀번호 찾기</span>
+                        </p>
+                        <table class="input_table wow fadeInRight" data-wow-duration="1s">
+                            <caption>이름,핸드폰순으로 되어있는표입니다.</caption>
+                            <colgroup>
+                                <col style="width:13%">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        <label for="id2">아이디</label>
+                                    </th>
+                                    <td>
+                                        <div class="input_wrap w_25p">
+                                            <input id="id2" type="text" name="userId" maxlength="20" size="20"/>
+                                            <button type="button" class="input_del">삭제버튼</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <label for="name2">이름</label>
+                                    </th>
+                                    <td>
+                                        <p class="input_wrap w_20p">
+                                            <input id="name2" type="text" name="userName" maxlength="20" size="20"/>
+                                            <button type="button" class="input_del">삭제버튼</button>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <label for="askTell2">핸드폰</label>
+                                    </th>
+                                    <td>
+                                        <div class="input_wrap w_11p">
+                                            <input id="askTell2" type="text" maxlength="3" class="tel" size="3" name="cell1"/>
+                                            <button type="button" class="input_del">삭제버튼</button>
+                                        </div>
+                                        <span>-</span>
+                                        <div class="input_wrap w_11p">
+                                            <input title="연락처 마지막번호" id="askTellmiddle2" type="text" maxlength="4" size="4" class="tel" name="cell2"/>
+                                            <button type="button" class="input_del">삭제버튼</button>
+                                        </div>
+                                        <span>-</span>
+                                        <div class="input_wrap w_11p">
+                                            <input title="연락처 마지막번호" id="askTelllast2" type="text" maxlength="4" size="4" class="tel" name="cell3"/>
+                                            <button type="button" class="input_del">삭제버튼</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+    							    <th>
+    								    <label for="email1">이메일</label>
+    							    </th>
+    							    <td>
+                                        <div class="input_wrap w_25p">
+                                            <input id="email1" type="text" maxlength="20" size="20" name="email1" size="20"/>
+                                            <button type="button" class="input_del">삭제버튼</button>
+                                        </div>
+                                        <span>@</span>
+                                        <div class="input_wrap w_25p pc_none">
+                                            <label for="email_adress" class="text-hide">이메일주소</label>
+                                            <input type="text" name="email2" id="email2" disabled value="naver.com">
+                                            <button type="button" class="input_del">삭제버튼</button>
+                                        </div>
+                                        <select id="email_adress" style="vertical-align:top;">
+                                            <option value="" disabled selected style="display:none;">이메일을 선택해 주세요.</option>
+                                            <option value="naver.com">naver.com</option>
+                                            <option value="nate.com">nate.com</option>
+                                            <option value="gmail.com">gmail.com</option>
+                                            <option value="dreamwiz.com">dreamwiz.com</option>
+                                            <option value="lycos.co.kr">lycos.co.kr</option>
+                                            <option value="korea.com">korea.com</option>
+                                            <option value="hanmir.com">hanmir.com</option>
+                                            <option value="paran.com">paran.com</option>
+                                            <option value="1">직접입력</option>
+                                        </select>
+    							    </td>
+    						    </tr>
+                            </tbody>
+                        </table>
+                        <div class="btn_wrap">
+                            <input type="button" name="name" value="확인">
+                        </div>
+                        <!--검색결과 있을시 block-->
+                        <div class="result_on" style="display:none;">
+                            <p class="pw_title">입력하신 고객님의 이메일로 <span>임시 비밀번호</span>를 전송하였습니다.</p>
+                            <p class="pw_cont">
+                                임시 비밀번호로 로그인 후, '<span>마이페이지 > 회원정보</span>'에서 새 비밀번호로 변경하여 이용해주세요.
+                            </p>
+                            <a href="login.html">로그인 <span class="icon arrow red">오른쪽 화살표</span> </a>
+                        </div>
+                        <!--//검색결과 있을시 block-->
+                    </fieldset>
+                </form>
+            </div>
+
+
+
+        </div>
+        <!-- // 본문 -->
+</div>
+<!-- modal -->
+<div class="modalPopup" style="width:350px; background-color:#FFF; padding:30px 10px;" id="msg_modal">
+    <div class="text-center text_in"></div>
+    <br>
+    <br>
+    <div class="btns text-center">
+        <button style="border:1px #666 solid; padding:5px 10px;" class="text-center modal-closeBtn">확인</button>
+    </div>
+</div>
+<script>
+    var getMsg = null;
+    //이메일 입력방식 선택
+    $('#email_adress').change(function(){
+       $("#email_adress option:selected").each(function () {
+
+            if($(this).val()== '1'){
+                 $("#email2").val('').parent('.input_wrap').css('display','inline-block');
+                 $("#email2").attr("disabled",false).focus();
+            }else{
+                 $("#email2").parent('.input_wrap').css('display','none');
+                 $("#email2").attr('value', $(this).val())
+                 $("#email2").attr("disabled",true);
+            }
+       });
+    });
+    //유효성검사
+    $('.tel').keydown(function(event) {
+        var charLimit = $(this).attr("maxlength");
+        var keys = [8, 9, /*16, 17, 18,*/ 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 46, 144, 145];
+        if (event.which == 8 && this.value.length == 0) {
+            $(this).parent('.input_wrap').prev().prev().find('.tel').focus();
+
+        } else if ($.inArray(event.which, keys) >= 0) {
+            return true;
+        } else if (this.value.length >= charLimit) {
+            $(this).parent('.input_wrap').next().next().find('.tel').focus();
+            return false;
+        } else if (event.shiftKey || event.which <= 47 || event.which >= 106) {
+            return false;
+        } else if (event.shiftKey || (event.which >= 58 && event.which <= 95)) {
+            return false;
+        }
+    }).keyup (function () {
+        var charLimit = $(this).attr("maxlength");
+        if (this.value.length >= charLimit) {
+            $(this).parent('.input_wrap').next().next().find('.tel').focus();
+            return false;
+        }
+    });
+    //아이디 찾기
+    $('.id_fieldset input[type="button"]').click(function(){
+        if($('#askTell1').val() && $('#askTellmiddle1').val() && $('#askTelllast1').val() && $('#name1').val()){
+            $.ajax({
+                method: "POST",
+                url:"findIdPw",
+                data: {
+                    userName : $('#name1').val(),
+                    userMobile : $('#askTell1').val()+'-'+$('#askTellmiddle1').val()+'-'+$('#askTelllast1').val()
+                }
+            })
+            .done(function( msg ) {
+                getMsg = {
+                    isExist : msg.isExist,
+                    userId : msg.userId,
+                    registDate : msg.registDate
+                };
+                if(!getMsg.isExist){
+                    alertMsg('일치하는 정보가 없습니다.')
+                    $('.id_fieldset .result_on').css('display','none');
+
+                }else{
+                    $('.id_fieldset .result_on').css('display','block');
+                    $('.id_in').text(getMsg.userId);
+                    var d = getMsg.registDate;
+                    d = d.toString().substr(0,10).split('-');
+                    $('.date.date_in').text('(가입일자: '+d[0]+'.'+d[1]+'.'+d[2]+')')
+                }
+            });
+        }else{
+            alertMsg('정보를 모두 입력하세요.')
+            $('.id_fieldset .result_on').css('display','none');
+        }
+    });
+    //비밀번호 찾기
+    $('.pw_fieldset input[type="button"]').click(function(){
+        if($('#askTell2').val() && $('#askTellmiddle2').val() && $('#askTelllast2').val() && $('#name2').val() && $('#id2').val() && $('#email1').val() && $('#email2').val()){
+            $.ajax({
+                method: "POST",
+                url:"findIdPw",
+                data: {
+                    userId : $('#id2').val(),
+                    userName : $('#name2').val(),
+                    userMobile : $('#askTell2').val()+'-'+$('#askTellmiddle2').val()+'-'+$('#askTelllast2').val(),
+                    userEmail : $('#email1').val()+'@'+$('#email2').val()
+                }
+            })
+            .done(function( msg ) {
+                getMsg = msg.isExist;
+                if(!getMsg){
+                    alertMsg('일치하는 정보가 없습니다.')
+                    $('.pw_fieldset .result_on').css('display','none');
+                }else if(getMsg == true){
+                    $('.pw_fieldset .result_on').css('display','block');
+                }
+            });
+        }else{
+            alertMsg('정보를 모두 입력하세요.')
+            $('.pw_fieldset .result_on').css('display','none');
+        }
+    });
+</script>
+{% endblock %}

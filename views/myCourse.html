@@ -1,0 +1,208 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="myCourse">
+    <!-- 본문 -->
+    <div class="contents">
+        <!-- 서브 네비 -->
+        <div class="sub-navi">
+            <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+            <span>마이페이지</span><span>&#183;</span>
+            <span class="this-page">수강내역</span>
+        </div>
+        <!-- // 서브 네비 -->
+
+        <!-- 대제목 -->
+        <div class="title-l">
+            <div class="bg">My Page</div>
+            <div class="text-box">
+                <h1>수강 내역</h1>
+                <p>회원님의 소중한 정보입니다</p>
+            </div>
+        </div>
+        <!-- // 대제목 -->
+        <div class="tab tab-sub">
+            <ul>
+                <li><a href="myInfo.html">회원정보</a></li>
+                <li class="on"><a href="#">수강내역</a></li>
+                <li><a href="myInquiry.html">1:1 문의</a></li>
+            </ul>
+        </div>
+        <div class="myCourse_bg">
+            <div class="talbe_wrap">
+                <table class="myCourse_table">
+                    <caption class="sr-only"></caption>
+                    <colgroup>
+                        <col style="width:15%">
+                        <col style="width:57%">
+                        <col style="width:35%">
+                    </colgroup>
+                    <tr>
+                        <td class="term">
+                            <span>2016.01.01</span>
+                            <span>~ 2016.12.12</span>
+                        </td>
+                        <td class="class_name">
+                            <span class="name">[NCS] 디지털 UI/UX 디자인</span>
+                            <span class="campus">강남캠퍼스</span>
+                        </td>
+                        <td class="btn">
+                            <!-- 버튼 -->
+                            <button class="modallink review_write" modallink="write">수강후기 작성<span class="icon arrow red">오른쪽 화살표</span></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="term">
+                            <span>2016.01.01</span>
+                            <span>~ 2016.12.12</span>
+                        </td>
+                        <td class="class_name">
+                            <span class="name">[NCS] 디지털 UI/UX 디자인</span>
+                            <span class="campus">강남캠퍼스</span>
+                        </td>
+                        <td class="btn">
+                            <!-- 버튼 -->
+                            <button class="modallink review_show" modallink="show">수강후기 보기/수정<span class="icon arrow red">오른쪽 화살표</span></button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- // 본문 -->
+
+    <!-- 팝업창1 -->
+    <div class="modalPopup" style="width:900px;" id="write">
+        <!-- 타이틀 -->
+        <div class="modal-title text-right">
+            <span class="title-box text-left">수강후기 작성</span>
+            <span class="close-box"><a href="#" class="modal-closeBtn">close<i class="icon close-x red"></i></a></span>
+            <div class="clearfix"></div>
+        </div>
+        <!-- 바디 -->
+        <div class="modal-body">
+            <!--컨텐츠-->
+            <div class="inputtable_wrap">
+                <form class="input_fromwrap">
+                    <fieldset class="input_tablewrap">
+                        <legend>수강후기 작성 테이블입니다.</legend>
+                        <table class="input_table">
+                            <caption>수강정보 수강후기 만족도에대한 표입니다.</caption>
+                            <colgroup>
+                                <col style="width:13%">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        수강정보
+                                    </th>
+                                    <td>
+                                        <p>[NCS] 디지털 UI/UX 디자인</p>
+                                        <p>강남캠퍼스</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <label for="detailCont">수강후기</label>
+                                    </th>
+                                    <td>
+                                        <div class="input_wrap" style="width:100%">
+                                            <textarea id="detailCont"></textarea>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        만족도
+                                    </th>
+                                    <td class="star_wrap">
+                                        <span class="star on">1점</span>
+                                        <span class="star on">2점</span>
+                                        <span class="star on">3점</span>
+                                        <span class="star on">4점</span>
+                                        <span class="star on">5점</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="btns_wrap">
+                            <input type="submit" class="enter" value="등록">
+                            <input type="reset" class="cancle" value="취소">
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+
+    <!--팝업창2-->
+    <div class="modalPopup" style="width:900px;" id="show">
+        <!-- 타이틀 -->
+        <div class="modal-title text-right">
+            <span class="title-box text-left">수강후기 보기/수정</span>
+            <span class="close-box"><a href="#" class="modal-closeBtn">close<i class="icon close-x red"></i></a></span>
+            <div class="clearfix"></div>
+        </div>
+        <!-- 바디 -->
+        <div class="modal-body">
+            <!--컨텐츠-->
+            <div class="inputtable_wrap">
+                <form class="input_fromwrap">
+                    <fieldset class="input_tablewrap">
+                        <legend>수강후기 보기,수정 테이블입니다.</legend>
+                        <table class="input_table">
+                            <caption>수강후기 보기,수정에대한 표입니다.</caption>
+                            <colgroup>
+                                <col style="width:13%">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        수강정보
+                                    </th>
+                                    <td>
+                                        <p>[NCS] 디지털 UI/UX 디자인</p>
+                                        <p>강남캠퍼스</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <label for="detailCont">수강후기</label>
+                                    </th>
+                                    <td>
+                                        <div class="input_wrap" style="width:100%">
+                                            <textarea id="detailCont"></textarea>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        만족도
+                                    </th>
+                                    <td class="star_wrap">
+                                        <span class="star on">1점</span>
+                                        <span class="star on">2점</span>
+                                        <span class="star on">3점</span>
+                                        <span class="star on">4점</span>
+                                        <span class="star on">5점</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+                    <div class="btns_wrap">
+                        <input type="button" class="change" value="수정">
+                        <input type="button" class="delete">
+                        <input type="submit" class="ok" value="확인">
+                    </div>
+                </form>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

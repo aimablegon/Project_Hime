@@ -1,0 +1,84 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="saramin Career_center">
+    <!-- 본문 -->
+    <div class="contents">
+        <!-- 서브 네비 -->
+        <div class="sub-navi">
+            <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+            <span>취업지원센터</span><span>&#183;</span>
+            <span class="this-page">사람인채용정보 </span>
+        </div>
+        <!-- // 서브 네비 -->
+
+        <!-- 대제목 -->
+        <div class="title-l">
+            <div class="bg">Career center</div>
+            <div class="text-box">
+                <h1>사람인채용정보</h1>
+                <p>하이미디어에서 알려 드리는 사람인채용정보</p>
+            </div>
+        </div>
+        <!-- // 대제목 -->
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle common_wrap" type="button" id="saramin_tab" data-toggle="dropdown" aria-expanded="true">
+              전체
+              <span class="icon arrowDown navy"></span>
+            </button>
+            <ul class="tab tab-saramin wow fadeIn dropdown-menu" role="menu" aria-labelledby="saramin_tab" data-wow-duration="1s">
+                <li {% if query.category == 1 or !query.category %}class="on"{% endif %}><button type="button" onclick="javascript:location.href='saramin.html?category=1'">디자인</button></li>
+                <li {% if query.category == 2 %}class="on"{% endif %}><button type="button" onclick="javascript:location.href='saramin.html?category=2'">IT·인터넷</button></li>
+                <li {% if query.category == 3 %}class="on"{% endif %}><button type="button" onclick="javascript:location.href='saramin.html?category=3'">사무·경리·회계</button></li>
+                <li {% if query.category == 4 %}class="on"{% endif %}><button type="button" onclick="javascript:location.href='saramin.html?category=4'">건축·인테리어·설계</button></li>
+            </ul>
+        </div>
+        <div class="saramin_bg">
+            <div class="saramin_tablewrap">
+                <p>Total : <span class="total_num"></span><span> 건</span></p>
+                <div class="scroll_table">
+                    <p class="scroll_tablenotice text-left pc_none"><span class="scroll_icon"></span> 좌우로 스크롤이 가능한 표입니다.</p>
+                    <table class="list_table hover_effect wow fadeInUp" data-wow-duration="1s">
+        		        <caption class="sr-only"></caption>
+        		        <colgroup>
+        		        	<col style="width:17%">
+        		        	<col style="width:54%">
+        		        	<col style="width:14%">
+                            <col style="width:15%">
+        		        </colgroup>
+        		        <tbody>
+                            {% for item in data %}
+                                <tr>
+            			        	<td>{{item.name}}</td>
+            			        	<td class="text-left cont">
+                                        <a href="{{item.href}}" target="_blank" title="새창열림">
+                                            [{{item.location}}]{{item.title}}
+                                            <span class="cont2">직종 : {{item.category}}</span>
+                                            <span class="cont2">연봉 : {{item.salary}}</span>
+                                        </a>
+                                    </td>
+            			        	<td>{{item.position}}</td>
+                                    <td>~ {{item.expiration | date('Y/m/d')}}</td>
+            			        </tr>
+                            {% endfor %}
+        		        </tbody>
+        	        </table>
+                </div>
+                {% include "./blocks/pagination.html" %}
+                {% include "./blocks/paginationMobile.html" %}
+            </div>
+        </div>
+    </div>
+    <!-- // 본문 -->
+</div>
+<script>
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    $('.total_num').text(numberWithCommas({{totalCount}}));
+
+    function goPage(page) {
+        location.href = "saramin.html?page="+page+"&category={{query.category}}";
+    }
+    $('.pagination').addClass('gray');
+</script>
+{% endblock %}

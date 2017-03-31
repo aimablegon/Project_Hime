@@ -1,0 +1,133 @@
+<script type="text/javascript">
+
+
+angular.module('app').controller('myCtrl', ['$scope', '$rootScope', '$http', '$sce', '$stateParams', '$location',
+	function($scope, $rootScope, $http, $sce, $stateParams, $location) {
+		
+		$scope.searchText	= $stateParams.searchText;
+		$scope.faqType	= $stateParams.faqType;
+		$scope.pageSize = $rootScope.pageSize ? $rootScope.pageSize : "10";
+		$scope.Math=Math;
+		$scope.basePath = '#'+$location.$$path;
+		
+		console.log($location);
+
+		$scope.loadData = function () {
+			
+			$http({
+				method : "POST",
+				url : "/admin/api/faq",
+				data : {
+					page : $stateParams.page,
+					pageSize : $scope.pageSize,
+					searchText : $stateParams.searchText,
+					faqType : $stateParams.faqType,
+				}
+			}).success(function(data) {
+				console.log(data);
+				$scope.data = data;
+			});
+		};
+		
+		$scope.pageChanged = function (idx){
+			$location.path($location.$$path).search({json : JSON.stringify({page: $scope.data.currentPage,searchText: $scope.searchText,faqType : $scope.faqType})});
+		};
+
+		$scope.search = function () {
+			$location.path($location.$$path).search({json : JSON.stringify({searchText: $scope.searchText,faqType : $scope.faqType})});
+		}
+
+		$scope.pageSizeChanged = function () {
+			$rootScope.pageSize =  $scope.pageSize;
+			$scope.loadData();
+
+		};
+
+
+	}]
+);
+
+
+</script>
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">FAQ 관리</h1>
+</div>
+<div class="wrapper-md">
+	<div class="panel panel-default" ng-controller="myCtrl" ng-init="loadData()">
+		<div class="panel-heading">목록</div>
+		<div class="row wrapper">
+			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-left">
+				<div class="input-group">
+				
+					<select class="input-sm form-control w-sm inline v-middle"
+						ng-options="items.codeId as items.codeName for items in codes.FAQ_TYPE.list" 
+						ng-selected="faqType == items.codeId" 
+						ng-model="faqType">
+						<option value="">전체</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 pull-right">
+				<div class="input-group">
+					<input type="text" class="input-sm form-control" ng-model="searchText"
+						placeholder="검색어를 입력하세요."> <span class="input-group-btn">
+						<button class="btn btn-sm btn-default" type="button" ng-click="search()">검색</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="row wrapper" ng-show="data.totalCount">
+			<div class="col-sm-6 text-left">
+			
+				총 {{data.totalCount}} 건
+			</div>
+			<div class="col-sm-6 text-right">
+				<select class="input-sm form-control w-sm inline v-middle" ng-model="pageSize" ng-change="pageSizeChanged()">
+					<option value="10">10개 보기</option>
+					<option value="20">20개 보기</option>
+					<option value="50">50개 보기</option>
+					<option value="100">100개 보기</option>
+				</select>
+			</div>
+		</div>
+		<div class="table-responsive">
+			<table class="table table-striped b-t b-light" >
+				<thead>
+					<tr>
+						<th width="10%" class=text-center>No</th>
+						<th width="20%" class=text-left>분류</th>
+						<th width="50%" class=text-left>질문</th>
+						<th width="20%" class=text-center>작성일시</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in data.list">
+						<td class="text-center">{{data.totalCount - Math.floor((data.currentPage-1) * pageSize) - $index}}</td>
+						<td class="text-left"><a href="{{basePath}}/detail/{{item.faqId}}">{{codeNames[item.faqType]}}</a></td>
+						<td class="text-left"><a href="{{basePath}}/detail/{{item.faqId}}">{{item.question}}</a></td>
+						<td class="text-center">{{item.registDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+					</tr>
+				</tbody>
+			</table>
+			
+
+		</div>
+		<div class="row wrapper" ng-show="data.totalCount == 0">
+			<div class="col-sm-12 text-center">
+				등록/검색된 데이터가 없습니다.
+			</div>
+		</div>
+		<footer class="panel-footer">
+			<div class="row">
+				<div class="col-sm-12 text-center">
+				    <pagination boundary-links="true" class="m-t-none m-b-none"  ng-model="data.currentPage" max-size="10" total-items="data.totalCount" ng-change="pageChanged()" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" items-per-page="pageSize"></pagination>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12 text-right">
+				    <a href="{{basePath}}/detail" class="btn btn-primary">등록</a>
+				</div>
+			</div>
+		</footer>
+	</div>
+</div>

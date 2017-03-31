@@ -1,0 +1,118 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="login">
+    <!-- 본문 -->
+    <div class="contents">
+        <!-- 서브 네비 -->
+        <div class="sub-navi">
+            <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+            <span class="this-page">로그인</span>
+        </div>
+        <!-- // 서브 네비 -->
+
+        <!-- 대제목 -->
+        <div class="title-l">
+            <div class="bg">Login</div>
+            <div class="text-box">
+                <h1>로그인</h1>
+                <p>로그인을 하시면 보다 많은 서비스를 받으실 수 있습니다.</p>
+            </div>
+        </div>
+        <!-- // 대제목 -->
+
+        <!--컨텐츠-->
+        <div class="inputtable_wrap">
+            <form class="input_fromwrap" method="POST" action="login">
+                <fieldset class="input_tablewrap wow fadeIn" data-wow-duration="1s">
+                    <legend>로그인 양식폼입니다.</legend>
+                    <table class="input_table">
+                        <caption>이메일, 비번으로 되어있는표입니다.</caption>
+                        <colgroup>
+                            <col style="width:40%">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th class="id">
+                                    <label for="loginId">아이디</label>
+                                </th>
+                                <td>
+                                    <div class="input_wrap" style="width:100%">
+                                        <input id="loginId" type="text" name="userId"/>
+                                        <button type="button" class="input_del">삭제버튼</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="pw">
+                                    <label for="loginPw">비밀번호</label>
+                                </th>
+                                <td>
+                                    <div class="input_wrap" style="width:100%">
+                                        <input id="loginPw" type="password" name="userPwd"/>
+                                        <button type="button" class="input_del">삭제버튼</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="find" href="findIdpw.html">아이디/비밀번호 찾기</a>
+                    <div class="btns_wrap">
+                        <input class="login_btn" type="submit" value="로그인">
+                        <a href="join.html">회원가입</a>
+                    </div>
+                </fieldset>
+            </form>
+            <div class="log_text">
+                <p class="title">하이미디어컴퓨터학원 회원만의 특별한 혜택!</p>
+                <p class="text">
+                    <span>하이미디어컴퓨터학원에서는 수강생들을 위해 할인혜택은 물론 정부지원서비스를</span>
+                    <span>연계하여 수강료 절감 및 다양한 혜택과 다양한 정보를 제공하고 있습니다.</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- // 본문 -->
+</div>
+<script>
+    $('body').on('click','.login_btn',function(){
+        if($('#loginId').val() && $('#loginPw').val()){
+            $.ajax({
+                method: "POST",
+                url:"login",
+                data: {
+                    userId : $('#loginId').val(),
+                    userPwd : $('#loginPw').val()
+                }
+            })
+            .done(function( msg ) {
+                if(msg.isSuccess) {
+                    var query = {{JSON.stringify(query,0,4)}};
+                    if(query.exUrl){
+                        var temp = '';
+                        var j = 0;
+                        for(i in query){
+                            if(i != 'exUrl'){
+                                j == 0 ? temp += '?' : '';
+                                temp += i;
+                                temp += '=';
+                                temp += query[i];
+                                j++;
+                                j !=  Object.keys(query).length - 1 ? temp += '&' : '';
+                            }
+                        }
+                        location.href = query.exUrl+temp;
+                    }else{
+                        location.href = "/";
+                    }
+                } else {
+                    alertMsg('일치하는 정보가 없습니다.');
+                }
+            });
+        }else{
+            alertMsg('정보를 모두 입력하세요.');
+        }
+        return false;
+    });
+</script>
+{% endblock %}

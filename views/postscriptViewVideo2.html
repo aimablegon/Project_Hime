@@ -1,0 +1,87 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="postscriptView Career_center">
+    <!-- 본문 -->
+    <div class="contents">
+        <!-- 서브 네비 -->
+        <div class="sub-navi">
+            <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+            <span>취업지원센터</span><span>&#183;</span>
+            <span class="this-page">취업 후기</span>
+        </div>
+        <!-- // 서브 네비 -->
+
+        <!-- 대제목 -->
+        <div class="title-l">
+            <div class="bg">Career center</div>
+            <div class="text-box">
+                <h1>취업생 인터뷰</h1>
+                <p>취업에 성공한 선배들의 생생한 인터뷰</p>
+            </div>
+        </div>
+        <!-- // 대제목 -->
+        <div class="postscriptView_bg">
+            <div class="view_wrap">
+                <p class="view_top"><span class="name">김영재</span>님의 취업생 인터뷰입니다.</p>
+                <div class="view_cont">
+                    <div class="view_who">
+                        <p>
+                            <span>
+                                <span class="num">01.</span><span>WHO</span>
+                            </span>
+                        </p>
+                        <ul class="who_cont">
+                            <li class="icon1">
+                                <p class="title">이름</p>
+                                <p>김영재</p>
+                            </li>
+                            <li class="icon2">
+                                <p class="title">수료캠퍼스</p>
+                                <p>수원캠퍼스</p>
+                            </li>
+                            <li class="icon3">
+                                <p class="title">수료과정</p>
+                                <p>JAVA기반 시스템 <br>개발자 양성과정</p>
+                            </li>
+                            <li  class="icon4">
+                                <p class="title">교육기간</p>
+                                <p>2016.00.00 ~ <br>2016.00.00</p>
+                            </li>
+                            <li class="icon5">
+                                <p class="title">회사명</p>
+                                <p>선진GN</p>
+                            </li>
+                            <li class="icon6">
+                                <p class="title">취업일</p>
+                                <p>2016.00.00</p>
+                            </li>
+                        </ul>
+                    </div>
+                   <div class="interview_wrap video">
+                       <p>
+                           <span>
+                               <span class="num">02.</span><span>interview</span>
+                           </span>
+                       </p>
+                       <video id="my-video" controls width="852" height="400"  class="video-js vjs-default-skin" data-setup="{}">
+                          <source src="/vedio/postscriptViewVedio1.mp4" type='video/mp4'>
+                          <source src="/vedio/postscriptViewVedio1.ogg" type='video/ogg'>
+                          <p class="vjs-no-js">
+                            To view this video please enable JavaScript, and consider upgrading to a web browser that
+                          </p>
+                        </video>
+                   </div>
+                </div>
+                <div class="view_bottom">
+                     <a class="prev" href=""><span class="icon arrow_left red">왼쪽 화살표</span>이전</a>
+                     <a class="list" href="postscript.html">목록<span class="icon list red">리스트(목록)</span></a>
+                     <a class="next" href="">다음<span class="icon arrow red">오른쪽 화살표</span></a>
+                 </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- // 본문 -->
+</div>
+{% endblock %}

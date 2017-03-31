@@ -1,0 +1,58 @@
+{% extends "./blocks/layout.html" %} {% block content %}
+<div class="haseolru">
+    <!-- 서브 네비 -->
+    <div class="sub-navi">
+        <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
+        <span>&#183;</span>
+        <a href="#">하이커뮤니티</a>
+        <span>&#183;</span>
+        <span class="this-page">하설루</span>
+    </div>
+    <!-- // 서브 네비 -->
+
+    <div class="title-l">
+        <div class="bg">
+            <b>Community</b>
+        </div>
+        <div class="text-box">
+            <h1>하설루</h1>
+            <p><b>하</b>이의 <b>설</b>레는 <b>하</b>루, 하이미디어人의 이야기를 들려 드립니다</p>
+        </div>
+    </div>
+
+    <div class="gray-background">
+        <div>
+            <table class="list_table wow fadeInUp" data-wow-duration="1s">
+                <caption class="sr-only"></caption>
+                <colgroup>
+                    <col style="width:8%">
+                        <col style="width:55%">
+                            <col style="width:14%">
+                                <col style="width:14%">
+                </colgroup>
+                <tbody>
+                    {% for toon in toons %}
+                        <tr>
+                            <td>{{toon.num}}화</td>
+                            <td class="text-left"><a href="haseolruDetail.html?toonId={{toon.toonId}}&page={{page}}">{{toon.title}}</a></td>
+                            <td>{{toon.registDate | date('Y-m-d')}}</td>
+                            <td>{{toon.readCount}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- 페이지-->
+			{% include "./blocks/pagination.html" %}
+		    <!-- 페이지 모바일-->
+			{% include "./blocks/paginationMobile.html" %}
+        </div>
+    </div>
+</div>
+<script>
+    function goPage(page) {
+        location.href = "haseolru.html?page="+page;
+    }
+    $('.pagination').addClass('gray');
+</script>
+{% endblock %}

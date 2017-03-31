@@ -1,0 +1,1322 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<!---->
+<div class="main">
+    <!--pc 메인베너 -->
+    <div id="main_banner" class="carousel slide main_banner" data-ride="carousel">
+      <!-- Wrapper for slides -->
+      <ul class="carousel-inner" role="listbox">
+	{% for slide in slides %}
+            <li class="item {% if loop.first %}ie8_first active {% endif %}" id="slide{{loop.index - 1}}">
+                <a href="{{slide.linkUrl}}">
+	                <div style="background:url('{{slide.AttachFile.url}}') no-repeat 50%; width:100%; height:100%;">
+	                    {{ slide.innerHTML | safe }}
+	                </div>
+                </a>
+            </li>
+        {% endfor %}
+      </ul>
+      <!-- Indicators -->
+        <ol class="carousel-indicators">
+            {% for slide in slides %}
+	            <li data-target="#main_banner"  data-slide-to="{{loop.index - 1}}"  {% if loop.first %} class="active" {% endif %}></li>
+            {% endfor %}
+        </ol>
+    </div>
+    <!--pc 메인베너 끝 -->
+
+    <!--mobile 메인배너1-->
+    <div class="swiper-container moblie_banner">
+       <div class="swiper-wrapper">
+       	{% for slide in slides %}
+       		{% if slide.AttachFileMobile %}
+       			<div class="swiper-slide"  style="background:url('{{slide.AttachFile.url}}') 50%;background-size:cover;"></div>
+		{% endif %}
+	{% endfor %}
+       </div>
+       <!-- Add Pagination -->
+       <div class="swiper-pagination"></div>
+   </div>
+
+    <!--moblie_banner2-->
+    <div class="swiper-container moblie_banner2">
+       <div class="swiper-wrapper">
+       	{% for slide in slides %}
+       		{% if slide.AttachFileMobile %}
+           	 <div class="swiper-slide"  style="background:url('{{slide.AttachFileMobile.url}}') 50%;background-size:cover"></div>
+		{% endif %}
+	{% endfor %}
+       </div>
+       <!-- Add Pagination -->
+       <div class="swiper-pagination"></div>
+   </div>
+   <!--//moblie_banner2-->
+    <div class="lnb-course ">
+    <!-- LNB -->
+        <div>
+            <div class="inner wow fadeInUp">
+                <ul>
+                    {% for field in fields %}
+                        <li>
+                            <button href="#" id="{{field.fieldId}}">
+                                <span class="img-box"><img src="{{field.AttachFile.url}}" alt="{{field.fieldName}}" /></span>
+                                <span class="txt-box">{{field.fieldNameHTML|safe}}</span>
+                            </button>
+                            <div class="location">
+                                <img src="/img/icon/lnb_position.png" alt="화살표">
+                            </div>
+			</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <!-- Add Arrows -->
+           <div class="lnb_btn_left"></div>
+           <div class="lnb_btn_right"></div>
+        </div>
+
+        {% for  data in courseData %}
+	        <div class="hide_cont">
+	            <div class="wrap">
+	                <div class="box box1">
+	                    <p>{{data.courses[0].codeName}}</p>
+	                    <ul>
+	                    	{% set temp = data.courses[0] %}
+	                    	{% for item in temp.list %}
+	                        	<li title="{{item.courseName}}"><a href="courseDetail.html?courseId={{item.courseId}}">{{item.courseName}}</a></li>
+	                        {% endfor %}
+	                    </ul>
+	                </div>
+	                <div class="box box2">
+	                    <p>{{data.courses[1].codeName}} </p>
+	                    <ul>
+	                 	{% set temp = data.courses[1] %}
+	                    	{% for item in temp.list %}
+	                        	<li title="{{item.courseName}}"><a href="courseDetail.html?courseId={{item.courseId}}">{{item.courseName}}</a></li>
+	                        {% endfor %}
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+         {% endfor %}
+    </div>
+    <!-- lnb-course end -->
+
+    <div class="info-bar">
+        <div class="notice">
+            <span>NOTICE &amp; EVENT</span>
+            <ul class="rolling">
+            	{% for list in boardList %}
+                <li {% if loop.index == 1 %}class="on"{% endif %}><a href="noticeView.html?branchCode={{list.branchCode}}&boardId={{list.boardId}}&page=">{{loop.index}}.{{list.title}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="online-counsel">
+            <a href="onlineCounsel.html">
+                <span>온라인상담 <span class="fw-normal">바로 가기</span></span>
+            </a>
+        </div>
+        <div class="tel">
+            <dl>
+                    <dt>{{branchInfo.branchName}} <span class="tel_num">{{branchInfo.tel}}</span></dt>
+                    {%for branch in branches%}
+                    {%if branchCode != branch.branchCode%}
+                    <dd>{{branch.branchName}}  <span class="tel_num">{{branch.tel}}</span></dd>
+                    {%endif%}
+                {%endfor%}
+            </dl>
+        </div>
+    </div>
+    <!-- info-bar end -->
+
+    <div class="contents">
+        <section class="mentoring">
+            <div class="teacher-list common_wrap">
+                <div class="title-m">
+                    <h2>Mentoring</h2>
+                    <p>하이미디어의 대표강사진을 소개합니다.</p>
+                </div>
+                <div class="mento_btn">
+                    <button class="left">왼쪽버튼</button>
+                    <button class="right">오른쪽 버튼</button>
+                </div>
+                <div class="teacher-banner">
+                    <ul>
+                        <li class="on"  style="background-image:url(/img/temp/kmc.png);">
+                            <div>
+                                <p class="title">
+                                    <span class="strong">최신트렌드를</span><br>완전히 파악
+                                    <span class="mento_class">웹디자인 ·웹퍼블리싱</span>
+                                </p>
+                                <p class="name"><span>#김민철</span> 강사님#</p>
+                                <p class="explain">
+                                    실무에서 정말 필요한 기능과 경험<br>그리고 표준의 정석을 알려드리겠습니다.
+                                </p>
+                                <button class="btn btn-primary btn-lg modallink2" modallink="mentoring1">
+                                    <span class="btn_icon"> &lt; </span>  <span> 강사프로필</span> 보기
+                                </button>
+                            </div>
+                        </li>
+                        <li  style="background-image:url(/img/temp/kjh.png);">
+                            <div>
+                                <p class="title">
+                                    전산세무회계를<br><span class="strong">꽉 잡았다</span>
+                                    <span class="mento_class">전산세무회계 / ERP</span>
+                                </p>
+                                <p class="name"><span>#김정현</span> 강사님#</p>
+                                <p class="explain">
+                                    세무회계가 술술~<br>꿀팁이 넘친다!
+                                </p>
+                                <button class="btn btn-primary btn-lg modallink2" modallink="mentoring2">
+                                    <span class="btn_icon"> &lt; </span>  <span> 강사프로필</span> 보기
+                                </button>
+                            </div>
+                        </li>
+                        <li  style="background-image:url(/img/temp/dh.png);">
+                            <div>
+                                <p class="title">
+                                    <span class="strong">명확하고 깔끔한</span><br>강의내용
+                                    <span class="mento_class">IT / 개발</span>
+                                </p>
+                                <p class="name"><span>#도현</span> 강사님#</p>
+                                <p class="explain">
+                                    명확한 컨셉의 포트폴리오 제작방향제시는<br>물론 최신 트렌드를 완벽히 파악합니다.
+                                </p>
+                                <button class="btn btn-primary btn-lg modallink2" modallink="mentoring3">
+                                    <span class="btn_icon"> &lt; </span>  <span> 강사프로필</span> 보기
+                                </button>
+                            </div>
+                        </li>
+                        <li  style="background-image:url(/img/temp/sys.png);">
+                            <div>
+                                <p class="title">
+                                    <span class="strong">이해중심의</span><br>세무회계강의
+                                    <span class="mento_class">전산세무회계 / ERP</span>
+                                </p>
+                                <p class="name"><span>#서연서</span> 강사님#</p>
+                                <p class="explain">
+                                    낯설고 어려운 회계를<br>쉽고 빠르게!
+                                </p>
+                                <button class="btn btn-primary btn-lg modallink2" modallink="mentoring4">
+                                    <span class="btn_icon"> &lt; </span>  <span> 강사프로필</span> 보기
+                                </button>
+                            </div>
+                        </li>
+                        <li  style="background-image:url(/img/temp/msj.png);">
+                            <div>
+                                <p class="title">
+                                    <span class="strong">실무·이론 겸비의</span><br>프로그래밍
+                                    <span class="mento_class">IT / 개발</span>
+                                </p>
+                                <p class="name"><span>#문선종</span> 강사님#</p>
+                                <p class="explain">
+                                    실전에서 필요한 프로젝트 중심!<br>실무에서 바로사용가능한<br />개발능력을 키워드립니다
+                                </p>
+                                <button class="btn btn-primary btn-lg modallink2" modallink="mentoring5">
+                                    <span class="btn_icon"> &lt; </span>  <span> 강사프로필</span> 보기
+                                </button>
+                            </div>
+                        </li>
+                        <li  style="background-image:url(/img/temp/lch.png);">
+                            <div>
+                                <p class="title">
+                                    <span class="strong">열정과 패기로</span><br>가득찬 강의
+                                    <span class="mento_class">전산세무회계</span>
+                                </p>
+                                <p class="name"><span>#이창현</span> 강사님#</p>
+                                <p class="explain">
+                                    열정과 패기에 강의로<br />취업의 자신감을 심어드립니다.
+                                </p>
+                                <button class="btn btn-primary btn-lg modallink2" modallink="mentoring6">
+                                    <span class="btn_icon"> &lt; </span>  <span> 강사프로필</span> 보기
+                                </button>
+                            </div>
+                        </li>
+                        <li  style="background-image:url(/img/temp/cjh.png);">
+                            <div>
+                                <p class="title">
+                                    <span class="strong">합격으로 가는</span><br />지름길
+                                    <span class="mento_class">전산세무회계</span>
+                                </p>
+                                <p class="name"><span>#최준환 </span> 강사님#</p>
+                                <p class="explain">
+                                    어려운 세무,회계강의를<br>좀더 재미있고 열정적으로 배울수있도록<br />도와드립니다.
+                                </p>
+                                <button class="btn btn-primary btn-lg modallink2" modallink="mentoring7">
+                                    <span class="btn_icon"> &lt; </span>  <span> 강사프로필</span> 보기
+                                </button>
+                            </div>
+                        </li>
+                        <li  style="background-image:url(/img/temp/hhm.png);">
+
+                            <div>
+                                <p class="title">
+                                    포트폴리오의<br><span class="strong">황금손</span>
+                                    <span class="mento_class">웹디자인 · 웹퍼블리싱</span>
+                                </p>
+                                <p class="name"><span>#한형만</span> 강사님#</p>
+                                <p class="explain">
+                                    실무에 맞춘 퍼블리싱 수업,<br>다양한 프로젝트로 높은 수준의<br />포트폴리오를 만듭니다
+                                </p>
+                                <button class="btn btn-primary btn-lg modallink2" modallink="mentoring8">
+                                    <span class="btn_icon"> &lt; </span>  <span> 강사프로필</span> 보기
+                                </button>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="portfolio bg-grey">
+            <div class="section-title">
+                <div class="bg"><b>P</b></div>
+                <div class="text-box">
+                    <p class="tit">Portfolio</p>
+                    <p class="sub">수강생들의 <span class="bold">포트폴리오</span>를 소개합니다.</p>
+                </div>
+            </div>
+            <div class="portfolio_grid common_wrap">
+	            {% if portfolioList.length >= 1%}
+            		<div class="wow fadeInUp">
+            			<div class="portfolio-list listNum0 {% if portfolioList.length != 1%}w_625 float_left{% endif %}" {% if portfolioList.length == 1%}style="width:100%;"{% endif %}>
+            			        <div class="lists modallink2" modallink="example2">
+            			            <a href="#" style="background:url('{{portfolioList[ 0].AttachFile.url}}')">
+            			                <div class="pofo_over">
+            			                    <img class="pofo_on" src="/img/icon/over2.png" alt="" />
+            			                    <p>See more<span class="icon plus red">플러스(더하기)</span></p>
+            			                </div>
+            			            </a>
+            			        </div>
+            			    </div>
+            		    {% if portfolioList.length != 1%}
+            			    <div class="portfolio-list listNum1 w_385 float_right">
+            			        <div class="lists modallink2" modallink="example2">
+            			            <a href="#" style="background:url('{{portfolioList[1].AttachFile.url}}') no-repeat 50%">
+            			                <div class="pofo_over">
+            			                    <img class="pofo_on" src="/img/icon/over2.png" alt="" />
+            			                    <p>See more<span class="icon plus red">플러스(더하기)</span></p>
+            			                </div>
+            			            </a>
+            			        </div>
+            		    	</div>
+            		{% endif %}
+            		</div>
+	            {% endif %}
+
+		{% if portfolioList.length >= 3%}
+			<div class="wow fadeInUp">
+		                    <div class="portfolio-list listNum2 {% if portfolioList.length != 3%}w_385 float_left{% endif %}" {% if portfolioList.length == 3%} style="width:100%;"{% endif %}>
+		                        <div class="lists modallink2" modallink="example2">
+		                            <a href="#" style="background:url('{{portfolioList[2].AttachFile.url}}') no-repeat 50%">
+		                                <div class="pofo_over">
+		                                    <img class="pofo_on" src="/img/icon/over2.png" alt="" />
+		                                    <p>See more<span class="icon plus red">플러스(더하기)</span></p>
+		                                </div>
+		                            </a>
+		                        </div>
+		                    </div>
+	                    {% if portfolioList.length != 3%}
+		                    <div class="portfolio-list listNum3 w_625 float_right">
+		                        <div class="lists modallink2" modallink="example2">
+		                            <a href="#" style="background:url('{{portfolioList[3].AttachFile.url}}') no-repeat 50%">
+		                                <div class="pofo_over">
+		                                    <img class="pofo_on" src="/img/icon/over2.png" alt="" />
+		                                    <p>See more<span class="icon plus red">플러스(더하기)</span></p>
+		                                </div>
+		                            </a>
+		                        </div>
+		                    </div>
+				{% endif %}
+		                </div>
+		{% endif %}
+
+		{% if portfolioList.length >= 5%}
+			<div class="wow fadeInUp">
+		                    <div class="portfolio-list listNum4 {% if portfolioList.length != 5%}w_505 float_left{% endif %}" {% if portfolioList.length == 5%} style="width:100%;" {% endif %}>
+		                        <div class="lists modallink2" modallink="example2">
+		                            <a href="#" style="background:url('{{portfolioList[4].AttachFile.url}}') no-repeat 50%">
+		                                <div class="pofo_over">
+		                                    <img class="pofo_on" src="/img/icon/over2.png" alt="" />
+		                                    <p>See more<span class="icon plus red">플러스(더하기)</span></p>
+		                                </div>
+		                            </a>
+		                        </div>
+		                    </div>
+	                    {% if portfolioList.length != 5%}
+		                    <div class="portfolio-list listNum5 w_505 float_right">
+		                        <div class="lists modallink2" modallink="example2">
+		                            <a href="#" style="background:url('{{portfolioList[5].AttachFile.url}}') no-repeat 50%">
+		                                <div class="pofo_over">
+		                                    <img class="pofo_on" src="/img/icon/over2.png" alt="" />
+		                                    <p>See more<span class="icon plus red">플러스(더하기)</span></p>
+		                                </div>
+		                            </a>
+		                        </div>
+		                    </div>
+		                </div>
+		                {% endif %}
+	           	 </div>
+		{% endif %}
+
+
+            <div class="clear"></div>
+            <div class="modalPopup2 pofol" style="width:960px" id="example2">
+                <!-- 타이틀 -->
+                <div class="modal-title text-left">
+                    <div>
+                        <span class="pop_name"></span>
+                        <span class="popUp-line">|</span>
+                        <span class="pop_course"></span>
+                        <span class="popUp-line">|</span>
+                        <span class="pop_type"></span>
+                        <span class="popUp-line">|</span>
+                        <span class="pop_campus"></span>
+                    </div>
+                    <div class="close-box"><a href="#" class="modal2-closeBtn">close<i class="icon close-x red"></i></a></div>
+                </div>
+
+                <div class="modal-contents">
+
+                    <!-- 바디 -->
+                    <div class="modal-body">
+                        <div class="modal-main">
+                            <img src="/img/site_img/pfweb_lexus.png" alt="포트폴리오 모달 이미지" />
+                        </div>
+                        <button class="icon arrow-slide left">왼쪽으로</button>
+                        <button class="icon arrow-slide right">오른쪽으로</button>
+                    </div>
+                    <div class="text-right boxP-wrapper" style="display:none;">
+                        <div class="boxP" id="box1">
+                            <div>
+                                <a href="http://www.i-make.kr:8080/STARBUCKS_jieun" target="_blank"><span>웹 사이트로 보기</span>&nbsp;
+                                <div class="icon arrow red-mini">오른쪽 화살표</div></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+{% if starBestCourse.length != 0 or bestCourse.length != 0 %}
+        <section class="best">
+            <div class="section-title">
+                <div class="bg"><b>B</b></div>
+                <div class="text-box">
+                    <p class="tit">Best curriculum</p>
+                    <p class="sub">하이미디어의 <span class="bold">베스트 커리큘럼</span>을 소개합니다.</p>
+                </div>
+            </div>
+            <div class="items">
+                {% if starBestCourse.length != 0 %}
+                	{% for star in starBestCourse %}
+                        <a href="courseDetail.html?courseId={{star.courseId}}&branchCode={{branchCode}}" class="hit wow fadeInUp">
+                            <span class="name">{{star.Course.courseName}}</span>
+                            <span class="details">
+                                <span>
+                                    <p class="text1">{{star.titleInfo | safe}}</p>
+                                    <p class="text2">{{star.titleSubInfo | safe}}</p>
+                                </span>
+                                <span>
+                                    <p class="text1">{{star.priceInfo | safe}}</p>
+                                    <p class="text2">{{star.priceSubInfo | safe}}</p>
+                                </span>
+                                <span>
+                                    <p class="text1">{{star.courseTime | safe}}</p>
+                                    <p class="text2">{{star.courseMonth | safe}}</p>
+                                </span>
+                                <span>
+                                    <button type="button" class="btn-click">click</button>
+                                </span>
+                            </span>
+                        </a>
+                	{% endfor %}
+                {% endif %}
+                {% if bestCourse.length != 0 %}
+                	{% for best in bestCourse %}
+                        <a href="courseDetail.html?courseId={{best.courseId}}&branchCode={{branchCode}}" class="wow fadeInUp">
+                            <span class="name">{{best.Course.courseName}}</span>
+                            <span class="details">
+                                <span>
+                                    <p class="text1">{{best.titleInfo | safe }}</p>
+                                    <p class="text2">{{best.titleSubInfo | safe }}</p>
+                                </span>
+                                <span>
+                                    <p class="text1">{{best.priceInfo | safe }}</p>
+                                    <p class="text2">{{best.priceSubInfo | safe }}</p>
+                                </span>
+                                <span>
+                                    <p class="text1">{{best.courseTime | safe }}</p>
+                                    <p class="text2">{{best.courseMonth | safe }}</p>
+                                </span>
+                                <span>
+                                    <button type="button" class="btn-click">click</button>
+                                </span>
+                            </span>
+                        </a>
+                	{% endfor %}
+                {% endif %}
+            </div>
+        </section>
+{% endif %}
+
+        <section class="counting main">
+            <div class="section-title">
+                <p class="tit"><span class="bold">Himedia Computer</span> Institute</p>
+            </div>
+            <div class="items">
+                <div class="campus">
+                    <span class="round">
+                        <canvas class="counting-canvas" id="progress1"></canvas>
+                    </span>
+                    <div class="icon1"></div>
+                    <p class="number"></p>
+                    <p>하이미디어의 현재 <span class="bold">지점</span> 수</p>
+                </div>
+                <div class="course">
+                    <span class="round">
+                        <canvas class="counting-canvas" id="progress2"></canvas>
+                    </span>
+                    <div class="icon2"></div>
+                    <p class="number"></p>
+                    <p>하이미디어의 현재 <span class="bold">과정</span> 수</p>
+                </div>
+                <div class="graduate">
+                    <span class="round">
+                        <canvas class="counting-canvas" id="progress3"></canvas>
+                    </span>
+                    <div class="icon3"></div>
+                    <p class="number"></p>
+                    <p>하이미디어 <span class="bold">수료생</span> 수</p>
+                </div>
+                <div class="employee">
+                    <span class="round">
+                        <canvas class="counting-canvas" id="progress4"></canvas>
+                    </span>
+                    <div class="icon4"></div>
+                    <p class="number"></p>
+                    <p>하이미디어 <span class="bold">취업생</span> 수</p>
+                </div>
+            </div>
+        </section>
+        <section class="snslink main">
+            <div class="section-title wow fadeInUp">
+                <p class="tit"><span class="bold">PEOPLE<span class="img-love">love</span>US</span></p>
+                <p class="sub">하이미디어 최신 소식을 <span class="bold">소셜네트워크</span>에서 만나보세요!</p>
+            </div>
+            <ul class="wow fadeInUp">
+                <li class="youtube"><a href="https://www.youtube.com/channel/UC9L81llQqmVHFSQebBTdD5Q">하이미디어 유튜브로 링크 연결</a></li>
+                <li class="facebook"><a href="https://www.facebook.com/%ED%95%98%EC%9D%B4%EB%AF%B8%EB%94%94%EC%96%B4%EC%BB%B4%ED%93%A8%ED%84%B0%ED%95%99%EC%9B%90-183703775167103/">하이미디어 페이스북으로 링크 연결</a></li>
+                <li class="instagram"><a href="https://www.instagram.com/himedia1993">하이미디어 인스타그램으로 링크 연결</a></li>
+                <li class="twitter"><a href="https://twitter.com/himediacom">하이미디어 트위터로 링크 연결</a></li>
+            </ul>
+        </section>
+    </div>
+    <div class="modalPopup" style="width:900px;" id="video1">
+        <span class="close-box" style="position:absolute;right:-32px;"><a href="#" class="modal-closeBtn"><i class="icon close-x red"></i></a></span>
+        <div class="modal-body">
+            <video id="modal_video1" style="position:relative;z-index:0;" autoplay width="100%" class="video-js vjs-default-skin" data-setup="{}">
+                <source src="/video/mainm.mp4" type='video/mp4' />
+                <object>
+                    <embed style="position:relative; bottom:180px;z-index:0;width:100%" src="/video/main.mp4" type= "application/x-shockwave-flash" allowfullscreen="false" allowscriptaccess="always" />
+                </object>
+             </video>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="modalPopup" style="width:900px;" id="video2">
+        <span class="close-box" style="position:absolute;right:-32px;"><a href="#" class="modal-closeBtn"><i class="icon close-x red"></i></a></span>
+        <div class="modal-body">
+            <video id="modal_video2" style="position:relative;z-index:0;" autoplay width="100%" class="video-js vjs-default-skin" data-setup="{}">
+                <source src="/video/mainf.mp4" type='video/mp4'>
+                <object>
+                    <embed style="position:relative; bottom:180px;z-index:0;width:100%" src="/video/main.mp4" type= "application/x-shockwave-flash" allowfullscreen="false" allowscriptaccess="always" />
+                </object>
+             </video>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="modalPopup2 mentoringMordal" style="width:648px;" id="mentoring1">
+	    <!-- 타이틀 -->
+	    <div class="modal-title text-right">
+	        <span class="title-box text-left">강사소개</span>
+	        <span class="close-box"><a href="#" class="modal2-closeBtn">close<i class="icon close-x red"></i></a></span>
+	        <div class="clearfix"></div>
+	    </div>
+	    <!-- 바디 -->
+	    <div class="modal-body">
+	        <!-- 왼쪽 박스 -->
+	        <div class="body-left">
+	            <div class="teacher_img" style="background:url('/img/temp/kmc.png') no-repeat"></div>
+	            <div class="text">
+	                <p class="title">
+	                    <span class="strong">최신트렌드를</span><br>완전히 파악
+	                    <span class="mento_class">웹디자인 ·웹퍼블리싱</span>
+	                </p>
+	            </div>
+	        </div>
+	        <!-- 오른쪽 박스 -->
+	        <div class="body-right">
+	            <p>
+	                <strong>실무 경력</strong><br>
+	                현 에이전시 프리아이브 대표<br>
+			신한카드 - 겔러리S, 아름인, 안심결제 팝업<br>
+			노랑풍선 - 전페이지 리뉴얼 및 접근성<br>
+			보배드림 - 접근성 및 메인/회원가입 리뉴얼<br>
+			한국얀센 - 설문조사 웹사이트 전체 퍼블리싱<br>
+			한국존슨앤존슨 - OTW 사업실적 디지털 PPT 기획및 퍼블리싱<br>
+			SKC&C - 구글지갑 월렛 엡 디자인 퍼블리싱 <br>
+			LGU+ - APP SPOT PLUS UX/UI 디자인<br>
+			LGU+ - MEGAGIN APP 퍼블리싱<br>
+			LGMC연구소 - 오페라폰UI 퍼블리싱 CELL HISTORY 담당<br>
+			인디에프 - 조이너스,꼼빠니아,옛츠,예스비,트루젠,메이폴,프레디 퍼블리싱<br>
+			밀레 퍼블리싱 교정<br>
+			G20 정상회담 홍보 사이트 퍼블리싱 <br>
+	            </p>
+	            <p>
+	                <strong>강의 경력</strong><br>
+	                현 하이미디어컴퓨터학원 강의
+	            </p>
+	        </div>
+	        <div class="clearfix"></div>
+	    </div>
+	</div>
+	<div class="modalPopup2 mentoringMordal" style="width:648px;" id="mentoring2">
+	    <!-- 타이틀 -->
+	    <div class="modal-title text-right">
+	        <span class="title-box text-left">강사소개</span>
+	        <span class="close-box"><a href="#" class="modal2-closeBtn">close<i class="icon close-x red"></i></a></span>
+	        <div class="clearfix"></div>
+	    </div>
+	    <!-- 바디 -->
+	    <div class="modal-body">
+	        <!-- 왼쪽 박스 -->
+	        <div class="body-left">
+	            <div class="teacher_img" style="background:url('/img/temp/kjh.png') no-repeat"></div>
+	            <div class="text">
+	                <p class="title">
+	                    <span class="strong">전산세무회계를</span><br>꽉 잡았다
+	                    <span class="mento_class">전산세무회계 / ERP</span>
+	                </p>
+	            </div>
+	        </div>
+	        <!-- 오른쪽 박스 -->
+	        <div class="body-right">
+	            <p>
+	                <strong>실무 경력</strong><br>
+	                세무법인 드림 법인회계관리<br />
+	                월드알에스씨가설자재(주) 부가세, 법인세, 결산 및 재무재표작성<br />
+	                주식회사 건호E&C 법인회계관리 및 자금관리<br />
+	            </p>
+	            <p>
+	                <strong>강의 경력</strong><br>
+	                현 하이미디어컴퓨터학원 강의 <br>
+	                더조은컴퓨터아트학원 전산회계세무 및 ERP정보관리사 강의<br>
+	            </p>
+	            <p>
+	                <strong>자격사항</strong><br>
+	               전산세무1급<br>
+			전산회계1급<br>
+			회계관리1급<br>
+			전산회계운용사<br>
+			ERP회계정보관리사<br>
+			ERP인사정보관리사<br>
+			TAT1급<br>
+			기업회계
+	            </p>
+	        </div>
+	        <div class="clearfix"></div>
+	    </div>
+	</div>
+	<div class="modalPopup2 mentoringMordal" style="width:648px;" id="mentoring3">
+	    <!-- 타이틀 -->
+	    <div class="modal-title text-right">
+	        <span class="title-box text-left">강사소개</span>
+	        <span class="close-box"><a href="#" class="modal2-closeBtn">close<i class="icon close-x red"></i></a></span>
+	        <div class="clearfix"></div>
+	    </div>
+	    <!-- 바디 -->
+	    <div class="modal-body">
+	        <!-- 왼쪽 박스 -->
+	        <div class="body-left">
+	            <div class="teacher_img" style="background:url('/img/temp/dh.png') no-repeat"></div>
+	            <div class="text">
+	                <p class="title">
+	                    <span class="strong">명확하고 깔끔한 </span><br>강의내용
+	                    <span class="mento_class">IT / 개발</span>
+	                </p>
+	            </div>
+	        </div>
+	        <!-- 오른쪽 박스 -->
+	        <div class="body-right">
+	            <p>
+	                <strong>실무 경력</strong><br>
+	                CAD BANK - PC정비 / Network / Linux 주임강사<br />
+			인하 직업전문학교-실업자과정 전임교사<br />
+			경원 직업전문학교-국가전략산업기반직종 전임교사 (IT학과 팀장)<br />
+			대성 직업전문학교-국가전략산업기반직종 전임교사 (IT학과 팀장)<br />
+			대우직업능력개발원-국가기간산업 / NCS 전임교사  (IT학과 팀장)<br />
+			(현) 하이미디어컴퓨터학원 강의
+	            </p>
+	            <p>
+	                <strong>강의 경력</strong><br>
+	                (주) 한미약품 직원 역량강화 정보화 교육<br />
+			(주) MGAME 직원 역량강화 정보화 교육<br />
+			(현)국방부 군장병 역량강화 정보화 교육<br />
+			경기도 경찰청 사이버수사대 직원 역량강화 정보화 교육<br />
+			광명시청 공무원 역량강화 정보화 교육<br />
+			(현) 광운대학교 전산원 정보통신 자격증 출강<br />
+			(현) 동국대학교 전산원 정보통신 자격증 출강<br />
+			(현) 중앙대학교 전산원 정보통신 자격증 출강
+	            </p>
+	            <p>
+	                <strong>자격사항</strong><br>
+	                직업훈련교사 -  통신 2급, 3급<br />
+			직업훈련교사 -  정보처리 3급<br />
+			정보처리기사<br />
+			LPIC<br />
+			CCNA<br />
+			Novell NCLA<br />
+			Novell DCTS<br />
+			리눅스마스터 2급<br />
+			네트워크관리사2급<br />
+			PC정비사2급<br />
+			PC MASTER<br />
+			해킹보안전문가 2급<br />
+			유비쿼터스전문가 2급<br />
+
+	            </p>
+	            <p>
+	                <strong>강의 전략 및 특성</strong><br>
+	                누구나 쉽게 생각하는 정보보안은 생각보다 광범위하며 쉽지는 않습니다. <br />
+			Step by Step 체계적인 맞춤형 교육과 이론이 아닌 실전교육으로 적재적소에 필요로 하는 엔지니어가 될 수 있습니다.<br />
+			늦었다고 생각하는 지금이 최고이자 최선의 선택입니다.<br />
+			일은 즐기면서 해야 진정한 가치를 느낄 수 있으며 지금 하는 일에 흥미를 갖고 적극적인 자세로 임한다면 당신의 꿈을 이룰 수 있습니다.<br />
+			당신이 꿈을 이루면 이제는 당신이 누군가의 꿈이 될 것입니다.
+	            </p>
+	        </div>
+	        <div class="clearfix"></div>
+	    </div>
+	</div>
+	<div class="modalPopup2 mentoringMordal" style="width:648px;" id="mentoring4">
+	    <!-- 타이틀 -->
+	    <div class="modal-title text-right">
+	        <span class="title-box text-left">강사소개</span>
+	        <span class="close-box"><a href="#" class="modal2-closeBtn">close<i class="icon close-x red"></i></a></span>
+	        <div class="clearfix"></div>
+	    </div>
+	    <!-- 바디 -->
+	    <div class="modal-body">
+	        <!-- 왼쪽 박스 -->
+	        <div class="body-left">
+	            <div class="teacher_img" style="background:url('/img/temp/sys.png') no-repeat"></div>
+	            <div class="text">
+	                <p class="title">
+	                    <span class="strong">이해중심의</span><br>세무회계강의
+	                    <span class="mento_class">전산세무회계 / ERP</span>
+	                </p>
+	            </div>
+	        </div>
+	        <!-- 오른쪽 박스 -->
+	        <div class="body-right">
+	            <p>
+	                <strong>실무 경력</strong><br>
+	                동부화재해상보험주식회사 영업예산지원<br />
+			창신사 회계업무
+	            </p>
+	            <p>
+	                <strong>강의 경력</strong><br>
+	                현 하이미디어컴퓨터학원 강의<br />
+			더조은컴퓨터아트학원 전산회계세무 강의<br />
+			이젠컴퓨터학원 전산회계세무 강의
+	            </p>
+	            <p>
+	                <strong>자격사항</strong><br>
+	                전산세무1급<br />
+			전산회계1급<br />
+			회계관리1급<br />
+			TAT1급<br />
+			전산회계운용사<br />
+			기업회계<br />
+			ERP회계정보관리사<br />
+			ERP인사정보관리사
+	            </p>
+	        </div>
+	        <div class="clearfix"></div>
+	    </div>
+	</div>
+	<div class="modalPopup2 mentoringMordal" style="width:648px;" id="mentoring5">
+	    <!-- 타이틀 -->
+	    <div class="modal-title text-right">
+	        <span class="title-box text-left">강사소개</span>
+	        <span class="close-box"><a href="#" class="modal2-closeBtn">close<i class="icon close-x red"></i></a></span>
+	        <div class="clearfix"></div>
+	    </div>
+	    <!-- 바디 -->
+	    <div class="modal-body">
+	        <!-- 왼쪽 박스 -->
+	        <div class="body-left">
+	            <div class="teacher_img" style="background:url('/img/temp/msj.png') no-repeat"></div>
+	            <div class="text">
+	                <p class="title">
+	                    <span class="strong">실무·이론 겸비의</span><br>프로그래밍
+	                    <span class="mento_class">IT / 개발</span>
+	                </p>
+	            </div>
+	        </div>
+	        <!-- 오른쪽 박스 -->
+	        <div class="body-right">
+	            <p>
+	                <strong>실무 경력</strong><br>
+	                가천대 길병원 학회 프레젠테이션 멀티미디어 영상콘텐츠 홍보영상 유지보수<br />
+			고양예술고등학교 홈페이지와 멀티미디어 영상콘텐츠 홍보영상 제작 및 유지보수<br />
+			백송고등학교 홈페이지와 멀티미디어 영상콘텐츠 홍보영상 제작 및 유지보수<br />
+			인천예술고등학교 학교 홈페이지 구축제작 및 웹호스팅<br />
+			제일정보통신 신용카드조회기 관리 프로그램 제작 및 유지보수<br />
+			평양민속예술단 홈페이지와 멀티미디어 영상콘텐츠 홍보영상 제작 및 유지보수<br />
+			한강요양병원 홈페이지와 멀티미디어 영상콘텐츠 홍보영상 제작 및 유지보수
+	            </p>
+	            <p>
+	                <strong>강의 경력</strong><br>
+	                현 하이미디어컴퓨터학원 강의<br />
+			대우직업전문학교 홈페이지 제작 및 멀티미디어콘텐츠 제작 강의<br />
+			문종컴퓨터학원 홈페이지 제작 및 멀티미디어콘텐츠 제작 강의<br />
+			베스트컴퓨터학원 홈페이지 제작 및 멀티미디어콘텐츠 제작 강의
+	            </p>
+	            <p>
+	                <strong>자격사항</strong><br>
+			직업훈련교사 - 멀티미디어<br />
+			직업훈련교사 - 사무자동화<br />
+			직업훈련교사 - 산업디자인<br />
+			직업훈련교사 - 인쇄<br />
+			직업훈련교사 - 정보처리<br />
+			전자상거래운용사<br />
+			컴퓨터활용능력1급<br />
+			정보처리기사<br />
+			사무자동화산업기사<br />
+			멀티미디어콘텐츠제작전문가<br />
+			웹디자인기능사<br />
+			전자출판기능사
+	            </p>
+	        </div>
+	        <div class="clearfix"></div>
+	    </div>
+	</div>
+	<div class="modalPopup2 mentoringMordal" style="width:648px;" id="mentoring6">
+	    <!-- 타이틀 -->
+	    <div class="modal-title text-right">
+	        <span class="title-box text-left">강사소개</span>
+	        <span class="close-box"><a href="#" class="modal2-closeBtn">close<i class="icon close-x red"></i></a></span>
+	        <div class="clearfix"></div>
+	    </div>
+	    <!-- 바디 -->
+	    <div class="modal-body">
+	        <!-- 왼쪽 박스 -->
+	        <div class="body-left">
+	            <div class="teacher_img" style="background:url('/img/temp/lch.png') no-repeat"></div>
+	            <div class="text">
+	                <p class="title">
+	                    <span class="strong">열정과 패기로</span><br>가득찬 강의
+	                    <span class="mento_class">전산세무회계</span>
+	                </p>
+	            </div>
+	        </div>
+	        <!-- 오른쪽 박스 -->
+	        <div class="body-right">
+	            <p>
+	                <strong>강의 경력</strong><br>
+	               한성경리학원 대표강사<br>
+			미래경리학원 대표강사<br>
+			서강직업전문학교 대표강사<br>
+			분당이탱크직업전문학교 전산세무회계강사<br>
+			(주)종로세무회계학원 원장<br>
+			현 : 하이미디어학원 강남지점 전산세무회계강사
+	            </p>
+	            <p>
+	                <strong>자격사항</strong><br>
+	                직업능력개발훈련교사자격증(상업 3급)
+			전산세무 1급
+	            </p>
+	            <p>
+	                <strong>저서</strong><br>
+	                전산회계1급,전산세무2급,전산세무1급
+	            </p>
+	            <p>
+	                <strong>강의 전략 및 특성</strong><br>
+	                쉬운강의 편안하게 접근할 수 있는 열정과 패기의 강의
+	            </p>
+	        </div>
+	        <div class="clearfix"></div>
+	    </div>
+	</div>
+	<div class="modalPopup2 mentoringMordal" style="width:648px;" id="mentoring7">
+	    <!-- 타이틀 -->
+	    <div class="modal-title text-right">
+	        <span class="title-box text-left">강사소개</span>
+	        <span class="close-box"><a href="#" class="modal2-closeBtn">close<i class="icon close-x red"></i></a></span>
+	        <div class="clearfix"></div>
+	    </div>
+	    <!-- 바디 -->
+	    <div class="modal-body">
+	        <!-- 왼쪽 박스 -->
+	        <div class="body-left">
+	            <div class="teacher_img" style="background:url('/img/temp/cjh.png') no-repeat"></div>
+	            <div class="text">
+	                <p class="title">
+	                    <span class="strong">합격으로 가는</span><br>지름길
+	                    <span class="mento_class">전산세무회계</span>
+	                </p>
+	            </div>
+	        </div>
+	        <!-- 오른쪽 박스 -->
+	        <div class="body-right">
+	            <p>
+	                <strong>실무 경력</strong><br>
+	                비투비 세무회계사무소<br>
+			대극건설(주) 재무팀 팀장<br>
+			우리카드 법무팀
+	            </p>
+	            <p>
+	                <strong>강의 경력</strong><br>
+	               방송통신대학교 산하협력단 대표강사 역임<br>
+			명지직업전문학교 대표강사 역임<br>
+			상계직업전문학교 대표강사 역임<br>
+			벽산전산세무회계학원 대표강사 역임<br>
+			제일 전산세무회계 대표강사 역임<br>
+			현 하이미디어 컴퓨터학원 전산회계세무 대표강사<br>
+	            </p>
+	            <p>
+	                <strong>자격사항</strong><br>
+	                직업능력개발훈련교사자격증(상업 3급)<br>
+	                전산세무 1급
+	            </p>
+	        </div>
+	        <div class="clearfix"></div>
+	    </div>
+	</div>
+	<div class="modalPopup2 mentoringMordal" style="width:648px;" id="mentoring8">
+	    <!-- 타이틀 -->
+	    <div class="modal-title text-right">
+	        <span class="title-box text-left">강사소개</span>
+	        <span class="close-box"><a href="#" class="modal2-closeBtn">close<i class="icon close-x red"></i></a></span>
+	        <div class="clearfix"></div>
+	    </div>
+	    <!-- 바디 -->
+	    <div class="modal-body">
+	        <!-- 왼쪽 박스 -->
+	        <div class="body-left">
+	            <div class="teacher_img" style="background:url('/img/temp/hhm.png') no-repeat"></div>
+	            <div class="text">
+	                <p class="title">
+	                    <span class="strong">포트폴리오의</span><br>황금손
+	                    <span class="mento_class">웹디자인 ·웹퍼블리싱</span>
+	                </p>
+	            </div>
+	        </div>
+	        <!-- 오른쪽 박스 -->
+	        <div class="body-right">
+	            <p>
+	                <strong>실무 경력</strong><br>
+	                국제비즈니스교육원(IBI) 연구소장<br>
+			명지전문대학산학협력단 전담자<br>
+			광운대학교산학협력단 전담자<br>
+			한국기상산업진흥원 과장<br>
+			에버딜 주임<br>
+			엘티텍 팀장<br>
+			앵끄닷컴 과장<br>
+			한국직업능력개발원 평가위원<br>
+			국제비즈니스교육원 부장
+	            </p>
+	            <p>
+	                <strong>강의 경력</strong><br>
+	                (주)예일디자인아카데미 강의<br>
+			한국IT직업전문학교 강의<br>
+			한훈직업전문학교 강의<br>
+			홍성기능대학(한국폴리텍4대학) 강의<br>
+			열린사이버대학교 강의<br>
+			한국디지털기업협회 인재개발원 강의
+	            </p>
+	            <p>
+	                <strong>자격사항</strong><br>
+	                직업능력개발훈련교사자격증(산업디자인 3급)<br>
+	                직업능력개발훈련교사자격증(멀티미디어 3급)
+	            </p>
+	            <p>
+	                <strong>저서</strong><br>
+	                디지털카메라 VR(가상현실)웹사이트(정보문화사)<br />
+			웹 기반 실사이미지 가상현실(VR)을 이용한 웹 안내시스템 구현(명지대학교)
+	            </p>
+	            <p>
+	                <strong>강의 전략 및 특성</strong><br>
+	                프로그래밍의 개념과 원리로 제작하는 포트폴리오<br />
+			선배 개발자와 함께하는 실무수업
+	            </p>
+	        </div>
+	        <div class="clearfix"></div>
+	    </div>
+	</div>
+
+</div>
+<script>
+    // progress canvas
+    window.onload = function(){
+        /* function slideFn(){
+            //slide stop
+            var bannerTimeout;
+            var video = document.getElementById('my-video');
+            $("#main_banner").carousel('pause');
+            //starting interval
+            document.getElementById('my-video').addEventListener('ended',function(e){
+        		$("#main_banner").carousel("next");
+                bannerTimeout = setInterval(function(){
+                    $("#main_banner").carousel("next");
+                },5000);
+        	},false);
+            setInterval(function(){
+                if( $("#main_banner").find(".active").find("video").length != 0) {
+                    clearInterval(bannerTimeout);
+                    if(video.ended) {
+                        video.play();
+                    }
+                }
+            },1000);
+        }
+        slideFn(); */
+
+        function drawProgress(id){
+
+            var canvas = document.getElementById(id);
+            var ctx = canvas.getContext("2d");
+
+            var W = canvas.width;
+            var H = canvas.height;
+
+            var degrees = 0;
+            var new_degrees = 0;
+            var difference = 0;
+            var color = "#FFF";
+            var bgcolor = "transparent";
+            var text;
+            var animation_loop, redraw_loop;
+
+            function init()
+            {
+                ctx.clearRect(0, 0, W, H);
+                //바탕 반원
+                ctx.beginPath();
+                ctx.strokeStyle = bgcolor;
+                ctx.lineWidth = 4;
+                ctx.arc(W/2, H, 140, Math.PI, 0, false);
+                ctx.stroke();
+                //게이지
+                var radians = degrees * Math.PI / 180;
+                ctx.beginPath();
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 5;
+
+                ctx.arc(W/2, H, 140, Math.PI, radians - 180*Math.PI/180, false);
+
+                ctx.stroke();
+            };
+
+            function draw()
+            {
+
+                if(typeof animation_loop != undefined) clearInterval(animation_loop);
+
+                new_degrees = Math.round(181);
+                difference = new_degrees - degrees;
+
+                animation_loop = setInterval(animate_to, 7);
+            };
+
+            function animate_to()
+            {
+                if(degrees == new_degrees)
+                    clearInterval(animation_loop);
+                if(degrees < new_degrees)
+                    degrees = degrees + 3;
+                else
+                    degrees--;
+                init();
+            };
+        // draw();
+    };
+    // counting function
+    function countNum(endnum,target){
+        var aa = 0;
+        var go;
+
+        function plus() {
+            if(endnum - aa <= 99) aa++;
+            else if(endnum - aa <= 999) aa += 12;
+            else if(endnum - aa <= 9999) aa += 132;
+            else if(endnum - aa <= 50000) aa += 3456;
+            else aa += 12345;
+        }
+        function makeComma(target){
+			var len = target.toString().length;
+			var rtnStr = "";
+			if(target != 0 && typeof(target) == 'number'){
+				for(var i=0, j=len; i<len ; i++, j--){
+					if(j % 3 == 0 && j != len){
+						rtnStr+=",";
+					};
+					rtnStr+=target.toString().charAt(i);
+				};
+			return rtnStr;
+			}else{
+				return '-';
+			}
+		}
+        go = setInterval(function(){
+
+            if(aa == endnum){
+                clearInterval(go);
+            }else{
+                plus();
+                target.text(makeComma(aa));
+            }
+        }, 1000/endnum);
+    }
+    // counting score
+    var counting = {
+        canvasCount : 0,
+        counterCount : 0
+    }
+
+    // counting condition
+    function countingStart(){
+        var scTop = $(window).scrollTop();
+        var winHei = $(window).height();
+        var target = $('section.counting.main').offset().top - $('section.counting.main').height() * 1.3;
+        var targetEnd =  $('section.counting.main').offset().top + $('section.counting.main').height();
+        
+        /* static 입력 */
+        var afterMarch = 0;
+        '{{afterMarch}}' ? afterMarch = {{afterMarch}} : '';
+        var graduateCount = parseInt((126474)  * 0.8) + parseInt(afterMarch * 10 / 7 );
+        
+        if(scTop > target && scTop + winHei > targetEnd && counting.canvasCount == 0 && counting.counterCount == 0){
+            counting.canvasCount = 1;
+            counting.counterCount = 1;                     
+            drawProgress('progress1');
+            setTimeout(function(){drawProgress('progress2')},150);
+            setTimeout(function(){drawProgress('progress3')},300);
+            setTimeout(function(){drawProgress('progress4')},450);
+            countNum({{campusCount-1}},$('.campus .number'));
+            countNum({{courseCount}},$('.course .number'));
+            countNum(graduateCount,$('.graduate .number'));
+            countNum(parseInt(graduateCount*0.7)+parseInt(afterMarch),$('.employee .number'));
+        }
+    }
+
+    // execution
+    $(window).scroll(function(){
+        countingStart();
+    });
+    countingStart();
+
+    }
+    //cookie
+    function getCookie(name){
+        var wcname = name + '=';
+        var wcstart, wcend, end;
+        var i = 0;
+
+        while(i <= document.cookie.length) {
+            wcstart = i;
+            wcend   = (i + wcname.length);
+            if(document.cookie.substring(wcstart, wcend) == wcname) {
+                if((end = document.cookie.indexOf(';', wcend)) == -1) end = document.cookie.length;
+                return document.cookie.substring(wcend, end);
+            }
+        i = document.cookie.indexOf('', i) + 1;
+        if(i == 0) break;
+        }
+        return '';
+    }
+    if(getCookie("himediaNotToday") != "Y"){
+        $('.top_banner').addClass('on');
+    }
+
+    //video close
+    document.getElementById('modal_video1').addEventListener('ended',modal_video1_handler,false);
+    function modal_video1_handler(e) {
+        $('#video1').find('.modal-closeBtn').click();
+    }
+    document.getElementById('modal_video2').addEventListener('ended',modal_video2_handler,false);
+    function modal_video2_handler(e) {
+        $('#video2').find('.modal-closeBtn').click();
+    }
+
+    var swiper = new Swiper('.swiper-container', {
+          pagination: '.swiper-pagination',
+          nextButton: '.swiper-button-next',
+          prevButton: '.swiper-button-prev',
+          paginationClickable: true,
+          centeredSlides: true,
+          autoplay: 2500,
+          autoplayDisableOnInteraction: false
+      });
+
+      $( ".swiper-slide" ).hover(
+          function() {
+            swiper .stopAutoplay();
+          }, function() {
+            swiper .startAutoplay();
+          }
+        );
+</script>
+<script>
+var data = {{JSON.stringify(portfolioList,0,4)}};
+var index = null;
+
+function slideGo(index){
+	$('.modalPopup2 .modal-main img').fadeOut('fast',function(){
+		$('.modalPopup2 .modal-main img').remove();
+		$('.modalPopup2 .modal-main').append('<img class="pf-img" style="display:none;" src="'+data[index].AttachSets[0].url+'" alt="포트폴리오 모달 이미지">').find('.pf-img').fadeIn('fast');
+		$('.modalPopup2 .pop_name').text(data[index].name);
+		$('.modalPopup2 .pop_course').text(data[index].courseName);
+		$('.modalPopup2 .pop_type').text(data[index].CodeInfo.codeName);
+		$('.modalPopup2 .pop_campus').text(data[index].Branch.branchName+'캠퍼스');
+	});
+	if(data[index].url){
+		$('.modalPopup2 .boxP-wrapper').fadeIn('fast',function(){});
+		$('.modalPopup2 .boxP-wrapper a').attr('href',data[index].url);
+	}else{
+		$('.modalPopup2 .boxP-wrapper').fadeOut('fast',function(){});
+	}
+}
+function btnShow(index){
+	if(index == data.length - 1){
+		$('.modalPopup2 .icon.right').hide();
+	}else if(index == 0){
+		$('.modalPopup2 .icon.left').hide();
+	}else{
+		$('.modalPopup2 .icon.left').show();
+		$('.modalPopup2 .icon.right').show();
+	}
+}
+$('.portfolio-list').click(function(){
+	var stringStartNum = $(this).attr('class').indexOf('listNum');
+	index = $(this).attr('class').substring(stringStartNum+7,stringStartNum+8);
+	$('.modalPopup2 .pop_name').text(data[index].name);
+	$('.modalPopup2 .pop_course').text(data[index].courseName);
+	$('.modalPopup2 .pop_type').text(data[index].CodeInfo.codeName);
+	$('.modalPopup2 .pop_campus').text(data[index].Branch.branchName+'캠퍼스');
+	$('.modalPopup2 .modal-main img').attr('src',data[index].AttachSets[0].url);
+	if(data[index].url){
+		$('.modalPopup2 .boxP-wrapper').css('display','block');
+		$('.modalPopup2 .boxP-wrapper a').attr('href',data[index].url);
+	}else{
+		$('.modalPopup2 .boxP-wrapper').css('display','none');
+	}
+	btnShow(index);
+});
+$('#example2 button.right').click(function(){
+	if(index < data.length - 1){
+		index++;
+		slideGo(index);
+		btnShow(index);
+	}
+});
+$('#example2 button.left').click(function(){
+	if(index > 0){
+		index--;
+		slideGo(index);
+		btnShow(index);
+	}
+});
+function mainQuick(){
+    if($('.top_banner').hasClass('on')){
+        $('.main_quick').css({'top':'350px'})
+    }else {
+        $('.main_quick').css({'top':'250px'})
+    }
+}
+mainQuick();
+$('.main_quick button').click(function(){
+    $(this).parent().css({'display':'none'})
+})
+var window_width= $(window).width();
+
+var mentocount=0;
+var m_mentocount=0;
+var mento_size = $('.teacher-banner li').size()/2 + $('.teacher-banner li').size()%2;
+var mento_ceil = Math.floor(mento_size);
+
+/* 멘토링 슬라이드 */
+
+function slideGoLeft(){
+	
+	mentocount--;
+	var animate_right=1024*mentocount;
+	if(mentocount<0){
+	        /* $('.teacher-banner ul').stop(); */
+	        mentocount = mento_ceil-1;
+	        animate_right=1024*(mento_ceil-1);
+	    }
+	$('.teacher-banner ul').stop().animate({'left':- animate_right});
+	        
+	        
+	$('.teacher-banner ul li').eq(m_mentocount).fadeOut().removeClass('on').prev().fadeIn().addClass('on');
+        m_mentocount--;
+        if(m_mentocount<0){
+            m_mentocount=$('.teacher-banner ul li').size()-1;
+            $('.teacher-banner ul li').eq(m_mentocount).fadeIn().addClass('on').next().fadeOut().removeClass('on');
+        }
+}
+function slideGoRight(){
+	
+	mentocount++;
+        var animate_right=1024*mentocount;
+        if(mentocount >= mento_ceil ){
+                /* $('.teacher-banner ul').stop(); */
+                mentocount = 0;
+                animate_right=1024*0;
+            }
+        $('.teacher-banner ul').stop().animate({'left':- animate_right});
+        
+        
+	$('.teacher-banner ul li').eq(m_mentocount).fadeOut().removeClass('on').next().fadeIn().addClass('on');
+        m_mentocount++;
+        if(m_mentocount==$('.teacher-banner ul li').size()){
+            m_mentocount=0
+            $('.teacher-banner ul li').eq(m_mentocount).fadeIn().addClass('on').next().fadeOut().removeClass('on');
+        }
+}
+$('.mento_btn .left').click(function(){
+	slideGoLeft();
+})
+$('.mento_btn .right').click(function(){
+	slideGoRight();
+})
+
+
+var fademove;
+
+if(window_width>=1024){
+	/* pc_mento() */
+	var fademove1 = setInterval(function(){slideGoRight()},4000)
+
+	$('section.mentoring').mouseenter(function(){
+	    clearInterval(fademove1);
+	}).mouseleave(function(){
+		fademove1 = setInterval(function(){slideGoRight()},4000)
+	})
+
+}else if(window_width<1023) {
+	/* mobile_mento() */
+	var fademove2 =setInterval(function(){slideGoRight()},4000)
+
+	$('section.mentoring').mouseenter(function(){
+	    clearInterval(fademove2);
+	}).mouseleave(function(){
+		fademove2 = setInterval(function(){slideGoRight()},4000)
+	})
+
+}
+</script>
+{% endblock %}

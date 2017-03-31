@@ -1,0 +1,265 @@
+.portfolio .title-l {
+    margin-bottom: 70px;
+}
+
+.portfolio-list {
+    margin: 0 auto;
+    width: 1024px;
+    margin-bottom: 60px;
+    a>span {
+        display: block;
+        text-align: right;
+        padding-bottom: 20px;
+        color: @content-color;
+        font-weight: @subject-weight
+    }
+    .lists {
+        position: relative;
+        text-align: center;
+        >a{
+            position:relative;
+            width:1024px;
+            margin:0 auto;
+            display: inline-block;
+        }
+        .modallink2 > a {
+            text-decoration: none;
+        }
+    }
+    .pofo_over{
+        display:none;
+        position:relative;
+        top:0;
+        left:0;
+        p{
+            position:absolute;
+            top: 186px;
+            left: 50%;
+            font-weight: 500;
+            color: #ffffff;
+            width: 100px;
+            margin-left: -50px;
+            span{
+                margin-left:10px;
+            }
+        }
+    }
+    a:hover {
+        display: block;
+        .pofo_on {
+            display: block;
+        }
+        .pofo_over{
+            display:block;
+        }
+    }
+    .pofo_on {
+        position: absolute;
+        top: 0;
+        display: none;
+    }
+    .portfolio-name {
+        color: @content-color;
+        padding-top: 20px;
+        margin-bottom: 10px;
+        text-align: left;
+        .campus-name {
+            font-size: @summery-size;
+            font-weight: @gnb-weight;
+            text-decoration: none;
+        }
+        .portfolio-info {
+            color: @subject-color;
+            // float: right;
+            text-align: right;
+            font-weight: @subject-weight;
+            span {
+                font-size: @menu-size;
+            }
+        }
+    }
+}
+.portfolio {
+    .pagination {
+        margin: 110px 0 70px;
+    }
+
+    .popUp-line {
+        color: red;
+        margin-left: 11px;
+        margin-right: 11px;
+    }
+}
+
+
+.pofol.modalPopup2 {
+    z-index: 1000;
+    margin-bottom:100px;
+    .modal-title {
+        font-size: @menu-size;
+        div {
+            display: inline-block;
+            line-height: 55px;
+            height:55px;
+        }
+        .close-box {
+            float:right;
+            text-align: bottom;
+        }
+    }
+    .modal-contents {
+
+        .modal-body {
+            padding: 40px 40px 20px;
+            .icon.arrow-slide {
+                position: absolute;
+                display: inline-block;
+                top: 44%;
+            }
+            .icon.arrow-slide.left {
+                left: 35px;
+            }
+            .icon.arrow-slide.left:hover {
+                background-position: -124px -149px
+            }
+            .icon.arrow-slide.right:hover {
+                background-position: -174px -149px
+            }
+            .icon.arrow-slide.right {
+                right: 35px;
+            }
+            .modal-main {
+                width: 756px;
+                margin: 0 auto;
+                img {
+                    width: 100%;
+                }
+            }
+        }
+        .boxP-wrapper{
+            padding:0 100px 20px;
+            .boxP {
+                a{
+                    color:black;
+                }
+                width: 147px;
+                padding-top: 6px;
+                padding-bottom: 4px;
+                outline: 1px black solid;
+                color: black;
+                display: inline-block;
+                font-size: 13px;
+                font-weight: 300;
+                text-align: center;
+                .icon.arrow.red {
+                    margin-bottom: 3px;
+                }
+            }
+            .boxP:hover {
+                background-color: @sub-color;
+                span{
+                      color: white;
+                }
+            }
+        }
+    }
+}
+
+.modalBlind {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+@media (max-width: @tablet-size){
+    .portfolio-list{
+        width:100%;
+        .lists{
+            >a{
+                width:97%;
+                margin:0 auto;
+            }
+        }
+        .portfolio-name{
+            width:97%;
+            margin:0 auto;
+            .campus-name{
+                font-size:14px;
+            }
+            .portfolio-info{
+                span{
+                    font-size:11px;
+                }
+            }
+        }
+    }
+    .pofol.modalPopup2{
+        .modal-title{
+            position:relative;
+            padding:10px 9px 10px 16px;
+            display: table;
+            width: 100%;
+            >div{
+                line-height: 23px;
+                display: table-cell;
+                vertical-align: middle;
+                padding:0 1.5%;
+            }
+            .close-box{
+                // position: absolute;
+                // right: 5px;
+                // height: 20px;
+                // width:20px;
+                // top:50%;
+                // margin-top:-10px;
+                float:none;
+                margin-left:15px;
+                a{
+                    font-size:0;
+                    text-indent: -999999px;
+                }
+                i{
+                    margin-left:0;
+                }
+            }
+        }
+        .modal-contents{
+            .modal-body{
+                .modal-main{
+                    width:100%;
+                }
+            }
+        }
+    }
+}
+@media(max-width: @mobile-size){
+    .pofol.modalPopup2{
+        .modal-title{
+            font-size:11px;
+            // .close-box{
+            //     position: absolute;
+            //     right:10px;
+            //     height:20px;
+            // }
+        }
+        .modal-contents{
+            .modal-body{
+                .icon.arrow-slide.left{
+                    left:10px;
+                }
+                .icon.arrow-slide.right{
+                    right:10px;
+                }
+            }
+        }
+    }
+    .portfolio{
+        .popUp-line{
+            margin:0 1px;
+        }
+    }
+}

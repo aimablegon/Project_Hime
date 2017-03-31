@@ -1,0 +1,120 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="notice mobile">
+    <!-- 본문 -->
+    <div class="contents">
+        <!-- 서브 네비 -->
+        <div class="sub-navi">
+            <a href="main.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+            <span>고객센터</span><span>&#183;</span>
+            <span class="this-page">공지사항/이벤트</span>
+        </div>
+        <!-- // 서브 네비 -->
+
+        <!-- 대제목 -->
+        <div class="title-l">
+            <div class="bg">Customer</div>
+            <div class="text-box">
+                <h1>공지사항/이벤트</h1>
+                <p>하이미디어 컴퓨터학원 공지사항 및 이벤트! 많은 이벤트가 있으니 기회를 놓치지 마세요</p>
+            </div>
+        </div>
+        <!-- // 대제목 -->
+
+        <!-- 탭부분1 -->
+        <div class="tab tab-customer">
+		    <ul>
+		        <li class="on"><a href="#">공지사항/<br>이벤트</a></li>
+		        <li><a href="askCost.html">수강료<br>조회</a></li>
+		        <li><a href="askTime.html">시간표<br>조회</a></li>
+		        <li><a href="onlineCounsel.html">온라인<br>상담</a></li>
+		        <li><a href="onlinePay.html">온라인<br>결제</a></li>
+		        <!-- <li><a href="comFaq.html">FAQ</a></li> -->
+		        <li><a href="qna.html">Q&amp;A</a></li>
+		    </ul>
+		</div>
+        <!-- //탭부분 -->
+
+        <!-- 컨텐츠영역 -->
+        <div class="notice_bg">
+	        <div class="dropdown tab tab-customer-campus">
+	                <button class="btn btn-default dropdown-toggle" type="button" id="tab-customer-campus" data-toggle="dropdown" aria-expanded="true">
+	                  {% if !query.branchCode or query.branchCode == 'himedia' %}
+		         	본사
+		         {% else %}
+				{{branchNames[query.branchCode]}}
+			{% endif %}
+	                  <span class="icon arrowDown navy"></span>
+	                </button>
+			<ul class="dropdown-menu" role="menu" aria-labelledby="tab-customer-campus">
+				{% for branch in branches %}
+					{%set onCode = 'himedia'%}
+		                        {%if query.branchCode%}
+						{%set onCode = query.branchCode%}
+		                        {%else%}
+		                            	{%set onCode = branchCode%}
+		                        {%endif%}
+			                        {% if branch.branchCode == 'himedia' %}
+			                            	<li class="{% if onCode == branch.branchCode %}on{% endif %} presentation"><button type="button" onclick="location.href='notice.html?branchCode=himedia'">본사</button></li>
+			                        {% elseif !query.branchCode %}
+			                            	<li class="{% if onCode == branch.branchCode %}on{% endif %} presentation"><button type="button" onclick="location.href='notice.html?branchCode={{branch.branchCode}}'">{{branch.branchName}}</button></li>
+			                         {% else %}
+			                         	<li class="{% if query.branchCode == branch.branchCode %}on{% endif %} presentation"><button type="button" onclick="location.href='notice.html?branchCode={{branch.branchCode}}'">{{branch.branchName}}</button></li>
+			                        {% endif %}
+		                    {% endfor %}
+			</ul>
+		</div>
+
+			<!--list영역-->
+	        <table class="list_table hover_effect wow fadeInUp" data-wow-duration="1s">
+		        <caption class="sr-only"></caption>
+		        <colgroup>
+		        	<col style="width:8%">
+		        	<col style="width:12%">
+		        	<col style="width:50%">
+		        	<col style="width:20%">
+		        	<col style="width:10%">
+		        </colgroup>
+		        <tbody>
+                    {% for notice in notices %}
+                        <tr  onclick="location.href='noticeView.html?branchCode={{notice.branchCode}}&boardId={{notice.boardId}}&page={{page}}'">
+                            <td>{{totalCount - (page - 1)*pageSize - loop.index + 1}} </td>
+                            <td>{{notice.Branch.branchName}}</td>
+                            <td class="text-left">
+                                <!-- <a href="noticeView.html?branchCode={{notice.branchCode}}&boardId={{notice.boardId}}&page={{page}}"> -->
+                                <span>
+                                    {{notice.title}}
+                                    {% set now = Date.now() | date('Y-m-d') %}
+                                    {% set expire = notice.registDate | date('Y-m-d',-1440) %}
+                                    {% if now < expire %}
+                                        <span class="icon new">신규 게시글</span>
+                                    {% endif %}
+                                </span>
+                                <!-- </a> -->
+                            </td>
+                            <td>{{notice.registDate | date('Y-m-d')}}</td>
+                            <td>{{notice.readCount}}</td>
+                        </tr>
+                    {% endfor%}
+		        </tbody>
+	        </table>
+	        <!-- //list영역 -->
+
+	        <!-- 페이지-->
+			{% include "./blocks/pagination.html" %}
+		    <!-- 페이지 모바일-->
+			{% include "./blocks/paginationMobile.html" %}
+
+        </div>
+        <!-- //컨텐츠영역 -->
+        <script>
+            function goPage(page) {
+                location.href = "notice.html?branchCode={{query.branchCode}}&page="+page;
+            }
+            $('.pagination').addClass('gray');
+        </script>
+    </div>
+    <!-- // 본문 -->
+</div>
+
+{% endblock %}

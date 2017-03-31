@@ -1,0 +1,397 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="comcourse jobseeker jobseeker2">
+    <!-- 본문 -->
+    <div class="contents">
+        <!-- 서브 네비 -->
+        <div class="sub-navi"> <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span> <span>교육과정</span><span>&#183;</span> <span class="this-page">구직자 국비지원과정</span> </div>
+        <!-- // 서브 네비 -->
+        <!-- 대제목 -->
+        <div class="title-l">
+            <div class="bg">Course</div>
+            <div class="text-box">
+                <h1>구직자 국비지원과정</h1>
+                <p>직장인국비지원과정을 진행하고 싶으신 분은 꼭 읽어보세요!</p>
+            </div>
+        </div>
+        <!-- // 대제목 -->
+        <div class="sm-rect-btns-wrapper">
+            <button class="sm-rect-btns" onclick="location.href='jobSeeker.html'">국가기간전략산업<span>직종훈련</span></button>
+            <button class="sm-rect-btns active">취업성공패키지</button>
+            <button class="sm-rect-btns" onclick="location.href='jobSeeker3.html'">내일배움카드제</button>
+        </div>
+
+
+        <div class="type">
+            <div class="type-cont on">
+                <div class="type_top common_wrap jobSeeker2">
+                    <div class="title-m">
+                        <h2>'취업성공패키지'란?</h2>
+                        <p>국가기간산업 혹은 국가전략산업 중
+                            <br><span>다양한 직업능력개발훈련(상담, 특강 등)에 참여할 수 있도록 돕는 프로그램입니다.</span></p>
+                    </div>
+                    <div class="img_banner wow fadeInUp" data-wow-duration="1s"> <img id="imgSrc" src="/img/site_img/job_package_img.jpg" alt="국가기간전략산업직종훈련 배너 영역" /> </div>
+
+                    <!-- // 대제목 -->
+                    <div class="sm-rect-btns-wrapper">
+                        <button class="sm-rect-btns active">취업성공패키지Ⅰ</button>
+                        <button class="sm-rect-btns">취업성공패키지Ⅱ</button>
+                    </div>
+                    <div class="s-package">
+                        <div class="type-s1 on">
+                            <div class="tab-course-inner">
+                                <ul>
+                                    <li class="on">
+                                        <button>훈련 대상 <span></span></button>
+                                    </li>
+                                    <li><button>지원 내용<span></span></button></li>
+                                    <li><button>신청 절차<span></span></button></li>
+                                </ul>
+                            </div>
+                            <div class="inner_tab_cont">
+                            <!--훈련대상 컨텐츠-->
+                                <div class="inner_cont1 on">
+                                  <p class="text-right">다음 요건 중 어느 하나에 해당하는 고용보험 가입 근로자
+                                    <span>(근로자 카드 신청일자 기준)</span>
+                                  </p>
+                                    <div class="scroll_table">
+                                        <p class="scroll_tablenotice text-left pc_none"><span class="scroll_icon"></span> 좌우로 스크롤이 가능한 표입니다.</p>
+                                        <table class="wow fadeInUp course_table" data-wow-duration="1s">
+                                            <colgroup>
+                                                <col style="width:35%">
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <td>훈련대상</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-left border_lnone">
+                                                        <ul class="icon_list_style">
+                                                            <li>기초생활 수급자 중 조건부 수급자<br>
+                                                                - 국민기초생활보장법에 의한 기초생활 수급자 중 조건부 수급자는 취업성공패키지 중점 서비스 대상
+                                                            </li>
+                                                            <li>차차상위계층 이하 저소득층<br>
+                                                                - 가구단위 소득인정액 기존 최저생계비 120%이하인 가구(차상위계층), 150% 이하인 가구(차차상위계층)의 구성원
+                                                                <div class="seeker_intable">
+                                                                    <table>
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>
+                                                                                    구분
+                                                                                </th>
+                                                                                <th>
+                                                                                    1인가구
+                                                                                </th>
+                                                                                <th>2인가구</th>
+                                                                                <th>3인가구</th>
+                                                                                <th>4인가구</th>
+                                                                                <th>5인가구</th>
+                                                                                <th>6인가구</th>
+                                                                                <th>7인가구</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    금액(원/월)
+                                                                                </td>
+                                                                                <td>649,932</td>
+                                                                                <td>1,106,642</td>
+                                                                                <td>1,431,608</td>
+                                                                                <td>1,756,574</td>
+                                                                                <td>2,081,540</td>
+                                                                                <td>2,406,506</td>
+                                                                                <td>2,731,473</td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    [2016년 최저생계비 표]<br>
+                                                                    ※8인 이상 가구의 생계급여 선정기준 : 1인 증가시마다 324,967원씩 증가 (8인 가구 : 3,056,440)
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                그 외 해당 대상<br>
+                                                                - 노숙인 등 비주택거주자, 북한이탈주민, 출소(예정)자, 신용회복지원자, 결혼이민자, 위기청소년, 여성가장, 영세자영업자, 건설일용직, 장애인,  FTA 피해 실직자, 국민행복기금대상자, 고용개발촉진지역 이직자, 맞춤특기병, 국가유공자
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            <!-- // 훈련대상 컨텐츠-->
+                            <!--지원내용-->
+                                <div class="inner_cont2">
+                                   <div class="center-box wow fadeInUp" data-wow-duration="1s">
+                                       <ol class="jobseeker_support">
+                                           <li class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><img src="/img/site_img/jobseeker2_1_01.png" alt="1단계 진도, 경로 설정 1개월 / 취업 상담 집단상담프로그램 참여,개인별 취업활동계획 수립,참여 수당:최대 25만원 지급"></li>
+                                           <li class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><img src="/img/site_img/jobseeker2_1_02.png" alt="2단계 직업능력 향상 8개월 / 직업 훈련 (자부담 면제,300만원 한도의 내일배움카드 발급),직업 훈련 참여수당:월 최대 40만원 지급"></li>
+                                           <li class="col-lg-4 col-md-4 col-sm-12 col-xs-12"><img src="/img/site_img/jobseeker2_1_03.png" alt="3단계  집중 취업 알선 3개월 / 구인처 탐색 및 구인정보 제공,동행 면접"></li>
+                                       </ol>
+                                   </div>
+                                   <div class="clear"></div>
+                                </div>
+                            <!--//지원내용-->
+                            <!--신청절차-->
+                                <div class="inner_cont3">
+                                    <div class="common_course_step">
+                                        <div class="title"> <span class="red_font">온라인</span> 신청 절차
+                                            <br> <span class="english">ONLINE <span>APPLICATION PROCESS</span></span>
+                                        </div>
+                                        <ul class="online ">
+                                            <li class="step wow fadeInUp" data-wow-duration="1s"><span>HRD-Net 국가기간전략산업직종훈련</br>안내 동영상 시청</span></li>
+                                            <li class="step wow fadeInUp" data-wow-duration="1s"><span>워크넷 로그인 후 구직 신청</span></li>
+                                            <li class="step wow fadeInUp" data-wow-duration="1s"><span>HRD-Net 훈련 과정 탐색</span></li>
+                                            <li class="step wow fadeInUp" data-wow-duration="1s"><span>구비 서류 준비</span></li>
+                                            <li class="step wow fadeInUp" data-wow-duration="1s"><span>관할 지역 고용센터 방문</span></li>
+                                            <li class="step wow fadeInUp" data-wow-duration="1s"><span>구직 등록 및 직업 훈련 상담</span></li>
+                                            <li class="step wow fadeInUp" data-wow-duration="1s"><span>훈련 과정 등록 및 수강</span></li>
+                                            <li class="step wow fadeInUp" data-wow-duration="1s"><span>훈련 실시</span></li>
+                                            <li class="step wow fadeInUp" data-wow-duration="1s"><span>훈련 중 매월 훈련 장려금 지급</span></li>
+                                            <li class="step wow fadeInUp" data-wow-duration="1s"><span>취업</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            <!--//신청절차-->
+                        </div>
+                        </div>
+
+                        <div class="type-s2">
+                            <div class="tab-course-inner">
+                                <ul>
+                                    <li class="on">
+                                        <button>훈련 대상 <span></span></button>
+                                    </li>
+                                    <li><button>지원 내용<span></span></button></li>
+                                    <li><button>신청 절차<span></span></button></li>
+                                </ul>
+                            </div>
+                            <div class="inner_tab_cont">
+                            <!--훈련대상 컨텐츠-->
+                            <div class="inner_cont1 on">
+                              <p class="text-right">다음 요건 중 어느 하나에 해당하는 고용보험 가입 근로자
+                                <span>(근로자 카드 신청일자 기준)</span>
+                              </p>
+                                <table class="wow fadeInUp course_table" data-wow-duration="1s">
+                                    <colgroup>
+                                        <col style="width:35%">
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <td>훈련대상</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-left border_lnone">
+                                                <ul class="jobseeker2_cont icon_list_style">
+                                                    <li>
+                                                        <span class="title">청년층(만 18~34세)</span><br>
+                                                          - 고등학교 이하 졸업(예정)자 중 비진학 미취업 청년<br>
+                                                          - 대학교(전문대 포함) 졸업자 중 미취업 청년<br>
+                                                          - 니트족(NEET) : <span>근 2년 동안 교육 훈련에 참여하지도 않고, 일하지 않은 청년</span><br>
+                                                          - 영세자영업자 : <span>연간 매출액 8천 만원 이상 1억 5천 만원 미만인 사업자(단, 개업하지 1년 미만의 자영업자, 임대사업자, 비영리법인의
+                                                            대표 제외</span><br>
+                                                          - 맞춤 특기병<br>
+                                                          - 고용개발촉진지역 이직자 : 고용개발촉진지역 지정일 6개월 전부터 지정 종료일까지의 기간 중 근로하다 이직(최종 이직)후 실업상태
+                                                            인 자
+                                                    </li>
+                                                    <li>
+                                                        <span class="title">중, 장년층(만 35~64세)</span><br>
+                                                        최저생계비 250% 이하의 가구원으로서 아래 요건의 어느 하나에 해당하는 자<br>
+                                                        - 실업 급여 수급 종료 이후 미취업자<br>
+                                                        - 고용보험 가입이력은 있으나 수급 요건을 충족하지 못한 미취업자<br>
+                                                        - 고용보험 가입이력이 없더라도 신청일 기준 6개월 이상 계속 실직상태에 있는 자<br>
+                                                        - 영세자영업자 : <span>연간 매출액 8천 만원 이상 1억 5천 만원 미만인 사업자(단, 개업하지 1년 미만의 자영업자, 임대사업자, 비영리법인의
+                                                        대표 제외</span><br>
+                                                        - 고용개발촉진지역 이직자 : <span>고용개발촉진지역 지정일 6개월 전부터 지정 종료일까지의 기간 중 근로하다 이직(최종 이직)후 실업상태
+                                                        인 자</span>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- // 훈련대상 컨텐츠-->
+                            <!--지원내용-->
+                            <div class="inner_cont2">
+                                <div class="center-box wow fadeInUp" data-wow-duration="1s">
+                                    <ol class="jobseeker_support">
+                                        <li class="col-lg-3 col-md-3 col-sm-6 col-xs-12"><img src="/img/site_img/jobseeker2_2_01.png" alt="1단계 진도, 경로 설정 3주~1개월 / 취업 상담,집단상담프로그램 참여,개인별 취업활동계획 수립,참여 수당:최대 25만원 지급"></li>
+                                        <li class="col-lg-3 col-md-3 col-sm-6 col-xs-12"><img src="/img/site_img/jobseeker2_2_02.png" alt="2단계 취업상담 2주~4주/ 2회 이상 취업 상담 또는 취업알선"></li>
+                                        <li class="col-lg-3 col-md-3 col-sm-6 col-xs-12"><img src="/img/site_img/jobseeker2_2_03.png" alt="3단계 직업능력 향상 8개월 / 구인처 탐색 및 구인정보 제공,동행 면접"></li>
+                                        <li class="col-lg-3 col-md-3 col-sm-6 col-xs-12"><img src="/img/site_img/jobseeker2_2_04.png" alt="4단계 집중 취업 알선 3개월 / 구인처 탐색 및 구인정보 제공,동행 면접"></li>
+                                    </ol>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                            <!--//지원내용-->
+                            <!--신청절차-->
+                            <div class="inner_cont3">
+                                <div class="innerstep_wrap">
+                                    <p class="title"> <span class="red_font">온라인</span> 신청 절차
+                                        <br> <span class="english">ONLINE <span>APPLICATION PROCESS</span></span>
+                                    </p>
+                                    <ul class="online">
+                                        <li class="step wow fadeInUp" data-wow-duration="1s"><span>HRD-Net 국가기간전략산업직종훈련</br>안내 동영상 시청</span></li>
+                                        <li class="step wow fadeInUp" data-wow-duration="1s"><span>워크넷 로그인 후 구직 신청</span></li>
+                                        <li class="step wow fadeInUp" data-wow-duration="1s"><span>HRD-Net 훈련 과정 탐색</span></li>
+                                        <li class="step wow fadeInUp" data-wow-duration="1s"><span>구비 서류 준비</span></li>
+                                        <li class="step wow fadeInUp" data-wow-duration="1s"><span>관할 지역 고용센터 방문</span></li>
+                                        <li class="step wow fadeInUp" data-wow-duration="1s"><span>구직 등록 및 직업 훈련 상담</span></li>
+                                        <li class="step wow fadeInUp" data-wow-duration="1s"><span>훈련 과정 등록 및 수강</span></li>
+                                        <li class="step wow fadeInUp" data-wow-duration="1s"><span>훈련 실시</span></li>
+                                        <li class="step wow fadeInUp" data-wow-duration="1s"><span>훈련 중 매월 훈련 장려금 지급</span></li>
+                                        <li class="step wow fadeInUp" data-wow-duration="1s"><span>취업</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--//신청절차-->
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="type_bottom title-m">
+            <h2>개설 과정</h2>
+            <p>
+                하이미디어컴퓨터학원에 개설되어 있는 과정들입니다.<br>
+                <span>각 과정명을 클릭하시면 해당 과정 소개 페이지로 이동합니다.</span>
+            </p>
+                         <form class="wow fadeInUp" data-wow-duration="1s">
+                <div class="check_box_wrap">
+                    <div class="title">캠퍼스</div>
+                    <div class="check_box campus_box">
+                        {% for branch in branches %}
+                            {% if branch.branchCode != 'himedia' %}
+                                <span class="checks"><input id="location{{loop.index}}" type="checkbox" name="branchCode" value="{{branch.branchCode}}"><label for="location{{loop.index}}">{{branch.branchName}}</label></span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="check_box_wrap">
+                    <div class="title">분야</div>
+                    <div class="check_box field_box">
+                        {% for field in fields %}
+                            <span class="checks"><input id="filed{{loop.index}}" type="checkbox" name="fieldId" value="{{field.fieldId}}"><label for="filed{{loop.index}}">{{field.fieldName}}</label></span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="btn_wrap">
+                    <input class="common_btn red_btn searchBtn" type="button" name="name" value="검색">
+                </div>
+                <div class="class_btn_wrap wow fadeInUp" data-wow-duration="1s">
+                </div>
+            </form>
+        </div>
+        <div class="field_Wrap common_wrap">
+            <div class="show_box">
+                <div class="round off">
+                    <span class="ncs">'NCS'</span><span>란</span> <br>
+                    <img src="/img/icon/question.png" alt="물음표">
+                </div>
+                <p>
+                    국가직무능력표준(<span>NCS</span>, National Competency Standards)은 산업현장에서 직무를<br> 수행하기 위해 요구되는 지식·기술·태도 등의 내용을 국가가 체계화한 것입니다.<br>
+                    <a href="http://www.ncs.go.kr/ncs/page.do?sk=P1A1_PG01_001" target="_blank" title="새창열림">더 자세히 알아보기 <span class="icon arrow red">오른쪽 화살표</span></a>
+                </p>
+            </div>
+        </div>
+    </div>
+        <!-- // 본문 -->
+    </div>
+</div>
+<script>
+$( window ).resize(function() {
+    var resize_job= $( window ).width();
+    
+    if(resize_job<600){
+      var resize_default = 600;
+
+      switch (resize_default) {
+        case 600 : var img = document.getElementById('imgSrc');
+                  imgSrc.src = "/img/site_img/job_package_img2.jpg";
+                    console.log('aa');
+                  break;
+        default:  var img = document.getElementById('imgSrc');
+                  imgSrc.src = "/img/site_img/job_package_img2.jpg";
+      }
+    }else{
+      var img = document.getElementById('imgSrc')
+       imgSrc.src = "/img/site_img/job_package_img.jpg"
+         console.log('bb')
+    }
+});
+//취업성공패키지 1,2 탭
+$('.jobSeeker2 .sm-rect-btns').click(function(){
+    $(this).addClass('active').siblings().removeClass('active');
+    var inner_index=$(this).index();
+    $('.s-package>div').eq(inner_index).addClass('on').siblings().removeClass('on');
+});
+
+// 중간컨텐츠탭
+$('.type-s1 .tab-course-inner li').click(function(){
+    $(this).addClass('on').siblings().removeClass('on');
+    var inner_index=$(this).index();
+    $('.type-s1 .inner_tab_cont>div').eq(inner_index).addClass('on').siblings().removeClass('on');
+});
+
+$('.type-s2 .tab-course-inner li').click(function(){
+    $(this).addClass('on').siblings().removeClass('on');
+    var inner_index=$(this).index();
+    $('.type-s2 .inner_tab_cont>div').eq(inner_index).addClass('on').siblings().removeClass('on');
+});
+//검색
+$('.searchBtn').click(function(){
+	var branchCode = [];
+	var fieldId = [];
+	var validate1 = false;
+	var validate2 = false;
+	$('.campus_box .checks').each(function(i,e){
+		if($(e).children('input').is(':checked')){
+			branchCode.push($(e).children('input').val());
+			validate1  = true;
+		}
+
+	});
+	$('.field_box .checks').each(function(i,e){
+		if($(e).children('input').is(':checked')){
+			fieldId.push($(e).children('input').val());
+			validate2  = true;
+		}
+	});
+	if(validate1 && validate2){
+
+		$.ajax({
+			method: "POST",
+			url:"searchCourseInEducation",
+			data: {
+			    branchCode : branchCode,
+			    fieldId : fieldId
+			}
+		})
+		.done(function( msg ) {
+			$('.select_process li').remove();
+			if(msg.msg){
+				var list = msg.list;
+				$('.class_btn_wrap a').remove();
+				list.forEach(function(e,i){
+					var text = '<a href="courseDetail.html?courseId='+e.courseId+'">'+e.courseName+' <span>모집중</span></a>';
+					$('.class_btn_wrap').append(text);
+				});
+			}else{
+				alert('정보가 없습니다');
+			}
+		});
+	}else{
+		alert('캠퍼스 및 분야를 선택해주세요');
+	}
+});
+
+
+</script>
+{% endblock %}

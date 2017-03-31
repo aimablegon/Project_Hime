@@ -1,0 +1,235 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="campusIntro">
+    <!-- 본문 -->
+    <div class="contents">
+        <!-- 서브 네비 -->
+        <div class="sub-navi">
+            <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+            <span>하이미디어</span><span>&#183;</span>
+            <span class="this-page">캠퍼스소개</span>
+        </div>
+        <!-- // 서브 네비 -->
+
+        <!-- 대제목 -->
+        <div class="title-l">
+            <div class="bg">Introduce</div>
+            <div class="text-box">
+                <h1><span class="campus_title"></span>캠퍼스 소개</h1>
+                <p>하이미디어<span class="campus_sub">의 전국 </span>캠퍼스를 소개합니다.</p>
+            </div>
+        </div>
+        <!-- // 대제목 -->
+
+        <div class="dropdown tab tab-campus">
+            <button class="btn btn-default dropdown-toggle common_wrap" type="button" id="campus-select" data-toggle="dropdown" aria-expanded="true">
+              강남
+              <span class="icon arrowDown navy"></span>
+            </button>
+            <ul class="dropdown-menu tab select_campus" role="menu" aria-labelledby="campus-select">
+                {% for branch in branches %}
+                	{% if branch.branchCode != 'himedia' %}
+                		{% if (branchCode == 'himedia' and loop.index == 2) or branchCode == branch.branchCode %}
+                			<li class='on'><button type="button">{{branch.branchName}}</button></li>
+                		{% else %}
+                			<li><button type="button">{{branch.branchName}}</button></li>
+                		{% endif %}
+	                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="slide-wrapper common_wrap">
+            <div class="slide-box swiper-container" id="slider">
+                <ul class="swiper-wrapper wow fadeInUp">
+                </ul>
+            </div>
+            <div class="slide-btns">
+                <span class="left-go">
+                    <img src="/img/icon/img_slide_arrow.png" alt="이전 보기">
+                </span>
+                <span class="right-go">
+                    <img src="/img/icon/img_slide_arrow_right.png" alt="다음 보기">
+                </span>
+            </div>
+        </div>
+        <div class="campus-info">
+            <div class="info-left">
+                <p>
+                    하이미디어<br>
+                    <span style="background-color:transparent;color:#333;" class="campus_name">종로1</span>캠퍼스
+                </p>
+                <span class="campus_tel">02.723.0008</span>
+            </div>
+            <div class="info-right">
+                <dl>
+                    <dt>주소</dt>
+                    <dd class="campus_addr">서울시 종로구 인사동길 12 (인사동43) 대일빌딩7층</dd>
+                    <dt>찾아오시는 길</dt>
+                    <dd class="campus_way">1호선 종각역 ⑪번출구, 3호선 · 5호선 종로3가역 ⑤번출구 1호선<br>
+                        종로3가역 ①번출구 해커스어학원건물 7층
+                    </dd>
+                </dl>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="map-box" >
+            <!-- 1. 약도 노드 -->
+            <div id="" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+
+            <!-- 2. 설치 스크립트 -->
+            <script charset="UTF-8" class="daum_roughmap_loader_script" src="http://dmaps.daum.net/map_js_init/roughmapLoader.js"></script>
+        </div>
+    </div>
+    <!-- // 본문 -->
+</div>
+<script>
+
+    var data = {{JSON.stringify(branches,0,4)}};
+    var now = '{{branchCode}}';
+    var mapkey = [];
+    var idx = $(".tab li.on").index() + 1;
+    // var mySwipe = new Swiper('.swiper-container', {
+    //   autoplay: 3000,
+    //   autoplayDisableOnInteraction: false,
+    //   centeredSlides: true,
+    //   prevButton:'.left-go',
+    //   nextButton:'.right-go'
+    // });
+
+    function showSlide(idx){
+        var html = "";
+        for(i=0;i<data[idx].AttachSets.length;i++){
+        	html += "<li class='swiper-slide'><img src='"+data[idx].AttachSets[i].url+"' alt='캠퍼스 이미지'></li>";
+        }
+        if(html != "") {
+        	$(".swiper-wrapper").html(html);
+        } else {
+        	$(".swiper-wrapper").html("<li class='swiper-slide'><img src='/img/site_img/img_campus1.jpg' alt='캠퍼스 이미지'></li>");
+        }
+        $('.slide-box ul li').first().addClass('active');
+        // mySwipe.update();
+    }
+
+    showSlide(idx);
+
+    //image preload
+    imagePreload = function() {
+        // variables
+        var image_cache_array = new Array(),
+            i = 0;
+        // termination condition
+        if (!document.images) {
+          return false;
+        }
+        for (key in arguments) {
+          image_cache_array[i] = new Image();
+          image_cache_array[i].src = arguments[key];
+          i++;
+        }
+        return i;
+      }
+
+    //map
+    mapkey.push(data[idx].mapApiKey.split('|')[0]);
+    mapkey.push(data[idx].mapApiKey.split('|')[1]);
+    $('.map-box>div').attr('id','daumRoughmapContainer'+mapkey[0]);
+    new daum.roughmap.Lander({
+        "timestamp" : mapkey[0],
+        "key" : mapkey[1],
+        "mapWidth" : "850",
+        "mapHeight" : "500"
+    }).render();
+    //input data
+    if(now != 'himedia'){
+        $('.campus_title').html(data[$('.tab.tab-campus li.on').index() + 1].branchName);
+        $('.campus_sub').html(' '+data[$('.tab.tab-campus li.on').index() + 1].branchName);
+    }
+    $('.campus_name').html(data[$('.tab.tab-campus li.on').index() + 1].branchName);
+    $('.campus_addr').html(data[$('.tab.tab-campus li.on').index() + 1].address);
+    $('.campus_way').html(data[$('.tab.tab-campus li.on').index() + 1].visit);
+    $('.campus_tel').html(data[$('.tab.tab-campus li.on').index() + 1].tel.replace(/-/g, "."));
+
+    $('.tab.tab-campus li').click(function(){
+        $(this).addClass('on').siblings().removeClass('on');
+        $('#campus-select').text(data[$(this).index() + 1].branchName);
+        $('.campus_name').html(data[$(this).index() + 1].branchName);
+        $('.campus_addr').html(data[$(this).index() + 1].addressHTML);
+        $('.campus_way').html(data[$(this).index() + 1].visit);
+        $('.campus_tel').html(data[$(this).index() + 1].tel.replace(/-/g, "."));
+
+        mapkey[0] = data[$(this).index() + 1].mapApiKey.split('|')[0];
+        mapkey[1] = data[$(this).index() + 1].mapApiKey.split('|')[1];
+        $('.map-box>div').attr('id','daumRoughmapContainer'+mapkey[0]);
+        $('.wrap_map, .wrap_controllers').remove();
+        new daum.roughmap.Lander({
+            "timestamp" : mapkey[0],
+            "key" : mapkey[1],
+            "mapWidth" : "850",
+            "mapHeight" : "500"
+        }).render();
+        idx = $(this).index() + 1;
+        showSlide(idx);
+    });
+    $('.left-go').hover(function(){
+        $(this).children('img').attr('src','/img/icon/img_slide_arrow_hover.png');
+    },function(){
+        $(this).children('img').attr('src','/img/icon/img_slide_arrow.png');
+    });
+    $('.right-go').hover(function(){
+        $(this).children('img').attr('src','/img/icon/img_slide_arrow_right_hover.png');
+    },function(){
+        $(this).children('img').attr('src','/img/icon/img_slide_arrow_right.png');
+    });
+
+
+    window.onload = function(){
+        for(i=0;i<data.length;i++){
+            for(j=0;j<data[i].AttachSets.length;j++){
+                imagePreload(data[i].AttachSets[j].url);
+            }
+        }
+        // slide
+        var slideFn = {
+            idx : 0,
+            move : function(start,end,target){
+                target.parent().children('li').eq(slideFn.idx).addClass('active').siblings().removeClass('active');
+                target.css({
+                    'left':start,
+                    'display':'block'
+                }).stop().animate({'left':end});
+            },
+            goRight : function(target){
+                if(slideFn.idx < target.length - 1){
+                    slideFn.move(0,'-100%',$('.active'));
+                    slideFn.idx++;
+                    slideFn.move('100%',0,target.eq(slideFn.idx));
+
+                }else if(slideFn.idx >= target.length - 1){
+                    slideFn.move(0,'-100%',$('.active'));
+                    slideFn.idx = 0;
+                    slideFn.move('100%',0,target.eq(slideFn.idx));
+                }
+            },
+            goLeft : function(target){
+                if(slideFn.idx >= 1 ){
+                    slideFn.move(0,'+100%',$('.active'));
+                    slideFn.idx--;
+                    slideFn.move('-100%',0,target.eq(slideFn.idx));
+                }else if(slideFn.idx <= 0){
+                    slideFn.move(0,'+100%',$('.active'));
+                    slideFn.idx = target.length - 1;
+                    slideFn.move('-100%',0,target.eq(slideFn.idx));
+                }
+            }
+        }
+        $('.left-go').click(function(){
+            slideFn.goLeft($('.slide-box ul li'));
+        });
+        $('.right-go').click(function(){
+            slideFn.goRight($('.slide-box ul li'));
+        });
+    }
+</script>
+{% endblock %}

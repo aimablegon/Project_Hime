@@ -1,0 +1,275 @@
+<script type="text/javascript">
+
+angular.module('app').controller('myCtrl', ['$scope', '$rootScope', '$http', '$sce', '$stateParams', '$location', 
+	'$state', '$httpParamSerializerJQLike',
+	function($scope, $rootScope, $http, $sce, $stateParams, $location, $state, $httpParamSerializerJQLike) {
+
+		$scope.mode = $stateParams.id ? 'modify' : 'new';
+	    $scope.basePath = '#'+$location.$$path;
+	    $scope.parentPath = $location.$$path.substring(0, $location.$$path.indexOf("/detail"));
+	    $scope.data = {};
+
+		if($scope.mode == "modify") {
+			$http({
+				method : "POST",
+				url : "/admin/api/teacher/"+$stateParams.id
+			}).success(function(data) {
+				console.log(data);
+				$scope.data = data;
+			});			
+		}
+		
+		$scope.submit = function () {
+
+			var url = "";
+			if($scope.mode == "modify") {
+				url = "/admin/api/teacher/"+$stateParams.id+"/update";
+			} else {
+				url = "/admin/api/teacher/insert";
+			}
+			
+			if($rootScope.currentUser.adminRoll == 'D'){
+				$scope.data.showYn = 'N';
+			}
+				
+			$http({
+					method : "POST",
+					url : url,
+					data: $scope.data
+			}).success(function(data) {
+
+				if($scope.mode == "modify" && $rootScope.currentUser.adminRoll != 'D') {
+					alert("저장되었습니다.");
+				}else if($scope.mode == "modify" && $rootScope.currentUser.adminRoll == 'D') {
+					alert("저장되었습니다.\n 담당자의 승인 후 홈페이지에 반영됩니다.");
+				}
+				else {
+					$location.path($scope.parentPath);
+				}
+			});
+
+		};
+		
+	    $scope.delete = function () {
+	    	if(confirm("삭제 하시겠습니까?")) {
+
+				$http({
+					method : "POST",
+					url : "/admin/api/teacher/"+$stateParams.id+'/delete',
+				}).success(function(data) {
+					$location.path($scope.parentPath);
+				});			
+
+	    	}
+	    }
+
+		$scope.removeThumb = function() {
+			$scope.data.AttachFile.delYn = 'Y';
+			$scope.data.fileUUID = null;
+		}
+		
+
+	    //listen for the file selected event
+	    $scope.$on("fileSelected", function (event, args) {
+	    	
+	    	var files = [];	
+	    	for(i=0;i<args.files.length;i++) {
+	    		files.push(args.files[i]);	
+	    	}
+	    	
+			$http({
+				method : "POST",
+				url : "/admin/api/attach",
+				headers : {'Content-Type': undefined},
+	            transformRequest: function (data, headersGetter) {
+	                var formData = new FormData();
+	                for (var i = 0; i < files.length; i++) {
+	                	formData.append("files", files[i]);
+	                }
+	                return formData;
+	            }
+			}).success(function(data) {
+				
+				for(i=0;i<data.length;i++) {
+					$scope.data.AttachFile = data[i];
+					$scope.data.fileUUID = data[i].fileUUID;
+				}
+				
+			});
+	    });
+	    
+	    $scope.sortableOptions = {
+		        containment: '#horizontal-container',
+		        //restrict move across columns. move only within column.
+		        accept: function (sourceItemHandleScope, destSortableScope) {
+		            return sourceItemHandleScope.itemScope.sortableScope.$id === destSortableScope.$id;
+		        },
+		        containerPositioning : 'relative'
+		    };
+
+	}]
+);
+
+
+</script>
+<style>
+	.form-horizontal .ignore .form-group{
+		margin-left : 0px;
+		margin-right : 0px;
+	}	
+	#horizontal-container {
+	    display: inline-block;
+	}
+	
+	#horizontal-container .as-sortable-item,
+	#horizontal-container .as-sortable-placeholder {
+	    display: inline-block;
+	    width: 382px;
+	    height: 334px;
+	    float: left;
+	    border: solid 1px darkgrey;
+	    background-color: #ffffff;
+	    margin:10px;
+	}
+	
+	#horizontal-container .sortable-row:after {
+	    content: ".";
+	    display: block;
+	    height: 0;
+	    clear: both;
+	    visibility: hidden;
+	}
+</style>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">강사관리</h1>
+</div>
+<div class="wrapper-md">
+	<div class="panel panel-default" ng-controller="myCtrl">
+		<div class="panel-heading">{{mode == 'modify' ? '변경' : '신규'}}</div>
+		<div class="panel-body">
+			<form class="form-horizontal" method="get" ng-submit="submit()">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">지점</label>
+					<div class="col-sm-10">
+						<label class="checkbox-inline i-checks" ng-repeat="branch in branches">
+							<input type="checkbox" checklist-model="data.BranchTeachers"  checklist-value="branch" ng-required="data.BranchTeachers.length == 0" checklist-comparator=".branchCode"><i></i> {{branch.branchName}}
+						</label>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">분야</label>
+					<div class="col-sm-10">
+						<select class="input-sm form-control w-sm inline v-middle" style="min-width:200px;"
+							ng-options="field.fieldId as field.fieldName for field in fields" 
+							ng-selected="data.fieldId == field.fieldId" 
+							ng-model="data.fieldId" required="required">
+							<option value="">선택하세요</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">아이디</label>
+					<div class="col-sm-10">
+						<span>{{data.Admin.adminId}}</span> 
+					</div>
+				</div>						
+				<div class="form-group">
+					<label class="col-sm-2 control-label">이름</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.Admin.name" required="required"> 
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">휴대폰번호</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.Admin.phone"> 
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">이메일</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.Admin.email"> 
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">실무경력</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" rows="2" placeholder="내용을 입력하세요." ng-model="data.career" ></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">강의경력</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" rows="5" placeholder="내용을 입력하세요." ng-model="data.lectureExp" ></textarea> 
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">자격사항</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" rows="5" placeholder="내용을 입력하세요." ng-model="data.certificate" ></textarea> 
+					</div>
+				</div>				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">저서</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" rows="5" placeholder="내용을 입력하세요." ng-model="data.books" ></textarea>
+					</div>
+				</div>
+				<div class="form-group"  ng-if="!authority(['D'])">
+					<label class="col-sm-2 control-label">노출여부</label>
+					<div class="col-sm-10">
+						<label class="i-switch m-t-xs m-r"><input type="checkbox" ng-true-value="'Y'" ng-false-value="'N'" ng-model="data.showYn"> <i></i></label>
+					</div>
+				</div>
+				<div class="form-group"  ng-if="!authority(['D'])">
+					<label class="col-sm-2 control-label">노출순서</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.showOrder" placeholder="숫자로 입력하세요." >
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">인터뷰 동영상 URL</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.videoUrl">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">사진</label>
+					<div class="col-sm-10">
+						<div class="wrapper-sm b-a bg-white m-r-xs m-b-xs">
+							<div class="bg-light">
+								<div id="horizontal-container">
+								    <div ng-show="data.AttachFile && data.AttachFile.delYn != 'Y'" style="width:380px;">
+							            <img ng-src="{{data.AttachFile.url}}" style="width:380px;vertical-align:middle;height:300px;">
+							            <button type="button" ng-click="removeThumb()" style="width:100%;" class="btn btn-default">삭제</button>
+								    </div>
+								</div>
+								<div class="bg-light text-center v-center" ng-show="!data.AttachFile || data.AttachFile.delYn == 'Y'" style="width:380px;height:300px; line-height:300px;font-size:36px">사진 첨부</div>
+								<input ui-jq="filestyle" type="file" accept="image/*" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control v-middle input-s" file-upload>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+				<div class="form-group">
+					
+					<div class="col-sm-5 col-sm-offset-2">
+						
+						<button type="button" onclick="history.back()" class="btn btn-default m-r-sm">목록</a>
+						<button type="button" ng-click="delete()" class="btn btn-danger" ng-show="mode=='modify'">삭제</button>
+						
+	
+					</div>
+	
+					<div class="col-sm-5 text-right">
+						<button type="submit" class="btn btn-primary">변경사항 저장</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div> 
+</div>

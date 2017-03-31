@@ -1,0 +1,109 @@
+.studentInterviewDetail{
+    word-break: keep-all;
+    .InterviewDetail_bg{
+        background:@base-color;
+        padding:70px;
+        .view_table{
+            tr{
+                th{
+                    text-align: left;
+                    padding:40px 80px;
+                    img{
+                        width: 190px;
+                        height: 138px;
+                    }
+                    >span{
+                        font-size:@menu-size;
+                        font-weight: @subject-weight;
+                        display:inline-block;
+                        *display:inline;
+                        *zoom:1;
+                        .name{
+                            font-size:@summery-size;
+                            color:@white-color;
+                            font-weight: @gnb-weight;
+                            margin:0 15px 0 60px;
+                        }
+                        .campus{
+                            padding:0 20px;
+                            position:relative;
+                            &&:after{
+                                content: "";
+                                display:inline-block;
+                                *display:inline;
+                                *zoom:1;
+                                width:1px;
+                                height:19px;
+                                background:@main-color;
+                                position:absolute;
+                                top:1px;
+                                right:0;
+                            }
+                            &&:before{
+                                content: "";
+                                display:inline-block;
+                                *display:inline;
+                                *zoom:1;
+                                width:1px;
+                                height:19px;
+                                background:@main-color;
+                                position:absolute;
+                                top:1px;
+                                left:0;
+                            }
+                        }
+                        .classname{
+                            margin:0 15px;
+                        }
+                    }
+                }
+                td{
+                    .view_cont{
+                        padding:50px 75px 70px;
+                        text-align: left;
+                        .top_cont{
+                            text-align: center;
+                            margin-bottom:70px;
+                            p.title{
+                                text-align: center;
+                                font-size:@summery-size;
+                                font-weight: @gnb-weight;
+                                color:@content-color;
+                            }
+                            span.red_bar{
+                                height:2px;
+                                width:31px;
+                                background:@main-color;
+                                display:block;
+                                margin: 20px auto 15px;
+                            }
+                            .text{
+                                font-size:@menu-size;
+                                color:@content-sub-color;
+                                font-weight: @subject-weight;
+                            }
+                        }
+                        div.question_box{
+                            text-align:left;
+                            display:block;
+                            margin:0 0 30px 0;
+                            p.question{
+                                font-size:@menu-size;
+                                color:@content-color;
+                                line-height:20px;
+                                span{
+                                    color:@main-color;
+                                }
+                            }
+                            p.answer{
+                                font-size:@menu-size;
+                                color:@content-color;
+                                line-height:20px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

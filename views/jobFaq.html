@@ -1,0 +1,78 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="jobFaq Career_center">
+    <!-- 본문 -->
+    <div class="contents">
+        <!-- 서브 네비 -->
+        <div class="sub-navi">
+            <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+            <span>취업지원센터</span><span>&#183;</span>
+            <span class="this-page">FAQ</span>
+        </div>
+        <!-- // 서브 네비 -->
+
+        <!-- 대제목 -->
+        <div class="title-l">
+            <div class="bg">Career center</div>
+            <div class="text-box">
+                <h1>FAQ</h1>
+                <p>취업지원센터를 이용하신 분들의 베스트 질문!</p>
+            </div>
+        </div>
+        <!-- // 대제목 -->
+        <div class="notice-wrapper">
+            <div class="notice-box">
+                <table class="list_table wow fadeInUp" data-wow-duration="1s">
+                    <caption class="sr-only"></caption>
+                    <colgroup>
+                        <col style="width:8%">
+                        <col style="width:84%">
+                        <col style="width:8%">
+                    </colgroup>
+                    <tbody>
+                        {% for faq in faqs %}
+                            <tr class="question">
+                                <td>Q</td>
+                                <td class="text-left">{{faq.question}}</td>
+                                <td><span class="icon arrowDown red pre">아래쪽 화살표</span></td>
+                            </tr>
+                            <tr class="answer-box">
+                                <td>A</td>
+                                <td colspan="2" class="text-left text-box pre">{{faq.answer}}</tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- // 본문 -->
+</div>
+<script>
+    $('.question').click(function(){
+        $(this).addClass('onHere').siblings().removeClass('onHere');
+        if($(this).next('tr').attr('class').indexOf('in') != -1){
+            $(this).removeClass('onHere');
+            $(this).next('tr').removeClass('in').css({'display':'none'}).prev().find('.arrowUp').removeClass('arrowUp').addClass('arrowDown');
+            // $(this).next('tr').removeClass('in').hide().prev().find('.arrowUp').removeClass('arrowUp').addClass('arrowDown');
+        }else{
+            var idx = $('.in').index();
+            if(idx >= 0){
+                $('.notice-box .list_table tr').eq(idx).removeClass('in').hide().prev().find('.arrowUp').removeClass('arrowUp').addClass('arrowDown');
+                $(this).next('tr').css({'display':'table-row'}).addClass('in').prev().find('.arrowDown').removeClass('arrowDown').addClass('arrowUp');
+                // $(this).next('tr').show("slow").addClass('in').prev().find('.arrowDown').removeClass('arrowDown').addClass('arrowUp');
+            }else{
+                $(this).next('tr').css({'display':'table-row'}).addClass('in').prev().find('.arrowDown').removeClass('arrowDown').addClass('arrowUp');;
+                // $(this).next('tr').show("slow").addClass('in').prev().find('.arrowDown').removeClass('arrowDown').addClass('arrowUp');;
+            }
+        }
+    });
+    $('.answer-box').first().addClass('in');
+    $('.question').first().addClass('onHere').find('.icon').removeClass('arrowDown').addClass('arrowUp');
+
+    //ie
+    var agent = navigator.userAgent.toLowerCase();
+    if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
+        $(".answer-box").css("cssText", "opacity: 1 !important;");
+    }
+</script>
+{% endblock %}

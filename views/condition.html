@@ -1,0 +1,231 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="condition Career_center">
+    <!-- 본문 -->
+    <div class="contents">
+        <!-- 서브 네비 -->
+        <div class="sub-navi">
+            <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+            <span>취업지원센터</span><span>&#183;</span>
+            <span class="this-page">취업현황</span>
+        </div>
+        <!-- // 서브 네비 -->
+
+        <!-- 대제목 -->
+        <div class="title-l">
+            <div class="bg">Career center</div>
+            <div class="text-box">
+                <h1>취업현황</h1>
+                <p>하이미디어에서 알려 드리는 취업현황</p>
+            </div>
+        </div>
+        <!-- // 대제목 -->
+        <!-- <div class="tab tab-sub">
+            <ul>
+                <li><a href="postscript.html">취업생 인터뷰</a></li>
+                <li class="on"><a href="#">취업 현황</a></li>
+            </ul>
+        </div> -->
+        <p class="himedia">HIMEDIA<p>
+        <p class="title"><span class="inputYear"></span>년 <span class="inputMonth"></span>월 하이미디어 전 지점 취업자</p>
+        <p class="cong">CONGRATULATIONS!</p>
+        <p class="num wow fadeIn" data-wow-duration="2s">{{thisMonthCount}}</p>
+        <p class="accumulate">누적 취업자는 총 {{allCount}}명입니다.</p>
+        <form id="myForm" method="post" action="condition.html" class="wow fadeInUp" data-wow-duration="1s">
+            <fieldset>
+                <div class="condition_top">
+                    <label for="campus_select" class="text-hide">캠퍼스 선택</label>
+                    <select id="campus_select" class="campus" name="branchCode" onchange="location = this.value;">
+                        <option selected="" style="display:none;" disabled="true" selected="true">캠퍼스 선택</option>
+                        <option value="condition.html?page={{query.page}}&branchCode=&selectedYear={{query.selectedYear}}&selectedMonth={{query.selectedMonth}}">전체</option>
+                        {% for branch in branches %}
+                            {% if branch.branchCode != 'himedia'%}
+                                <option {% if query.branchCode == branch.branchCode %}selected{% endif %} value="condition.html?page={{query.page}}&branchCode={{branch.branchCode}}&selectedYear={{query.selectedYear}}&selectedMonth={{query.selectedMonth}}">{{branch.branchName}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <label for="year_select" class="text-hide">년도 선택</label>
+                    <select id="year_select" name="selectedYear"  onchange="location = this.value;">
+                        <option value="" style="display:none;" selected="true" disabled="true">년도 선택</option>
+                        <option value="condition.html?page={{query.page}}&branchCode={{query.branchCode}}&selectedYear=&selectedMonth={{query.selectedMonth}}">전체</option>
+                        {% for year in years%}
+                            <option {% if query.selectedYear == year %}selected{% endif %} value="condition.html?page={{query.page}}&branchCode={{query.branchCode}}&selectedYear={{year}}&selectedMonth={{query.selectedMonth}}">{{year}}년</option>
+                        {% endfor %}
+
+                    </select>
+                    <label for="year_month" class="text-hide">월별 선택</label>
+                    <select id="year_month" name="selectedMonth"  onchange="location = this.value;">
+                        <option value="" style="display:none;" selected="true" disabled="true">월별 선택</option>
+                        <option value="condition.html?page={{query.page}}&branchCode={{query.branchCode}}&selectedYear={{query.selectedYear}}&selectedMonth=">전체</option>
+                        {% for month in [01,02,03,04,05,06,07,08,09,10,11,12] %}
+                            <option {% if query.selectedMonth == month %}selected{% endif %} value="condition.html?page={{query.page}}&branchCode={{query.branchCode}}&selectedYear={{query.selectedYear}}&selectedMonth={{month}}">{{month}}월</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="condition_bg">
+                    <div class="scroll_table">
+                        <p class="scroll_tablenotice text-left pc_none"><span class="scroll_icon"></span> 좌우로 스크롤이 가능한 표입니다.</p>
+                        <table class="condition_table hover_effect wow fadeInUp common_wrap" data-wow-duration="1s">
+                            <caption>
+                                </catpion>
+                                <colgroup>
+                                    <col style="width:10%">
+                                    <col style="width:10%">
+                                    <col style="width:23%">
+                                    <col style="width:42%">
+                                    <col style="width:15%">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>캠퍼스</th>
+                                        <th>제목</th>
+                                        <th>수료과정명</th>
+                                        <th>취업일</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in list %}
+                                        <tr class="lists modallink2" modallink="example1">
+                                                <td>{{totalCount - (page - 1)*pageSize - loop.index + 1}}</td>
+                                                <td>{{item.Branch.branchName}}</td>
+                                                <td>{{item.title.substring(0,1)}}*{{item.title.substring(2)}}</td>
+                                                <td>{{item.courseName}}</td>
+                                                <td>{{jobDate[loop.index - 1]}}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    <!--
+                                    <tr class="lists modallink" modallink="example1">
+                                        <td>45</td>
+                                        <td>안산</td>
+                                        <td>박*화님의 취업현황입니다.</td>
+                                        <td>실무에필요한전산세무회계</td>
+                                        <td>2016.09.01</td>
+                                    </tr> -->
+                                </tbody>
+                        </table>
+                    </div>
+
+                    {% include "./blocks/pagination.html" %}
+
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <!-- // 본문 -->
+    <div class="modalPopup2" style="width:960px" id="example1">
+        <!-- 타이틀 -->
+        <!-- <div class="modal-title text-left">
+            <div>
+                <span><span class="spanName inputName"></span>님의 취업현황입니다.</span>
+            </div>
+            <div class="close-box"><a href="#" class="modal2-closeBtn">close<i class="icon close-x red"></i></a></div>
+
+        </div> -->
+        <div class="modal-title text-right">
+            <span class="title-box text-left"><span class="spanName inputName"></span>님의 취업현황입니다.</span>
+            <span class="close-box"><a href="#" class="modal2-closeBtn">close<i class="icon close-x red"></i></a></span>
+            <div class="clearfix"></div>
+        </div>
+
+        <!-- 바디 -->
+        <div class="modal-body">
+            <div class="inputtable_wrap">
+                <form class="input_fromwrap">
+                    <fieldset class="input_tablewrap">
+                        <legend>취업현황 테이블입니다.</legend>
+                        <table class="input_table">
+                            <caption>취업현황으로 이름,회사,취업일,수료캠프 수료과정,교육기간이있습니다.
+                            </caption>
+                            <colgroup>
+                                <col style="width:10%">
+                                    <col style="width:40%">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        <span>이름</span>
+                                    </th>
+                                    <td>
+                                        <span class="inputName"></span>
+                                    </td>
+                                    <th>
+                                        <span>수료캠퍼스</span>
+                                    </th>
+                                    <td>
+                                        <span class="inputCampus"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <span>회사명</span>
+                                    </th>
+                                    <td>
+                                        <span class="inputCompany"></span>
+                                    </td>
+                                    <th>
+                                        <span>수료과정</span>
+                                    </th>
+                                    <td>
+                                        <span class="inputClass"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <span>취업일</span>
+                                    </th>
+                                    <td>
+                                        <span class="inputJobdate"></span>
+                                    </td>
+                                    <th>
+                                        <span>교육기간</span>
+                                    </th>
+                                    <td>
+                                        <span class="inputPeriod"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="comment text-center">
+                            <span class="inputCampus"></span> <span class="inputName"></span>님의 취업을 축하드립니다.
+                        </div>
+                        <div class="text-center btns">
+                            <input type="reset" value="닫기" class="modal2-closeBtn common_btn red_btn">
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<script>
+    var data = {{JSON.stringify(list,0,4)}};
+    var jobDate = {{JSON.stringify(jobDate,0,4)}}
+    var thisMonth = null;
+    if(new Date().getMonth() == 0){
+        thisMonth = 12;
+    }else{
+        thisMonth = new Date().getMonth();
+    }
+
+    $('.inputYear').text(new Date().getFullYear());
+    $('.inputMonth').text(thisMonth);
+    $('.lists').click(function(){
+        var idx = $(this).index();
+        $('.inputName').text(data[idx].name.substring(0,1)+'*'+data[idx].name.substring(2));
+        $('.inputCampus').text(data[idx].Branch.branchName+'캠퍼스');
+        $('.inputClass').text(data[idx].courseName);
+        $('.inputJobdate').text(jobDate[idx]);
+        if(data[idx].educationPeriod){
+            $('.inputPeriod').text(data[idx].educationPeriod);
+        }
+    });
+
+    function goPage(page) {
+        location.href = "condition.html?page="+page+"&branchCode={{query.branchCode}}&selectedYear={{query.selectedYear}}&selectedMonth={{query.selectedMonth}}";
+    }
+    $('.pagination').addClass('gray');
+</script>
+
+{% endblock %}

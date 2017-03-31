@@ -1,0 +1,148 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="qnaWrite">
+        <!-- 본문 -->
+        <div class="contents">
+            <!-- 서브 네비 -->
+            <div class="sub-navi">
+                <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+                <span>고객센터</span><span>&#183;</span>
+                <span class="this-page">Q&amp;A</span>
+            </div>
+            <!-- // 서브 네비 -->
+
+            <!-- 대제목 -->
+            <div class="title-l">
+                <div class="bg">Customer</div>
+                <div class="text-box">
+                    <h1>Q&amp;A</h1>
+                    <p>궁금하신 것이 있으시면 언제든지 물어보세요!</p>
+                </div>
+            </div>
+            <!-- // 대제목 -->
+            <div class="tab tab-customer">
+                <ul>
+    		        <li><a href="notice.html">공지사항/<br>이벤트</a></li>
+    		        <li><a href="askCost.html">수강료<br>조회</a></li>
+    		        <li><a href="askTime.html">시간표<br>조회</a></li>
+    		        <li><a href="onlineCounsel.html">온라인<br>상담</a></li>
+    		        <li><a href="onlinePay.html">온라인<br>결제</a></li>
+    		        <li><a href="comFaq.html">FAQ</a></li>
+    		        <li class="on"><a href="qna.html">Q&amp;A</a></li>
+    		    </ul>
+            </div>
+            <div class="notice-wrapper">
+                <div class="inputtable_wrap">
+                    <form action="writeQna" method="post" class="input_fromwrap">
+                        <fieldset class="input_tablewrap">
+                            <legend>질문하기</legend>
+                            <table class="input_table">
+                                <caption>이름, 캠퍼스, 제목, 내용을 입력하는 표입니다.</caption>
+                                <colgroup>
+                                    <col style="13%">
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                    <!-- <tr>
+                                        <th>
+                                            <label for="name">이름</label>
+                                        </th>
+                                        <td>
+                                            <div class="input_wrap" style="width:30%">
+                                                <input id="name" type="text" />
+                                                <button type="button" class="input_del">삭제버튼</button>
+                                            </div>
+                                        </td>
+                                    </tr> -->
+                                    <tr>
+                                        <th>
+                                            <label for="campusSelect">캠퍼스</label>
+                                        </th>
+                                        <td>
+                                            <select id="campusSelect" name="branchCode" class="" required="true">
+                                                <option value="" disabled selected style="display:none;">캠퍼스 선택</option>
+                                                {% set selected = branchCode %}
+                                                {% if query.branchCode %}
+                                                    {% set selected = query.branchCode %}
+                                                {% endif %}
+                                                {% for branch in branches %}
+                                                    {% if branch.branchCode != 'himedia' %}
+                                                        {% if branch.branchCode == selected %}
+                                                            <option value="{{branch.branchCode}}" selected="true">{{branch.branchName}}</option>
+                                                        {% else %}
+                                                            <option value="{{branch.branchCode}}">{{branch.branchName}}</option>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <label for="title">제목</label>
+                                        </th>
+                                        <td>
+                                            <div class="input_wrap" style="width:100%">
+                                                {% if query.boardId %}
+                                                    <input id="title" type="text" name="title" value="{{qa.title}}" required="true"/>
+                                                {% else %}
+                                                    <input id="title" type="text" name="title" required="true"/>
+                                                {% endif %}
+
+                                                <button type="button" class="input_del">삭제버튼</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <label for="detailCont">내용</label>
+                                        </th>
+                                        <td>
+                                            <div class="input_wrap" style="width:100%">
+                                                {% if query.boardId %}
+                                                    <textarea id="detailCont" name="content" required="true">{{qa.content}}</textarea>
+                                                {% else %}
+                                                    <textarea id="detailCont" name="content" required="true"></textarea>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <input type="hidden" name="boardId" value={{query.boardId}}>
+                            <input type="hidden" name="correction" value={{query.correction}}>
+                        </fieldset>
+                        <div class="btns">
+                            <input type="submit" value="확인">
+                            <input type="reset" value="취소" onclick="location.href='qna.html?branchCode={{query.branchCode}}&searchText={{query.searchText}}&page={{query.page}}'">
+                        </div>
+
+                        <input type="hidden" name="registUserId" value="{{session.member.userId}}">
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- // 본문 -->
+</div>
+<script>
+    $('form').submit(function(){
+        var required = $('[required="true"]'); // change to [required] if not using true option as part of the attribute as it is not really needed.
+        var error = false;
+
+        for(var i = 0; i <= (required.length - 1);i++)
+        {
+            if(required[i].value == '') // tests that each required value does not equal blank, you could put in more stringent checks here if you wish.
+            {
+                required[i].style.backgroundColor = 'rgb(255,155,155)';
+                error = true; // if any inputs fail validation then the error variable will be set to true;
+            }
+        }
+
+        if(error) // if error is true;
+        {
+            return false; // stop the form from being submitted.
+        }
+    });
+</script>
+{% endblock %}

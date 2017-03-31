@@ -1,0 +1,145 @@
+.myCourse{
+    .myCourse_bg{
+        background:@base-color;
+        padding:70px 0;
+    }
+    .talbe_wrap{
+        width:1024px;
+        margin: 0 auto;
+        .myCourse_table{
+            width:100%;
+            background:@white-color;
+            tr{
+                border-top:1px solid @base-color;
+                td{
+                    height:80px;
+                    text-align: center;
+                    padding:0;
+                    span{display:block;}
+                }
+                td.term{
+                    background:url('/img/site_img/red_bar2.png') no-repeat right 50%;
+                    color:@subject-color;
+                }
+                td.class_name{
+                    text-align: left;
+                    padding-left:30px;
+                    .name{
+                        color:@content-color;
+                        font-weight: @gnb-weight;
+                    }
+                    .campus{
+                        color:@subject-color;
+                    }
+
+                }
+                td.btn{
+                    line-height:80px;
+
+                    button.review_write{
+                        width:213px;
+                        height:40px;
+                        background:@sub-color;
+                        color:@white-color;
+                        line-height:40px;
+                        font-size:16px;
+                        font-weight: @gnb-weight;
+                        span{
+                            .inlineblock();
+                            margin-left: 66px;
+                        }
+
+                        &&:hover{
+                            background:@main-color;
+                        }
+                    }
+                    button.review_show{
+                        width:213px;
+                        height:38px;
+                        border:1px solid @sub-color;
+                        color:@content-color;
+                        line-height:36px;
+                        font-size:16px;
+                        font-weight: @gnb-weight;
+                        span{
+                            display:inline-block;
+                            *display:inline;
+                            *zoom:1;
+                            margin-left:38px;
+                        }
+                        &&:hover{
+                            background:@main-color;
+                            color:@white-color;
+                            border:none;
+                            height:40px;
+                            line-height:40px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .modalPopup{
+
+        .star_wrap{
+            span{
+                display:inline-block;
+                *display:inline;
+                *zoom:1;
+                width:18px;
+                height:18px;
+                background:url('/img/site_img/star1.png') no-repeat;
+                text-indent:-9999px;
+                font-size:0;
+            }
+            span.on{
+                background:url('/img/site_img/star2.png') no-repeat;
+            }
+        }
+
+        .btns_wrap{
+            text-align: center;
+            color:@white-color;
+            font-size:0;
+            font-weight: @gnb-weight;
+            input{
+                font-size:16px;
+            }
+            .enter{
+                background:@main-color;
+                border:none;
+                width:80px;
+                height:40px;
+                margin-right:10px;
+            }
+            .cancle{
+                background:@sub-color;
+                border:none;
+                width:80px;
+                height:40px;
+            }
+            .change{
+                background:@sub-color;
+                border:none;
+                width:80px;
+                height:40px;
+                margin-right:10px;
+            }
+            .delete{
+                background:@main-color url('/img/icon/icon_del.png') no-repeat;
+                border:none;
+                width:80px;
+                height:40px;
+                font-size:0;
+                background-position: 50%;
+                margin-right:10px;
+            }
+            .ok{
+                background:@sub-color-second;
+                width:80px;
+                height:40px;
+                border:none;
+            }
+        }
+    }
+}

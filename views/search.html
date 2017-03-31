@@ -1,0 +1,111 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="search">
+    <!-- 본문 -->
+    <div class="contents">
+        <!-- 서브 네비 -->
+        <div class="sub-navi">
+            <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+            <span class="this-page">검색결과</span>
+        </div>
+        <!-- // 서브 네비 -->
+
+        <!-- 대제목 -->
+        <div class="title-l">
+            <div class="bg">Search</div>
+            <div class="text-box">
+                <h1>검색결과</h1>
+                <p>하이미디어는 고객님이 원하는 정보를 보다 쉽고 빠르게 얻을 수 있도록 최선을 다하겠습니다.</p>
+            </div>
+        </div>
+        <!-- // 대제목 -->
+        <!-- <div class="serch_box">
+            <img src="/img/site_img/serch_img.png">
+            <p><span>‘{{query.searchText}}’</span>로 검색하신 결과입니다.</p>
+        </div> -->
+	{% if list.length == 0 %}
+
+        <div class="no_search">
+            <img src="/img/site_img/serch_img.png">
+            <p class="text"><span>"{{query.searchText}}"</span>에 대한 검색결과가 없습니다.</p>
+            <p class="text1">단어의 철자가 정확한지 확인해 보시거나</p>
+            <p class="text1">다른 키워드로 다시 한번 검색해주세요.</p>
+        </div>
+        <div style="padding-bottom:70px;"></div>
+        </div>
+
+	{% else %}
+	<div class="have_search_wrap">
+		{% for code in codes.COURSE_TYPE.list %}
+			{% set secIdx = loop.index %}
+			{% set count = 0 %}
+			{% for test in list %}
+				{% if test.courseType == code.codeId %}
+					{% set count = count +1 %}
+				{% endif %}
+			{% endfor %}
+
+				<div class="have_search">
+  					<p class="serch_title">
+  						<!-- <span class="deco">search result</span> -->
+  						<span><span>{{code.codeName}}</span> 검색결과</span>
+  					</p>
+            <div class="search_reseult">
+                <p><span>"{{query.searchText}}"</span>에 대해 아래와 같이 검색되었습니다.</p>
+            </div>
+  					{% if count != 0 %}
+  					<ul class="search_list">
+  						{% for item in list %}
+  							{% if item.courseType == code.codeId %}
+  							<li class="seeMore{{secIdx}}">
+  								 <a href="courseDetail.html?courseId={{item.courseId}}">
+								 	<div>
+	  								    <p class="title">{{item.courseName | safe}}</p>
+	                      <p class="des">{{item.description | safe}}</p>
+	  								    <span></span>
+	  								    <p class="cont">
+	  								        <span class="cont_ex"></span>
+	  								        {% for branch in item.BranchCourses %}
+	  								        	{% if branch.branchCode != 'himedia' %}
+	                              <span class="campus_bar">|</span>
+	  								        		<a href="courseDetail.html?courseId={{item.courseId}}&branchCode={{branch.branchCode}}"><span class="campus" style="display:inline-block">{{branchNames[branch.branchCode]}}캠퍼스</span></a>
+	  							        		{% endif %}
+	  								        {% endfor %}
+	  								    </p>
+	  								 </div>
+  								 </a>
+  							</li>
+  							{% endif %}
+  						{% endfor %}
+  					</ul>
+		                	{% if count > 4 %}
+						<div class="btn-seemore" showNum="4" plusNum="all" targetClass="seeMore{{secIdx}}">
+						    <button type="button"><span>{{count - 4}}</span>개의 검색결과 더보기<span class="icon plus red"></span></button>
+						</div>
+					{% endif %}
+				</div>
+				{% else %}
+          <div class="no_search serch_box">
+              <img src="/img/site_img/serch_img.png">
+              <p class="text"><span>"{{query.searchText}}"</span>에 대한 검색결과가 없습니다.</p>
+              <p class="text1">단어의 철자가 정확한지 확인해 보시거나</p>
+              <p class="text1">다른 키워드로 다시 한번 검색해주세요.</p>
+          </div>
+					<!-- <h4 class="text-center cont">검색 결과가 없습니다</h4> -->
+				{% endif %}
+		{% endfor %}
+		<div style="padding-bottom:70px;"></div>
+        </div>
+	{% endif %}
+
+
+    </div>
+    <!-- // 본문 -->
+</div>
+<script>
+{% if list.length != 0 %}
+	var list = {{JSON.stringify(list,0,4)}};
+{% endif %}
+$('.des').text()
+</script>
+{% endblock %}

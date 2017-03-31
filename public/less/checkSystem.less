@@ -1,0 +1,149 @@
+.checkSystem {
+    .check_wrap{
+        width:768px;
+        margin:0 auto;
+    }
+    .contents {
+        margin-bottom:70px;
+        div[class^="step"] {
+            position:relative;
+            width:100%;
+            min-height:180px;
+            text-align: center;
+            font-size:0;
+            border-top:1px solid #87868f;
+            p {
+                color:@subject-color;
+                font-size:@menu-size;
+                padding-top:50px;
+                margin-bottom:30px;
+                span {
+                    font-weight:@gnb-weight;
+                    color:@title-color;
+                }
+            }
+            button, a {
+                display:inline-block;
+                margin: 0 5px;
+                width:181px;
+                height:44px;
+                font-size:16px;
+                line-height:40px;
+                color:@white-color;
+                border:none;
+            }
+            .btn-red {background:url('/img/site_img/checkSystem_red.png') no-repeat;}
+            .btn-navy {background:url('/img/site_img/checkSystem_navy.png') no-repeat;}
+            .tip {
+                text-align: right;
+                bottom:51px;
+                right:15px;
+                font-size:13px;
+                .question {
+                    display:inline-block;
+                    width:44px;
+                    height:44px;
+                    line-height:30px;
+                    background:url('/img/site_img/checkSystem_17.png') no-repeat;
+                    font-size:0;
+                    text-indent: -9999px;
+                }
+                .tooltip-text {
+                    position:absolute;
+                    display:none;
+                    right:55px;
+                    bottom:-3px;
+                    width:314px;
+                    line-height:19px;
+                    text-align:right;
+                    span {
+                        font-weight:@gnb-weight;
+                    }
+                }
+            }
+        }
+        div.first{
+            border-top:none;
+            p{
+                padding-top:10px;
+            }
+            p.first_check{
+                padding-top:0;
+                margin-bottom:0;
+                font-size:30px;
+                font-weight: 800;
+                letter-spacing: -1px;
+                color:@main-color;
+            }
+        }
+        div.age_check{
+            >button.btn-navy,button.btn-red,{
+                width:23%;
+                height:auto;
+                background:none;
+                >img{
+                    display: block;
+                    margin:0 auto;
+                }
+                >span{
+                    font-size:25px;
+                    font-weight: 800;
+                    letter-spacing: -1px;
+                    color:@content-color;
+                    padding-top:10px;
+                    display: block;
+                }
+                >p{
+                    padding-top:0;
+                }
+            }
+        }
+    }
+    .boxes{
+        display:none;
+        opacity:0;
+        margin-top:-50px;
+    }
+    .step1{
+        margin-top:0;
+        display:block;
+        opacity:1
+    }
+    .on{
+        display:block;
+    }
+    @media(max-width: @tablet-size){
+        .check_wrap{
+            width:97%;
+        }
+        .contents {
+            div.age_check{
+                >button.btn-navy,button.btn-red,{
+                    width:48%;
+                    margin:0;
+                    >p{
+                        line-height: 20px;
+                    }
+                }
+            }
+            div[class^="step"] .btn-red{
+                margin-bottom:10px;
+                vertical-align: top;
+            }
+            div[class^="step"] .btn-navy{
+                margin-bottom:50px;
+                vertical-align: top;
+            }
+        }
+    }
+    @media(max-width: 500px){
+        .contents{
+            div[class^="step"] .tip .tooltip-text{
+                position:relative;
+                right:0
+                display:block;
+                width:100%;
+            }
+        }
+    }
+}

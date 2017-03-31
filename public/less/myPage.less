@@ -1,0 +1,99 @@
+.mypage {
+    .contents{
+        .sub-navi{
+            margin-right: 530px;
+        }
+    }
+
+    .mypage-contents {
+        width: 750px;
+        margin: 0 auto;
+        border-top: @sub-color-second 2px solid;
+        border-bottom: @sub-color-second 2px solid;
+        margin-bottom: 70px;
+
+        div {
+            text-align: center;
+            height: auto;
+            margin: 0 auto;
+            padding-top: 70px;
+            padding-bottom: 70px;
+            font-size: 20px;
+            img{
+                padding-bottom: 15px;
+            }
+            p{
+                font-weight:300 ;
+            }
+        }
+    }
+    ul {
+        width: 750px;
+        margin: 0 auto;
+        margin-bottom: 110px;
+        text-align: center;
+        li {
+            .inlineblock();
+            width: 245px;
+            line-height: 50px;
+            text-align: center;
+            color: @sub-color;
+            font-size: @menu-size;
+            vertical-align: middle;
+            .list {
+                width: 57px;
+                height: 36px;
+                margin-top: 10px;
+                margin-bottom: 8px;
+                background-position: -1px -111px;
+            }
+            .qa {
+                width: 50px;
+                height: 58px;
+                margin-bottom: -12px;
+                background-position: -1px -50px;
+            }
+            p {
+                color: @sub-color;
+            }
+            &:hover {
+                .info {
+                    background-position: -59px 0px;
+                }
+                .list {
+                    background-position: -60px -111px;
+                }
+                .qa {
+                    background-position: -60px -50px;
+                }
+                p {
+                    color: red;
+                }
+            }
+            a {
+                span {
+                    background: url('/img/icon/icon_mypage.png') no-repeat;
+                    display: block;
+                    width: 48px;
+                    height: 50px;
+                    margin: 0 auto;
+                }
+            } //a끝
+        } //li끝
+        :first-child+li {
+            height: 106px;
+            border-left: 2px @sub-color-second solid;
+        }
+    } //ul끝
+
+    @media(max-width: @tablet-size){
+        .mypage-contents,ul{
+            width:97%;
+        }
+        ul{
+            li{
+                width:48%;
+            }
+        }
+    }
+}

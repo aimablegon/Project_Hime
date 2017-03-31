@@ -1,0 +1,59 @@
+<style>
+	.col-xs-3 a {padding:20px 0;}
+	.col-xs-3 .white-a-btn:hover {background:#fafafa;}
+	.col-xs-3 i {margin-left:10px;}
+	.col-xs-3 .title {margin:5px 0;}
+	@media (max-width: 1200px) {
+		.col-xs-3 {width:50%;}
+  }
+}
+</style>
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="
+    app.settings.asideFolded = false;
+    app.settings.asideDock = false;
+  ">
+  <!-- main -->
+  <div class="col">
+    <!-- main header -->
+    <div class="bg-light lter b-b wrapper-md">
+      <div class="row">
+        <div class="col-sm-6 col-xs-12">
+          <h1 class="m-n font-thin h3 text-black">Dashboard</h1>
+          <small class="text-muted"></small>
+        </div>
+     
+      </div>
+    </div>
+    <!-- / main header -->
+    <div class="wrapper-md" ng-controller="FlotChartDemoCtrl">
+      <!-- stats -->
+      <div class="row">
+        <div>
+        	<div class="col-xs-3" ng-if="authority(['A','B-1','B-2','D'])">
+        	  <a href="#/app/branch/teacher" class="block panel padder-v text-center white-a-btn">
+	            <span class="title block h3 text-info">강사 프로필<i class="icon-users"></i></span>
+				<span class="text-muted text-md">관리하기</span>
+              </a>
+            </div>
+            <div class="col-xs-3" ng-if="authority(['A','B-1','B-2','B-3'])">
+              <a href="#/app/member/admin" class="block panel padder-v bg-primary text-center">
+                <span class="title text-white h3 block">계정 승인<i class="icon-user-following"></i></span>
+                <span class="text-muted text-md">관리하기</span>
+              </a>
+            </div>
+			<div class="col-xs-3" ng-if="authority(['A','B-1','B-2','C-1','C-2'])">
+		      <a href="#/app/center/board" class="block panel padder-v text-center white-a-btn">
+  	            <span class="title block h3 text-primary-dk">공지사항/이벤트<i class="fa fa-bullhorn"></i></span>
+  				<span class="text-muted text-md">관리하기</span>
+              </a>
+            </div>
+            <div class="col-xs-3" ng-if="authority(['A','B-1','B-2','C-1','C-2'])">
+              <a href="#/app/course/branchCourse" class="block panel padder-v bg-info text-center">
+                <span class="title text-white h3 block">지점별 과정<i class="icon-grid"></i></span>
+                <span class="text-muted text-md">관리하기</span>
+              </a>
+            </div>
+        </div>
+
+      </div>
+      <!-- / stats -->

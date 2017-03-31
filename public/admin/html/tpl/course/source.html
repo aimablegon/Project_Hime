@@ -1,0 +1,54 @@
+<script type="text/javascript">
+
+
+angular.module('app').controller('myCtrl', ['$scope', '$rootScope', '$http', '$sce', '$stateParams', '$location',
+	function($scope, $rootScope, $http, $sce, $stateParams, $location) {
+		
+		$scope.searchText	= $stateParams.searchText;
+		$scope.pageSize = $rootScope.pageSize ? $rootScope.pageSize : "10";
+		$scope.Math=Math;
+		$scope.basePath = '#'+$location.$$path;
+		
+		console.log($location);
+
+		$scope.loadData = function () {
+			
+			$http({
+				method : "POST",
+				url : "/admin/api/branch",
+				data : {
+					page : $stateParams.page,
+					pageSize : $scope.pageSize,
+					searchText : $stateParams.searchText
+				}
+			}).success(function(data) {
+				console.log(data);
+				console.log(data.currentPage)
+				$scope.data = data;
+			});
+		};
+		
+		$scope.pageChanged = function (idx){
+			$location.path($location.$$path).search({page: $scope.data.currentPage,searchText: $scope.searchText});
+		};
+
+		$scope.search = function () {
+			console.log($location);
+			$location.path($location.$$path).search({searchText: $scope.searchText});
+		}
+
+		$scope.pageSizeChanged = function () {
+			$rootScope.pageSize =  $scope.pageSize;
+			$scope.loadData();
+
+		};
+
+
+	}]
+);
+
+
+</script>
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">원천과정</h1>
+</div>

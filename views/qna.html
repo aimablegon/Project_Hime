@@ -1,0 +1,150 @@
+ㅎㅎㅎ {% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="qna">
+        <!-- 본문 -->
+        <div class="contents">
+            <!-- 서브 네비 -->
+            <div class="sub-navi">
+                <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+                <span>고객센터</span><span>&#183;</span>
+                <span class="this-page">Q&amp;A</span>
+            </div>
+            <!-- // 서브 네비 -->
+
+            <!-- 대제목 -->
+            <div class="title-l">
+                <div class="bg">Customer</div>
+                <div class="text-box">
+                    <h1>Q&amp;A</h1>
+                    <p>궁금하신 것이 있으시면 언제든지 물어보세요!</p>
+                </div>
+            </div>
+            <!-- // 대제목 -->
+            <div class="tab tab-customer">
+                <ul>
+    		        <li><a href="notice.html">공지사항/<br>이벤트</a></li>
+    		        <li><a href="askCost.html">수강료<br>조회</a></li>
+    		        <li><a href="askTime.html">시간표<br>조회</a></li>
+    		        <li><a href="onlineCounsel.html">온라인<br>상담</a></li>
+    		        <li><a href="onlinePay.html">온라인<br>결제</a></li>
+    		        <!-- <li><a href="comFaq.html">FAQ</a></li> -->
+    		        <li class="on"><a href="qna.html">Q&amp;A</a></li>
+    		    </ul>
+            </div>
+
+            <div class="notice-wrapper">
+                <div class="dropdown tab tab-customer-campus">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="tab-customer-campus" data-toggle="dropdown" aria-expanded="true">
+			{% if !query.branchCode or query.branchCode == 'himedia'%}
+				전체
+			{% else %}
+				{{branchNames[query.branchCode]}}
+			{% endif %}
+                      <span class="icon arrowDown navy"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="tab-customer-campus">
+                        {% for branch in branches %}
+                            {%set onCode = 'himedia'%}
+                            {%if query.branchCode%}
+                                {%set onCode = query.branchCode%}
+                            {%else%}
+                                {%set onCode = branchCode%}
+                            {%endif%}
+
+                            {% if branch.branchCode == 'himedia' %}
+                                <li class="{%if onCode == branch.branchCode%}on{%endif%}"><button type="button" onclick="location.href='qna.html?branchCode=himedia'">전체</button></li>
+                            {% else %}
+                                <li class="{%if onCode == branch.branchCode%}on{%endif%}"><button type="button" onclick="location.href='qna.html?branchCode={{branch.branchCode}}'">{{branch.branchName}}</button></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="notice-box common_wrap">
+                    <table class="list_table hover_effect">
+        		        <caption></caption>
+        		        <colgroup>
+        		        	<col style="width:7%">
+        		        	<col style="width:10%">
+        		        	<col style="width:37%">
+        		        	<col style="width:22%">
+        		        	<col style="width:23%">
+        		        </colgroup>
+        		        <tbody>
+                            {% for qa in qas%}
+                                <tr>
+                                    <td>{{totalCount - (page - 1)*pageSize - loop.index + 1}} </td>
+                                    <td class="code"></td>
+                                    <td class="text-left" onclick="location.href='qnaView.html?boardId={{qa.boardId}}&boardNum={{totalCount - (page - 1)*pageSize - loop.index + 1}}&branchCode={{query.branchCode}}&searchText={{query.searchText}}&page={{page}}'">
+                                        {{qa.title}}
+                                        {% set now = Date.now() | date('Y-m-d') %}
+                                        {% set expire = qa.registDate | date('Y-m-d',-1440) %}
+                                        {% if now < expire %}
+                                            <span class="icon new">신규 게시글</span>
+                                        {% endif %}
+
+                                    </td>
+                                    <td>{{qa.registUserId}}</td>
+                                    <td>{{qa.registDate | date('Y-m-d')}}</td>
+                                </tr>
+                                {% if qa.BoardComments.length != 0 %}
+                                    {% for answer in qa.BoardComments %}
+                                        {% if answer.delYn =='N' %}
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <span class="answer text-left" style='display:block;'>
+                                                    <a href="qnaView.html?boardId={{qa.boardId}}&commentId={{answer.commentId}}&branchCode={{query.branchCode}}&searchText={{query.searchText}}&page={{page}}">
+                                                        <span class="answer-line"></span>
+                                                        <span class="apoint">{{answer.title}}</span>
+                                                    </a>
+                                                </span>
+                                            </td>
+                                            <td><img src="/img/icon/icon_hi.png" alt="하이미디어"></td>
+                                            <td>{{answer.registDate | date('Y-m-d')}}</td>
+                                        </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+
+                            {% endfor%}
+        		        </tbody>
+        	        </table>
+
+                    <div class="btn-seemore wow fadeInUp" data-wow-duration="1s">
+                        <button type="button" onclick="location.href='qnaWrite.html?&branchCode={{query.branchCode}}&correction=false'">질문 등록<span class="icon check red">체크(확인)</span></button>
+                    </div>
+
+                    <div class="search-wrapper">
+                        <form method="get" class="qnaForm">
+                            <input type="hidden" name="page" value="1">
+                            <input type="hidden" name="branchCode" value="{{query.branchCode}}">
+                            <fieldset class="search">
+                                <lable for="searchText"><input type="text" id="searchText" name="searchText" placeholder="search..." required value="{{query.searchText}}"/></lable><input type="submit" />
+                            </fieldset>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+
+                    {% include "./blocks/pagination.html" %}
+                    {% include "./blocks/paginationMobile.html" %}
+
+                </div>
+
+                <script>
+                    function goPage(page) {
+                        $("input[name='page']").val(page);
+                        $("form.qnaForm").submit();
+                    }
+                    if(!'{{query.searchText}}'){
+                        $('#searchText').val('');
+                    }
+                    $('.pagination').addClass('gray')
+                </script>
+
+            </div>
+
+        </div>
+        <!-- // 본문 -->
+</div>
+{% endblock %}

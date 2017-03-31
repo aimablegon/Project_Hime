@@ -1,0 +1,198 @@
+<script type="text/javascript">
+
+angular.module('app').controller('myCtrl', ['$scope', '$rootScope', '$http', '$sce', '$stateParams', '$location',
+	'$state', '$httpParamSerializerJQLike',
+	function($scope, $rootScope, $http, $sce, $stateParams, $location, $state, $httpParamSerializerJQLike) {
+
+		$scope.mode = $stateParams.id ? 'modify' : 'new';
+		$scope.basePath = '#'+$location.$$path;
+		$scope.parentPath = $location.$$path.substring(0, $location.$$path.indexOf("/detail"));
+
+		if($scope.mode == "modify") {
+			$http({
+				method : "POST",
+				url : "/admin/api/admin/"+$stateParams.id
+			}).success(function(data) {
+				console.log(data);
+				$scope.data = data;
+				$scope.data.birthday = new Date($scope.data.birthday).getFullYear() +'-'+ (new Date($scope.data.birthday).getMonth()+1) +'-'+ new Date($scope.data.birthday).getDay();
+			});
+		}
+
+		$scope.submit = function () {
+
+			var url = "";
+			if($scope.mode == "modify") {
+				url = "/admin/api/admin/"+$stateParams.id+"/update";
+			} else {
+				url = "/admin/api/admin/insert";
+			}
+
+			$http({
+					method : "POST",
+					url : url,
+					data: $scope.data
+			}).success(function(data) {
+
+				if($scope.mode == "modify") {
+					alert("저장되었습니다.");
+				}else {
+					$location.path($scope.parentPath);
+				}
+			});
+		};
+
+	    $scope.delete = function () {
+
+	    	if(confirm("삭제 하시겠습니까?")) {
+			$http({
+				method : "POST",
+				url : "/admin/api/admin/"+$stateParams.id+'/delete',
+			}).success(function(data) {
+				$location.path($scope.parentPath);
+			});
+	    	}
+	    }
+	    $scope.accepted = function(){
+	    	return $rootScope.currentUser.adminRoll == 'A' ? true : false; 
+	    }
+	}]
+);
+
+</script>
+<style>
+	.form-horizontal .ignore .form-group{
+		margin-left : 0px;
+		margin-right : 0px;
+	}
+</style>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">계정 승인 관리</h1>
+</div>
+<div class="wrapper-md">
+	<div class="panel panel-default" ng-controller="myCtrl">
+		<div class="panel-heading">정보</div>
+		<div class="panel-body">
+			<form class="form-horizontal" method="get" ng-submit="submit()">
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">아이디</label>
+					<div class="col-sm-10">
+						<span class="help-block m-b-none">{{data.adminId}}</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">이름</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.name" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">생년월일</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.birthDay" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">연락처</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.phone">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">휴대폰</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.mobile" >
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">이메일</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.email" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">승인여부</label>
+					<div class="col-sm-10">
+						<label class="i-switch m-t-xs m-r"><input type="checkbox" ng-true-value="'Y'" ng-false-value="'N'" ng-model="data.acceptYn"> <i></i></label>
+						<span ng-if="data.acceptYn == 'Y'">승인됨</span>
+						<span ng-if="data.acceptYn == 'N'">승인대기</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">퇴사여부</label>
+					<div class="col-sm-10">
+						<label class="i-switch m-t-xs m-r"><input type="checkbox" ng-true-value="'Y'" ng-false-value="'N'" ng-model="data.outYn"> <i></i></label>
+						<span ng-if="data.outYn == 'N'">재직</span>
+						<span ng-if="data.outYn == 'Y'">퇴사</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">가입일시</label>
+					<div class="col-sm-10">
+						<span class="help-block m-b-none">{{data.registDate | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+					</div>
+				</div>
+				<div class="form-group" ng-if="accepted()">
+					<label class="col-sm-2 control-label">권한</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.adminRoll">
+					</div>
+				</div>
+				
+				<br />
+				
+				<div ng-show=" data.adminType ==  'ADMIN_TYPE_TEACHER'">								
+				<div class="form-group panel-heading"  style="border-color: #edf1f2; color : #000">
+					<div class="col-sm-4">강의 프로필</div>
+					<div class="col-sm-8">프로필 변경은 <strong>지점 관리 > 강사 프로필</strong>에서 수정 가능합니다.</div>
+				</div>
+							
+				<div class="form-group">
+					<label class="col-sm-2 control-label">실무경력</label>
+					<div class="col-sm-10">
+						<span class="help-block m-b-none" ng-bind-html="data.Teacher.career"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">강의경력</label>
+					<div class="col-sm-10">
+						<span class="help-block m-b-none"  ng-bind-html="data.Teacher.lectureExp"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">자격사항</label>
+					<div class="col-sm-10">
+						<span class="help-block m-b-none" ng-bind-html="data.Teacher.certificate"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">저서</label>
+					<div class="col-sm-10">
+						<span class="help-block m-b-none" ng-bind-html="data.Teacher.books"></span>
+					</div>
+				</div>
+			</div>
+			
+			<div class="line line-dashed b-b line-lg pull-in"></div>
+			
+				<div class="form-group">
+
+					<div class="col-sm-5 col-sm-offset-2">
+
+						<button type="button" onclick="history.back()" class="btn btn-default m-r-sm">목록</a>
+						<button type="button" ng-click="delete()" class="btn btn-danger" ng-show="mode=='modify'">삭제</button>
+
+
+					</div>
+
+					<div class="col-sm-5 text-right">
+						<button type="submit" class="btn btn-primary">변경사항 저장</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+

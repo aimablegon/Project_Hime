@@ -1,0 +1,323 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="myInquiry">
+    <!-- 본문 -->
+    <div class="contents">
+        <!-- 서브 네비 -->
+        <div class="sub-navi">
+            <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+            <span>마이페이지</span><span>&#183;</span>
+            <span class="this-page">1:1 문의</span>
+        </div>
+        <!-- // 서브 네비 -->
+
+        <!-- 대제목 -->
+        <div class="title-l">
+            <div class="bg">My Page</div>
+            <div class="text-box">
+                <h1>1:1 문의</h1>
+                <p>회원님의 소중한 정보입니다.</p>
+            </div>
+        </div>
+        <!-- // 대제목 -->
+
+        <div class="tab tab-sub">
+            <ul>
+                <li><a href="myInfo.html">회원정보</a></li>
+                <li class="on"><a href="#">1:1 문의</a></li>
+            </ul>
+        </div>
+        <div class="myInquiry_bg">
+            <div class="talbe_wrap">
+                <table class="myInquiry_table wow fadeInUp" data-wow-duration="1s">
+                    <caption class="sr-only"></caption>
+                    <colgroup>
+                        <col style="width:12%">
+                        <col style="width:45%">
+                        <col style="width:23%">
+                        <col style="width:20%">
+                    </colgroup>
+                    <tbody class="inputData">
+                    {% if list.length > 0 %}
+                    	{% for item in list %}
+	                    <tr>
+		    		<td class="category">{{codeNames[item.boardType]}}</td>
+		    		<td class="barbg title" style="cursor:pointer;">
+		    			<span class="question-title">
+		    				{% if item.BoardComments.length > 0%}
+		    					<i>답변완료</i>
+	    					{% endif %}
+                            {{item.title}}
+		    			</span>
+		    		</td>
+		    		<td>{{item.registDate | date('Y-m-d')}}</td>
+		    		<td>
+		    			<button class="modallink2 common_btn navy_btn inquiry_change" id="idx{{loop.index-1}}" modallink="change">수정</button>
+		    			<button class="common_btn delete_btn">삭제</button></td>
+				</tr>
+			<tr style="display:none;">
+				<td></td>
+				<td class="reply-td"  colspan="3">
+					<br>
+					<br>
+					<span class="question-cont">{{item.content}}</span>
+					<br>
+					{% if item.BoardComments.length > 0 %}
+					<div class="reply">
+						<p class="answer-line"></p>{{item.BoardComments[0].title}}<br>
+						<span>{{item.BoardComments[0].content}}</span>
+					</div>
+				{% endif %}
+					<br>
+				</td>
+			</tr>
+			{% endfor %}
+		{% else %}
+			<tr>
+				<td colspan="4" class="no_result">문의하신 1:1 상담 내역이 없습니다.</td>
+			</tr>
+			{% endif %}
+                    </tbody>
+                </table>
+                <div class="btn_wrap">
+                    <button class="modallink2 common_btn arrow_nay_btn" modallink="write">1:1 문의하기 <span class="icon arrow red">오른쪽 화살표</span></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- // 본문 -->
+
+    <!-- 팝업창1 -->
+    <div class="modalPopup2" style="width:900px;" id="change">
+        <!-- 타이틀 -->
+        <div class="modal-title text-right">
+            <span class="title-box text-left">1:1 문의하기</span>
+            <span class="close-box"><a href="#" class="modal2-closeBtn">close<i class="icon close-x red"></i></a></span>
+            <div class="clearfix"></div>
+        </div>
+        <!-- 바디 -->
+        <div class="modal-body">
+            <!--컨텐츠-->
+            <div class="inputtable_wrap">
+                <form class="input_fromwrap" method="post" action="updateMyInquiry">
+                    <fieldset class="input_tablewrap">
+                        <legend>1:1 문의 수정하기 테이블입니다.</legend>
+                        <table class="input_table">
+                            <caption>1:1 문의 수정하기</caption>
+                            <colgroup>
+                                <col style="width:15%">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        문의 분야
+                                    </th>
+                                    <td class="radio_td">
+                                        {%for code in codes.MTM_CATEGORY.list %}
+                                            <span class="">
+                                                <input type="radio" id="code{{loop.index}}" name="boardType" value="{{code.codeId}}" required>
+                                                <label for="code{{loop.index}}">{{code.codeName}}</label>
+                                            </span>
+                                        {%endfor%}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        캠퍼스
+                                    </th>
+                                    <td>
+                                        <label for="email_adress" class="text-hide">캠퍼스를 선택해주세요</label>
+                                        <select id="email_adress" name="branchCode" required>
+                                            <option style="display:none;" selected disabled>캠퍼스를 선택해주세요</option>
+                                            {% for branch in branches %}
+                                                {% if branch.branchCode != 'himedia' %}
+                                                    <option value="{{branch.branchCode}}" label="{{branch.branchName}}">{{branch.branchName}}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <label for="title">제목</label>
+                                    </th>
+                                    <td class="star_wrap">
+                                        <div class="input_wrap" style="width:100%">
+                                            <input id="title" type="text" class="correctTitle" name="title" required/>
+                                            <button type="button" class="input_del">삭제버튼</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <label for="cont">내용</label>
+                                    </th>
+                                    <td class="star_wrap">
+                                        <div class="input_wrap" style="width:100%">
+                                            <textarea id="cont" class="correctContent" name="content"></textarea>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="btns_wrap">
+                            <input type="submit" class="common_btn red_btn" value="확인">
+                            <input type="reset" class="common_btn navy_btn modal-closeBtn" value="취소">
+                        </div>
+                    </fieldset>
+                    <input type="hidden" name="update" value="y">
+                    <input type="hidden" name="UserId" value="{{session.member.userId}}">
+                    <input type="hidden" name="boardId" value="" class="inputCorrectId">
+                </form>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+
+    <!-- 팝업창2 -->
+    <div class="modalPopup2" style="width:900px;" id="write">
+        <!-- 타이틀 -->
+        <div class="modal-title text-right">
+            <span class="title-box text-left">1:1 문의 신청하기</span>
+            <span class="close-box"><a href="#" class="modal2-closeBtn">close<i class="icon close-x red"></i></a></span>
+            <div class="clearfix"></div>
+        </div>
+        <!-- 바디 -->
+        <div class="modal-body">
+            <!--컨텐츠-->
+            <div class="inputtable_wrap">
+                <form class="input_fromwrap" action="menToMenWrite" method="post">
+                    <fieldset class="input_tablewrap">
+                        <legend>1:1 문의 신청하기 테이블입니다.</legend>
+                        <table class="input_table">
+                            <caption>1:1 문의하기</caption>
+                            <colgroup>
+                                <col style="width:15%">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        문의 분야
+                                    </th>
+                                    <td class="radio_td">
+                                        {%for code in faqTypeList %}
+                                            <span class="">
+                                                <input type="radio" id="ncode{{loop.index}}" name="boardType" value="{{code.codeId}}" required>
+                                                <label for="ncode{{loop.index}}">{{code.codeName}}</label>
+                                            </span>
+                                        {%endfor%}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        캠퍼스
+                                    </th>
+                                    <td>
+                                        <label for="nEmail_adress" class="text-hide">캠퍼스를 선택해주세요</label>
+                                        <select id="nEmail_adress" name="branchCode" required>
+                                            <option style="display:none;" disabled selected>캠퍼스를 선택해주세요</option>
+                                            {% for branch in branches %}
+                                                {% if branch.branchCode != 'himedia' %}
+                                                    <option value="{{branch.branchCode}}" label="{{branch.branchName}}">{{branch.branchName}}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <label for="title">제목</label>
+                                    </th>
+                                    <td class="star_wrap">
+                                        <div class="input_wrap" style="width:100%">
+                                            <input id="title" type="text" name="title" required/>
+                                            <button type="button" class="input_del">삭제버튼</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <label for="cont">내용</label>
+                                    </th>
+                                    <td class="star_wrap">
+                                        <div class="input_wrap" style="width:100%">
+                                            <textarea id="cont" name="content"></textarea>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="btns_wrap">
+                            <input type="submit" class="common_btn red_btn" value="확인">
+                            <input type="reset" class="common_btn navy_btn modal-closeBtn" value="취소">
+                        </div>
+                    </fieldset>
+                    <input type="hidden" name="registUserId" value="{{session.member.userId}}">
+                    <input type="hidden" name="registUserEmail" value="{{session.member.userEmail}}">
+                </form>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<script>
+    var list = null;
+
+    {% if list.length > 0%}
+   	 list = {{JSON.stringify(list,0,4)}};
+    {% endif %}
+    //수정버튼
+    $('body').on("click","button.inquiry_change",function(){
+	    var idx = $(this).attr('id').split('idx')[1];
+	    var codeName = $(this).parents('tr').children('td:first-child').text();
+
+        $('#change .radio_td label').each(function(i,e){
+            $(e).text() == codeName ? $(e).prev().attr('checked',true) : '';
+        })
+        $('#change #email_adress option').each(function(i,e){
+            if(list[idx].branchCode == $(e).attr('value')){
+                $(e).attr('selected',true);
+            }
+        })
+        $('#change .inputCorrectId').val(list[idx].boardId);
+        $('#change #title').val(list[idx].title);
+        $('#change #cont').text(list[idx].content);
+    });
+    //삭제버튼
+    $('body').on("click",".delete_btn",function(){
+        var idx = $(this).attr('id').split('idx')[1];
+        console.log(idx)
+        $.ajax({
+            method: "POST",
+            url:"updateMyInquiry",
+            data: {
+                boardId : list[idx].boardId,
+                userId : '{{session.member.userId}}',
+                delete : 'y'
+            }
+        }).done(function(msg){
+            if(msg.updated){
+                location.href="myInquiry.html";
+            }
+        });
+    });
+
+    //ie
+    var agent = navigator.userAgent.toLowerCase();
+    if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
+        $(".answer-box").css("cssText", "opacity: 1 !important;");
+    }
+    // 클릭시 오픈
+    $('body').on('click','.myInquiry_table .title',function(){
+        if($(this).parents('tr').attr('class') == 'in'){
+            $(this).parents('tr').removeClass('in').next('tr').hide('fast');
+        }else{
+            $(this).parents('tr').addClass('in').next('tr').show('fast').siblings().removeClass('tr');
+        }
+    });
+</script>
+{% endblock %}

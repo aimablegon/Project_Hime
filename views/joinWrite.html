@@ -1,0 +1,345 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="join">
+    <!-- 본문 -->
+    <div class="contents">
+        <!-- 서브 네비 -->
+        <div class="sub-navi">
+            <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+            <span class="this-page">회원가입</span>
+        </div>
+        <!-- // 서브 네비 -->
+
+        <!-- 대제목 -->
+        <div class="title-l">
+            <div class="bg">Join</div>
+            <div class="text-box">
+                <h1>회원가입</h1>
+                <p>하이미디어의 회원이 되시면 보다 많은 서비스를 받으실 수 있습니다</p>
+            </div>
+        </div>
+        <!-- // 대제목 -->
+
+        <div class="step_wrap">
+            <ol>
+                <li>
+                    <span class="num">STEP 1.</span>
+                    <span class="text">약관동의/실명인증</span>
+                </li>
+                <li class="on">
+                    <span class="num">STEP 2.</span>
+                    <span class="text">회원정보입력</span>
+                </li>
+                <li>
+                    <span class="num">STEP 3.</span>
+                    <span class="text">회원가입완료</span>
+                </li>
+            </ol>
+        </div>
+
+        <div class="inputtable_wrap">
+            <form class="input_fromwrap" action="joinFinish.html" method="post">
+                <fieldset class="input_tablewrap wow fadeInUp" data-wow-duration="1s">
+                    <legend>회원가입 양식테이블입니다.</legend>
+                    <table class="input_table">
+                        <caption>과정명,이름,연락처,이메일,상세내용으로 되어있는표입니다.</caption>
+                        <colgroup>
+                            <col style="width:18%">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <label for="name">이름</label>
+                                </th>
+                                <td>
+                                    <div class="input_wrap w_20p">
+                                        <input id="name" type="text" name="userName" maxlength="20" size="20" required/>
+                                        <button type="button" class="input_del">삭제버튼</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="birthday1">생년월일</label>
+                                </th>
+                                <td>
+                                    <div class="input_wrap w_join_birth">
+                                        <input id="birthday1" type="text" maxlength="4" required/>
+                                        <button type="button" class="input_del">삭제버튼</button>
+                                    </div>
+                                    &nbsp;년&nbsp;&nbsp;
+                                    <div class="input_wrap w_join_birth">
+                                        <input id="birthday2" type="text" maxlength="2" required/>
+                                        <button type="button" class="input_del">삭제버튼</button>
+                                    </div>
+                                    &nbsp;월&nbsp;&nbsp;
+                                    <div class="input_wrap w_join_birth">
+                                        <input id="birthday3" type="text"  maxlength="2" required/>
+                                        <button type="button" class="input_del">삭제버튼</button>
+                                    </div>
+                                    &nbsp;일
+                                    	<input type="hidden" name="birthday" id="birthday" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="aksTell">연락처</label>
+                                </th>
+                                <td>
+                                    <div class="input_wrap w_11p">
+                                        <input id="aksTell" type="text" maxlength="3" size="3" class="tel" name="tel1"/>
+                                        <button type="button" class="input_del">삭제버튼</button>
+                                    </div>
+                                    <span>-</span>
+                                    <div class="input_wrap w_11p">
+                                        <input title="연락처 중간번호" id="aksTellmiddle" type="text"  maxlength="4" size="4" class="tel" name="tel2"/>
+                                        <button type="button" class="input_del">삭제버튼</button>
+                                    </div>
+                                    <span>-</span>
+                                    <div class="input_wrap w_11p">
+                                        <input title="연락처 마지막번호" id="aksTelllast" type="text" maxlength="4" size="4" class="tel" name="tel3"/>
+                                        <button type="button" class="input_del">삭제버튼</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="aksTell2">휴대폰</label>
+                                </th>
+                                <td>
+                                    <div class="input_wrap w_11p">
+                                        <input id="aksTell2" type="text" maxlength="3" class="tel" size="3" name="cell1" required/>
+                                        <button type="button" class="input_del">삭제버튼</button>
+                                    </div>
+                                    <span>-</span>
+                                    <div class="input_wrap w_11p">
+                                        <input title="연락처 중간번호" id="aksTellmiddle2" type="text" maxlength="4" size="4" class="tel" name="cell2" required/>
+                                        <button type="button" class="input_del">삭제버튼</button>
+                                    </div>
+                                    <span>-</span>
+                                    <div class="input_wrap w_11p">
+                                        <input title="연락처 마지막번호" id="aksTelllast2" type="text" maxlength="4" size="4" class="tel" name="cell3" required/>
+                                        <button type="button" class="input_del">삭제버튼</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="email">이메일</label>
+                                </th>
+                                <td>
+                                    <div class="input_wrap w_25p">
+                                        <input id="email" type="text" maxlength="20" size="20" name="email1" size="20" required/>
+                                        <button type="button" class="input_del">삭제버튼</button>
+                                    </div>
+                                    <span>@</span>
+                                    <div class="input_wrap w_25p pc_none">
+                                        <input title="이메일주소 직접입력" type="text" name="email2" id="email2" value="naver.com">
+                                        <button type="button" class="input_del">삭제버튼</button>
+                                    </div>
+                                    <select id="email_adress" style="vertical-align:top;" required>
+                                        <option value="" disabled selected style="display:none;">이메일을 선택해 주세요.</option>
+                                        <option value="naver.com">naver.com</option>
+                                        <option value="nate.com">nate.com</option>
+                                        <option value="gmail.com">gmail.com</option>
+                                        <option value="dreamwiz.com">dreamwiz.com</option>
+                                        <option value="lycos.co.kr">lycos.co.kr</option>
+                                        <option value="korea.com">korea.com</option>
+                                        <option value="hanmir.com">hanmir.com</option>
+                                        <option value="paran.com">paran.com</option>
+                                        <option value="1">직접입력</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="newid">아이디</label>
+                                </th>
+                                <td>
+                                    <div class="input_wrap w_id_pw">
+                                        <input id="newid" type="text" name="userId" maxlength="20" size="20" required/>
+                                        <button type="button" class="input_del">삭제버튼</button>
+                                    </div>
+                                    <button type="button" class="check_id">중복확인</button>
+                                    <span class="sub_cont">영문자로 시작하는 6~20자 영문자 또는 숫자로 입력해주세요</span><br/>
+                                    <span class="id_msg" style="color:red;"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="newpw">비밀번호</label>
+                                </th>
+                                <td>
+                                    <div class="input_wrap w_id_pw">
+                                        <input id="newpw" type="password" name="userPwd" maxlength="16" size="16" required/>
+                                        <button type="button" class="input_del">삭제버튼</button>
+                                    </div>
+                                    <span class="sub_cont">공백 없이 영문/숫자를 조합하여 8~16자로 입력해주세요</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="newpw2">비밀번호 확인</label>
+                                </th>
+                                <td>
+                                    <div class="input_wrap w_id_pw">
+                                        <input id="newpw2" type="password" maxlength="16" size="16" required/>
+                                        <button type="button" class="input_del">삭제버튼</button>
+                                    </div>
+                                    <span class="sub_cont">확인을 위해 한번 더 입력해주세요.</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    이메일 수신
+                                </th>
+                                <td>
+                                    <div class="radio_wrap">
+                                        <input name="receiptEmailYn" id="email_yes" type="radio" value="Y" checked="true">
+                                        <label for="email_yes">예</label>
+                                        <input name="receiptEmailYn" id="email_no" type="radio" value="N">
+                                        <label for="email_no">아니요</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    SMS 수신
+                                </th>
+                                <td>
+                                    <div class="radio_wrap">
+                                        <input name="receiptSMSYn" id="sms_yes" type="radio" value="Y" checked="true">
+                                        <label for="sms_yes">예</label>
+                                        <input name="receiptSMSYn" id="sms_no" type="radio" value="N">
+                                        <label for="sms_no">아니요</label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+                <div class="btns_wrap">
+                    <input type="submit" style="vertical-align:top;" value="다음" class="join_btn common_btn red_btn">
+                    <button type="button" class="common_btn navy_btn" onclick="location.href='main.html'">취소</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <!-- // 본문 -->
+</div>
+<script>
+    var val_id = "";
+    var validate = false;
+    //유효성검사
+    $('.tel').keydown(function(event) {
+        var charLimit = $(this).attr("maxlength");
+        var keys = [8, 9, /*16, 17, 18,*/ 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 46, 144, 145];
+        if (event.which == 8 && this.value.length == 0) {
+            $(this).parent('.input_wrap').prev().prev().find('.tel').focus();
+
+        } else if ($.inArray(event.which, keys) >= 0) {
+            return true;
+        } else if (this.value.length >= charLimit) {
+            $(this).parent('.input_wrap').next().next().find('.tel').focus();
+            return false;
+        } else if (event.shiftKey || event.which <= 47 || event.which >= 106) {
+            return false;
+        } else if (event.shiftKey || (event.which >= 58 && event.which <= 95)) {
+            return false;
+        }
+    }).keyup (function () {
+        var charLimit = $(this).attr("maxlength");
+        if (this.value.length >= charLimit) {
+            $(this).parent('.input_wrap').next().next().find('.tel').focus();
+            return false;
+        }
+    });
+
+    $('form').submit(function(){
+        var emailReg = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])/i;
+        var pwdReg1 = /^.*(?=.{6,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
+        var thisYear = new Date().getFullYear();
+
+        if( !($('#birthday1').val() <= thisYear) ||  !($('#birthday1').val() >= 1900) || !($('#birthday2').val() > 0) || !($('#birthday2').val() < 13) || !($('#birthday3').val() > 0) || !($('#birthday3').val() < 32) ) {
+                alert('생년월일을 확인해주세요');
+                $('#birthday1').val('');
+                $('#birthday2').val('');
+                $('#birthday3').val('');
+                $('#birthday1').focus();
+                return false;
+            }
+        if( !emailReg.test( $("#email").val() )) {
+                alert('이메일을 확인해주세요');
+                $('#email').val('');
+                $('#email').focus();
+                return false;
+            }
+        if( !emailReg.test( $("#email").val() )) {
+                alert('이메일을 확인해주세요');
+                $('#email').val('');
+                $('#email').focus();
+                return false;
+            }
+        if( !emailReg.test( $("#email").val() )) {
+            alert('이메일을 확인해주세요');
+            // $('.text_in').text('이메일을 확인해주세요');
+            // $('.check1').click();
+            $('#email').val('');
+            $('#email').focus();
+            return false;
+        }
+
+        if( !pwdReg1.test($('#newpw').val() )){
+            alert('비밀번호는 영문,숫자를 혼합하여 \n8~16자 이내만 가능합니다');
+            $('#newpw').val('');
+            $('#newpw2').val('');
+            $('#newpw').focus();
+            return false;
+        }
+        if( $('#newpw').val() != $('#newpw2').val() ){
+            alert('비밀번호 확인이 잘못되었습니다');
+            $('#newpw').val('');
+            $('#newpw2').val('');
+            $('#newpw2').focus();
+            return false;
+        }
+        if(!validate || $('#newid').val() != val_id){
+            alert('아이디 중복체크를 해주세요');
+            $('.id_msg').text('');
+            return false;
+        }
+    });
+
+    //중복체크
+    $('.check_id').click(function(){
+        var idReg = /^[a-z]+[a-z0-9]{5,19}$/g;
+        if( !idReg.test( $("#newid").val() )) {
+            alert("아이디는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다.");
+            $('#newid').val('');
+            $('#newid').focus();
+            return false;
+        }
+        var temp = $('#birthday1').val()+'-'+$('#birthday2').val()+'-'+$('#birthday3').val();
+	$('#birthday').val(temp);
+	console.log(temp)	
+	
+        $.ajax({
+            method: "POST",
+            url:"checkId",
+            data: { userId : $('#newid').val() }
+        })
+        .done(function( msg ) {
+            validate = !msg.isDuplicate;
+            if(validate){
+                val_id = $('#newid').val();
+                alertMsg('사용가능한 아이디입니다');
+            }else{
+                alertMsg('이미 존재하는 아이디입니다');
+            }
+        });
+    });
+
+</script>
+{% endblock %}

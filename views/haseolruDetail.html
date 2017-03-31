@@ -1,0 +1,122 @@
+{% extends "./blocks/layout.html" %} {% block content %}
+<div class="haseolru">
+    <!-- 서브 네비 -->
+    <div class="sub-navi">
+        <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
+        <span>&#183;</span>
+        <a href="#">하이커뮤니티</a>
+        <span>&#183;</span>
+        <span class="this-page">하설루</span>
+    </div>
+    <!-- // 서브 네비 -->
+    <div class="title-l">
+        <div class="bg">
+            <b>Community</b>
+        </div>
+        <div class="text-box">
+            <h1>하설루</h1>
+            <p><b>하</b>이의 <b>설</b>레는 <b>하</b>루, 하이미디어人의 이야기를 들려 드립니다</p>
+        </div>
+    </div>
+    <div class="gray_bg">
+        <div class="view_table">
+            <table class="view_top wow fadeInUp" data-wow-duration="1s">
+                <caption></caption>
+                <colgroup>
+                    <col style="width:8%">
+                    <col style="width:65%">
+                    <col style="width:15%">
+                    <col style="width:14%">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>{{toon.num}}화</th>
+                        <th class="text-left"><span>{{toon.title}}</span></th>
+                        <th>{{toon.registDate | date('Y-m-d')}}</th>
+                        <th>{{toon.readCount}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="5">
+                            <div class="view_cont">
+                                {{toon.content | safe}}
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="view_bottom">
+                <a class="prev" {% if prev %}href="haseolruDetail.html?toonId={{prev}}&page={{query.page}}"{% endif %}><span class="icon arrow_left red">왼쪽 화살표</span>이전</a>
+                <a class="list" href="haseolru.html?page={{query.page}}">목록<span class="icon list red">리스트(목록)</span></a>
+                <a class="next" {% if next %}href="haseolruDetail.html?toonId={{next}}&page={{query.page}}"{% endif %}>다음<span class="icon arrow red">오른쪽 화살표</span></a>
+            </div>
+        </div>
+    </div>
+    <div class="bottom_checkbox wow fadeIn" data-wow-duration="1s">
+        <form action="haseolruCommentWrite" method="post" class="writeComment">
+        <p>댓글 쓰기</p>
+            <textarea class="cont" name="comment" style="width:100%;" rows="5" placeholder="{% if !session.member.userId %}  하이미디어 로그인 후 댓글을 작성하실 수 있습니다.{% endif %}"></textarea>
+            <div class="text-center btns">
+                <input class="writeCommentBtn" type="button" value="등록">
+                <input type="hidden" name="registUserId" value="{{session.member.userId}}">
+                <input type="hidden" name="toonId" value="{{query.toonId}}">
+                <input type="hidden" name="page" value="{{query.page}}">
+            </div>
+        </form>
+    </div>
+
+    <div class="haseolru_comment">
+        {% for toonComment in toon.ToonComments %}
+            <div class="comment_box wow fadeInUp" data-wow-duration="1s">
+                <span>{{toonComment.registUserId}}</span>
+                <span class="redline"></span>
+                <span>{{toonComment.registDate | date('Y-m-d')}}</span>
+                {% if toonComment.registUserId == session.member.userId%}
+                    <div><button class="icon delete redx goDelete" value="{{toonComment.commentId}}"></button></div>
+                {% endif %}
+                <p>{{toonComment.comment}}
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+<script>
+console.log({{JSON.stringify(session.member,0,4)}});
+$('body').on('click','.writeCommentBtn',function(){
+    var session = '{{session.member.userId}}';
+    if(!session){
+        alertMsg('로그인 후 등록하실 수 있습니다');
+        return false;
+    }
+        if($('.cont').val().length == 0){
+            alertMsg('내용을 입력하세요');
+            return false;
+        }else{
+            $('.writeComment').submit();
+        }
+    return false;
+});
+$('body').on('click','.goDelete',function(){
+        $.ajax({
+            method: "POST",
+            url:"commentDelete",
+            data: {
+                deleteUserId : '{{session.member.userId}}',
+                commentId : $(this).attr('value'),
+                delYn : 'Y'
+            }
+        })
+        .done(function( msg ) {
+            if(msg.isSuccess) {
+                location.href="haseolruDetail.html?toonId="+"{{query.toonId}}"+"&page="+"{{query.page}}";
+            }else{
+                alertMsg("수정 오류");
+            }
+        });
+    return false;
+});
+$('body').on('click','.goCorrent',function(){
+    $('#cont').val($(this))
+});
+</script>
+{% endblock %}

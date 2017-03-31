@@ -1,0 +1,64 @@
+<script type="text/javascript">
+
+
+	app.controller('SigninFormController', [ '$scope', '$http', '$state', '$cookieStore', '$rootScope',
+		function($scope, $http, $state, $cookieStore, $rootScope) {
+
+			$scope.authError = null;			
+			$cookieStore.remove("currentUser");
+			
+			
+			$scope.login = function() {
+				$scope.authError = null;				
+
+				$http({
+					method : "POST",
+					url : "/admin/api/login",
+					data: $scope.data
+				}).success(function(data) {
+					
+					if(data.acceptYn == 'Y'){
+						$cookieStore.put("currentUser", JSON.stringify(data));
+						$rootScope.currentUser = JSON.parse($cookieStore.get("currentUser"));
+						$state.go("app.dashboard");
+					}else{
+						$scope.authError = "승인 대기 중이므로 관리자의 승인 후 로그인이 가능합니다.";
+					}
+				}).error(function () {
+					$scope.authError = "아이디 또는 비밀번호가 일치하지 않습니다.";
+				});
+					
+			};
+		}
+	]);
+</script>
+
+<div class="container w-xxl w-auto-xs" ng-controller="SigninFormController">
+  <a href class="navbar-brand block m-t">{{app.name}}</a>
+  <div class="m-b-lg">
+    <div class="wrapper text-center">
+      <strong>관리자 계정을 입력하세요</strong>
+    </div>
+    <form name="form" class="form-validation">
+      <div class="text-danger wrapper text-center" ng-show="authError">
+          {{authError}}
+      </div>
+      <div class="list-group list-group-sm">
+        <div class="list-group-item">
+          <input type="text" placeholder="아이디" class="form-control no-border" ng-model="data.adminId" required>
+        </div>
+        <div class="list-group-item">
+           <input type="password" placeholder="비밀번호" class="form-control no-border" ng-model="data.pwd" required>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="login()" ng-disabled='form.$invalid'>로그인</button>
+      <div class="text-center m-t m-b"><a ui-sref="access.forgotpwd">비밀번호를 잊으셨나요?</a></div>
+      <div class="line line-dashed"></div>
+      <p class="text-center"><small>계정이 없으신가요?</small></p>
+      <a ui-sref="access.signup" class="btn btn-lg btn-default btn-block">가입 신청</a>
+    </form>
+  </div>
+  <div class="text-center" ng-include="'tpl/blocks/page_footer.html'">
+    {% include 'blocks/page_footer.html' %}
+  </div>
+</div>

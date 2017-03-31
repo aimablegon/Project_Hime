@@ -1,0 +1,132 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="campusIntro campusIdx">
+    <!-- 본문 -->
+    <div class="contents">
+        <!-- 서브 네비 -->
+        <div class="sub-navi">
+            <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+            <span>하이미디어</span><span>&#183;</span>
+            <span class="this-page">강남캠퍼스 소개</span>
+        </div>
+        <!-- // 서브 네비 -->
+
+        <!-- 대제목 -->
+        <div class="title-l">
+            <div class="bg">Introduce</div>
+            <div class="text-box">
+                <h1>강남캠퍼스 소개</h1>
+                <p>하이미디어 강남 캠퍼스를 소개합니다.</p>
+            </div>
+        </div>
+        <!-- // 대제목 -->
+        <div class="slide-wrapper">
+            <div class="slide-box">
+                <ul>
+                    <li class="active">
+                        <img src="/img/site_img/img_campus1.jpg" alt="캠퍼스 이미지">
+                    </li>
+                    <li>
+                        <img src="/img/site_img/img_campus1.jpg" alt="캠퍼스 이미지">
+                    </li>
+                    <li>
+                        <img src="/img/site_img/img_campus1.jpg" alt="캠퍼스 이미지">
+                    </li>
+                    <li>
+                        <img src="/img/site_img/img_campus1.jpg" alt="캠퍼스 이미지">
+                    </li>
+                </ul>
+            </div>
+            <div class="slide-btns">
+                <span class="left-go">
+                    <img src="/img/icon/img_slide_arrow.png" alt="이전 보기">
+                </span>
+                <span class="right-go">
+                    <img src="/img/icon/img_slide_arrow.png" alt="다음 보기">
+                </span>
+            </div>
+        </div>
+        <div class="campus-info">
+            <div class="info-left">
+                <p>
+                    하이미디어<br>
+                    강남캠퍼스
+                </p>
+                <span>02.3478.0008</span>
+            </div>
+            <div class="info-right">
+                <dl>
+                    <dt>주소</dt>
+                    <dd>서울시 서초구 강남대로 405 (서초동 1318-2) 통영빌딩 8층</dd>
+                    <dt>찾아오시는 길</dt>
+                    <dd>2호선 강남역 ⑩번 출구 외환은행 (⑩번 출구 첫 번째 건물) 8층</dd>
+                </dl>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="map-box">
+            <!-- 1. 약도 노드 -->
+            <div id="daumRoughmapContainer1478431702660" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+
+            <!-- 2. 설치 스크립트 -->
+            <script charset="UTF-8" class="daum_roughmap_loader_script" src="http://dmaps.daum.net/map_js_init/roughmapLoader.js"></script>
+
+            <!-- 3. 실행 스크립트 -->
+            <script charset="UTF-8">
+            	new daum.roughmap.Lander({
+            		"timestamp" : "1478431702660",
+            		"key" : "dy4z",
+            		"mapWidth" : "850",
+            		"mapHeight" : "500"
+            	}).render();
+            </script>
+        </div>
+    </div>
+    <!-- // 본문 -->
+</div>
+<script>
+    window.onload = function(){
+        //slide
+        var slideFn = {
+            idx : 0,
+            move : function(start,end,target){
+                target.css({
+                    'left':start,
+                    'display':'block'
+                }).stop().animate({'left':end});
+                target.parent().children('li').eq(slideFn.idx).addClass('active').siblings().removeClass('active');
+            },
+            goRight : function(target){
+                if(slideFn.idx < target.length - 1){
+                    slideFn.move(0,'-100%',$('.active'));
+                    slideFn.idx++;
+                    slideFn.move('100%',0,target.eq(slideFn.idx));
+
+                }else if(slideFn.idx >= target.length - 1){
+                    slideFn.move(0,'-100%',$('.active'));
+                    slideFn.idx = 0;
+                    slideFn.move('100%',0,target.eq(slideFn.idx));
+                }
+            },
+            goLeft : function(target){
+                if(slideFn.idx >= 1 ){
+                    slideFn.move(0,'+100%',$('.active'));
+                    slideFn.idx--;
+                    slideFn.move('-100%',0,target.eq(slideFn.idx));
+                }else if(slideFn.idx <= 0){
+                    slideFn.move(0,'+100%',$('.active'));
+                    slideFn.idx = target.length - 1;
+                    slideFn.move('-100%',0,target.eq(slideFn.idx));
+                }
+            }
+        }
+        $('.left-go').click(function(){
+            slideFn.goLeft($('.slide-box ul li'));
+        });
+        $('.right-go').click(function(){
+            slideFn.goRight($('.slide-box ul li'));
+        })
+    }
+</script>
+{% endblock %}

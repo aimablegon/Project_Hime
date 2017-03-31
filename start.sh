@@ -1,0 +1,1 @@
+export NODE_PATH=../common/node_modules&& forever start --uid ${PWD##*/} --append -w app.js

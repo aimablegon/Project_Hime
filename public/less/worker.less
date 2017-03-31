@@ -1,0 +1,229 @@
+.worker{
+    .sm-rect-btns-wrapper{
+        margin-bottom:57px;
+        font-size:0;
+        .sm-rect-btns{
+            width:49%;
+            margin-left:1%;
+            font-size:16px;
+            margin-right:0;
+        }
+        >button.margin{
+            margin-left:0;
+        }
+    }
+    .inner_title{
+        font-size: @menu-size;
+        font-weight: 600;
+    }
+    .inner_sub{
+        line-height: 20px;
+        color:#666666
+    }
+    .limit{
+        border-top:1px solid @sub-color;
+        margin-top:70px;
+        padding:70px 0 0 0;
+        text-align: center;
+        h3{
+            font-size:@summery-size;
+            font-weight: @title-weight+100;
+            color:@content-color;
+        }
+        .ad_limit{
+            font-size:0;
+            padding:25px 0;
+            >span{
+                .inlineblock();
+                vertical-align: middle;
+            }
+            .first{
+                color:@content-color;
+                font-size:@menu-size;
+                font-weight: @gnb-weight;
+                span{
+                    font-size:@summery-size;
+                    display: block;
+                    font-weight: 700;
+                }
+            }
+            .second{
+                color:@main-color;
+                font-size:@title-size+5;
+                font-weight:;
+                font-family: @font-anton;
+                &&:before{
+                    content: "";
+                    height:35px;
+                    width:106px;
+                    display: inline-block;
+                    background: url("/img/icon/multiplication.png") no-repeat 50%;
+                }
+                &&:after{
+                    content: "";
+                    height:35px;
+                    width:106px;
+                    display: inline-block;
+                    background: url("/img/icon/equal.png") no-repeat 50%;
+                }
+            }
+            .third{
+                width:140px;
+                height:140px;
+                .radius(50%);
+                background: @sub-color;
+                color:@white-color;
+                font-size:@summery-size;
+                font-weight: @title-weight+100;
+                vertical-align: middle;
+                padding-top:37px;
+            }
+        }
+        .ad_limit2{
+            .third{
+                background:@main-color;
+                line-height: 140px;
+                padding:0;
+            }
+        }
+        .cont{
+            width:623px;
+            margin:0 auto 70px;
+            text-align: left;
+            word-wrap: break-word;
+            p{
+                font-size:13px;
+            }
+
+        }
+    }
+    .prior-campany {
+        display: inline-block;
+        margin-left: 15px;
+        color:#999;
+        text-decoration: underline;
+        vertical-align: top;
+        &:hover {
+            color:@main-color;
+        }
+    }
+    .modalPopup2{
+        .modal_worker{
+          padding:20px 30px;
+          .worker_pop{
+              border-top: 1px @sub-color-second solid;
+              padding:20px 0;
+              color:@title-color;
+              position: relative;
+              &:first-child{
+                border:none;
+              }
+              .pop_text{
+                  font-size: @mobilefont-size;
+                  display: block;
+                  color:@subject-color;
+              }
+              .pop_bold{
+                  font-weight: @gnb-weight;
+                  color:@title-color;
+              }
+              .pop_num1{
+                  position: absolute;
+                  bottom: 20px;
+                  right:0;
+              }
+              .pop_num2{
+                  position: absolute;
+                  top: 20px;
+                  right:0;
+              }
+          }
+        }
+    }
+}
+
+@media (max-width: @tablet-size){
+    .worker{
+        .sm-rect-btns-wrapper{
+            .sm-rect-btns{
+                width:49.5%;
+                margin-right:0;
+            }
+            >button.margin{
+                margin-right:0;
+            }
+        }
+        .limit{
+            .ad_limit{
+                > span{
+                    display:block;
+                    margin:0 auto;
+                }
+                .second{
+                    letter-spacing: 1px;
+                    font-size: @subject-size;
+                }
+                .second:before,.second:after{
+                    display: block;
+                    margin:10px auto;
+                }
+                .third{
+                    width:100px;
+                    height:100px;
+                    padding-top:0;
+                    line-height:100px;
+                }
+            }
+            .cont{
+                width:97%;
+            }
+        }
+        .type{
+            .type1{
+                .type_top{
+                    width:100%;
+                    .img_banner{
+                        img{
+                            width:100%;
+                        }
+                    }
+                    .inner_tab_cont{
+                        .inner_cont3{
+                            .innerstep_wrap{
+                                .offline{
+                                    .offlie_step{
+                                        width:100%;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .field_Wrap{
+                    width:100%;
+                }
+            }
+            > div{
+                table{
+                    font-size:12px;
+                    tr{
+                        height:45px;
+                        th{
+                            font-size:13px
+                        }
+                    }
+                }
+                .inner_tab{
+                    ul{
+                        li{
+                            width:30%;
+                            width: 31%;
+                            margin-left:3.5%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

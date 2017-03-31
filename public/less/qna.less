@@ -1,0 +1,166 @@
+.qna{
+    .notice-wrapper{
+        width:100%;
+        background-color: @base-color;
+        padding:70px 0;
+        .tab{
+            margin-bottom:30px;
+        }
+        .notice-box{
+            .list_table{
+                // table-layout: fixed;
+                .new.icon{
+                    margin-left:5px;
+                }
+                .text-left{
+                    a{
+	                    .ellipsis();
+                    }
+                }
+                .answer{
+
+                    .apoint{
+                        font-weight: @subject-weight;
+                        color: @content-color;
+                        text-transform: uppercase;
+                        margin-right:6px;
+                    }
+                }
+            }
+            .btn-seemore{
+                margin:0 0 20px;
+                button:hover{
+                    span{
+                        background-position: -40px -250px;
+                    }
+                }
+            }
+            .search-wrapper{
+                margin: 0 0 18px;
+                float:left;
+                position:relative;
+
+                input[type="text"]{
+                    border: 0 none;
+                    box-sizing: border-box;
+                    width: 220px;
+                    padding: 6px 46px 6px 16px;
+                    .radius(20px);
+                    color:@content-sub-color;
+                }
+                input[type="submit"] {
+                    position: absolute;
+                    background-color: transparent;
+                    background-image: url(/img/icon/icon_search.png);
+                    width: 17px;
+                    height: 17px;
+                    border: 0 none;
+                    top: 7px;
+                    right: 23px;
+                    text-indent: -9999px;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    @media(max-width: @tablet-size){
+        .notice-wrapper{
+            .notice-box{
+                .list_table{
+                     table-layout:fixed ;
+                    td{
+                        text-overflow:ellipsis;
+                        overflow:hidden;
+                        img{
+                            width:45px;
+                        }
+                    }
+                }
+                .search-wrapper{
+                    margin-top:20px;
+                }
+            }
+        }
+    }
+}
+
+
+//qnaview
+.qnaView{
+    .notice-wrapper{
+        background:@base-color;
+        padding:70px 0 ;
+    }
+    .view_table{
+        table{
+            tbody{
+    			.view_cont{
+    				padding:30px 50px;
+                    text-align: left;
+    			}
+    		}
+        }
+    }
+    .btns_wrap{
+        width:1024px;
+        text-align: right;
+        color:@white-color;
+        margin:30px auto 0;
+        .change{
+            background:@sub-color;
+            border:none;
+            width:80px;
+            height:40px;
+            .inlineblock();
+        }
+        .delete{
+            background:@main-color url('/img/icon/icon_del.png') no-repeat;
+            border:none;
+            width:80px;
+            height:40px;
+            font-size:0;
+            background-position: 50%;
+        }
+    }
+    @media(max-width:@tablet-size){
+        .btns_wrap{
+            width:100%;
+        }
+    }
+}
+
+//qnawrite
+.qnaWrite{
+    .notice-wrapper{
+        padding:70px 0;
+        background:@white-color;
+    }
+    .btns{
+        font-size: 0;
+        vertical-align: top;
+        font-size: @menu-size;
+        text-align: center;
+
+        input{
+            height:44px;
+            line-height: 44px;
+            padding:0 20px;
+        }
+        input[type="submit"]{
+            color:@white-color;
+            background-color: @sub-color;
+            font-weight: @subject-weight;
+            margin-right:10px;
+            border:none;
+        }
+        input[type="reset"]{
+            background-color: #FFF;
+            border:1px @sub-color-second solid;
+        }
+    }
+    @media(max-width: @tablet-size){
+        .notice-wrapper{
+            padding-top:0;
+        }
+    }
+}

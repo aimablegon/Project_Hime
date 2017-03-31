@@ -1,0 +1,38 @@
+<div class="pagination mobile  ">
+    {% set totalPage = Math.ceil(totalCount / pageSize) %}
+
+    {% set num =  page-1 %}
+    {% set startPage = Math.floor(num / 5) * 5 + 1%}
+    {% set endPage = startPage + 4 %}
+    {% set goEnd = endPage + 1 %}
+    {% if endPage  > totalPage %}
+        {% set endPage = totalPage %}
+        {% set goEnd = endPage %}
+    {% endif %}
+
+    <a href="javascript:goPage(1)" class="first">처음</a>
+
+    {% if page > 1 %}
+        <a href="javascript:goPage({{page-1}})" class="prev">이전</a>
+    {% else %}
+        <a class="prev">이전</a>
+    {% endif %}
+    <span>
+    {% for i in Array(endPage-startPage+1) %}
+        {% set naviPage =  startPage + loop.index-1 %}
+        {% if naviPage == page %}
+            <a class="on">{{naviPage}}</a>
+        {% else %}
+            <a href="javascript:goPage({{naviPage}})">{{naviPage}}</a>
+        {% endif %}
+    {% endfor %}
+    </span>
+
+    {% if page < totalPage %}
+        <a href="javascript:goPage({{page+1}})" class="next">다음</a>
+    {% else %}
+        <a class="next">다음</a>
+    {% endif %}
+
+    <a href="javascript:goPage({{goEnd}})" class="last">마지막</a>
+</div>

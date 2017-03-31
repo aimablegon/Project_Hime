@@ -1,0 +1,231 @@
+<script type="text/javascript">
+
+angular.module('app').controller('myCtrl', ['$scope', '$rootScope', '$http', '$sce', '$stateParams', '$location', 
+	'$state', '$httpParamSerializerJQLike',
+	function($scope, $rootScope, $http, $sce, $stateParams, $location, $state, $httpParamSerializerJQLike) {
+
+		$scope.mode = $stateParams.id ? 'modify' : 'new';
+	    $scope.basePath = '#'+$location.$$path;
+	    $scope.parentPath = $location.$$path.substring(0, $location.$$path.indexOf("/detail"));
+	    $scope.data = {};
+	    
+		if($scope.mode == "modify") {
+			$http({
+				method : "POST",
+				url : "/admin/api/jobConsultant/"+$stateParams.id
+			}).success(function(data) {
+				console.log(data);
+				$scope.data = data;
+			});			
+		}
+		
+		$scope.submit = function () {
+
+			var url = "";
+			if($scope.mode == "modify") {
+				url = "/admin/api/jobConsultant/"+$stateParams.id+"/update";
+			} else {
+				url = "/admin/api/jobConsultant/insert";
+			}
+				
+			$http({
+					method : "POST",
+					url : url,
+					data: $scope.data
+			}).success(function(data) {
+
+				if($scope.mode == "modify") {
+					alert("저장되었습니다.");
+				}else {
+					$location.path($scope.parentPath);
+				}
+			});
+
+		};
+		
+	    $scope.delete = function () {
+	    	if(confirm("삭제 하시겠습니까?")) {
+
+				$http({
+					method : "POST",
+					url : "/admin/api/jobConsultant/"+$stateParams.id+'/delete',
+				}).success(function(data) {
+					$location.path($scope.parentPath);
+				});			
+
+	    	}
+	    }
+
+		$scope.removeThumb = function() {
+			$scope.data.AttachFile.delYn = 'Y';
+			$scope.data.fileUUID = null;
+		}
+		
+
+	    //listen for the file selected event
+	    $scope.$on("fileSelected", function (event, args) {
+	    	
+	    	var files = [];	
+	    	for(i=0;i<args.files.length;i++) {
+	    		files.push(args.files[i]);	
+	    	}
+	    	
+			$http({
+				method : "POST",
+				url : "/admin/api/attach",
+				headers : {'Content-Type': undefined},
+	            transformRequest: function (data, headersGetter) {
+	                var formData = new FormData();
+	                for (var i = 0; i < files.length; i++) {
+	                	formData.append("files", files[i]);
+	                }
+	                return formData;
+	            }
+			}).success(function(data) {
+				
+				for(i=0;i<data.length;i++) {
+					$scope.data.AttachFile = data[i];
+					$scope.data.fileUUID = data[i].fileUUID;
+				}
+				
+			});
+	    });
+	    
+	    $scope.sortableOptions = {
+		        containment: '#horizontal-container',
+		        //restrict move across columns. move only within column.
+		        accept: function (sourceItemHandleScope, destSortableScope) {
+		            return sourceItemHandleScope.itemScope.sortableScope.$id === destSortableScope.$id;
+		        },
+		        containerPositioning : 'relative'
+		    };
+
+	}]
+);
+
+
+</script>
+<style>
+	.form-horizontal .ignore .form-group{
+		margin-left : 0px;
+		margin-right : 0px;
+	}	
+	#horizontal-container {
+	    display: inline-block;
+	}
+	
+	#horizontal-container .as-sortable-item,
+	#horizontal-container .as-sortable-placeholder {
+	    display: inline-block;
+	    width: 152px;
+	    height: 152px;
+	    float: left;
+	    border: solid 1px darkgrey;
+	    background-color: #ffffff;
+	    margin:10px;
+	}
+	
+	#horizontal-container .sortable-row:after {
+	    content: ".";
+	    display: block;
+	    height: 0;
+	    clear: both;
+	    visibility: hidden;
+	}
+</style>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">컨설턴트</h1>
+</div>
+<div class="wrapper-md">
+	<div class="panel panel-default" ng-controller="myCtrl">
+		<div class="panel-heading">{{mode == 'modify' ? '변경' : '신규'}}</div>
+		<div class="panel-body">
+			<form class="form-horizontal" method="get" ng-submit="submit()">
+
+				<!-- <div class="form-group">
+					<label class="col-sm-2 control-label">지점</label>
+					<div class="col-sm-10">
+						<select class="input-sm form-control w-sm inline v-middle" style="min-width:200px;" required="required"
+							ng-options="branch.branchCode as branch.branchName for branch in branches2" 
+							ng-selected="data.branchCode == branch.branchCode" 
+							ng-model="data.branchCode">
+							<option value="">선택하세요</option>
+						</select>
+					</div>
+				</div> -->
+							
+				<div class="form-group">
+					<label class="col-sm-2 control-label">직책</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.position"> 
+					</div>
+				</div>
+				<!-- <div class="form-group">
+					<label class="col-sm-2 control-label">직급</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.rank"> 
+					</div>
+				</div> -->
+				<div class="form-group">
+					<label class="col-sm-2 control-label">이름</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.name" required="required"> 
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">연락처</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.tel" required="required"> 
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">이메일</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.email" required="required"> 
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">노출여부</label>
+					<div class="col-sm-10">
+						<label class="i-switch m-t-xs m-r"><input type="checkbox" ng-true-value="'Y'" ng-false-value="'N'" ng-model="data.showYn" ng-init="data.showYn = 'Y'"> <i></i></label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">사진</label>
+					<div class="col-sm-10">
+						<div class="wrapper-sm b-a bg-white m-r-xs m-b-xs">
+							<div class="bg-light">
+								<div id="horizontal-container">
+								    <div ng-show="data.AttachFile && data.AttachFile.delYn != 'Y'" style="width:150px;">
+							            <img ng-src="{{data.AttachFile.url}}" style="width:150px;vertical-align:middle;height:150px;">
+							            <button type="button" ng-click="removeThumb()" style="width:100%;" class="btn btn-default">삭제</button>
+								    </div>
+								</div>
+								<div class="bg-light text-center v-center" ng-show="!data.AttachFile || data.AttachFile.delYn == 'Y'" style="width:100%;height:150px; line-height:150px;font-size:36px">150 X 150</div>
+								<input ui-jq="filestyle" type="file" accept="image/*" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control v-middle input-s" file-upload>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+				<div class="form-group">
+					
+					<div class="col-sm-5 col-sm-offset-2">
+						
+						<button type="button" onclick="history.back()" class="btn btn-default m-r-sm">목록</a>
+						<button type="button" ng-click="delete()" class="btn btn-danger" ng-show="mode=='modify'">삭제</button>
+						
+	
+					</div>
+	
+					<div class="col-sm-5 text-right">
+						<button type="submit" class="btn btn-primary">변경사항 저장</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div> 
+</div>

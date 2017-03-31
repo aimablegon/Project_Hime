@@ -1,0 +1,294 @@
+.franchise{
+    word-break: keep-all;
+    b{
+        color:@content-color;
+        font-weight: @title-weight;
+    }
+
+    .franchise-basebox-wrapper{
+        width:100%;
+        padding:1px;
+        background-color: @base-color;
+        .title-m{
+            margin:70px 0 50px;
+        }
+        .franchise-basebox-icons{
+            .basebox-icon-box{
+                width:120px;
+
+                .basebox-contents{
+                    display:block;
+                }
+            }
+        }
+
+        .franchise-basebox-icons{
+            margin-top:35px;
+            .basebox-icon-box{
+                vertical-align: top;
+                text-align: center;
+                .inlineblock();
+                margin-bottom:20px;
+                &>span:first-child{
+                    width:100px;
+                    height:67px;
+                    .inlineblock();
+
+                }
+                img{
+                    .inlineblock();
+                }
+                &:first-child+span.basebox-icon-box{
+                    width:110px;
+                }
+                &:first-child+.basebox-icon-box+span.basebox-icon-box{
+                    width:125px;
+                }
+                &:first-child+.basebox-icon-box+.basebox-icon-box+.basebox-icon-box+span.basebox-icon-box{
+                    width:130px;
+                }
+                .basebox-contents{
+                    font-weight: @gnb-weight;
+                    color:@content-color;
+                }
+            }
+        }
+    }
+    .processInfo-wrapper{
+        .title-m{
+            margin:40px 0 30px;
+        }
+        .process-box{
+            width:100%;
+            height:640px;
+            padding:70px 0;
+            // background: url('../img/site_img/bg_franchise.jpg') no-repeat center center;
+            background-size: cover;
+
+            &>div{
+                .roundbox{
+                    width:140px;
+                    height:140px;
+                    position:relative;
+                    padding:0;
+                    &.pull-left{
+                        margin-left: 94px;
+                        margin-bottom:100px;
+                    }
+                    &.pull-right{
+                        margin-right: 94px;
+                        margin-bottom:70px;
+                    }
+                    &>div{
+                        display:table;
+                        width:140px;
+                        height: 140px;
+                        >div{
+                            display: table-cell;
+                            vertical-align: middle;
+                            text-align: center;
+                            .radius(50%);
+                            background:#252e33;
+                        }
+
+                        .roundbox-title{
+                            font-size:20px;
+                            font-weight: @title-weight;
+                            color:@white-color;
+                            display:block;
+                            .num{
+                                color:@main-color;
+                            }
+                        }
+                        .roundbox-content{
+                            font-size:@menu-size;
+                            color:@white-color;
+                            display:block;
+                        }
+                    }
+                    &:first-child:after,&:first-child+li:after,&:first-child+li+li:after{
+                        content:"";
+                        .inlineblock();
+                        width:72px;
+                        height:32px;
+                        background: url('../img/icon/francise_gray.png') no-repeat center center;
+                        position:absolute;
+                        right:-81px;
+                        top:39%;
+                    }
+                    &:first-child+li+li+li:after{
+                        content:"";
+                        .inlineblock();
+                        width:32px;
+                        height:72px;
+                        background: url('../img/icon/francise_gray2.png') no-repeat center center;
+                        position:absolute;
+                        right:47px;
+                        bottom:-80px;
+                    }
+                    &:first-child+li+li+li+li:after,&:first-child+li+li+li+li+li:after,&:first-child+li+li+li+li+li+li:after{
+                        content:"";
+                        .inlineblock();
+                        width:72px;
+                        height:32px;
+                        background: url('../img/icon/francise_gray3.png') no-repeat center center;
+                        position:absolute;
+                        right:154px;
+                        top:39%;
+                    }
+                }
+            }
+        }
+    }
+    .btn_wrap{
+        clear:both;
+        .arrow_nay_btn{
+            width:220px;
+            height:55px;
+            line-height: 38px;
+            .icon{
+                margin-top:10px;
+            }
+        }
+    }
+    .modalPopup{
+        .modal-body {
+            padding:40px;
+        }
+        .agree-box{
+            height:130px;
+            padding:10px 10px;
+            overflow-y:scroll;
+            color:@content-color;
+            border:1px @sub-color-second solid;
+        }
+        .checkbox{
+            margin-bottom:0;
+            text-align: right;
+            color:@white-color;
+        }
+        input[type="checkbox"]#agreeCheck{
+            height:auto;
+            width:auto;
+            margin-left:0;
+        }
+        .btns{
+            vertical-align: top;
+            margin-top:40px;
+        }
+    }
+    .btn-red{
+        background-color: @main-color;
+        color:@white-color;
+    }
+    .btn-black{
+        background-color: @sub-color;
+        color:@white-color;
+    }
+    .btn-sm{
+        width:100px;
+        font-size:@menu-size;
+        font-weight: @subject-weight;
+        .inlineblock();
+        .radius(0px);
+        border:none;
+    }
+    #agreeCheck+label{
+        font-size: 14px;
+        text-indent: 0;
+        position: static;
+    }
+    @media(max-width:@tablet-size){
+        .processInfo-wrapper{
+            .process-box{
+                height: auto;
+                &>div{
+                    .roundbox{
+                        &.pull-left,&.pull-right{
+                            margin:0 0 40px 0;
+                            float:left !important;
+                            width:25%;
+                            >div{
+                                margin:0 auto;
+                                width: 108px;
+                                height:108px;
+                            }
+                        }
+                        &:first-child:after,&:first-child+li:after,&:first-child+li+li:after{
+                            width: 21px;
+                            height: 26px;
+                            background: url('../img/icon/francise_gray.png') no-repeat -50px 50%;
+                            right: -10px;
+                            top: 31%;
+                        }
+                        &:first-child+li+li+li:after{
+                            width: 26px;
+                            height: 20px;
+                            background: url('../img/icon/francise_gray2.png') no-repeat 0 -50px;
+                            bottom:-14px;
+                            right: 50%;
+                            margin-right: -13px;
+
+                        }
+                        &:first-child+li+li+li+li:after,&:first-child+li+li+li+li+li:after,&:first-child+li+li+li+li+li+li:after{
+                            width: 21px;
+                            height: 26px;
+                            background: url('../img/icon/francise_gray3.png') no-repeat -1px 50%;
+                            right: -10px;
+                            top: 31%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @media(max-width:550px){
+        .processInfo-wrapper{
+            .process-box{
+                &>div{
+                    .roundbox{
+                        &:first-child:after,&:first-child+li:after,&:first-child+li+li:after,&:first-child+li+li+li:after,&:first-child+li+li+li+li:after,&:first-child+li+li+li+li+li:after,&:first-child+li+li+li+li+li+li:after{
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+        .btn_wrap{
+            .arrow_nay_btn{
+                width: 150px;
+                height:37px;
+                border-top: 2px solid @main-color;
+                background:none;
+                color: @main-color;
+                padding:0;
+                font-size:@mobilefont-smallsize;
+                background:url('../img/icon/franchise_btnicon.png') no-repeat right 50%;
+                span{
+                    display: none;
+                }
+            }
+        }
+    }
+    @media(max-width: @mobile-size){
+        .processInfo-wrapper{
+            .process-box{
+                &>div{
+                    .roundbox{
+                        &.pull-left,&.pull-right{
+                            width:50%;
+                            >div{
+                                margin:0 auto;
+                                width: 120px;
+                                height: 120px;
+                            }
+                        }
+                        &:first-child:after,&:first-child+li:after,&:first-child+li+li:after,&:first-child+li+li+li:after,&:first-child+li+li+li+li:after,&:first-child+li+li+li+li+li:after,&:first-child+li+li+li+li+li+li:after{
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

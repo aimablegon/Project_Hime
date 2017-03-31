@@ -1,0 +1,38 @@
+
+.inlineblock(){
+    display: inline-block;
+    *display:inline;
+    *zoom:1;
+    font-size:initial;
+}
+
+.ellipsis(){
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width:99%;
+}
+
+.radius(@r:5px){
+    -webkit-border-radius:@r;
+    -moz-border-radius:@r;
+    border-radius:@r;
+    // behavior: url(/htc/PIE.htc);
+}
+
+.box-sizing(){
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.inlineblockIm(){
+    display: inline-block !important;
+    *display:inline !important;
+    *zoom:1;
+    font-size:initial;
+}
+
+.text-center(){
+    text-align: center;
+}

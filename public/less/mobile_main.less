@@ -1,0 +1,33 @@
+// @media (max-width: 700px){
+//     body {
+//         -moz-transform: scale(0.5, 0.5);
+//        zoom: 0.5;
+//        zoom: 50%;
+//     }
+// }
+
+@media (max-width: 1023px){
+    body{
+        width:100%;
+        min-width:320px;
+        -moz-transform: scale(1, 1); /* Moz-browsers */
+        zoom: 1; /* Other non-webkit browsers */
+        zoom: 100%; /* Webkit browsers */
+    }
+
+
+    .modalPopup{
+        .modal-title{
+            padding:10px 3%;
+            line-height: 40px;
+            .title-box{
+                font-size:@summery-size;
+            }
+            .close-box{
+                i{
+                    margin-left:10px;
+                }
+            }
+        }
+    }
+}

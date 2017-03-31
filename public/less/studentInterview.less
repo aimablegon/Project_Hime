@@ -1,0 +1,62 @@
+.studentInterview{
+    word-break: keep-all;
+    .studentInterview_wrap{
+        width:1024px;
+        margin:0 auto;
+        padding-top:40px;
+        ul{
+            li{
+                width:230px;
+                float:left;
+                height:305px;
+                margin:0 34px 34px 0;
+                a{
+                    position:relative;
+                    display:block;
+                    img{
+                        width:100%;
+                    }
+                    div{
+                        height: 140px;
+                        background:@sub-color;
+                        position: relative;
+                        width:100%;
+                        padding:25px 30px;
+                        font-weight:@title-weight;
+                        color:@white-color;
+                        .campus{
+                            position: absolute;
+                            display:block;
+                            width:80px;
+                            height:28px;
+                            top:-13px;
+                            background:#F2DAAC;
+                            line-height: 28px;
+                            text-align: center;
+                            left:72px;
+                            font-size:14px;
+                            color:@content-color;
+                        }
+                        .name{
+                            font-size:18px;
+                        }
+                        .white_bar{
+                            height:2px;
+                            width:30px;
+                            display:block;
+                            background:@white-color;
+                            margin:10px 0 5px;
+                        }
+                        .text{
+                            font-size:13px;
+                            font-weight: @subject-weight;
+                        }
+                    }
+                    &&:hover{
+                        div{background:@main-color;}
+                    }
+                }
+            }
+        }
+    }
+}

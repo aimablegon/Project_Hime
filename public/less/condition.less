@@ -1,0 +1,132 @@
+.condition{
+
+    p.himedia{
+        font-size:@menu-size;
+        letter-spacing: 8px;
+        background:url('/img/site_img/condition_bg.png') no-repeat 0 bottom;
+        display:block;
+        margin:0 auto;
+        width:220px;
+        height:48px;
+        text-align: center;
+    }
+    p.title{
+        text-align: center;
+        font-size:@subject-size;
+        font-weight:@title-weight;
+        line-height: 28px;
+        color:@content-color;
+        padding-top:26px;
+    }
+    p.cong{
+        font-size:@summery-size;
+        text-align: center;
+        margin-top:5px;
+    }
+    p.num{
+        background:url('/img/site_img/condition_numbg.png') no-repeat;
+        display:block;
+        margin:48px auto 15px;
+        width:190px;
+        height:180px;
+        text-align: center;
+        line-height: 180px;
+        font-size:50px;
+        font-weight: 700;
+        color:@content-color;
+    }
+    p.accumulate{
+        font-size:@menu-size;
+        color:#222222;
+        line-height: 25px;
+        text-align: center;
+    }
+    form{
+        .condition_top{
+            text-align: center;
+            margin:65px 0 70px;
+            select{
+                width:145px;
+                height:36px;
+            }
+        }
+        .condition_bg{
+            background:@base-color;
+            padding:70px 0 0 0;
+        }
+        .condition_table{
+            margin-bottom:70px;
+            text-align: center;
+            font-size:13px;
+            background:@white-color;
+            caption{
+                margin:0;
+                padding:0;
+                height:0;
+                width:0;
+            }
+            th{
+                height:50px;
+                text-align: center;
+                background: @sub-color;
+                color:@white-color;
+            }
+            tbody{
+                .lists{
+                    cursor: pointer;
+                }
+                tr{
+                    border-top:1px solid @base-color;
+                    &&:first-child{border-top:0;}
+                }
+                td{
+                    height:50px;
+                }
+            }
+        }
+    }
+
+    .modalPopup2 {
+        height: 495px;
+        // .modal-title {
+        //     font-size: @subject-size;
+        //
+        //     div {
+        //         display: inline-block;
+        //         line-height: 55px;
+        //     }
+        //     .close-box {
+        //         float: right;
+        //         line-height: 49px;
+        //     }
+        // }
+        .modal-body{
+            padding-top: 40px;
+            padding-bottom: 0px;
+        }
+        .comment{
+            font-size: @summery-size;
+        }
+        .btns{
+            margin:60px 0 40px;
+        }
+    }
+    @media(max-width:@tablet-size){
+        p.title{
+            font-size:@menu-size+3;
+        }
+        form{
+            .condition_top{
+                select{
+                    margin-right:0;
+                    width:97px;
+                }
+            }
+        }
+        .modalPopup2{
+            .comment{
+                font-size:@mobilefont-size;
+            }
+        }
+    }
+}

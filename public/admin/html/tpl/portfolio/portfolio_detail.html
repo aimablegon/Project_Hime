@@ -1,0 +1,315 @@
+<script type="text/javascript">
+
+angular.module('app').controller('myCtrl', ['$scope', '$rootScope', '$http', '$sce', '$stateParams', '$location',
+	'$state', '$httpParamSerializerJQLike',
+	function($scope, $rootScope, $http, $sce, $stateParams, $location, $state, $httpParamSerializerJQLike) {
+
+		$scope.mode = $stateParams.id ? 'modify' : 'new';
+	    $scope.basePath = '#'+$location.$$path;
+	    $scope.parentPath = $location.$$path.substring(0, $location.$$path.indexOf("/detail"));
+	    $scope.data = {
+	    	AttachSets : []
+	    }
+
+		if($scope.mode == "modify") {
+			$http({
+				method : "POST",
+				url : "/admin/api/portfolio/"+$stateParams.id
+			}).success(function(data) {
+				console.log(data);
+				$scope.data = data;
+			});
+		}
+
+		$scope.submit = function () {			
+			var url = "";
+			if($scope.mode == "modify") {
+				url = "/admin/api/portfolio/"+$stateParams.id+"/update";
+			} else {
+				url = "/admin/api/portfolio/insert";
+			}
+
+			$http({
+					method : "POST",
+					url : url,
+					data: $scope.data
+			}).success(function(data) {
+
+				if($scope.mode == "modify") {
+					alert("저장되었습니다.");
+				}else {
+					$location.path($scope.parentPath);
+				}
+			});
+
+		};
+
+		$scope.removeImage = function(index) {
+			$scope.data.AttachSets[index].delYn = 'Y';
+		}
+
+		$scope.removeThumb = function() {
+			$scope.data.AttachFile.delYn = 'Y';
+			$scope.data.fileUUID = null;
+		}
+
+
+
+	    //listen for the file selected event
+	    $scope.$on("fileSelected", function (event, args) {
+
+	    	var files = [];
+	    	for(i=0;i<args.files.length;i++) {
+	    		files.push(args.files[i]);
+	    	}
+
+			$http({
+				method : "POST",
+				url : "/admin/api/attach",
+				headers : {'Content-Type': undefined},
+	            transformRequest: function (data, headersGetter) {
+	                var formData = new FormData();
+	                for (var i = 0; i < files.length; i++) {
+	                	formData.append("files", files[i]);
+	                }
+	                return formData;
+	            }
+			}).success(function(data) {
+
+				if(args.multiple) {
+					for(i=0;i<data.length;i++) {
+						$scope.data.AttachSets.push(data[i]);
+					}
+				} else {
+					for(i=0;i<data.length;i++) {
+						$scope.data.AttachFile = data[i];
+						$scope.data.fileUUID = data[i].fileUUID;
+					}
+				}
+
+
+			});
+	    });
+
+
+
+	    $scope.delete = function () {
+
+	    	if(confirm("삭제 하시겠습니까?")) {
+
+				$http({
+					method : "POST",
+					url : "/admin/api/portfolio/"+$stateParams.id+'/delete',
+				}).success(function(data) {
+					$location.path($scope.parentPath);
+				});
+
+	    	}
+
+	    }
+
+	    $scope.sortableOptions = {
+	        containment: '#horizontal-container',
+	        //restrict move across columns. move only within column.
+	        accept: function (sourceItemHandleScope, destSortableScope) {
+	            return sourceItemHandleScope.itemScope.sortableScope.$id === destSortableScope.$id;
+	        },
+	        containerPositioning : 'relative'
+	    };
+
+	    $scope.list = function () {
+	    	if(window.history.length == 1) {
+	    		$location.path($scope.parentPath);	
+	    	} else {
+	    		history.back();
+	    	}
+	    }
+
+	}]
+);
+
+angular.module('app').directive('fileUpload', function () {
+    return {
+        scope: true,        //create a new scope
+        link: function (scope, el, attrs) {
+            el.bind('change', function (event) {
+                scope.$emit("fileSelected", { files: event.target.files, multiple : attrs.multiple  });
+                el.val(null);
+            });
+
+        }
+    };
+});
+
+
+</script>
+<style>
+	.form-horizontal .ignore .form-group{
+		margin-left : 0px;
+		margin-right : 0px;
+	}
+
+	#horizontal-container {
+	    display: inline-block;
+	}
+
+	#horizontal-container .as-sortable-item,
+	#horizontal-container .as-sortable-placeholder {
+	    display: inline-block;
+	    width: 742px;
+	    height: 100%;
+	    float: left;
+	    border: solid 1px darkgrey;
+	    background-color: #ffffff;
+	    margin:10px;
+	}
+
+	#horizontal-container .sortable-row:after {
+	    content: ".";
+	    display: block;
+	    height: 0;
+	    clear: both;
+	    visibility: hidden;
+	}
+
+	#horizontal-container {
+	    display: inline-block;
+	}
+
+	#horizontal-container2 .as-sortable-item,
+	#horizontal-container2 .as-sortable-placeholder {
+	    display: inline-block;
+	    width: 1026px;
+	    height: 100%;
+	    float: left;
+	    border: solid 1px darkgrey;
+	    background-color: #ffffff;
+	    margin:10px;
+	}
+
+	#horizontal-container2 .sortable-row:after {
+	    content: ".";
+	    display: block;
+	    height: 0;
+	    clear: both;
+	    visibility: hidden;
+	}
+
+</style>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">포트폴리오 관리</h1>
+</div>
+<div class="wrapper-md">
+	<div class="panel panel-default" ng-controller="myCtrl">
+		<div class="panel-heading">포트폴리오</div>
+		<div class="panel-body">
+			<form class="form-horizontal" method="get" ng-submit="submit()">
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">지점</label>
+					<div class="col-sm-10">
+						<select class="input-sm form-control w-sm inline v-middle" style="min-width:200px;" required="required"
+							ng-options="branch.branchCode as branch.branchName for branch in branches2"
+							ng-selected="data.branchCode == branch.branchCode"
+							ng-model="data.branchCode">
+							<option value="">선택하세요</option>												
+						</select>
+						
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">수료과정명</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.courseName" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">분야</label>
+					<div class="col-sm-10">
+						<select class="input-sm form-control w-sm inline v-middle" style="min-width:200px;"
+							ng-options="items.codeId as items.codeName for items in codes.PORTFOLIO_FIELD.list"
+							ng-selected="data.portfolioField == items.codeId"
+							ng-model="data.portfolioField" required="required">
+							<option value="">선택하세요</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">분류</label>
+					<div class="col-sm-10">
+						<select class="input-sm form-control w-sm inline v-middle" style="min-width:200px;"
+							ng-options="items.codeId as items.codeName for items in codes.PORTFOLIO_TYPE.list"
+							ng-selected="data.portfolioType == items.codeId"
+							ng-model="data.portfolioType" required="required">
+							<option value="">선택하세요</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">이름</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.name" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">URL</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.url"> 
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">메인 사진(썸네일)</label>
+					<div class="col-sm-10">
+						<div class="wrapper-sm b-a bg-white m-r-xs m-b-xs">
+							<div class="bg-light">
+								<div>
+								    <div ng-show="data.AttachFile && data.AttachFile.delYn != 'Y'">
+							            <img ng-src="{{data.AttachFile.url}}" style="width:1024px;vertical-align:middle;height:370px;">
+							            <button type="button" ng-click="removeThumb()" style="width:100%;" class="btn btn-default">삭제</button>
+								    </div>
+								</div>
+								<div class="bg-light text-center v-center" ng-show="!data.AttachFile || data.AttachFile.delYn == 'Y'" style="width:1024px;height:370px; line-height:370px;font-size:36px">1024 X 370</div>
+								<input ui-jq="filestyle" type="file" accept="image/*" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control v-middle input-s" file-upload>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">사진</label>
+					<div class="col-sm-10">
+						<div class="wrapper-sm b-a bg-white m-r-xs m-b-xs">
+							<div class="bg-light">
+								<div id="horizontal-container">
+								    <div class="sortable-row" as-sortable="sortableOptions" data-ng-model="data.AttachSets">
+								        <div ng-repeat="attachFile in data.AttachSets" as-sortable-item ng-show="attachFile.delYn != 'Y'">
+								            <img ng-src="{{attachFile.url}}" as-sortable-item-handle style="width:740px;vertical-align:middle;height:auto;">
+								            <button type="button" ng-click="removeImage($index)" style="width:100%;" class="btn btn-default">삭제</button>
+								        </div>
+								    </div>
+								</div>
+								<div class="bg-light text-center v-center" ng-show="data.AttachSets.length == 0" style="width:1024px;height:370px; line-height:370px;font-size:36px">740 X 500+</div>
+								<input ui-jq="filestyle" type="file" accept="image/*" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control v-middle input-s" file-upload multiple="multiple">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+				<div class="form-group">
+
+					<div class="col-sm-5 col-sm-offset-2">
+
+						<button type="button" ng-click="list()" class="btn btn-default m-r-sm">목록</a>
+						<button type="button" ng-click="delete()" class="btn btn-danger" ng-show="mode=='modify'">삭제</button>
+
+
+					</div>
+
+					<div class="col-sm-5 text-right">
+						<button type="submit" class="btn btn-primary">변경사항 저장</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,387 @@
+<script type="text/javascript">
+
+angular.module('app').controller('myCtrl', ['$scope', '$rootScope', '$http', '$sce', '$stateParams', '$location', '$timeout',
+	'$state', '$httpParamSerializerJQLike',
+	function($scope, $rootScope, $http, $sce, $stateParams, $location, $state, $httpParamSerializerJQLike, $timeout) {
+
+		$scope.mode = $stateParams.id ? 'modify' : 'new';
+	    $scope.basePath = '#'+$location.$$path;
+	    $scope.parentPath = $location.$$path.substring(0, $location.$$path.indexOf("/detail"));
+	    $scope.branchCode = $stateParams.branchCode;
+	    
+	    console.log($stateParams);
+
+		if($scope.mode == "modify") {
+			$http({
+				method : "POST",
+				url : "/admin/api/branchCourse/"+$stateParams.id,
+				data : {
+					branchCode : $stateParams.branchCode == "" ? "himedia" : $stateParams.branchCode  
+				}
+			}).success(function(data) {
+				console.log(data);
+				$scope.data = data;
+				$scope.data.curriculum = JSON.parse($scope.data.BranchCourse.curriculumJson);
+			});
+		}
+
+		$scope.submit = function () {
+			!$scope.data.BranchCourse.bestYn ? $scope.data.BranchCourse.bestYn = 'N' : '';
+			!$scope.data.BranchCourse.starYn ? $scope.data.BranchCourse.starYn = 'N' : '';
+		
+			var url = "";
+			if($scope.mode == "modify") {
+				url = "/admin/api/branchCourse/"+$stateParams.id+"/update";
+			} else {
+				url = "/admin/api/branchCourse/insert";
+			}
+				
+			$scope.data.BranchCourse.curriculumJson = JSON.stringify($scope.data.curriculum);
+
+			$http({
+					method : "POST",
+					url : url,
+					data: $scope.data
+			}).success(function(data) {
+
+				if($scope.mode == "modify") {
+					alert("저장되었습니다.");
+				}else {
+					$location.path($scope.parentPath);
+				}
+			});
+
+		};
+
+		$scope.delete = function () {
+
+	    	if(confirm("삭제 하시겠습니까?")) {
+
+				$http({
+					method : "POST",
+					url : "/admin/api/branchCourse/"+$stateParams.id+'/delete',
+					data : {
+						branchCode : $stateParams.branchCode
+					}
+				}).success(function(data) {
+					$location.path($scope.parentPath);
+				});
+
+	    	}
+
+	    }
+
+	    $scope.list = function () {
+	    	if(window.history.length == 1) {
+	    		$location.path($scope.parentPath);	
+	    	} else {
+	    		history.back();
+	    	}
+	    }
+	    
+
+ 	    $scope.imageUpload = function(files, args) {
+			$http({
+					method : "POST",
+					url : "/admin/api/upload",
+					headers : {'Content-Type': undefined},
+		            transformRequest: function (data, headersGetter) {
+		                var formData = new FormData();
+		                for(var i = 0 ; i < files.length ; i++) {
+		                	formData.append("files", files[i]);
+		                }
+		                return formData;
+		            }
+			}).success(function(data) {
+				for(var i = 0; i < data.length ;i++) {
+					console.log(data[i].path);
+					console.log(args);
+					$scope[args].summernote("editor.insertImage", data[i].path);	
+				}
+			});
+	    }
+ 	    
+		$scope.addCurriculum = function (item, node) {
+			if(node) {
+				item.items.splice(item.items.indexOf(node)+1, 0, {
+					title : ""
+				});
+			} else {
+				$scope.data.curriculum.splice( $scope.data.curriculum.indexOf(item)+1, 0, {
+					title : "",
+					items : [ { title : ""} ]
+				});
+			}
+		}
+		
+		$scope.removeCurriculum = function (item, node) {
+			if(node) {
+				item.items.splice(item.items.indexOf(node), 1);
+			} else {
+				$scope.data.curriculum.splice( $scope.data.curriculum.indexOf(item), 1);
+			}
+		}
+		
+		$scope.upCurriculum = function (item, node) {
+			if(node) {
+				var n = item.items.indexOf(node);
+				item.items.splice(n, 1);
+				item.items.splice(n-1, 0, node);
+			} else {
+				var n = $scope.data.curriculum.indexOf(item);
+				$scope.data.curriculum.splice(n, 1);
+				$scope.data.curriculum.splice(n-1, 0, item);
+			}
+		}
+		
+		$scope.downCurriculum = function (item, node) {
+			if(node) {
+				var n = item.items.indexOf(node);
+				item.items.splice(n, 1);
+				item.items.splice(n+1, 0, node);
+			} else {
+				var n = $scope.data.curriculum.indexOf(item);
+				$scope.data.curriculum.splice(n, 1);
+				$scope.data.curriculum.splice(n+1, 0, item);
+			}
+		}
+		
+		$scope.changeCheckAllBranch = function () {
+			
+			if($scope.checkAllBranch) {
+				
+				$scope.data.BranchCourses = [ { branchCode : 'himedia'}];
+				for(i=0;i<$scope.branches.length;i++) {
+					$scope.data.BranchCourses.push({
+						branchCode : $scope.branches[i].branchCode
+					});
+				}	
+			} else {
+				$scope.data.BranchCourses = [ { branchCode : 'himedia'}];
+			}
+			
+		};
+		
+		
+		$scope.changeBest = function () {
+			if($scope.data.BranchCourse.bestYn == 'N') {
+				$scope.data.BranchCourse.starYn = 'N';
+			}
+		}
+		
+		$scope.changeStar = function () {
+			if($scope.data.BranchCourse.starYn == 'Y') {
+				$scope.data.BranchCourse.bestYn = 'Y';
+			}
+		}
+
+
+	}]
+);
+</script>
+<style>
+	.form-horizontal .ignore .form-group{
+		margin-left : 0px;
+		margin-right : 0px;
+	}
+</style>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">지점별 과정 관리</h1>
+</div>
+<div class="wrapper-md">
+	<div class="panel panel-default" ng-controller="myCtrl">
+		<div class="panel-heading">정보</div>
+		<div class="panel-body">
+			<br />
+			<div class="text-center"><h4>과정 상세정보</h4></div>
+			<br />
+			<form class="form-horizontal" method="get" ng-submit="submit()">
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">분야</label>
+					<div class="col-sm-10">
+						<p class="form-control-static">{{fieldNames[data.fieldId]}}</p>
+					</div>
+				</div>
+							
+				<div class="form-group">
+					<label class="col-sm-2 control-label">분류</label>
+					<div class="col-sm-10">
+						<p class="form-control-static">{{codeNames[data.courseType]}}</p>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">과정명</label>
+					<div class="col-sm-10">
+						<p class="form-control-static">{{data.courseName}}</p>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">지점</label>
+					<div class="col-sm-10">
+						<p class="form-control-static">{{branchCode == 'himedia' ? '미할당' : branchNames2[data.BranchCourse.branchCode]}}</p>
+					</div>
+				</div>				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">부제목</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.BranchCourse.branchTitle">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">개강일</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.BranchCourse.openDate">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">모집인원</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.BranchCourse.recruitmentPersons" required="required">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">교육기간</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.BranchCourse.periodEducation" >
+					</div>
+				</div>
+				
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">수강료</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.BranchCourse.price">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">수강료-구직자</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.BranchCourse.priceJobSeeker">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">수강료-비정규직</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.BranchCourse.priceAtypicalJob">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">수강료-정규직</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.BranchCourse.priceStandardJob">
+					</div>
+				</div>
+				
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">커리큘럼</label>
+					<div class="col-sm-10" ng-init="data.curriculum = [{'title':'', items : [{'title':''}]}]" >
+
+						<div class="row m-b-sm" ng-repeat="item in data.curriculum">
+						
+							<div class="col-sm-6">
+								<div class="input-group">
+									<input type="text" class="form-control" ng-model="item.title" >
+									<span class="input-group-btn">
+                						<button class="btn btn-success btn-icon" type="button" ng-click="addCurriculum(item)"><i class="fa fa-plus"></i></button>
+                						<button class="btn btn-danger btn-icon" type="button" ng-click="removeCurriculum(item)"  ng-disabled="$index==0"><i class="fa fa-minus"></i></button>
+                						<button class="btn btn-default btn-icon" type="button" ng-click="upCurriculum(item)" ng-disabled="$index==0"><i class="fa fa-arrow-circle-up"></i></button>
+                						<button class="btn btn-default btn-icon" type="button" ng-click="downCurriculum(item)" ng-disabled="$index==data.curriculum.length-1"><i class="fa fa-arrow-circle-down"></i></button>
+              						</span>
+									
+								</div>
+							</div>
+						
+							<div class="col-sm-6">
+								<div class="input-group m-b-sm" ng-repeat="node in item.items">	
+									<input type="text" class="form-control" ng-model="node.title" />
+									<span class="input-group-btn">
+                						<button class="btn btn-success btn-icon" type="button" ng-click="addCurriculum(item,node)"><i class="fa fa-plus"></i></button>
+                						<button class="btn btn-danger btn-icon" type="button" ng-click="removeCurriculum(item,node)" ng-disabled="$index==0"><i class="fa fa-minus"></i></button>
+                						<button class="btn btn-default btn-icon" type="button" ng-click="upCurriculum(item,node)" ng-disabled="$index==0"><i class="fa fa-arrow-circle-up"></i></button>
+                						<button class="btn btn-default btn-icon" type="button" ng-click="downCurriculum(item,node)" ng-disabled="$index==item.items.length-1"><i class="fa fa-arrow-circle-down"></i></button>
+              						</span>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+				<br />
+				<div class="text-center"><h4>베스트/스타 과정 설정</h4></div>
+				<br />
+				<div class="form-group">
+					<label class="col-sm-2 control-label">베스트 과정 여부</label>
+					<div class="col-sm-10">
+						<label class="i-switch m-t-xs m-r"><input type="checkbox" ng-true-value="'Y'" ng-false-value="'N'" ng-model="data.BranchCourse.bestYn" ng-init="data.BranchCourse.bestYn = 'N'" ng-change="changeBest()"> <i></i></label>						
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">스타 과정 여부</label>
+					<div class="col-sm-10">
+						<label class="i-switch m-t-xs m-r"><input type="checkbox" ng-true-value="'Y'" ng-false-value="'N'" ng-model="data.BranchCourse.starYn" ng-init="data.BranchCourse.starYn = 'N'" ng-change="changeStar()"> <i></i></label>						
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">대표 정보</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.BranchCourse.titleInfo">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">대표 부가정보</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.BranchCourse.titleSubInfo">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">가격 정보</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.BranchCourse.priceInfo">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">가격 부가정보</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.BranchCourse.priceSubInfo">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">수강시간 (Hour)</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.BranchCourse.courseTime">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">수강시간 (Month)</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.BranchCourse.courseMonth">
+					</div>
+				</div>
+				
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+								
+				<div class="form-group">
+
+					<div class="col-sm-5 col-sm-offset-2">
+
+						<button type="button" ng-click="list()" class="btn btn-default m-r-sm">목록</a>
+						<button type="button" ng-click="delete()" class="btn btn-danger" ng-show="mode=='modify' && branchCode != 'himedia'">삭제</button>
+						
+					</div>
+
+					<div class="col-sm-5 text-right">
+						<button type="submit" class="btn btn-primary" ng-show="mode=='modify' && branchCode != ''">변경사항 저장</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

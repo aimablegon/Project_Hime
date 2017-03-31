@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>웹퍼블리셔 김범영입니다</title>
+    <meta name="description" content="Publisher Developer Portfolio" />
+    <meta name="keywords" content="Publisher, Developer, Frontend, Portfolio, UI, UX, Html5 Css3, Jquey, Javascript, 웹표준, 웹접근성, bootstarp, angular" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ============= Favicon ============== -->
+    <!-- Standard -->
+    <link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">
+    <!-- Retina iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="144x144" href="http://placehold.it/144.png/000/fff">
+    <!-- Retina iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="114x114" href="http://placehold.it/114.png/000/fff">
+    <!-- Standard iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
+    <!-- Standard iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
+
+    <!-- ============= 폰트 ============= -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="./portfolio/css/font-jua.css" type="text/css">
+
+    <!-- ========== 폰트 아이콘 CSS ========== -->
+    <link rel="stylesheet" href="./portfolio/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./portfolio/css/Glyphter.css" type="text/css">
+
+    <!-- ========== Contact 애니메이션 ========== -->
+    <link rel="stylesheet" href="./portfolio/css/animate.min.css">
+
+    <!-- ========== Bootstrap core CSS ========== -->
+    <link rel="stylesheet" href="./portfolio/css/bootstrap.css">
+
+    <!-- ========== Style CSS ========== -->
+    <link rel="stylesheet" href="./portfolio/css/style.css">
+
+    <!-- ========== 반응형 ======= -->
+    <link rel="stylesheet" href="./portfolio/css/responsive.css">
+
+    <!-- Modernizr -->
+    <script src="./portfolio/js/modernizr.js"></script>
+
+    <!-- Jquery 1.12.4 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <style type="text/css">
+        .translator{
+            display:none;
+        }
+        .Fst,
+        .Thr {
+            font-style: normal;
+        }
+
+        .open-about-btn,
+        .open-contact-btn,
+        .open-aboutMe-btn {
+            font-size: 18px;
+            font-weight: normal;
+        }
+
+        .notify {
+            font-style: normal;
+        }
+    </style>
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+                <p class="browserupgrade">방문자님께서는 <strong>오래된 버전의</strong> 브러우저를 사용하고 계십니다. 브라우저를 <a href="http://browsehappy.com/">업그레이드</a> 하셔야 정상적인 화면을 볼 수 있습니다.</p>
+            <![endif]-->
+
+    <!-- 로딩 -->
+    <div class="preloader">
+        <div id="preloader_1">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <!-- 비디오 -->
+    <video autoplay="" id="bgvid" onended="run();" muted="">
+    			<source src="./portfolio/images/myintro.mp4" type="video/mp4">
+			</video>
+
+    <!-- ======= Start ======= -->
+    <section>
+        <div class="container-fluid no-padding">
+            <div class="row">
+                <div class="col-lg-6 col-md-6  col-sm-6 col-xs-12 no-padding">
+                    <div class="home-left">
+                        <div class="card effect__click home">
+                            <div class="card__front black-bg">
+                                <div class="social-icon">
+                                    <ul>
+                                        <li class="facebook"><a><i class="fa fa-facebook"><span>페이스북</span></i></a></li>
+                                        <li class="twitter"><a><i class="fa fa-twitter"><span>트위터</span></i></a></li>
+                                    </ul>
+                                    <span id="sns_mes">준비중입니다</span>
+                                </div>
+
+
+                                <div class="left-content">
+                                    <div class="logo">
+
+
+                                    </div>
+
+                                    <h1><p class="home-content"><span class="Fst">안녕하세요!</span><br><span class="Sec">김범영의 포트폴리오 페이지입니다 </span><br><span class="Thr">저는 코딩을 사랑하는 웹 퍼블리셔입니다</span></p></h1>
+                                    <a class="open-about-btn">포트폴리오</a>
+                                    <a class="open-contact-btn" id="contact-map" href="#animatedModal">연락하기</a>
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="card__back">
+                                <div class="about-body">
+
+                                    <div class="close-about-btn" onclick="closeP();">
+                                        <i class="fa fa-close"></i>
+                                    </div>
+
+
+                                    <div class="about-title">
+                                        <h2 style="color:#333;font-size:35px;">포트폴리오</h2>
+                                        <span class="line"></span>
+                                    </div>
+                                    <div class="about-wrap-wrap">
+                                        <div class="about-wrap">
+                                            <div class="about-content row" tabindex="0" style="overflow: hidden; outline: none;">
+
+                                                <div class="content_box col-lg-6 no-padding">
+                                                    <div class="img_wrap">
+                                                        <div class="img_content" style="background: url('./portfolio/images/hilogo.png') no-repeat center center, #FFF;background-size:90%;">
+                                                            <div class="blind">
+                                                                <dl>
+                                                                    <dt style="font-size:18px;">하이미디어 컴퓨터학원</dt>
+                                                                    <dd style="font-size:16px;">개발/FRONT-END</dd>
+                                                                    <dd style="font-size:16px;">2016.12</dd>
+                                                                </dl>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="content_box col-lg-6 no-padding">
+                                                    <div class="img_wrap">
+                                                        <div class="img_content" style="background-image: url('./portfolio/images/eventlogo.JPG');background-position: center 52%; background-size: 80%; background-color: #FFF;">
+                                                            <div class="blind">
+                                                                <dl>
+                                                                    <dt style="font-size:18px;">사내 이벤트 페이지</dt>
+                                                                    <dd style="font-size:18px;">퍼블리싱/개발</dd>
+                                                                    <dd style="font-size:16px;">2016.12</dd>
+                                                                </dl>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="content_box col-lg-6 no-padding">
+                                                    <div class="img_wrap">
+                                                        <div class="img_content" style="background-image: url('./portfolio/images/ifixlogo.png');background-position: center 52%; background-size: 80%; background-color: #FFF;">
+                                                            <div class="blind">
+                                                                <dl>
+                                                                    <dt style="font-size:18px;">아이픽스잇코리아</dt>
+                                                                    <dd style="font-size:18px;">퍼블리싱/FRONT-END</dd>
+                                                                    <dd style="font-size:16px;">2016.11</dd>
+                                                                </dl>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="content_box col-lg-6 no-padding">
+                                                    <div class="img_wrap">
+                                                        <div class="img_content" style="background-image: url('./portfolio/images/parnas_m.png');background-position: center 52%; background-size: 80%; background-color: #FFF;">
+                                                            <div class="blind">
+                                                                <dl>
+                                                                    <dt style="font-size:18px;">코엑스 파르나스타워</dt>
+                                                                    <dd style="font-size:18px;">퍼블리싱</dd>
+                                                                    <dd style="font-size:16px;">2016.09</dd>
+                                                                </dl>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="content_box col-lg-6 no-padding">
+                                                    <div class="img_wrap">
+                                                        <div class="img_content" style="background-image: url('./portfolio/images/3050.JPG');background-position: center 52%; background-size: 140%; background-color: #FFF;">
+                                                            <div class="blind">
+                                                                <dl>
+                                                                    <dt style="font-size:18px;">국립공원(3050)</dt>
+                                                                    <dd style="font-size:18px;">퍼블리싱</dd>
+                                                                    <dd style="font-size:16px;">2016.09</dd>
+                                                                </dl>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="content_box col-lg-6 no-padding">
+                                                    <div class="img_wrap">
+                                                        <div class="img_content" style="background: url('./portfolio/images/koita_m.JPG') no-repeat center center, #FFF;background-size: 90%;">
+                                                            <div class="blind">
+                                                                <dl>
+                                                                    <dt>KOITA FORUM 2016</dt>
+                                                                    <dd>퍼블리싱, 유지/보수</dd>
+                                                                    <dd style="font-size:16px;">2016.09</dd>
+                                                                </dl>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="content_box col-lg-6 no-padding">
+                                                    <div class="img_wrap">
+                                                        <div class="img_content" style="background-image: url('./portfolio/images/coca_m.JPG');background-position: left center;background-size: 100%;">
+                                                            <div class="blind">
+                                                                <dl>
+                                                                    <dt>코카콜라</dt>
+                                                                    <dd>퍼블리싱 트레이싱</dd>
+                                                                    <dd style="font-size:16px;">2016.07</dd>
+                                                                </dl>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="content_box col-lg-6 no-padding">
+                                                    <div class="img_wrap">
+                                                        <div class="img_content" style="background-image: url('./portfolio/images/twice.jpg');background-position: center center;">
+                                                            <div class="blind">
+                                                                <dl>
+                                                                    <dt style="font-size:18px;">JYP TWICE</dt>
+                                                                    <dd style="font-size:18px;">퍼블리싱 트레이싱</dd>
+                                                                    <dd style="font-size:16px;">2016.06</dd>
+                                                                </dl>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="content_box col-lg-6 no-padding">
+                                                    <div class="img_wrap">
+                                                        <div class="img_content" style="background: url('./portfolio/images/khmc_m.png') no-repeat center center, #FFF;">
+                                                            <div class="blind">
+                                                                <dl>
+                                                                    <dt style="font-size:18px;">경희의료원</dt>
+                                                                    <dd style="font-size:18px;">웹리뉴얼 기획</dd>
+                                                                    <dd style="font-size:16px;">2016.04</dd>
+                                                                </dl>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sc_btn"><img src="./portfolio/images/scroll.svg" alt="스크롤버튼"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6  col-sm-6 col-xs-12 no-padding">
+                    <div class="home-right">
+                        <div class="card effect__click count-clock">
+                            <div class="card__front right-side-container">
+
+                                <div class="mute">
+                                    <i id="megaIcon" class="icon-megaphone-mute"></i>
+                                </div>
+
+                                <div class="translator"><a>KOREAN <span id="arr">▼</span></a>
+                                    <div class="trans_box">
+                                        <div><a>ENGLISH</a></div>
+                                        <div><a>CHINESE</a></div>
+                                    </div>
+                                </div>
+
+                                <div class="right-content">
+
+                                    <h1>방문해주셔서 감사합니다</h1>
+
+                                    <p class="notify">제가 궁금하시다면</p>
+
+                                    <a class="open-aboutMe-btn">프로필</a>
+                                </div>
+
+                                <footer>
+                                    서울특별시 종로구 숭인동길21 104-306 / TEL 010-9004-5938<br> 2016 Copyright <a id="footL" href="http://logaegae.cafe24.com">logaegae.cafe24.com</a>
+                                </footer>
+                            </div>
+
+
+                            <div class="card__back">
+                                <div class="aboutMe-body">
+                                    <div class="close-aboutMe-btn" onclick="closeA();">
+                                        <i class="fa fa-close"></i>
+                                    </div>
+
+                                    <div class="aboutMe-section">
+
+                                        <h2 style="font-size:35px;"> 프로필 </h2>
+                                        <span class="line"></span>
+                                        <div class="aboutMe-wrap">
+
+
+                                            <div class="aboutMe-content">
+                                                <div class="aboutMe-con-box">
+
+                                                    <div class="pro_wrap">
+                                                        <div class="photo_wrap">
+                                                            <div class="outer_circle">
+                                                                <div class="pro_photo">
+                                                                    <div id="blindL">
+                                                                        <dl></dl>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="pro_sec" id="sec1">
+                                                            <div class="tit_wrap" id="tit1">
+                                                                <div class="tit" data-tooltip-text-l="모던 웹페이지를 제작합니다">
+                                                                    <i class="icon-coding svg" style="font-size:40px;"></i>
+                                                                </div>
+                                                            </div>
+                                                            <div class="con_wrap" style="float:right;margin-right:100px;">
+                                                                <dl style="float:right;">
+                                                                    <dt>웹개발자/퍼블리셔</dt>
+                                                                    <dd>모던 웹페이지를 제작합니다</dd>
+                                                                </dl>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pro_sec" id="sec2">
+                                                            <div class="tit_wrap" id="tit2">
+                                                                <div class="tit" data-tooltip-text-r="하이미디어 웹퍼블리셔 수료">
+                                                                    <i class="icon-diploma svg" style="font-size:40px;"></i>
+                                                                </div>
+                                                            </div>
+                                                            <div class="con_wrap" style="float:left;margin-left:100px;">
+                                                                <dl>
+                                                                    <dt>전문성</dt>
+                                                                    <dd>수학 전공, 컴퓨터전문교육 이수</dd>
+                                                                </dl>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pro_sec" id="sec3">
+                                                            <div class="tit_wrap" id="tit3">
+                                                                <div class="tit" data-tooltip-text-l="웹표준 및 접근성 기준을 준수합니다">
+                                                                    <i class="icon-earth-globe svg" style="font-size:45px;"></i>
+                                                                </div>
+                                                            </div>
+                                                            <div class="con_wrap" style="float:right;margin-right:100px;">
+                                                                <dl style="float:right;">
+                                                                    <dt>웹표준/접근성</dt>
+                                                                    <dd>W3C 웹표준 및 접근성 기준을<br/> 준수합니다</dd>
+                                                                </dl>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pro_sec" id="sec4">
+                                                            <div class="tit_wrap" id="tit4">
+                                                                <div class="tit" data-tooltip-text-r="반응형/모바일 호환을 다룹니다">
+                                                                    <i class="icon-technology svg" style="font-size:55px;"></i>
+                                                                </div>
+                                                            </div>
+                                                            <div class="con_wrap" style="float:left;margin-left:100px;">
+                                                                <dl>
+                                                                    <dt>기능성</dt>
+                                                                    <dd>반응형/모바일 호환을 다룹니다</dd>
+                                                                </dl>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pro_sec" id="sec5">
+                                                            <div class="tit_wrap" id="tit5">
+                                                                <div class="tit" data-tooltip-text-l="혁신과 효율을 추구합니다">
+                                                                    <i class="icon-idea svg" style="font-size:40px;"></i>
+                                                                </div>
+                                                            </div>
+                                                            <div class="con_wrap" style="float:right;margin-right:100px;">
+                                                                <dl style="float:right;">
+                                                                    <dt>창의성</dt>
+                                                                    <dd>변화와 효율을 추구합니다</dd>
+                                                                </dl>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pro_sec" id="sec6">
+                                                            <div class="tit_wrap" id="tit6">
+                                                                <div class="tit" data-tooltip-text-r="업무의 완성도를 중시합니다">
+                                                                    <i class="icon-settings svg" style="font-size:45px;"></i>
+                                                                </div>
+                                                            </div>
+                                                            <div class="con_wrap" style="float:left;margin-left:100px;">
+                                                                <dl>
+                                                                    <dt>책임감</dt>
+                                                                    <dd>작업의 완성도를 중시합니다</dd>
+                                                                </dl>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pri_sum">
+                                                        <div class="sum_left col-lg-6 col-md-6  col-sm-6 col-xs-12">
+                                                            <dl>
+                                                                <dt>성명</dt>
+                                                                <dd>김범영</dd>
+                                                                <dt>생년월</dt>
+                                                                <dd>1986.03</dd>
+                                                                <dt>거주지</dt>
+                                                                <dd>서울시 종로구 숭인동</dd>
+                                                                <dt>연락처</dt>
+                                                                <dd>logaegae@naver.com</dd>
+                                                                <dd>010-9004-5938</dd>
+                                                            </dl>
+                                                        </div>
+                                                        <div class="sum_right col-lg-6 col-md-6  col-sm-6 col-xs-12">
+                                                            <dl>
+                                                                <dt>활용기술</dt>
+                                                                <dd>NodeJs, php,<br>Mysql,<br> HTML5/CSS3,<br> Javascript/jQuery/Angular,<br> Bootstrap/반응형,<br> 웹접근성,<br> LESS/SASS,<br> Git/SVN,<br> Redmine</dd>
+                                                                <dt>관심기술</dt>
+                                                                <dd>HTML Canvas, OpenGL</dd>
+                                                            </dl>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sc_btn"><img src="./portfolio/images/scroll.svg" alt="스크롤버튼"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="animatedModal" class="animated animatedModal-off" style="position: absolute; width: 100%; height: 100%; top: 0px; left: 0px; z-index: -9999; opacity: 0; animation-duration: 0.6s; background-color: rgb(57, 190, 185);">
+                <div class="modal-content">
+                    <div class="col-lg-6 col-md-6  col-sm-6 col-xs-12 no-padding">
+                        <div id="map"></div>
+                        <script>
+                            function initMap() {
+                                var myposition = {
+                                    lat: 37.575811,
+                                    lng: 127.020857
+                                };
+                                var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+                                var isDraggable = w > 767 ? true : false;
+                                // Create a map object and specify the DOM element for display.
+                                var map = new google.maps.Map(document.getElementById('map'), {
+                                    center: myposition,
+                                    scrollwheel: false,
+                                    draggable: isDraggable,
+                                    zoom: 14
+                                });
+                                // Create a marker and set its position.
+                                var marker = new google.maps.Marker({
+                                    map: map,
+                                    position: myposition,
+                                    title: 'Hello!'
+                                });
+                            }
+                        </script>
+                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAk4V7xS6TgEk1WiboaivD_QQw9HFgEj5o&callback=initMap" async defer></script>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6  col-sm-6 col-xs-12 no-padding">
+                        <div class="contact black-bg">
+                            <div id="btn-close-modal" class="close-animatedModal">
+                                <i class="fa fa-close"></i>
+                            </div>
+                            <div class="right-contact ">
+                                <h3>보내기</h3>
+                                <form class="contact-form" id="contact" role="form">
+
+                                    <h5 class="success">
+        									<span class="olored-text icon_check"></span> 메세지가 발송되었습니다 </h5>
+
+                                    <h5 class="error">
+        									<span class="colored-text icon_error-circle_alt"></span> 이메일이 유효하지 않거나 메세지 내용이 없습니다. </h5>
+
+                                    <label for="cf-name">
+                          					 <fieldset>
+						  					 	<legend>메세지 보내기</legend>
+		        									<div class="field-wrapper col-md-12">
+		        										<input class="form-control input-box" id="cf-name" type="text" name="cf-name" placeholder="이름">
+		        									</div></label>
+
+                                    <label for="cf-email">
+		        									<div class="field-wrapper col-md-12">
+		        										<input class="form-control input-box" id="cf-email" type="email" name="cf-email" placeholder="이메일">
+		        									</div></label>
+
+                                    <label for="cf-subject">
+		        									<div class="field-wrapper col-md-12">
+		        										<input class="form-control input-box" id="cf-subject" type="text" name="cf-subject" placeholder="제목">
+		        									</div></label>
+
+                                    <div class="field-wrapper text-area col-md-12">
+                                        <textarea class="form-control textarea-box" id="cf-message" rows="3" name="cf-message" placeholder="메세지를 입력하세요"></textarea>
+                                        <button class="btn standard-button" type="submit" id="cf-submit" name="submit" data-style="expand-left">보내기</button>
+                                    </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear" style="clear:both;"></div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!--  끝 -->
+
+    <!-- Bootstrap Js -->
+    <script src="./portfolio/js/bootstrap.min.js"></script>
+
+    <!-- Plug-In -->
+    <script src="./portfolio/js/wow.min.js"></script>
+    <script src="./portfolio/js/animatedModal.min.js"></script>
+    <script src="./portfolio/js/jquery.nicescroll.min.js"></script>
+
+    <!-- Custom -->
+    <script src="./portfolio/js/custom.js"></script>
+
+    <script>
+        //팝업함수
+
+        $(document).on('click', '#koitaOpen', function() {
+            window.open("http://116.120.57.213/mobile/html/main/main.asp", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=0,left=0,width=400");
+        })
+
+        // 로딩시
+
+        $(window).load(function() {
+            // DIV 호출
+            $(".preloader").fadeOut("slow");
+
+        })
+    </script>
+
+</body>
+
+</html>

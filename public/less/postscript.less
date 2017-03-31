@@ -1,0 +1,417 @@
+.postscript{
+    .postscript_bg{
+        background:@base-color;
+        padding:70px 0;
+        .video_interview{
+            >p{
+                text-align: center;
+                font-size:@menu-size;
+                color:@subject-color;
+            }
+            .red_Bar{
+                display:block;
+                margin:25px auto 50px;
+                background:@main-color;
+                width:31px;
+                height:2px;
+            }
+            .video_wrap{
+                font-size:0;
+                li{
+                    .inlineblock();
+                    margin-bottom: 62px;
+                    vertical-align:top;
+                    a{
+                        display:block;
+                        .video_img_wrap{
+                            width:300px;
+                            height:200px;
+                            position:relative;
+                            margin-bottom:20px;
+                            img{
+                                width:100%;
+                                // height:100%;
+                                margin-bottom:20px;
+                            }
+                            .mouseactive{
+                                position:absolute;
+                                background:url('/img/icon/video_off.png') no-repeat 50%;
+                                width:100%;
+                                height:100%;
+                                top:0;
+                            }
+                        }
+                        .box_cont{
+                            text-align: left;
+                            line-height: 23px;
+                            display:block;
+                            >span{
+                                font-size:15px;
+                                color:@content-color;
+                                font-weight: @title-weight;
+                                display:block;
+                                min-height:46px;
+                                .campus{
+                                    font-size:@menu-size;
+                                    color:@subject-color;
+                                    font-weight: @subject-weight;
+                                    &&:before{
+                                        content:"";
+                                        .inlineblock();
+                                        width:1px;
+                                        height:13px;
+                                        background:@main-color;
+                                        margin:0 10px 0 15px;
+                                    }
+                                }
+                            }
+                            .class_name:before{
+                                content: "";
+                                display:block;
+                                width:15px;
+                                height:2px;
+                                background:@main-color;
+                                margin:20px 0 10px;
+                            }
+                            .class_name{
+                                font-size:13px;
+                                color:@content-color;
+                                font-weight:  @subject-weight;
+                            }
+                        }
+                    }
+                    a:hover{
+                        .mouseactive{
+                            background:url('/img/icon/video_on.png') no-repeat 50%;
+                        }
+                    }
+                }
+                .btn-seemore{
+                    margin:0;
+                }
+            }
+        }
+    }
+    .text_interview{
+        padding:70px 0;
+        clear:both;
+        .text_wrap{
+            font-size:0;
+            li{
+                .inlineblock();
+                margin-bottom: 62px;
+                vertical-align:top;
+                a{
+                    display:block;
+                    img{
+                        margin-bottom:20px;
+                    }
+                    .box_cont{
+                        text-align: left;
+                        line-height: 23px;
+                        display:block;
+                        >span{
+                            font-size:15px;
+                            color:@content-color;
+                            font-weight: @title-weight;
+                            display:block;
+                            min-height:46px;
+                            .campus{
+                                font-size:@menu-size;
+                                color:@subject-color;
+                                font-weight: @subject-weight;
+                                &&:before{
+                                    content:"";
+                                    .inlineblock();
+                                    width:1px;
+                                    height:13px;
+                                    background:@main-color;
+                                    margin:0 10px 0 15px;
+                                }
+                            }
+                        }
+                        .class_name:before{
+                            content: "";
+                            display:block;
+                            width:15px;
+                            height:2px;
+                            background:@main-color;
+                            margin:20px 0 10px;
+                        }
+                        .class_name{
+                            font-size:13px;
+                            color:@content-color;
+                            font-weight:  @subject-weight;
+                        }
+                    }
+                }
+            }
+            .btn-seemore{
+                margin:0;
+            }
+        }
+    }
+    @media(max-width:@tablet-size){
+        .common_wrap{
+            width:97%;
+        }
+        .text_interview{
+            .text_wrap{
+                li{
+                    img{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+        .postscript_bg{
+            .video_interview{
+                .video_wrap{
+                    li{
+                        a{
+                            .video_img_wrap{
+                                width:auto;
+                                height:auto;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @media(max-width: @mobile-size){
+        .postscript_bg{
+            .video_interview{
+                .video_wrap{
+                    li{
+                        width:100%;
+                    }
+                }
+            }
+        }
+        .text_interview{
+            .text_wrap{
+                li{
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+.postscriptView{
+    font-weight: 300;
+    .postscriptView_bg{
+        padding:70px 0;
+        background:@base-color;
+        .view_wrap{
+            width:1024px;
+            margin: 0 auto;
+            background:@white-color;
+            .view_top{
+                height:65px;
+                line-height: 65px;
+                background:@sub-color;
+                text-align: center;
+                display:inline-block;
+                color:@white-color;
+                width:100%;
+                font-size:18px;
+                font-weight: @gnb-weight;
+                span{
+                    font-weight: @title-weight;
+                }
+            }
+            .view_cont{
+                padding:50px 86px;
+            }
+            .view_bottom{
+        		height:50px;
+        		width:100%;
+        		padding:0 52px;
+        		background:#252e33;
+        		text-align: center;
+
+        		a{
+        			display:inline-block;
+        			color:@white-color;
+        			font-weight:@subject-weight;
+        			line-height:50px;
+        			span{
+        				margin-left:20px;
+        			}
+        		}
+        		a.prev{
+        			float:left;
+        			span{
+        				margin:0 20px 0 0;
+        			}
+
+        		}
+        		a.next{
+        			float:right
+
+        		}
+        	}
+        }
+        .view_who{
+            margin-top:0;
+            >p{
+                line-height:28px;
+                background:url('/img/site_img/view_top_Bg.jpg') repeat-x 50%;
+                >span{
+                    font-size:35px;
+                    font-weight: 700;
+                    margin-left:60px;
+                    background:@white-color;
+                    padding:0 5px;
+                    >span{
+                        color:@sub-color;
+                    }
+                    >span.num{
+                        color:@sub-color-second;
+                    }
+                }
+            }
+            .who_cont{
+                font-size:0;
+                margin-top:42px;
+                text-align: center;
+                li{
+                    .inlineblock();
+                    width:16.6666%;
+                    text-align: center;
+                    vertical-align: middle;
+                    padding:95px 10px 0;
+                    border-left:1px solid #d5d5d8;
+                    min-height:170px;
+                    &&:first-child{
+                        border-left:0;
+                    }
+                    >img{
+                        margin:22px 0 25px;
+                    }
+                    >p{
+                        font-size:14px;
+                        margin-bottom:0;
+                    }
+                    >p.title{
+                        font-size:15px;
+                        font-weight: @subject-weight;
+                        margin-bottom:7px;
+                    }
+                }
+                li.icon1{
+                    background: url('/img/icon/who_icon1.jpg') no-repeat 50% 23px;
+                }
+                li.icon2{
+                    background: url('/img/icon/who_icon2.jpg') no-repeat 50% 23px;
+                }
+                li.icon3{
+                    background: url('/img/icon/who_icon3.jpg') no-repeat 50% 23px;
+                }
+                li.icon4{
+                    background: url('/img/icon/who_icon4.jpg') no-repeat 50% 26px;
+                }
+                li.icon5{
+                    background: url('/img/icon/who_icon5.jpg') no-repeat 50% 23px;
+                }
+                li.icon6{
+                    background: url('/img/icon/who_icon6.jpg') no-repeat 50% 23px;
+                }
+            }
+        }
+    }
+    .interview_wrap{
+        margin-top:100px;
+        >p.redline{
+            line-height:28px;
+            background:url('/img/site_img/view_top_Bg.jpg') repeat-x 50%;
+            margin-bottom:70px;
+            >span{
+                font-size:35px;
+                font-weight: 700;
+                margin-left:60px;
+                background:@white-color;
+                padding:0 5px;
+                >span{
+                    color:@sub-color;
+                }
+                >span.num{
+                    color:@sub-color-second;
+                }
+            }
+        }
+        .top_cont{
+            text-align: center;
+            margin-bottom:70px;
+            p.title{
+                text-align: center;
+                font-size:@summery-size;
+                font-weight: @gnb-weight;
+                color:@content-color;
+            }
+            span.red_bar{
+                height:2px;
+                width:31px;
+                background:@main-color;
+                display:block;
+                margin: 20px auto 15px;
+            }
+
+        }
+    }
+    .interview_wrap.video {
+        >p {margin-bottom:50px;}
+    }
+    div.question_box{
+        text-align:left;
+        display:block;
+        margin:0 0 40px 0;
+        p.question{
+            font-size:@menu-size;
+            color:@content-color;
+            line-height:20px;
+            margin-bottom:20px;
+            font-weight: @gnb-weight;
+            span{
+                color:@main-color;
+            }
+        }
+        p.answer{
+            font-size:@menu-size;
+            color:@content-color;
+            line-height:20px;
+        }
+    }
+    @media(max-width:@tablet-size){
+        .postscriptView_bg{
+            .view_wrap{
+                width:97%;
+                .view_cont{
+                    padding:50px 5%;
+                }
+                .view_bottom{
+                    padding: 0 26px;
+                }
+            }
+
+            .view_who{
+                .who_cont{
+                    li{
+                        width:33.3333%;
+                        border:none;
+                    }
+                }
+            }
+            .interview_wrap{
+                >p{
+                    >span{
+                        >span{
+                            font-size:26px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

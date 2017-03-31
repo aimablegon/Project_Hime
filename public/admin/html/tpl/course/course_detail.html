@@ -1,0 +1,392 @@
+<script type="text/javascript">
+
+angular.module('app').controller('myCtrl', ['$scope', '$rootScope', '$http', '$sce', '$stateParams', '$location', '$timeout',
+	'$state', '$httpParamSerializerJQLike',
+	function($scope, $rootScope, $http, $sce, $stateParams, $location, $state, $httpParamSerializerJQLike, $timeout) {
+
+		$scope.mode = $stateParams.id ? 'modify' : 'new';
+	    $scope.basePath = '#'+$location.$$path;
+	    $scope.parentPath = $location.$$path.substring(0, $location.$$path.indexOf("/detail"));
+	    $scope.data = {
+	    	BranchCourses : [ { branchCode : 'himedia'}]
+	    }
+
+		if($scope.mode == "modify") {
+			$http({
+				method : "POST",
+				url : "/admin/api/course/"+$stateParams.id
+			}).success(function(data) {
+				console.log(data);
+				$scope.data = data;
+				$scope.data.curriculum = JSON.parse($scope.data.BranchCourse.curriculumJson);
+			});
+		}
+
+		$scope.submit = function () {
+
+			var url = "";
+			if($scope.mode == "modify") {
+				url = "/admin/api/course/"+$stateParams.id+"/update";
+			} else {
+				url = "/admin/api/course/insert";
+			}
+			
+			
+			for(i=0;i<$scope.data.BranchCourses.length;i++) {
+				
+				$scope.data.BranchCourses[i].openDate = $scope.data.BranchCourse ? $scope.data.BranchCourse.openDate : "";
+				$scope.data.BranchCourses[i].recruitmentPersons = $scope.data.BranchCourse ? $scope.data.BranchCourse.recruitmentPersons : "";
+				$scope.data.BranchCourses[i].periodEducation = $scope.data.BranchCourse ? $scope.data.BranchCourse.periodEducation : "";
+				$scope.data.BranchCourses[i].curriculumJson = JSON.stringify($scope.data.curriculum);
+			}
+		
+			
+			$scope.data.curriculumJson = JSON.stringify($scope.data.curriculum);
+
+			$http({
+					method : "POST",
+					url : url,
+					data: $scope.data
+			}).success(function(data) {
+
+				if($scope.mode == "modify") {
+					alert("저장되었습니다.");
+				}else {
+					$location.path($scope.parentPath);
+				}
+			});
+
+		};
+
+		$scope.delete = function () {
+
+	    	if(confirm("삭제 하시겠습니까?")) {
+
+				$http({
+					method : "POST",
+					url : "/admin/api/course/"+$stateParams.id+'/delete',
+				}).success(function(data) {
+					$location.path($scope.parentPath);
+				});
+
+	    	}
+
+	    }
+
+	    $scope.list = function () {
+	    	if(window.history.length == 1) {
+	    		$location.path($scope.parentPath);	
+	    	} else {
+	    		history.back();
+	    	}
+	    }
+	    
+
+ 	    $scope.imageUpload = function(files, args) {
+			$http({
+					method : "POST",
+					url : "/admin/api/upload",
+					headers : {'Content-Type': undefined},
+		            transformRequest: function (data, headersGetter) {
+		                var formData = new FormData();
+		                for(var i = 0 ; i < files.length ; i++) {
+		                	formData.append("files", files[i]);
+		                }
+		                return formData;
+		            }
+			}).success(function(data) {
+				for(var i = 0; i < data.length ;i++) {
+					console.log(data[i].path);
+					console.log(args);
+					$scope[args].summernote("editor.insertImage", data[i].path);	
+				}
+			});
+	    }
+ 	    
+		$scope.addCurriculum = function (item, node) {
+			if(node) {
+				item.items.splice(item.items.indexOf(node)+1, 0, {
+					title : ""
+				});
+			} else {
+				$scope.data.curriculum.splice( $scope.data.curriculum.indexOf(item)+1, 0, {
+					title : "",
+					items : [ { title : ""} ]
+				});
+			}
+		}
+		
+		$scope.removeCurriculum = function (item, node) {
+			if(node) {
+				item.items.splice(item.items.indexOf(node), 1);
+			} else {
+				$scope.data.curriculum.splice( $scope.data.curriculum.indexOf(item), 1);
+			}
+		}
+		
+		$scope.upCurriculum = function (item, node) {
+			if(node) {
+				var n = item.items.indexOf(node);
+				item.items.splice(n, 1);
+				item.items.splice(n-1, 0, node);
+			} else {
+				var n = $scope.data.curriculum.indexOf(item);
+				$scope.data.curriculum.splice(n, 1);
+				$scope.data.curriculum.splice(n-1, 0, item);
+			}
+		}
+		
+		$scope.downCurriculum = function (item, node) {
+			if(node) {
+				var n = item.items.indexOf(node);
+				item.items.splice(n, 1);
+				item.items.splice(n+1, 0, node);
+			} else {
+				var n = $scope.data.curriculum.indexOf(item);
+				$scope.data.curriculum.splice(n, 1);
+				$scope.data.curriculum.splice(n+1, 0, item);
+			}
+		}
+		
+		$scope.changeCheckAllBranch = function () {
+			
+			if($scope.checkAllBranch) {
+				
+				$scope.data.BranchCourses = [ { branchCode : 'himedia'}];
+				for(i=0;i<$scope.branches.length;i++) {
+					$scope.data.BranchCourses.push({
+						branchCode : $scope.branches[i].branchCode
+					});
+				}	
+			} else {
+				$scope.data.BranchCourses = [ { branchCode : 'himedia'}];
+			}
+			
+		};
+
+
+	}]
+);
+</script>
+<style>
+	.form-horizontal .ignore .form-group{
+		margin-left : 0px;
+		margin-right : 0px;
+	}
+</style>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">과정 관리</h1>
+</div>
+<div class="wrapper-md">
+	<div class="panel panel-default" ng-controller="myCtrl">
+		<div class="panel-heading">정보</div>
+		<div class="panel-body">
+			<form class="form-horizontal" method="get" ng-submit="submit()">
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">분야</label>
+					<div class="col-sm-10">
+						<select class="input-sm form-control w-lg inline v-middle"
+							ng-options="field.fieldId as field.fieldName for field in fields" 
+							ng-selected="data.fieldId == field.fieldId" 
+							ng-model="data.fieldId" required="required">
+							<option value="">선택하세요</option>
+						</select>
+					</div>
+				</div>
+							
+				<div class="form-group">
+					<label class="col-sm-2 control-label">분류</label>
+					<div class="col-sm-10">
+						<select class="input-sm form-control w-lg inline v-middle"
+							ng-options="items.codeId as items.codeName for items in codes.COURSE_TYPE.list"
+							ng-selected="data.courseType == items.codeId"
+							ng-model="data.courseType" required="required">
+							<option value="">선택하세요</option>
+						</select>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">과정명</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.courseName" required="required">
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">썸네일 색상</label>
+					<div class="col-sm-10">
+						<div class="btn-group" ng-init="data.thumbBgColor = codes.COURSE_COLOR.list[0].codeName" >
+          					<label class="btn btn-sm btn-info ng-valid ng-dirty ng-touched" style="background: {{item.codeName}};border-color: {{item.codeName}}" 
+          					ng-model="data.thumbBgColor" btn-radio="item.codeName" tabindex="0" aria-invalid="false"
+							ng-repeat="item in codes.COURSE_COLOR.list">
+          						<i class="fa fa-check text-active"></i> {{item.codeName}}
+          					</label>
+        				</div>
+					</div>
+				</div>
+				
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">대표정보</label>
+					<div class="col-sm-10 ignore">
+						<summernote min-height="100" ng-model="data.titleInfo" on-image-upload="imageUpload(files, 'editor1')" editor="editor1"></summernote>					
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">부가정보</label>
+					<div class="col-sm-10 ignore">
+						<summernote min-height="100" ng-model="data.subInfo" on-image-upload="imageUpload(files, 'editor2')" editor="editor2"></summernote>					
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">교육과정소개</label>
+					<div class="col-sm-10 ignore">
+						<summernote min-height="100" ng-model="data.description" on-image-upload="imageUpload(files, 'editor3')" editor="editor3"></summernote>					
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">과정구성내용</label>
+					<div class="col-sm-10 ignore">
+						<summernote min-height="100" ng-model="data.composition" on-image-upload="imageUpload(files, 'editor4')" editor="editor4"></summernote>					
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">강의대상</label>
+					<div class="col-sm-10 ignore">
+						<summernote min-height="100" ng-model="data.target" on-image-upload="imageUpload(files, 'editor5')" editor="editor5"></summernote>					
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">전망</label>
+					<div class="col-sm-10 ignore">
+						<summernote min-height="100" ng-model="data.prospect" on-image-upload="imageUpload(files, 'editor6')" editor="editor6"></summernote>					
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">수강료</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.price">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">수강료-구직자</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.priceJobSeeker">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">수강료-비정규직</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.priceAtypicalJob">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">수강료-정규직</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.priceStandardJob">
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">노출여부</label>
+					<div class="col-sm-10">
+						<label class="i-switch m-t-xs m-r"><input type="checkbox" ng-true-value="'Y'" ng-false-value="'N'" ng-model="data.showYn" ng-init="data.showYn = 'Y'"> <i></i></label>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">지점</label>
+					<div class="col-sm-10">
+						<label class="checkbox-inline i-checks">
+							<input type="checkbox" ng-model="checkAllBranch" ng-change="changeCheckAllBranch()"><i></i> 전체선택
+						</label>
+						<br/>
+						<label class="checkbox-inline i-checks" ng-repeat="branch in branches2">
+							<input type="checkbox"  checklist-model="data.BranchCourses"  checklist-value="{branchCode : branch.branchCode}" checklist-comparator=".branchCode"><i></i> {{branch.branchName}}
+						</label>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">개강일</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.BranchCourse.openDate">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">모집인원</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.BranchCourse.recruitmentPersons" >
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">교육기간</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.BranchCourse.periodEducation" >
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">커리큘럼</label>
+					<div class="col-sm-10" ng-init="data.curriculum = [{'title':'', items : [{'title':''}]}]" >
+
+						<div class="row m-b-sm" ng-repeat="item in data.curriculum">
+						
+							<div class="col-sm-6">
+								<div class="input-group">
+									<input type="text" class="form-control" ng-model="item.title">
+									<span class="input-group-btn">
+                						<button class="btn btn-success btn-icon" type="button" ng-click="addCurriculum(item)"><i class="fa fa-plus"></i></button>
+                						<button class="btn btn-danger btn-icon" type="button" ng-click="removeCurriculum(item)"  ng-disabled="$index==0"><i class="fa fa-minus"></i></button>
+                						<button class="btn btn-default btn-icon" type="button" ng-click="upCurriculum(item)" ng-disabled="$index==0"><i class="fa fa-arrow-circle-up"></i></button>
+                						<button class="btn btn-default btn-icon" type="button" ng-click="downCurriculum(item)" ng-disabled="$index==data.curriculum.length-1"><i class="fa fa-arrow-circle-down"></i></button>
+              						</span>
+									
+								</div>
+							</div>
+						
+							<div class="col-sm-6">
+								<div class="input-group m-b-sm" ng-repeat="node in item.items">	
+									<input type="text" class="form-control" ng-model="node.title" />
+									<span class="input-group-btn">
+                						<button class="btn btn-success btn-icon" type="button" ng-click="addCurriculum(item,node)"><i class="fa fa-plus"></i></button>
+                						<button class="btn btn-danger btn-icon" type="button" ng-click="removeCurriculum(item,node)" ng-disabled="$index==0"><i class="fa fa-minus"></i></button>
+                						<button class="btn btn-default btn-icon" type="button" ng-click="upCurriculum(item,node)" ng-disabled="$index==0"><i class="fa fa-arrow-circle-up"></i></button>
+                						<button class="btn btn-default btn-icon" type="button" ng-click="downCurriculum(item,node)" ng-disabled="$index==item.items.length-1"><i class="fa fa-arrow-circle-down"></i></button>
+              						</span>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+				<div class="form-group">
+
+					<div class="col-sm-5 col-sm-offset-2">
+
+						<button type="button" ng-click="list()" class="btn btn-default m-r-sm">목록</a>
+						<button type="button" ng-click="delete()" class="btn btn-danger" ng-show="mode=='modify'">삭제</button>
+
+
+					</div>
+
+					<div class="col-sm-5 text-right">
+					
+						<label class="checkbox-inline i-checks m-r-sm">
+							<input type="checkbox" ng-model="data.overwirteBranchData"><i></i> 전지점 데이터 변경
+						</label>
+						
+						<button type="submit" class="btn btn-primary">변경사항 저장</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

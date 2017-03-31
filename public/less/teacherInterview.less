@@ -1,0 +1,60 @@
+.teacherInterview{
+    word-break: keep-all;
+    .teacherInterview_wrap{
+        width:1024px;
+        margin:0 auto;
+        padding-top:40px;
+        ul{
+            .teacher-box{
+                width:230px;
+                float:left;
+                margin:0 26px 26px 0;
+                a{
+                    display:block;
+                    img{width:100%;}
+                    div{
+                        height: 140px;
+                        background:@sub-color;
+                        position: relative;
+                        width:100%;
+                        padding:30px;
+                        font-weight:@title-weight;
+                        color:@white-color;
+                        .campus{
+                            position: absolute;
+                            display:block;
+                            width:80px;
+                            height:28px;
+                            top:-13px;
+                            background:#F2DAAC;
+                            line-height: 28px;
+                            text-align: center;
+                            left:72px;
+                            font-size:14px;
+                            color:@content-color;
+                        }
+                        .teacher{
+                            font-size:18px;
+                        }
+                        .white_bar{
+                            height:2px;
+                            width:30px;
+                            display:block;
+                            background:@white-color;
+                            margin:15px 0 10px;
+                        }
+                        .text{
+                            font-size:13px;
+                            font-weight: @subject-weight;
+                        }
+                    }
+                }
+                &&:hover{
+                    div{
+                        background: @main-color;
+                    }
+                }
+            }
+        }
+    }
+}

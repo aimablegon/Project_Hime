@@ -1,0 +1,90 @@
+<script type="text/javascript">
+
+
+angular.module('app').controller('myCtrl', ['$scope', '$rootScope', '$http', '$sce', '$stateParams', '$location',
+	function($scope, $rootScope, $http, $sce, $stateParams, $location) {
+		
+		$scope.pageSize = $rootScope.pageSize ? $rootScope.pageSize : "10";
+		$scope.Math=Math;
+		$scope.basePath = '#'+$location.$$path;
+		
+		console.log($location);
+
+		$scope.loadData = function () {
+			
+			$http({
+				method : "POST",
+				url : "/admin/api/slide",
+				data : {
+					page : $stateParams.page,
+					pageSize : $scope.pageSize
+				}
+			}).success(function(data) {
+				console.log(data);
+				$scope.data = data;
+			});
+		};
+
+
+	}]
+);
+
+
+</script>
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">슬라이드관리</h1>
+</div>
+<div class="wrapper-md">
+	<div class="panel panel-default" ng-controller="myCtrl" ng-init="loadData()">
+		<div class="panel-heading">목록</div>
+		<div class="row wrapper" ng-show="data.totalCount">
+			<div class="col-sm-6 text-left">
+			
+				총 {{data.list.length}} 건
+			</div>
+			<div class="col-sm-6 text-right">
+	
+			</div>
+		</div>
+		<div class="table-responsive">
+
+		
+			<table class="table table-striped b-t b-light">
+			    <thead>
+			    <tr>
+						<th width="10%" class=text-center>No</th>
+						<th width="20%" class=text-left>슬라이드명</th>
+						<th width="60%" class=text-left>이미지</th>
+						<th width="20%" class=text-center>등록일시</th>
+			    </tr>
+			    </thead>
+			    <tbody data-ng-model="data.list">
+			    <tr ng-repeat="item in data.list">
+						<td class="text-center">{{$index+1}}</td>
+						<td class="text-left"><a href="{{basePath}}/detail/{{item.slideId}}">{{item.slideName}}</a></td>
+						<td class="text-left"><a href="{{basePath}}/detail/{{item.slideId}}"><img ng-src="{{item.AttachFile.url}}" style="width:960px;height:252px;"></a></td>
+						<td class="text-center">{{item.registDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+			    </tr>
+			    </tbody>
+			</table>
+		
+		</div>
+		<div class="row wrapper" ng-show="data.totalCount == 0">
+			<div class="col-sm-12 text-center">
+				등록/검색된 데이터가 없습니다.
+			</div>
+		</div>
+		<footer class="panel-footer">
+			<div class="row">
+				<div class="col-sm-12 text-center">
+				    <pagination boundary-links="true" class="m-t-none m-b-none"  ng-model="data.currentPage" max-size="10" total-items="data.totalCount" ng-change="pageChanged()" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" items-per-page="pageSize"></pagination>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12 text-right">
+				    <a href="{{basePath}}/detail" class="btn btn-primary">등록</a>
+				</div>
+			</div>
+		</footer>
+	</div>
+</div>

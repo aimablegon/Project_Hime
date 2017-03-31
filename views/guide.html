@@ -1,0 +1,3454 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/lib/bootstrap-3.3.2-dist/js/bootstrap.min.js" type="text/javascript"></script>
+    <!-- <script src="/js/less.js-2.7.1/dist/less.min.js"></script> -->
+    <script src="/js/script.js"></script>
+    <script src="/js/wow.min.js"></script>
+    <link rel="stylesheet" href="/lib/bootstrap-3.3.2-dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="/css/font.css" />
+    <link rel="stylesheet" type="text/css" href="/css/site_style.css" />
+    <script>
+    $(function() {
+        $('.btn_open').click(function(){
+            $(this).parent().siblings('div').toggle();
+        });
+    });
+    </script>
+    <title>himedia Style-Guide</title>
+</head>
+<body class="guide">
+    <header>
+        <h1>Himedia Style-Guide</h1>
+        <nav>
+            <ul>
+                <li><a href="">GUIDE</a></li>
+                <li><a href="https://docs.google.com/spreadsheets/d/1Hv3gxqs2P-VjY2yWWVpiqv9bnewS4c6FKXZPvpkopu8/edit?usp=sharing">IA &amp; WBS</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="wrap container-fluid">
+        <nav class="menu-list col-md-2">
+            <strong>variable</strong>
+            <ul>
+                <li><a href="#descript">Description</a></li>
+                <li><a href="#screen-size">화면사이즈</a></li>
+                <li><a href="#font">폰트</a>
+                    <ul>
+                        <li><a href="#font-family">폰트패밀리</a></li>
+                        <li><a href="#font-weight">폰트두께</a></li>
+                        <li><a href="#font-size">폰트크기</a></li>
+                        <li><a href="#font-color">폰트색상</a></li>
+                    </ul>
+                </li>
+                <li><a href="#color">색상</a></li>
+            </ul>
+            <strong>mixin</strong>
+            <ul>
+                <li><a href="#display">display</a></li>
+                <li><a href="#border-radius">border</a></li>
+                <li><a href="#ellipsis">ellipsis</a></li>
+            </ul>
+            <strong>object</strong>
+            <ul>
+                <li><a href="#heading">heading</a></li>
+                <li><a href="#tab">tab</a></li>
+                <li><a href="">list</a></li>
+                <li><a href="">table</a></li>
+                <li><a href="#pagination">pagination</a></li>
+                <li><a href="#button">button</a></li>
+                <li><a href="#sm-rect-btns">small rect button</a></li>
+                <li><a href="#icon">icon</a></li>
+                <li><a href="#modal1">modal1</a></li>
+                <li><a href="#modal2">modal2</a></li>
+                <li><a href="#list_table">list_table</a></li>
+                <li><a href="#input_table">input_table</a></li>
+                <li><a href="#view_table">view_table</a></li>
+                <li><a href="#course_table">course_table</a></li>
+                <li><a href="#review">review</a></li>
+                <li><a href="#portfolio_review">강사소개/포트폴리오</a></li>
+                <li><a href="#open_progress">개설과정</a></li>
+            </ul>
+        </nav>
+
+        <div class="content col-md-10">
+            <!-- variable -->
+            <section id="descript">
+                <div class="guid_title_group">
+                    <h2>Description</h2>
+                    <strong class="date-status"><span class="work-status"><time>16.11.05</time>update</span></strong>
+                </div>
+                <ul class="disc">
+                    <li>하이미디어 웹사이트는 less 기반 스타일을 사용함으로, 공통사항은 아래 less파일의 가이드 레퍼런스를 활용하도록 합니다. </li>
+                    <li>less 는 기본 공통변수는 <mark>variable.less</mark> 파일을 참조합니다</li>
+                    <li>less 는 기본 공통믹스인 <mark>mixin.less</mark> 파일을 참조합니다</li>
+                    <li>less 를 서로 합쳐주는 파일은 <mark>import.less</mark> 파일이며 less 컴파일하여 <mark>/css/common.less</mark> 파일로 컴파일합니다.</li>
+                    <li>작업자는 공통사항파일은 수정해서는 안되며, 추가적인 레이아웃에 관련된 스타일을 만들때는 <mark>import.less</mark> 파일에 작업자가 만든 less파일을 추가 임폴트하여 <mark>import.less</mark>파일을 컴파일합니다.</li>
+                    <li>작업시 서브컨텐츠별 레이아웃은 <mark>body</mark> 태그에 클래스파일에 추가 클래스를 포함하며 클래스명은 파일이름로 설정합니다. 설정후 <mark>.추가클래스 .content</mark> 케스케이딩으로 활용하도록 합니다.</li>
+                    <li>공통요소가 아닌 <mark>variable</mark> 과 <mark>mixin</mark>은 작업자 개인이 생성한 less파일에 작성하도록 합니다.</li>
+                    <li>작업중간 공통사항이 될만한 mixin 또는 variable 은 <u>공통사항 담당자에게 요청하여 공통적으로 배포할수 있도록 합니다</u>.</li>
+                    <li>해당 작업은 부트스트랩 3.3.2 버전을 사용하며, 제이쿼리는 1.12버전을  CDN을 사용합니다.</li>
+                    <li>기획 - Axure: <a href="http://tbuz7x.axshare.com" target="_blank">http://tbuz7x.axshare.com</a></li>
+                    <li>디자인 경로: NAS > designData > himedia > site > 00.최종본 > main, sub</li>
+                    <li>'포트폴리오' 서브 페이지 작업 시, 디자인 기준은 psd파일이 아닌 Axure 기준입니다.</li>
+                    <li>이미지 경로: NAS > designData > himedia > site > '기획' 폴더 안에 Axure 작업을 위해 따놓은 이미지들을 넣어놓았습니다.<br> 필요하신 이미지가 있으시면 이 폴더에서 찾아주시고, 없을 경우 psd파일에서 작업하시면 됩니다. </li>
+                    <li>11.02 기획 수정: '하이클래스 · 파트너' 1차 불가(페이지 노출 x) / '고객센터 > 재수강추가혜택문의 · 사전접수 예약' 페이지 삭제 -> GNB에 적용 완료</li>
+                    <li><u>11.05 기획 수정</u>: '포트폴리오 > 캐드/인테리어/제품3D' sub page 세분화 - '캐드' 페이지, '인테리어' 페이지 -> IA,GNB에 적용 완료</li>
+                </ul>
+            </section>
+            <section id="screen-size">
+                <div class="guid_title_group">
+                    <h2>화면사이즈</h2>
+                    <strong class="date-status"><span class="work-status"><time>16.12.23</time>update</span></strong>
+                </div>
+                <div class="inner-wrap">
+                    <h3 id="screen">화면사이즈</h3>
+                    <strong class="indication">variable</strong>
+                    <dl class="descript-list">
+                        <dt>@tablet-size</dt>
+                        <dd>1024이하부터의 tablet사이즈입니다.</dd>
+                        <dt>@moblie-size</dt>
+                        <dd>mobile사이즈입니다.</dd>
+                    </dl>
+                    <p>반응,적응형작성시 클래스 아래에 바로 @media (max-width: @tablet-size){}넣어 작성하시면 됩니다.</p>
+                    <pre>
+ex)
+.title-m{
+
+    @media (max-width: @tablet-size){
+
+    }
+}
+                        </pre>
+                </div>
+            </section>
+            <section id="font">
+                <div class="guid_title_group">
+                    <h2>폰트</h2>
+                    <strong class="date-status"><span class="work-status"><time>16.12.20</time>update</span></strong>
+                </div>
+                <div class="inner-wrap">
+
+                    <h3 id="font-family">폰트패밀리</h3>
+                    <strong class="indication">variable</strong>
+                    <dl class="descript-list">
+                        <dt>@font-ko</dt>
+                        <dd>한국어 일경우 사용하는 폰트입니다. 기본적으로 설정으로 되어있습니다.</dd>
+                        <dt>@font-anton</dt>
+                        <dd>뚱뚱한 글자에 사용하는 폰트입니다. 기본적으로 .title-l의 bg로 적용되어있습니다.</dd>
+                        <!-- <dt>@font-en</dt>
+                        <dd>영문이 일경우 사용하는 폰트입니다.</dd> -->
+                    </dl>
+
+                    <h3 id="font-weight">폰트 두께</h3>
+                    <strong class="indication">variable</strong>
+                    <dl class="descript-list">
+                        <dt>@title-weight</dt>
+                        <dd><b>600</b>&nbsp;&nbsp;h1,h2 레벨의 타이틀에 사용됩니다.</dd>
+                        <dt>@gnb-weight</dt>
+                        <dd><b>500</b>&nbsp;&nbsp;메뉴 등 타이틀에 사용됩니다.</dd>
+                        <dt>@subject-weight</dt>
+                        <dd><b>400</b>&nbsp;&nbsp;h2 이하 레벨 또는 일반적인 strong 에 사용됩니다.</dd>
+                        <dt>@cotnet-weight</dt>
+                        <dd><b>200</b>&nbsp;&nbsp;본문에 일반적으로 사용됩니다.</dd>
+                    </dl>
+
+                    <h3 id="font-size">폰트 크기</h3>
+                    <strong class="indication">variable</strong>
+                    <dl class="descript-list">
+                        <dt>@title-size</dt>
+                        <dd><b>35px</b>&nbsp;&nbsp;h1,h2 레벨의 타이틀에 사용됩니다.</dd>
+                        <dt>@subject-size</dt>
+                        <dd><b>25px</b>&nbsp;&nbsp;h2 와 h2이하 레벨에 사용됩니다.</dd>
+                        <dt>@summery-size</dt>
+                        <dd><b>20px</b>&nbsp;&nbsp;부제 형태 또는 일반적인 strong 에 사용됩니다.</dd>
+                        <dt>@menu-size</dt>
+                        <dd><b>15px</b>&nbsp;&nbsp;메뉴에 일반적으로 사용됩니다.</dd>
+                        <dt>@cotent-size</dt>
+                        <dd><b>14px</b>&nbsp;&nbsp;본문에 일반적으로 사용됩니다.</dd>
+                        <dt>@mobilefont-size</dt>
+                        <dd><b>13px</b>&nbsp;&nbsp;모바일 본문에 일반적으로 사용됩니다.</dd>
+                        <dt>@mobilefont-smallsize</dt>
+                        <dd><b>12px</b>&nbsp;&nbsp;모바일의 작은폰트에 일반적으로 사용됩니다.</dd>
+                    </dl>
+
+                    <h3 id="font-color">폰트 색상</h3>
+                    <strong class="indication">variable</strong>
+                    <dl class="descript-list">
+                        <dt>@title-color</dt>
+                        <dd><b>#333</b>&nbsp;&nbsp;h1,h2 레벨의 타이틀에 사용됩니다.</dd>
+                        <dt>@subject-color</dt>
+                        <dd><b>#666</b>&nbsp;&nbsp;h2 와 h2이하 또는 strong 레벨에 사용됩니다.</dd>
+                        <dt>@content-color</dt>
+                        <dd><b>#333</b>&nbsp;&nbsp;본문에 일반적으로 사용됩니다.</dd>
+                        <dt>@content-sub-color</dt>
+                        <dd><b>#999</b>&nbsp;&nbsp;본문에 서브로 사용됩니다.</dd>
+                        <dt>@white-color</dt>
+                        <dd><b>#fff</b>&nbsp;&nbsp;배경이 어두운경우 흰색을 필요로 할 때 사용됩니다.</dd>
+                        <dt>@hover-color-w</dt>
+                        <dd><b>#7e7d87</b>&nbsp;&nbsp;a 태그 hover 시 배경이 밝을 경우 사용됩니다 </dd>
+                        <dt>@hover-color-b</dt>
+                        <dd><b>#3b4852</b>&nbsp;&nbsp;a 태그 hover 시 배경이 어두울 경우 사용됩니다 </dd>
+                    </dl>
+                </div>
+            </section>
+            <section id="color">
+                <div class="guid_title_group">
+                    <h2>폰트</h2>
+                    <strong class="date-status"><span class="work-status"><time>16.09.27</time>update</span></strong>
+                </div>
+                <div class="inner-wrap">
+
+                    <h3 id="color">색상</h3>
+                    <strong class="indication">variable</strong>
+                    <dl class="descript-list">
+                        <dt class="main-color">@main-color</dt>
+                        <dd>메인색상 #E62E2E</dd>
+                        <dt class="sub-color">@sub-color</dt>
+                        <dd>서브색상 #252E33</dd>
+                        <dt class="sub-color-first">@sub-color-first</dt>
+                        <dd>서브색상 1 #3B4852</dd>
+                        <dt class="sub-color-second">@sub-color-second</dt>
+                        <dd>서브색상 2 #7E7D87</dd>
+                        <dt class="base-color">@base-color</dt>
+                        <dd>베이스 색상 #EDEFF0</dd>
+                        <dt class="unit-main-color">@unit-main-color</dt>
+                        <dd>유닛메인 #035951</dd>
+                        <dt class="unit-sub-color">@unit-sub-color</dt>
+                        <dd>유닛서브 #F2DAAC</dd>
+                    </dl>
+                </div>
+            </section>
+
+
+            <!--  mixin -->
+            <section id="display">
+                <div class="guid_title_group">
+                    <h2>display</h2>
+                    <strong class="date-status"><span class="work-status"><time>16.09.27</time>update</span></strong>
+                </div>
+                <div class="inner-wrap">
+
+                    <h3 id="inline-block">inline-block</h3>
+                    <strong class="indication">Mixin</strong>
+                    <dl class="descript-list">
+                        <dt>.inlineblock()</dt>
+                        <dd>
+                            디스플레이 속성중 inline-block 사용시 해당믹스인을 사용합니다.
+                            폰트사이즈는 상속받지않음으로 부모요소에게 font-size:0 을 부여해도 무관합니다.
+                        </dd>
+                    </dl>
+
+                    <div class="code">
+                        <p>* 해당 믹스인은 아래와 같이 생성되어있습니다.</p>
+                        <pre>
+.inlineblock(){
+    display: inline-block;
+    *display:inline;
+    *zoom:1;
+    font-size:initial;
+}
+                        </pre>
+                    </div>
+                </div>
+            </section>
+
+            <section id="border">
+                <div class="guid_title_group">
+                    <h2>border</h2>
+                    <strong class="date-status"><span class="work-status"><time>16.09.27</time>update</span></strong>
+                </div>
+                <div class="inner-wrap">
+
+                    <h3 id="border-radius">border-radius</h3>
+                    <strong class="indication">Mixin</strong>
+                    <dl class="descript-list">
+                        <dt>.radius(라운드수치)</dt>
+                        <dd>
+                            라운드의 벤더프리픽스가 추가된 형태의 믹스인입니다.
+                        </dd>
+                    </dl>
+
+                    <div class="code">
+                        <p>* 해당 믹스인은 아래와 같이 생성되어있습니다.</p>
+                        <pre>
+.radius(@r:5px){
+    -webkit-border-radius:@r;
+    -moz-border-radius:@r;
+    border-radius:@r;
+}
+                        </pre>
+                    </div>
+                </div>
+            </section>
+
+            <section id="ellipsis">
+                <div class="guid_title_group">
+                    <h2>ellipsis</h2>
+                    <strong class="date-status"><span class="work-status"><time>16.12.24</time>update</span></strong>
+                </div>
+                <div class="inner-wrap">
+
+                    <h3 id="inline-block">ellipsis</h3>
+                    <strong class="indication">Mixin</strong>
+                    <dl class="descript-list">
+                        <dt>.ellipsis()</dt>
+                        <dd>
+                            줄임표를 표현해야할때 사용하시면 됩니다.
+                        </dd>
+                    </dl>
+
+                    <div class="code">
+                        <p>* 해당 믹스인은 아래와 같이 생성되어있습니다.</p>
+                        <pre>
+.ellipsis(){
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width:99%;
+}
+                        </pre>
+                    </div>
+                </div>
+            </section>
+
+            <section id="common_wraping">
+                <div class="common_wraping">
+                    <h2>common_wrap</h2>
+                    <strong class="date-status"><span class="work-status"><time>16.12.20</time>update</span></strong>
+                </div>
+                <div class="inner-wrap">
+
+                    <h3 id="border-radius">common_wrap</h3>
+                    <strong class="indication">object</strong>
+                    <div class="common_wrap" style="height:200px;background:gray;">
+
+                    </div>
+                    <div class="code2">
+                        <p>공통적으로 width:1024로 되는 wrap에 사용됩니다. 모바일 사이즈로 바뀔시 width:100%로 바뀝니다.</p>
+                        <p>* 해당 오브젝트는 아래와 같이 생성되어있습니다.  <span class="btn_open">click! (펼쳐보기)</span></p>
+                        <div class="html">
+                            <xmp>
+<div class="common_wrap">
+
+</div>
+                            </xmp>
+                        </div>
+                        <div class="css">
+                            <pre>
+.common_wrap{
+    margin:0 auto;
+    width:1024px;
+}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="heading">
+                <div class="guid_title_group">
+                    <h2>Heading</h2>
+                    <strong class="date-status"><span class="work-status"><time>16.10.20</time>update</span></strong>
+                </div>
+                <div class="inner-wrap">
+                    <h3 id="inline-block">대제목   .title-l</h3>
+                    <strong class="indication">object</strong>
+                    <!--  -->
+                    <div class="title-l">
+                        <div class="bg">Introduce</div>
+                        <div class="text-box">
+                            <h1>하이미디어 소개</h1>
+                            <p>하이미디어 컴퓨터학원을 소개합니다.</p>
+                        </div>
+                    </div>
+                    <!--  -->
+                    <div class="code2">
+                        <p>* 해당 오브젝트는 아래와 같이 생성되어있습니다.  <span class="btn_open">click! (펼쳐보기)</span></p>
+                        <div class="html">
+                            <xmp>
+<div class="title-l">
+    <div class="bg">Introduce</div>
+    <div class="text-box">
+        <h1>하이미디어 소개</h1>
+        <p>하이미디어 컴퓨터학원을 소개합니다.</p>
+    </div>
+</div>
+                            </xmp>
+                        </div>
+                        <div class="css">
+                            <pre>
+.title-l {
+    margin-bottom:98px;
+    text-align:center;
+    position:relative;
+    .bg {
+            font-size:200px;
+            line-height:172px;
+            font-weight:@title-weight;
+            color:@base-color;
+        }
+    .text-box {
+        position:absolute;
+        top:50%;
+        left:0;
+        margin-top:-30px;
+        width:100%;
+        > div {
+            margin:0 auto;
+        }
+        h1 {
+            height:45px;
+            line-height:45px;
+            font-size:@title-size;
+            font-weight:@title-weight;
+            &::before {
+                .inlineblock();
+                content: "";
+                margin-right:20px;
+                width:10px;
+                height:45px;
+                vertical-align: top;
+                background-color:@main-color;
+            }
+        }
+        p {
+            margin-top:14px;
+            font-size:@menu-size;
+            color:@sub-color-second;
+        }
+    }
+}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="inner-wrap">
+                    <h3 id="inline-block">중제목   .title-m</h3>
+                    <strong class="indication">object</strong>
+                    <!--  -->
+                    <div class="title-m">
+                        <h2>FRANCHISE SYSTEM</h2>
+                        <p>하이미디어컴퓨터학원을 선택하신 예비점주님을 환영합니다. <br>
+                        가맹점 개설부터, 사후관리까지 시작부터 끝까지 점주님들의 동반자로서 함께 할 것입니다.<br>
+                        하이미디어컴퓨터학원은 다음과 같은 지원을 약속드립니다.</p>
+                    </div>
+                    <!--  -->
+                    <div class="code2">
+                        <p>* 해당 오브젝트는 아래와 같이 생성되어있습니다.  <span class="btn_open">click! (펼쳐보기)</span></p>
+                        <div class="html">
+                            <xmp>
+<div class="title-m">
+    <h2>FRANCHISE SYSTEM</h2>
+    <p>하이미디어컴퓨터학원을 선택하신 예비점주님을 환영합니다. <br>
+    가맹점 개설부터, 사후관리까지 시작부터 끝까지 점주님들의 동반자로서 함께
+    할 것입니다.<br>
+    하이미디어컴퓨터학원은 다음과 같은 지원을 약속드립니다.</p>
+</div>
+                            </xmp>
+                        </div>
+                        <div class="css">
+                            <pre>
+.title-m {
+    margin:70px 0;
+    text-align:center;
+    h2 {
+        position:relative;
+        font-size:@subject-size;
+        font-weight:@title-weight;
+        &::after {
+            position:absolute;
+            top:49px;
+            left:50%;
+            .inlineblock();
+            content: "";
+            margin-left:-15.5px;
+            width:31px;
+            height:3px;
+            vertical-align: top;
+            background-color:@main-color;
+        }
+    }
+    p {
+        margin-top:48px;
+        font-size:@menu-size;
+        line-height:20px;
+        color:@sub-color-second;
+    }
+}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="tab">
+                <div class="guid_title_group">
+                    <h2>Tab </h2>
+                    <strong class="date-status"><span class="work-status"><time>16.11.04</time>update</span></strong>
+                </div>
+                <div class="inner-wrap">
+                    <h3 id="inline-block">tab-sub</h3>
+                    <strong class="indication">object</strong>
+                    <!--  -->
+                    <div class="tab tab-sub">
+                        <ul>
+                            <li class="on"><a href="#">하이미디어 소개</a></li>
+                            <li><a href="#">연혁</a></li>
+                            <li><a href="#">CI&amp;BI</a></li>
+                        </ul>
+                    </div>
+                    <!--  -->
+                    <div class="code2">
+                        <p>* 모든 탭은 공통 클래스인 'tab'을 포함하여야 합니다.</p>
+                        <p>* 해당 오브젝트는 아래와 같이 생성되어있습니다.  <span class="btn_open">click! (펼쳐보기)</span></p>
+                        <div class="html">
+                            <xmp>
+<div class="tab tab-sub">
+    <ul>
+        <li class="on"><a href="#">하이미디어 소개</a></li>
+        <li><a href="#">연혁</a></li>
+        <li><a href="#">CI&amp;BI</a></li>
+    </ul>
+</div>
+                            </xmp>
+                        </div>
+                        <div class="css">
+                            <pre>
+.tab {
+    margin:0 auto 70px;
+    max-width:1024px;
+}
+.tab-sub {
+    height:47px;
+    text-align: center;
+    background:url('/img/etc/bg_tab1.png');
+    ul {
+        padding:0 30px;
+        .inlineblock();
+        height:100%;
+        background:@white-color;
+        li {
+            float: left;
+            padding:0 10px;
+            line-height: 47px;
+            font-size:@summery-size;
+            font-weight:@title-weight;
+            a {
+                padding:0 10px;
+                color:@subject-color;
+            }
+        }
+        li:hover a, li.on a {
+            color:@title-color;
+            background:url('/img/etc/bg_tab1_a.png') 0 center;
+        }
+    }
+}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="inner-wrap">
+                    <h3 id="inline-block">tab-campus</h3>
+                    <strong class="indication">object</strong>
+                    <!--  -->
+                    <div class="tab tab-campus">
+                        <ul>
+                            <li class="on"><button type="button">강남</button></li>
+                            <li><button type="button">종로1</button></li>
+                            <li><button type="button">종로2</button></li>
+                            <li><button type="button">신촌</button></li>
+                            <li><button type="button">구로</button></li>
+                            <li><button type="button">노원</button></li>
+                            <li><button type="button">천호</button></li>
+                            <li><button type="button">안양</button></li>
+                            <li><button type="button">안산</button></li>
+                            <li><button type="button">성남</button></li>
+                            <li><button type="button">수원</button></li>
+                            <li><button type="button">인천</button></li>
+                            <li><button type="button">전주</button></li>
+                            <li><button type="button">구로</button></li>
+                        </ul>
+                    </div>
+                    <!--  -->
+                    <div class="code2">
+                        <p>* 모든 탭은 공통 클래스인 'tab'을 포함하여야 합니다.</p>
+                        <p>* 해당 오브젝트는 아래와 같이 생성되어있습니다.  <span class="btn_open">click! (펼쳐보기)</span></p>
+                        <div class="html">
+                            <xmp>
+<div class="tab tab-campus">
+    <ul>
+        <li class="on"><button type="button">강남</button></li>
+        <li><button type="button">종로1</button></li>
+        <li><button type="button">종로2</button></li>
+        <li><button type="button">신촌</button></li>
+        <li><button type="button">구로</button></li>
+        <li><button type="button">노원</button></li>
+        <li><button type="button">천호</button></li>
+        <li><button type="button">안양</button></li>
+        <li><button type="button">안산</button></li>
+        <li><button type="button">성남</button></li>
+        <li><button type="button">수원</button></li>
+        <li><button type="button">인천</button></li>
+        <li><button type="button">전주</button></li>
+        <li><button type="button">구로</button></li>
+    </ul>
+</div>
+                            </xmp>
+                        </div>
+                        <div class="css">
+                            <pre>
+.tab-campus {
+    ul {overflow:hidden;}
+    li {
+        float:left;
+        text-align:center;
+
+        button {
+            width:100%;
+            height:61px;
+            border:0;
+            border-top:2px solid @sub-color;
+            background-color:@white-color;
+        }
+    }
+    li:hover button {
+        font-weight:@gnb-weight;
+        background-color:@base-color;
+    }
+    li.on button{
+        font-weight:@title-weight;
+        color:@white-color;
+        background-color:@main-color;
+    }
+}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inner-wrap">
+                    <h3 id="inline-block">tab-customer</h3>
+                    <strong class="indication">object</strong>
+
+                    <div class="tab tab-customer">
+                        <ul>
+                            <li class="on"><a href="#">공지사항/<br>이벤트</a></li>
+                            <li><a href="#">수강료<br>조회</a></li>
+                            <li><a href="#">시간표<br>조회</a></li>
+                            <li><a href="#">온라인<br>상담</a></li>
+                            <li><a href="#">온라인<br>결제</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Q&amp;A</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="code2">
+                        <p>* 모든 탭은 공통 클래스인 'tab'을 포함하여야 합니다.</p>
+                        <p>* 해당 오브젝트는 아래와 같이 생성되어있습니다.  <span class="btn_open">click! (펼쳐보기)</span></p>
+                        <div class="html">
+                            <xmp>
+<div class="tab tab-customer">
+    <ul>
+        <li class="on"><a href="#">공지사항/<br>이벤트</a></li>
+        <li><a href="#">수강료<br>조회</a></li>
+        <li><a href="#">시간표<br>조회</a></li>
+        <li><a href="#">온라인<br>상담</a></li>
+        <li><a href="#">온라인<br>결제</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Q&amp;A</a></li>
+    </ul>
+</div>
+                            </xmp>
+                        </div>
+                        <div class="css">
+                            <pre>
+.tab-customer {
+    ul {overflow:hidden;}
+    li {
+        float: left;
+        margin-left:30px;
+        &:first-child {margin-left:0;}
+        a {
+            display:table-cell;
+            width:120px;
+            height:120px;
+            color:@sub-color-first;
+            line-height:18px;
+            font-weight:@gnb-weight;
+            vertical-align: middle;
+            text-align:center;
+            .radius(100px);
+            border: 3px solid @sub-color-first;
+        }
+        &:hover {
+            a {
+                color:@sub-color-second;
+                border: 3px solid @sub-color-second;
+            }
+        }
+    }
+    li.on {
+        a {
+            color:@main-color;
+            border: 3px solid @main-color;
+        }
+    }
+}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inner-wrap customer-campus">
+                    <h3 id="inline-block">tab-customer-campus</h3>
+                    <strong class="indication">object</strong>
+
+                    <div class="dropdown tab tab-customer-campus">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="tab-customer-campus" data-toggle="dropdown" aria-expanded="true">
+                          전체
+                          <span class="icon arrowDown white"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="tab-customer-campus">
+                            <li class="on"><button type="button">전체</button></li>
+                            <li><button type="button">강남</button></li>
+                            <li><button type="button">종로1</button></li>
+                            <li><button type="button">종로2</button></li>
+                            <li><button type="button">신촌</button></li>
+                            <li><button type="button">구로</button></li>
+                            <li><button type="button">노원</button></li>
+                            <li><button type="button">천호</button></li>
+                            <li><button type="button">안양</button></li>
+                            <li><button type="button">안산</button></li>
+                            <li><button type="button">성남</button></li>
+                            <li><button type="button">수원</button></li>
+                            <li><button type="button">인천</button></li>
+                            <li><button type="button">전주</button></li>
+                            <li><button type="button">구로</button></li>
+                        </ul>
+                    </div>
+
+                    <div class="code2">
+                        <p>* 모든 탭은 공통 클래스인 'tab'을 포함하여야 합니다.</p>
+                        <p>* 부트스트랩 기반의 클래스입니다.</p>
+                        <p>* 해당 오브젝트는 아래와 같이 생성되어있습니다.  <span class="btn_open">click! (펼쳐보기)</span></p>
+                        <div class="html">
+                            <xmp>
+<div class="dropdown tab tab-customer-campus">
+    <button class="btn btn-default dropdown-toggle" type="button" id="tab-customer-campus" data-toggle="dropdown" aria-expanded="true">
+      전체
+      <span class="icon arrowDown white"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="tab-customer-campus">
+        <li class="on"><button type="button">전체</button></li>
+        <li><button type="button">강남</button></li>
+        <li><button type="button">종로1</button></li>
+        <li><button type="button">종로2</button></li>
+        <li><button type="button">신촌</button></li>
+        <li><button type="button">구로</button></li>
+        <li><button type="button">노원</button></li>
+        <li><button type="button">천호</button></li>
+        <li><button type="button">안양</button></li>
+        <li><button type="button">안산</button></li>
+        <li><button type="button">성남</button></li>
+        <li><button type="button">수원</button></li>
+        <li><button type="button">인천</button></li>
+        <li><button type="button">전주</button></li>
+        <li><button type="button">구로</button></li>
+    </ul>
+</div>
+                            </xmp>
+                        </div>
+                        <div class="css">
+                            <pre>
+.tab-customer-campus {
+    ul {overflow:hidden;}
+    li {
+        float: left;
+        button {
+            display:block;
+            width:100%;
+            height:50px;
+            color:@subject-color;
+            font-weight:@gnb-weight;
+            text-align: center;
+            vertical-align: middle;
+            background:@white-color;
+        }
+        &:hover {
+            button {color:@main-color;}
+        }
+    }
+    li.on {
+        button {
+            color:@white-color;
+            background:@main-color;
+        }
+    }
+    @media(max-width:@tablet-size){
+        li{
+            float:none;
+            button{
+                height:35px;
+            }
+        }
+    }
+}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inner-wrap">
+                    <h3 id="inline-block">tab-course-inner</h3>
+                    <strong class="indication">object</strong>
+
+                    <div class="tab-course-inner">
+                        <ul>
+                            <li class="on">
+                                <button>훈련 대상 <span></span></button>
+                            </li>
+                            <li><button>지원 내용<span></span></button></li>
+                            <li><button>신청 절차<span></span></button></li>
+                        </ul>
+                    </div>
+
+                    <div class="code2">
+                        <p>* 모든 탭은 공통 클래스인 'tab'을 포함하여야 합니다.</p>
+                        <p>* 해당 오브젝트는 아래와 같이 생성되어있습니다.  <span class="btn_open">click! (펼쳐보기)</span></p>
+                        <div class="html">
+                            <xmp>
+<div class="tab-course-inner">
+    <ul>
+        <li class="on">
+            <button>훈련 대상 <span></span></button>
+        </li>
+        <li><button>지원 내용<span></span></button></li>
+        <li><button>신청 절차<span></span></button></li>
+    </ul>
+</div>
+                            </xmp>
+                        </div>
+                        <div class="css">
+                            <pre>
+.tab-course-inner{
+    margin:70px 0;
+    ul{
+        font-size:0;
+        vertical-align: top;
+        li{
+            .inlineblock();
+            width:140px;
+            margin-left:15px;
+            button{
+                width:100%;
+                height:25px;
+                color:@content-sub-color;
+                font-weight: @gnb-weight;
+                font-size: @menu-size + 3;
+                span{
+                    display:block;
+                    width:100%;
+                    height:3px;
+                    margin-top:5px;
+                    background:@content-sub-color;
+                }
+            }
+        }
+        li:hover{
+            button{
+                span{
+                    background:@main-color;
+                }
+            }
+        }
+        li.on{
+            button{
+                color:@content-color;
+                span{
+                    background:@main-color;
+                }
+            }
+        }
+        li:first-child{
+            margin-left:0;
+        }
+    }
+}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="pagination">
+                <div class="guid_title_group">
+                    <h2>Pagination</h2>
+                    <strong class="date-status"><span class="work-status"><time>16.12.10</time>update</span></strong>
+                </div>
+                <div class="inner-wrap">
+                    <h3 id="inline-block">.pagination</h3>
+                    <strong class="indication">object</strong>
+                    <!--  -->
+                    <div class="pagination">
+                        <a href="#" class="first">처음</a><a href="#" class="prev">이전</a>
+                        <span>
+                            <a href="#" class="on">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <a href="#">6</a>
+                            <a href="#">7</a>
+                            <a href="#">8</a>
+                            <a href="#">9</a>
+                            <a href="#">10</a>
+                        </span>
+                        <a href="#" class="next">다음</a><a href="#" class="last">마지막</a>
+                    </div>
+                    <!--  -->
+                    <dl class="descript-list">
+                        <dt>기본 - margin: 70px 0;</dt>
+                        <dd>
+                            *예외 페이지 - '포트폴리오' 서브 페이지 margin: 110px 0 70px;
+                        </dd>
+                        <dt>바탕이 회색일시 하단에 스크립트추가</dt>
+                        <dd>$('.pagination').addClass('gray');</dd>
+                    </dl>
+                    <div class="code2">
+                        <p>* 해당 오브젝트는 아래와 같이 생성되어있습니다.  <span class="btn_open">click! (펼쳐보기)</span></p>
+                        <div class="html">
+                            <xmp>
+<div class="pagination">
+    <a href="#" class="first">처음</a><a href="#" class="prev">이전</a>
+    <span>
+        <a href="#" class="on">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <a href="#">6</a>
+        <a href="#">7</a>
+        <a href="#">8</a>
+        <a href="#">9</a>
+        <a href="#">10</a>
+    </span>
+    <a href="#" class="next">다음</a><a href="#" class="last">마지막</a>
+</div>
+                            </xmp>
+                        </div>
+                        <div class="css">
+                            <pre>
+.pagination {
+    width:100%;
+    margin:70px 0;
+    text-align:center;
+    > a {
+        .inlineblock();
+        width:18px;
+        height:16px;
+        font-size:0;
+        text-indent:-9999999%;
+        vertical-align:middle;
+        background:url('/img/icon/icon_pagination.png') no-repeat;
+    }
+    .first {
+        margin-right:23px;
+        background-position:0 0;
+        &:hover {background-position:0 -46px;}
+    }
+    .prev {
+        width:9px;
+        background-position:-47px 0;
+        &:hover {background-position:-47px -46px;}
+    }
+    .next {
+        width:9px;
+        background-position:-86px 0;
+        &:hover {background-position:-86px -46px;}
+    }
+    .last {
+        margin-left:23px;
+        background-position:-124px 0;
+        &:hover {background-position:-124px -46px;}
+    }
+    span {
+        .inlineblock();
+        margin:0 17px;
+        a {
+            .inlineblock();
+            width:29px;
+            height:29px;
+            line-height:25px;
+            color:@content-color;
+            border:1px #8b9093 solid;
+            &:hover {
+                color:@main-color;
+                border:1px @main-color solid;
+            }
+        }
+        a.on {
+            color:@white-color;
+            border:1px @main-color solid;
+            background-color:@main-color;
+        }
+    }
+}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="button">
+                <div class="guid_title_group">
+                    <h2>button</h2>
+                    <strong class="date-status"><span class="work-status"><time>16.11.15</time>update</span></strong>
+                </div>
+                <div class="inner-wrap">
+                    <h3 id="inline-block">class="btn-seemore" showNum="처음보여줄 갯수" plusNum="클릭시 보여질 갯수" targetClass="클래스명"</h3>
+                    <strong class="indication">object</strong>
+                    <!--  -->
+                    <ul>
+                        <li style="width:100%;border:1px #F00 solid;pading:3px;margin-bottom:5px;"class="seeMore text-center">1</li>
+                        <li style="width:100%;border:1px #F00 solid;pading:3px;margin-bottom:5px;"class="seeMore text-center">2</li>
+                        <li style="width:100%;border:1px #F00 solid;pading:3px;margin-bottom:5px;"class="seeMore text-center">3</li>
+                        <li style="width:100%;border:1px #F00 solid;pading:3px;margin-bottom:5px;"class="seeMore text-center">4</li>
+                        <li style="width:100%;border:1px #F00 solid;pading:3px;margin-bottom:5px;"class="seeMore text-center">5</li>
+                        <li style="width:100%;border:1px #F00 solid;pading:3px;margin-bottom:5px;"class="seeMore text-center">6</li>
+                        <li style="width:100%;border:1px #F00 solid;pading:3px;margin-bottom:5px;"class="seeMore text-center">7</li>
+                    </ul>
+                    <div class="btn-seemore" showNum="3" plusNum="all" targetClass="seeMore">
+                        <button type="button">See more<span class="icon plus red"></span></button>
+                    </div>
+                    <!--  -->
+                    <div class="code2">
+                        <p>
+                            * 클릭시 보여질 대상은 모두 같은 class를 가져야 합니다.<br>
+                            * 처음에 표시할 대상의 갯수를 showNum 속성에 입력합니다.<br>
+                            * 클릭할 때 보여질 갯수를 plusNum 속성에 입력합니다. <strong>갯수 상관없이 모두 보이려면 'all'을 입력합니다.</strong><br>
+                            <br><strong>**주의**</strong><br>
+                            * 보여주기가 끝나면 버튼은 사라지게 만들었습니다.<br>
+                            * 보여질 대상은 inline-block으로 표시되므로 block인 경우는 무시될 수 있습니다.
+                        </p>
+                        <p>* 해당 오브젝트는 아래와 같이 생성되어있습니다.  <span class="btn_open">click! (펼쳐보기)</span></p>
+                        <div class="html">
+                            <xmp>
+<ul>
+    <li class="seeMore">1</li>
+    <li class="seeMore">2</li>
+    <li class="seeMore">3</li>
+    <li class="seeMore">4</li>
+    <li class="seeMore">5</li>
+    <li class="seeMore">6</li>
+    <li class="seeMore">7</li>
+</ul>
+
+<div class="btn-seemore" showNum="3" plusNum="1" targetClass="seeMore">
+    <button type="button">See more<span class="icon plus red"></span></button>
+</div>
+                            </xmp>
+                        </div>
+                        <div class="css">
+                            <pre>
+.btn-seemore {
+    margin:70px auto;
+    max-width:1024px;
+    button {
+        width:100%;
+        height:65px;
+        line-height:65px;
+        color:@white-color;
+        font-size:@menu-size + 1;
+        font-weight:@subject-weight;
+        background-color:@sub-color;
+        .icon {margin-left:20px;}
+        &:hover {
+            background-color:@main-color;
+            .icon {background-position: -40px -100px;}
+        }
+    }
+}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sm-rect-btns">
+                <div class="guid_title_group">
+                    <h2>small rect button</h2>
+                    <strong class="date-status"><span class="work-status"><time>17.01.07</time>update</span></strong>
+                </div>
+                <div class="inner-wrap">
+                    <h3 id="inline-block">.sm-rect-btns-wrapper</h3>
+                    <strong class="indication">object</strong>
+                    <!--  -->
+                    <div class="dropdown sm-rect-btns-wrapper common_wrap">
+                      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                        전체보기
+                        <span class="icon arrowDown white"></span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                           <li class="sm-rect-btns active" role="presentation"><a href="#" tabindex="-1" href="#">전체보기</a></li>
+                           <li class="sm-rect-btns" role="presentation"><a href="#" tabindex="-1" href="#">웹디자인 · 웹퍼블리싱</a></li>
+                           <li class="sm-rect-btns" role="presentation"><a href="#" tabindex="-1" href="#">편집디자인/영상</a></li>
+                           <li class="sm-rect-btns" role="presentation"><a href="#" tabindex="-1" href="#">IT/개발</a></li>
+                           <li class="sm-rect-btns" role="presentation"><a href="#" tabindex="-1" href="#">게임</a></li>
+                           <li class="sm-rect-btns" role="presentation"><a href="#" tabindex="-1" href="#">실내건축/기계설계</a></li>
+                           <li class="sm-rect-btns" role="presentation"><a href="#" tabindex="-1" href="#">전산세무회계/ERP</a></li>
+                           <li class="sm-rect-btns" role="presentation"><a href="#" tabindex="-1" href="#">사무자동화/OA</a></li>
+                      </ul>
+                    </div>
+                    <!--  -->
+                    <div class="code2">
+                        <p>* 해당 오브젝트는 부트스트랩 기반입니다.</p>
+                        <p>* 해당 오브젝트는 아래와 같이 생성되어있습니다.  <span class="btn_open">click! (펼쳐보기)</span></p>
+                        <div class="html">
+                            <xmp>
+<div class="dropdown sm-rect-btns-wrapper common_wrap">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+    전체보기
+    <span class="icon arrowDown white"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+       <li class="sm-rect-btns active" role="presentation"><a href="#" tabindex="-1" href="#">전체보기</a></li>
+       <li class="sm-rect-btns" role="presentation"><a href="#" tabindex="-1" href="#">웹디자인 · 웹퍼블리싱</a></li>
+       <li class="sm-rect-btns" role="presentation"><a href="#" tabindex="-1" href="#">편집디자인/영상</a></li>
+       <li class="sm-rect-btns" role="presentation"><a href="#" tabindex="-1" href="#">IT/개발</a></li>
+       <li class="sm-rect-btns" role="presentation"><a href="#" tabindex="-1" href="#">게임</a></li>
+       <li class="sm-rect-btns" role="presentation"><a href="#" tabindex="-1" href="#">실내건축/기계설계</a></li>
+       <li class="sm-rect-btns" role="presentation"><a href="#" tabindex="-1" href="#">전산세무회계/ERP</a></li>
+       <li class="sm-rect-btns" role="presentation"><a href="#" tabindex="-1" href="#">사무자동화/OA</a></li>
+  </ul>
+</div>
+                            </xmp>
+                        </div>
+                        <div class="css">
+                            <pre>
+.sm-rect-btns-wrapper{
+    padding: 0 55px;
+    width:1024px;
+    margin:0 auto;
+    text-align: left;
+    font-size: 0;
+    >button{
+        display:none;
+    }
+    .sm-rect-btns{
+        width:218px;
+        height:40px;
+        outline : 1px #222 solid;
+        .inlineblock();
+        text-align: center;
+        margin-right:10px;
+        margin-bottom:10px;
+        a{
+            font-size:@menu-size;
+            color:@content-color;
+            font-weight: @gnb-weight;
+        }
+
+        &.active {
+            outline:1px @main-color solid;
+            background-color: @main-color;
+            a{color:@white-color;}
+        }
+        &:hover{
+            outline:1px @main-color solid;
+            a{color: @main-color;}
+        }
+        &.active:hover{
+            a{color:@white-color;}
+        }
+        >a{
+            width:100%;
+            line-height:40px;
+            padding:0;
+        }
+    }
+    .more{
+        display:none;
+    }
+    @media(max-width:@tablet-size){
+        width:50%;
+        padding:0 !important;
+        position:relative;
+        >button{
+            display:block;
+            width:100%;
+            background: @main-color;
+            border:none;
+            border-radius: 0;
+            font-size:@menu-size;
+            color:@white-color;
+            font-weight: @gnb-weight;
+            height:40px;
+            outline:1px solid @main-color;
+            span{
+                margin-left:24%;
+            }
+        }
+        >ul{
+            width:100%;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            float: left;
+            margin:3px 0 0 0 ;
+            min-width: 160px;
+            font-size: 14px;
+            text-align: left;
+            list-style: none;
+            background-color: #fff;
+        }
+        .sm-rect-btns{
+            width:100%;
+            background:@white-color;
+            margin:0 0 3px 0;
+        }
+        .more{
+            display: block;
+            position:absolute;
+            top:0;
+            right:0;
+            width:100%;
+            text-align: right;
+            height:100%;
+            img{
+                margin-right:10px;
+            }
+        }
+    }
+    &&.open{
+        .icon.arrowDown.white{
+            background-position: -158px -50px;
+        }
+    }
+}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="common_btns">
+                <div class="guid_title_group">
+                    <h2>common_btns</h2>
+                    <strong class="date-status"><span class="work-status"><time>16.11.04</time>update</span></strong>
+                </div>
+                <div class="inner-wrap">
+                    <h3 id="inline-block">common_btns</h3>
+                    <strong class="indication">object</strong>
+                    <!--  -->
+                    <button class="common_btn red_btn">빨강</button>
+                    <button class="common_btn navy_btn">남색</button>
+                    <button class="common_btn white_btn">흰색</button>
+                    <button class="common_btn delete_btn">삭제</button>
+                    <button class="common_btn arrow_nay_btn">네이비<span class="icon arrow red">오른쪽 화살표</span></button>
+                    <button class="common_btn arrow_white_btn">흰색<span class="icon arrow red">오른쪽 화살표</span></button>
+                    <button class="common_btn big_btn" style="margin-top:10px;">큰사이즈 버튼<span class="icon check red">체크(확인)</span></button>
+                    <!--  -->
+                    <div class="code2">
+                        <p>버튼의 사이즈는 사용하실때 바꿔주시면 됩니다.</p>
+                        <p>* 해당 오브젝트는 아래와 같이 생성되어있습니다.  <span class="btn_open">click! (펼쳐보기)</span></p>
+                        <div class="html">
+                            <xmp>
+<button class="common_btn red_btn">빨강</button>
+<button class="common_btn navy_btn">남색</button>
+<button class="common_btn white_btn">흰색</button>
+<button class="common_btn delete_btn">삭제</button>
+<button class="common_btn arrow_nay_btn">네이비<span class="icon arrow red">오른쪽 화살표</span></button>
+<button class="common_btn arrow_white_btn">흰색<span class="icon arrow red">오른쪽 화살표</span></button>
+<button class="common_btn big_btn">큰사이즈 버튼<span class="icon check red">체크(확인)</span></button>
+                            </xmp>
+                        </div>
+                        <div class="css">
+                            <pre>
+.common_btn{
+    .inlineblock();
+    font-size:16px;
+    .arrow{
+        float:right
+    }
+}
+.common_btn.red_btn{
+    border: none;
+    color: @white-color;
+    background:@main-color;
+    width: 80px;
+    height:40px;
+}
+.common_btn.navy_btn{
+    color: @white-color;
+    width: 80px;
+    height:40px;
+    background:@sub-color;
+}
+.common_btn.white_btn{
+    outline: 1px #222 solid;
+    width: 80px;
+    height:38px;
+}
+.arrow_nay_btn{
+    width: 235px;
+    padding: 9px 25px 9px 20px;
+    background:@sub-color;
+    color:@white-color;
+    text-align: left;
+}
+.arrow_white_btn{
+    width: 235px;
+    padding: 9px 25px 9px 20px;
+    outline: 1px #222 solid;
+    text-align: left;
+}
+.delete_btn{
+    font-size: 0;
+    background: #e62e2e url(/img/icon/icon_del.png) no-repeat;
+    border: none;
+    width: 80px;
+    height: 40px;
+    font-size: 0;
+    background-position: 50%;
+}
+.common_btn.big_btn{
+    width:100%;
+    height:65px;
+    line-height:65px;
+    color:@white-color;
+    background-color:@sub-color;
+    >span{
+        margin-left: 20px;
+    }
+    &&:hover{
+        background:@main-color;
+        >span{
+            background-position: -40px -250px;
+        }
+    }
+}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="icon">
+                <div class="guid_title_group">
+                    <h2>icon</h2>
+                    <strong class="date-status"><span class="work-status"><time>17.03.29</time>update</span></strong>
+                </div>
+                <div class="inner-wrap">
+                    <h3 id="inline-block">.icon</h3>
+                    <strong class="indication">object</strong>
+                    <div class="icon-wrap">
+                        <!--  -->
+                        <span class="icon arrow red">오른쪽 화살표</span>
+                        <span class="icon arrow navy">오른쪽 화살표</span>
+                        <span class="icon arrow grey">오른쪽 화살표</span>
+                        <span class="icon arrow white">오른쪽 화살표</span>
+                        <span class="icon arrowDown red">아래쪽 화살표</span>
+                        <span class="icon arrowUp red">위쪽 화살표</span>
+                        <span class="icon plus red">플러스(더하기)</span>
+                        <span class="icon plus white">플러스(더하기)</span>
+                        <span class="icon close-x red">엑스(닫기)</span>
+                        <button class="icon arrow-slide left">왼쪽으로</button>
+                        <button class="icon arrow-slide right">오른쪽으로</button>
+                        <span class="icon check red">체크(확인)</span>
+                        <span class="icon check white">체크(확인</span>
+                        <span class="icon list red">리스트(목록)</span>
+                        <span class="icon delete red">삭제</span>
+                        <span class="icon new">신규 게시글</span>
+                        <span class="icon arrow_left red"> 왼쪽 화살표</span>
+                        <ul class="icon_list_style">
+                            <li>리스트 스타일</li>
+                        </ul>
+                        <!--  -->
+                    </div>
+                    <dl class="descript-list">
+                        <dt>.icon.모양.색상</dt>
+                        <dd>
+                            path: /img/icon/icon_sprite.png *각 클래스명은 하단 참조
+                        </dd>
+                    </dl>
+                    <div class="code2">
+                        <p>* 해당 오브젝트는 아래와 같이 생성되어있습니다.  <span class="btn_open">click! (펼쳐보기)</span></p>
+                        <div class="html">
+                            <xmp>
+<span class="icon arrow red">오른쪽 화살표</span>
+<span class="icon arrow navy">오른쪽 화살표</span>
+<span class="icon arrow grey">오른쪽 화살표</span>
+<span class="icon arrow white">오른쪽 화살표</span>
+<span class="icon arrowDown red">아래쪽 화살표</span>
+<span class="icon arrowUp red">위쪽 화살표</span>
+<span class="icon plus red">플러스(더하기)</span>
+<span class="icon plus white">플러스(더하기)</span>
+<span class="icon close-x red">엑스(닫기)</span>
+<button class="icon arrow-slide left">왼쪽으로</button>
+<button class="icon arrow-slide right">오른쪽으로</button>
+<span class="icon check red">체크(확인)</span>
+<span class="icon check white">체크(확인</span>
+<span class="icon list red">리스트(목록)</span>
+<span class="icon delete red">삭제</span>
+<span class="icon new">신규 게시글</span>
+<ul class="icon_list_style">
+    <li>리스트 스타일</li>
+</ul>
+                            </xmp>
+                        </div>
+                        <div class="css">
+                            <pre>
+.icon {
+    .inlineblock();
+    font-size:0;
+    text-indent:-999999%;
+    vertical-align:middle;
+    background:url('/img/icon/icon_sprite.png') no-repeat;
+}
+.icon.arrow {width:12px;height:20px;}
+.icon.plus {width:19px;height:19px;}
+.icon.arrow-slide {width:24px;height:38px;}
+.icon.check {width:25px;height:21px;}
+.icon.list {width:19px;height:17px;}
+.icon.delete {width:21px;height:25px;}
+.icon.arrow.red {background-position: 0 0;}
+.icon.arrow.navy {background-position: -40px 0;}
+.icon.arrow.white {background-position: -80px 0;}
+.icon.arrow.grey {background-position: -120px 0;}
+.icon.arrowDown.red {width:20px;height:12px;background-position: 0 -50px;}
+.icon.arrowUp.red {width:20px;height:12px;background-position: -40px -50px;}
+.icon.plus.red {background-position: 0 -100px;}
+.icon.plus.white {background-position: -40px -100px;}
+.icon.close-x.red {width:20px;height:20px;background-position: 0 -150px;}
+.icon.arrow-slide.left {background-position: 0 -200px;}
+.icon.arrow-slide.right {background-position: -80px -200px;}
+.icon.check.red {background-position: 0 -250px;}
+.icon.check.white {background-position: -40px -250px;}
+.icon.list.red {background-position: 0 -300px;}
+.icon.delete.red {background-position: 0 -350px;}
+.icon.new {width:18px;height:17px;background-position: -80px -350px;}
+.icon_list_style li, .icon_list_style p{
+    background:url("../img/icon/dot_icon.jpg") 0 10px no-repeat;
+    padding-left:7px;
+}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="modal1">
+                <div class="guid_title_group">
+                    <h2>modal1</h2>
+                    <strong class="date-status"><span class="work-status"><time>16.11.03</time>update</span></strong>
+                </div>
+                <div class="inner-wrap">
+                    <h3 id="inline-block"> 버튼 속성: class="modallink" modallink="id"/ 팝업창 속성: class="modalPopup" id="id"</h3>
+                    <strong class="indication">javascript</strong>
+                    <div class="icon-wrap">
+
+                        <div class="text-center">
+                            <br>
+                            <button class="modallink btn btn-primary btn-lg" modallink="example">클릭하기</button>
+                            <br><br>
+                        </div>
+
+                        <div class="modalPopup" style="width:900px;" id="example">
+                            <div class="modal-title text-right">
+                                <span class="title-box text-left">강사소개</span>
+                                <span class="close-box"><a href="#" class="modal-closeBtn">close<i class="icon close-x red"></i></a></span>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="modal-body">
+                                <div class="col-xs-5 body-left">
+                                    <div class="teacher_img" style="background-image: url('../img/site_img/img_modalteacher1.png');"></div>
+                                    <div class="content-title">
+                                        <div class="sub-title">강남캠퍼스</div>
+                                        <div class="name">백소라 강사님</div>
+                                    </div>
+                                    <div class="content-detail">
+                                        <strong>강의분야</strong><br>
+                                            OA 실무 및 자격증(컴퓨터 활용능력,<br>
+                                            사무자동화, MOS, ITQ...) WEB DESIGN
+                                    </div>
+                                </div>
+                                <div class="col-xs-7 body-right">
+                                    <p>
+                                        <strong>경력1</strong><br>
+
+                                        &lt;경력 사항&gt;<br>
+                                        -berkshirehathaway, Scott Fetzer Companies, kirby 마케팅 팀장<br>
+                                        -labeayte 디자인 컴퍼니 이사<br>
+                                        -HM커뮤니케이션즈 기획팀<br>
+                                        -kc inter 마케팅 부장<br>
+                                        -JI international IR part 고문<br>
+                                        -sky management 협력 지원팀장<br>
+                                        -안양시 동안구청 세무과 과표팀 데이터 담당<br><br>
+
+                                        &lt;주요 이력&gt;<br>
+                                        -하이미디어컴퓨터디자인학원 OA 강의(現)<br>
+                                        -대검찰청, 서울 중앙 지검 프레젠테이션 및 정보화 강의(現)<br>
+                                        -외환은행 전국 지점장 및 임원진 강의(現)<br>
+                                        -안양 평촌 공업고등학교 기계과 정보화 강의(現)<br>
+                                        -한국 이러닝 산업협회 평가위원(現)<br>
+                                        -인터넷 쇼핑몰 창업지도 및 강의<br>
+                                        -중,고,대학교 수업<br>
+                                        -경기도 쇼핑몰 창업 컨설팅<br>
+                                        -the hims 국내 기업물류 운송 데이터베이스 프로그램제작<br>
+                                        -the hims 국내 고객관리 데이터베이스 프로그램제작<br>
+                                        -대형 백화점 및 쇼핑몰 입점 계약<br>
+                                        -독립영화 연출 및 편집<br><br>
+
+                                        <strong>저서</strong><br>
+                                        <div class="br-sm"></div>
+                                        MOS 2000 족보, MOS 2003족보, MOS 2007 족보, MOS 2010 족보
+                                    </p>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <dl class="descript-list">
+                        <dt>주의사항</dt>
+                        <dd>
+                            버튼은 .modallink와 속성 modallink="연결될 아이디"가 있어야 합니다.<br>
+                            팝업은 .modalPopup과 id="연결될 아이디"가 있어야 하고, html body 안에 있어야 합니다.<br>
+                            <strong>팝업의 width는 inline에서 지정 가능합니다.</strong>
+                        </dd>
+                    </dl>
+                    <div class="code2">
+                        <p>* 해당 스크립트는 아래와 같이 생성되어있습니다.  <span class="btn_open">click! (펼쳐보기)</span></p>
+                        <div class="html">
+                            <xmp>
+<!-- 버튼 -->
+<button class="btn btn-primary btn-lg modallink" modallink="example">클릭하기</button>
+<!-- 팝업창 -->
+<div class="modalPopup" style="width:900px;" id="example">
+    <!-- 타이틀 -->
+    <div class="modal-title text-right">
+        <span class="title-box text-left">강사소개</span>
+        <span class="close-box"><a href="#" class="modal-closeBtn">close<i class="icon close-x red"></i></a></span>
+        <div class="clearfix"></div>
+    </div>
+    <!-- 바디 -->
+    <div class="modal-body">
+        <!-- 왼쪽 박스 -->
+        <div class="col-xs-5 body-left">
+            <div class="teacher_img" style="background-image: url('../img/site_img/img_modalteacher1.png');"></div>
+            <div class="content-title">
+                <div class="sub-title">강남캠퍼스</div>
+                <div class="name">백소라 강사님</div>
+            </div>
+            <div class="content-detail">
+                <strong>강의분야</strong><br>
+                    OA 실무 및 자격증(컴퓨터 활용능력,<br>
+                    사무자동화, MOS, ITQ...) WEB DESIGN
+            </div>
+        </div>
+        <!-- 오른쪽 박스 -->
+        <div class="col-xs-7 body-right">
+            <p>
+                <strong>경력</strong><br>
+                <경력 사항><br>
+                -berkshirehathaway, Scott Fetzer Companies, kirby 마케팅 팀장<br>
+                -labeayte 디자인 컴퍼니 이사<br>
+                -HM커뮤니케이션즈 기획팀<br>
+                -kc inter 마케팅 부장<br>
+                -JI international IR part 고문<br>
+                -sky management 협력 지원팀장<br>
+                -안양시 동안구청 세무과 과표팀 데이터 담당<br><br>
+
+                <주요 이력><br>
+                -하이미디어컴퓨터디자인학원 OA 강의(現)<br>
+                -대검찰청, 서울 중앙 지검 프레젠테이션 및 정보화 강의(現)<br>
+                -외환은행 전국 지점장 및 임원진 강의(現)<br>
+                -안양 평촌 공업고등학교 기계과 정보화 강의(現)<br>
+                -한국 이러닝 산업협회 평가위원(現)<br>
+                -인터넷 쇼핑몰 창업지도 및 강의<br>
+                -중,고,대학교 수업<br>
+                -경기도 쇼핑몰 창업 컨설팅<br>
+                -the hims 국내 기업물류 운송 데이터베이스 프로그램제작<br>
+                -the hims 국내 고객관리 데이터베이스 프로그램제작<br>
+                -대형 백화점 및 쇼핑몰 입점 계약<br>
+                -독립영화 연출 및 편집<br><br>
+
+                <strong>저서</strong><br>
+                MOS 2000 족보, MOS 2003족보, MOS 2007 족보, MOS 2010 족보
+            </p>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+                            </xmp>
+                        </div>
+                        <div class="css">
+                            <pre>
+.modalPopup{
+    border: 2px @sub-color solid;
+    display:none;
+    z-index: 100;
+    position:fixed;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    background-color: #FFF;
+
+    &.showOn{
+        .inlineblock();
+    }
+
+    .modal-title{
+        background-color: @sub-color;
+        color:@white-color;
+        padding:10px 32px;
+
+        .title-box{
+            font-size:@subject-size + 5;
+            font-weight:@gnb-weight;
+            border-bottom: 2px @sub-color solid;
+            float:left
+        }
+
+        .close-box{
+            .inlineblock();
+            height:40px;
+            line-height:40px;
+
+            a{
+                color:@white-color;
+            }
+            i{
+                .inlineblock();
+                margin-left:20px;
+            }
+        }
+    }
+    .modal-body{
+        font-size:@menu-size;
+        font-weight:@subject-weight;
+        color:@subject-color;
+        line-height:20px;
+        padding:70px 70px;
+
+        strong{
+            font-weight:@title-weight;
+            font-size:@summery-size - 2;
+            color:@content-color;
+        }
+        .content-title{
+            position:relative;
+            margin-bottom:10px;
+
+            &::after{
+                content:"";
+                position:absolute;
+                bottom:0;
+                left:0;
+                .inlineblock();
+                width:30px;
+                height:2px;
+                background-color: @main-color;
+            }
+
+            .sub-title{
+                font-weight:@gnb-weight;
+                font-size:@summery-size - 2;
+                color:@content-color;
+                padding-bottom:10px;
+            }
+
+            .name{
+                font-weight: @gnb-weight;
+                font-size:@subject-size + 5;
+                color:@content-color;
+                padding-bottom:30px;
+            }
+        }
+    }
+}
+.modalBlind{
+    position:fixed;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    background: rgba(0,0,0,0.3);
+    z-index: 10;
+}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="modal2">
+                <div class="guid_title_group">
+                    <h2>modal2 (height, scroll 제한없음)</h2>
+                    <strong class="date-status"><span class="work-status"><time>17.01.05</time>update</span></strong>
+                </div>
+                <div class="inner-wrap">
+                    <h3 id="inline-block"> 버튼 속성: class="modallink2" modallink="id"/ 팝업창 속성: class="modalPopup2" id="id"</h3>
+                    <strong class="indication">javascript</strong>
+                    <div class="icon-wrap">
+
+                        <div class="text-center">
+                            <br>
+                            <button class="modallink2 btn btn-primary btn-lg" modallink="example2">클릭하기</button>
+                            <br><br>
+                        </div>
+
+                        <div class="modalPopup2" style="width:900px;" id="example2">
+                            <div class="modal-title text-right">
+                                <span class="title-box text-left">강사소개</span>
+                                <span class="close-box"><a href="#" class="modal2-closeBtn">close<i class="icon close-x red"></i></a></span>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="modal-body">
+                                <div class="col-xs-5 body-left">
+                                    <div class="teacher_img" style="background-image: url('../img/site_img/img_modalteacher1.png');"></div>
+                                    <div class="content-title">
+                                        <div class="sub-title">강남캠퍼스</div>
+                                        <div class="name">백소라 강사님</div>
+                                    </div>
+                                    <div class="content-detail">
+                                        <strong>강의분야</strong><br>
+                                            OA 실무 및 자격증(컴퓨터 활용능력,<br>
+                                            사무자동화, MOS, ITQ...) WEB DESIGN
+                                    </div>
+                                </div>
+                                <div class="col-xs-7 body-right">
+                                    <p>
+                                        <strong>경력1</strong><br>
+
+                                        &lt;경력 사항&gt;<br>
+                                        -berkshirehathaway, Scott Fetzer Companies, kirby 마케팅 팀장<br>
+                                        -labeayte 디자인 컴퍼니 이사<br>
+                                        -HM커뮤니케이션즈 기획팀<br>
+                                        -kc inter 마케팅 부장<br>
+                                        -JI international IR part 고문<br>
+                                        -sky management 협력 지원팀장<br>
+                                        -안양시 동안구청 세무과 과표팀 데이터 담당<br><br>
+
+                                        &lt;주요 이력&gt;<br>
+                                        -하이미디어컴퓨터디자인학원 OA 강의(現)<br>
+                                        -대검찰청, 서울 중앙 지검 프레젠테이션 및 정보화 강의(現)<br>
+                                        -외환은행 전국 지점장 및 임원진 강의(現)<br>
+                                        -안양 평촌 공업고등학교 기계과 정보화 강의(現)<br>
+                                        -한국 이러닝 산업협회 평가위원(現)<br>
+                                        -인터넷 쇼핑몰 창업지도 및 강의<br>
+                                        -중,고,대학교 수업<br>
+                                        -경기도 쇼핑몰 창업 컨설팅<br>
+                                        -the hims 국내 기업물류 운송 데이터베이스 프로그램제작<br>
+                                        -the hims 국내 고객관리 데이터베이스 프로그램제작<br>
+                                        -대형 백화점 및 쇼핑몰 입점 계약<br>
+                                        -독립영화 연출 및 편집<br><br>
+
+                                        <strong>저서</strong><br>
+                                        <div class="br-sm"></div>
+                                        MOS 2000 족보, MOS 2003족보, MOS 2007 족보, MOS 2010 족보
+                                    </p>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <dl class="descript-list">
+                        <dt>주의사항</dt>
+                        <dd>
+                            버튼은 .modallink와 속성 modallink="연결될 아이디"가 있어야 합니다.<br>
+                            팝업은 .modalPopup과 id="연결될 아이디"가 있어야 하고, html body 안에 있어야 합니다.<br>
+                            <strong>팝업의 width는 inline에서 지정 가능합니다.</strong>
+                        </dd>
+                    </dl>
+                    <div class="code2">
+                        <p>* 해당 스크립트는 아래와 같이 생성되어있습니다.  <span class="btn_open">click! (펼쳐보기)</span></p>
+                        <div class="html">
+                            <xmp>
+<!-- 버튼 -->
+<button class="btn btn-primary btn-lg modallink2" modallink="example2">클릭하기</button>
+<!-- 팝업창 -->
+<div class="modalPopup2" style="width:900px;" id="example2">
+    <!-- 타이틀 -->
+    <div class="modal-title text-right">
+        <span class="title-box text-left">강사소개</span>
+        <span class="close-box"><a href="#" class="modal2-closeBtn">close<i class="icon close-x red"></i></a></span>
+        <div class="clearfix"></div>
+    </div>
+    <!-- 바디 -->
+    <div class="modal-body">
+        <!-- 왼쪽 박스 -->
+        <div class="col-xs-5 body-left">
+            <div class="teacher_img" style="background-image: url('../img/site_img/img_modalteacher1.png');"></div>
+            <div class="content-title">
+                <div class="sub-title">강남캠퍼스</div>
+                <div class="name">백소라 강사님</div>
+            </div>
+            <div class="content-detail">
+                <strong>강의분야</strong><br>
+                    OA 실무 및 자격증(컴퓨터 활용능력,<br>
+                    사무자동화, MOS, ITQ...) WEB DESIGN
+            </div>
+        </div>
+        <!-- 오른쪽 박스 -->
+        <div class="col-xs-7 body-right">
+            <p>
+                <strong>경력</strong><br>
+                <경력 사항><br>
+                -berkshirehathaway, Scott Fetzer Companies, kirby 마케팅 팀장<br>
+                -labeayte 디자인 컴퍼니 이사<br>
+                -HM커뮤니케이션즈 기획팀<br>
+                -kc inter 마케팅 부장<br>
+                -JI international IR part 고문<br>
+                -sky management 협력 지원팀장<br>
+                -안양시 동안구청 세무과 과표팀 데이터 담당<br><br>
+
+                <주요 이력><br>
+                -하이미디어컴퓨터디자인학원 OA 강의(現)<br>
+                -대검찰청, 서울 중앙 지검 프레젠테이션 및 정보화 강의(現)<br>
+                -외환은행 전국 지점장 및 임원진 강의(現)<br>
+                -안양 평촌 공업고등학교 기계과 정보화 강의(現)<br>
+                -한국 이러닝 산업협회 평가위원(現)<br>
+                -인터넷 쇼핑몰 창업지도 및 강의<br>
+                -중,고,대학교 수업<br>
+                -경기도 쇼핑몰 창업 컨설팅<br>
+                -the hims 국내 기업물류 운송 데이터베이스 프로그램제작<br>
+                -the hims 국내 고객관리 데이터베이스 프로그램제작<br>
+                -대형 백화점 및 쇼핑몰 입점 계약<br>
+                -독립영화 연출 및 편집<br><br>
+
+                <strong>저서</strong><br>
+                MOS 2000 족보, MOS 2003족보, MOS 2007 족보, MOS 2010 족보
+            </p>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+                            </xmp>
+                        </div>
+                        <div class="css">
+                            <pre>
+.modalPopup{
+    border: 2px @sub-color solid;
+    display:none;
+    z-index: 100;
+    position:fixed;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    background-color: #FFF;
+
+    &.showOn{
+        .inlineblock();
+    }
+
+    .modal-title{
+        background-color: @sub-color;
+        color:@white-color;
+        padding:10px 32px;
+
+        .title-box{
+            font-size:@subject-size + 5;
+            font-weight:@gnb-weight;
+            border-bottom: 2px @sub-color solid;
+            float:left
+        }
+
+        .close-box{
+            .inlineblock();
+            height:40px;
+            line-height:40px;
+
+            a{
+                color:@white-color;
+            }
+            i{
+                .inlineblock();
+                margin-left:20px;
+            }
+        }
+    }
+    .modal-body{
+        font-size:@menu-size;
+        font-weight:@subject-weight;
+        color:@subject-color;
+        line-height:20px;
+        padding:70px 70px;
+
+        strong{
+            font-weight:@title-weight;
+            font-size:@summery-size - 2;
+            color:@content-color;
+        }
+        .content-title{
+            position:relative;
+            margin-bottom:10px;
+
+            &::after{
+                content:"";
+                position:absolute;
+                bottom:0;
+                left:0;
+                .inlineblock();
+                width:30px;
+                height:2px;
+                background-color: @main-color;
+            }
+
+            .sub-title{
+                font-weight:@gnb-weight;
+                font-size:@summery-size - 2;
+                color:@content-color;
+                padding-bottom:10px;
+            }
+
+            .name{
+                font-weight: @gnb-weight;
+                font-size:@subject-size + 5;
+                color:@content-color;
+                padding-bottom:30px;
+            }
+        }
+    }
+}
+.modalBlind{
+    position:fixed;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    background: rgba(0,0,0,0.3);
+    z-index: 10;
+}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="list_table">
+                <div class="guid_title_group">
+                    <h2>list_table</h2>
+                    <strong class="date-status"><span class="work-status"><time>16.11.04</time>update</span></strong>
+                </div>
+                <div class="inner-wrap">
+                    <h3 id="inline-block">.list_table</h3>
+                    <strong class="indication">object</strong>
+                    <div class="list_table-wrap">
+                       <table class="list_table">
+					        <caption></caption>
+					        <colgroup>
+					        	<col style="width:8%">
+					        	<col style="width:9%">
+					        	<col style="width:55%">
+					        	<col style="width:14%">
+					        	<col style="width:14%">
+					        </colgroup>
+					        <tbody>
+						        <tr>
+						        	<td>10</td>
+						        	<td>종로</td>
+						        	<td class="text-left"><a href="noticeView.html">스마트물류 ERP정보시스템 개강!</a></td>
+						        	<td>2016.10.29</td>
+						        	<td>4885</td>
+						        </tr>
+						        <tr>
+						        	<td>10</td>
+						        	<td>종로</td>
+						        	<td class="text-left"><a href="noticeView.html">스마트물류 ERP정보시스템 개강!</a></td>
+						        	<td>2016.10.29</td>
+						        	<td>4885</td>
+						        </tr>
+					        </tbody>
+				        </table>
+                    </div>
+                    <div class="code2">
+                        <p>* 해당 오브젝트는 아래와 같이 생성되어있습니다.  <span class="btn_open">click! (펼쳐보기)</span></p>
+                        <div class="html">
+                            <xmp>
+<table class="list_table">
+    <caption></caption>
+    <colgroup>
+    	<col style="width:8%">
+    	<col style="width:9%">
+    	<col style="width:55%">
+    	<col style="width:14%">
+    	<col style="width:14%">
+    </colgroup>
+    <tbody>
+        <tr>
+        	<td>10</td>
+        	<td>종로</td>
+        	<td class="text-left"><a href="noticeView.html">스마트물류 ERP정보시스템 개강!</a></td>
+        	<td>2016.10.29</td>
+        	<td>4885</td>
+        </tr>
+        <tr>
+        	<td>10</td>
+        	<td>종로</td>
+        	<td class="text-left"><a href="noticeView.html">스마트물류 ERP정보시스템 개강!</a></td>
+        	<td>2016.10.29</td>
+        	<td>4885</td>
+        </tr>
+    </tbody>
+</table>
+                            </xmp>
+                        </div>
+                        <div class="css">
+                            <pre>.list_table{
+	width:1024px;
+	margin:0 auto;
+	background:@white-color;
+
+	tbody{
+		tr{
+			font-size:@menu-size;
+			color:@content-color;
+			td{
+				text-align: center;
+				height:50px;
+				padding:0 15px;
+				border-top:1px solid @base-color;
+
+				a{
+					color:@content-color;
+				}
+			}
+			td.text-left{
+				text-align: left;
+			}
+			&amp;&amp;:first-child{
+				td{
+					border-top:0;
+				}
+			}
+		}
+	}
+}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <section id="input_table">
+                <div class="guid_title_group">
+                    <h2>input_table</h2>
+                    <strong class="date-status"><span class="work-status"><time>16.11.05</time>update</span></strong>
+                </div>
+                <div class="inner-wrap">
+                    <h3 id="inline-block">.input_table</h3>
+                    <strong class="indication">object</strong>
+                    <div class="inputtable_wrap">
+            			<form class="input_fromwrap">
+
+            			    <fieldset class="select_wrap">
+            				    <legend>캠퍼스선택,대상분류선택,관심분야 선택부분</legend>
+            				    <label for="campusSelect">캠퍼스 선택</label>
+            				    <select id="campusSelect" name="캠퍼스선택" class="">
+            					    <option value="">캠퍼스 선택</option>
+                                    <option value="" label="강남">강남</option>
+            		                <option value="" label="종로1">종로1</option>
+                                    <option value="" label="종로2">종로2</option>
+                                    <option value="" label="신촌">신촌</option>
+                                    <option value="" label="구로">구로</option>
+                                    <option value="" label="노원">노원</option>
+                                    <option value="" label="천호">천호</option>
+                                    <option value="" label="안양">안양</option>
+                                    <option value="" label="안산">안산</option>
+                                    <option value="" label="성남">성남</option>
+                                    <option value="" label="수원">수원</option>
+                                    <option value="" label="인천">인천</option>
+                                    <option value="" label="전주">전주</option>
+                                    <option value="" label="구리">구리</option>
+            				    </select>
+
+            				    <label for="targetSelect">대상분류</label>
+            				    <select id="targetSelect" name="대상분류" class="">
+            					    <option value="">대상분류</option>
+            						<option value="학생 및 일반과정">학생 및 일반과정</option>
+            						<option value="직장인국비지원과정">직장인국비지원과정</option>
+            						<option value="실업자국비지원과정">실업자국비지원과정</option>
+            				    </select>
+
+            				    <label for="interestSelect">관심분야</label>
+            				    <select id="interestSelect" name="관심분야" class="">
+            					    <option value="">관심분야</option>
+            						<option value="웹 디자인">웹 디자인</option>
+            			            <option value="웹 퍼블리싱">웹 퍼블리싱</option>
+            			            <option value="웹 개발">웹 개발</option>
+            			            <option value="편집디자인">편집디자인</option>
+            			            <option value="회계/세무">회계/세무</option>
+            			            <option value="인테리어">인테리어</option>
+            			            <option value="캐드">캐드</option>
+            			            <option value="영상 ">영상 </option>
+            			            <option value="OA">OA</option>
+            				    </select>
+            			    </fieldset>
+
+            			    <fieldset class="input_tablewrap">
+            				    <legend>수강료조회 양식테이블입니다.</legend>
+            				    <table class="input_table">
+            					    <caption>과정명,이름,연락처,이메일,상세내용으로 되어있는표입니다.</caption>
+            					    <colgroup>
+            					    	<col style="width:13%">
+            					    	<col>
+            					    </colgroup>
+                                    <tbody>
+            						    <tr>
+            							    <th>
+            								    <label for="className">과정명</label>
+            							    </th>
+            							    <td>
+                                                <div class="input_wrap" style="width:60%">
+                								    <input id="className" type="text" />
+                                                    <button type="button" class="input_del">삭제버튼</button>
+                                                </div>
+            							    </td>
+            						    </tr>
+                                        <tr>
+            							    <th>
+            								    <label for="aksName">이름</label>
+            							    </th>
+            							    <td>
+                                                <div class="input_wrap" style="width:20%">
+                								    <input id="aksName" type="text" />
+                                                    <button type="button" class="input_del">삭제버튼</button>
+                                                </div>
+            							    </td>
+            						    </tr>
+                                        <tr>
+            							    <th>
+            								    연락처
+            							    </th>
+            							    <td>
+                                                <div class="input_wrap" style="width:11%">
+                								    <input title="연락처 맨앞번호" id="" type="text" />
+                                                    <button type="button" class="input_del">삭제버튼</button>
+                                                </div>
+                                                <span>-</span>
+                                                <div class="input_wrap" style="width:11%">
+                								    <input title="연락처 중간번호" id="" type="text" />
+                                                    <button type="button" class="input_del">삭제버튼</button>
+                                                </div>
+                                                <span>-</span>
+                                                <div class="input_wrap" style="width:11%">
+                								    <input title="연락처 마지막번호" id="" type="text" />
+                                                    <button type="button" class="input_del">삭제버튼</button>
+                                                </div>
+            							    </td>
+            						    </tr>
+                                        <tr>
+            							    <th>
+            								    <label for="email">이메일</label>
+            							    </th>
+            							    <td>
+                                                <div class="input_wrap" style="width:25%">
+                								    <input id="email" type="text" />
+                                                    <button type="button" class="input_del">삭제버튼</button>
+                                                </div>
+                                                <span>@</span>
+                                                <label for="email_adress" class="text-hide">이메일주소</label>
+                                                <select id="email_adress">
+                                                    <option value="">이메일을 선택해 주세요.</option>
+                                                    <option value="naver.com">네이버</option>
+                                                    <option value="daum.net">다음</option>
+                                                </select>
+            							    </td>
+            						    </tr>
+                                        <tr>
+            							    <th>
+            								    <label for="detailCont">상세내용</label>
+            							    </th>
+            							    <td>
+                                                <div class="input_wrap" style="width:100%">
+                                                    <textarea id="detailCont"></textarea>
+                                                </div>
+            							    </td>
+            						    </tr>
+            					    </tbody>
+            				    </table>
+            			    </fieldset>
+            			</form>
+                    </div>
+                    <dl class="descript-list">
+                        <dt>주의사항</dt>
+                        <dd>
+                            select박스가 필요 없으시면 fieldset class="select_wrap" 부분을 전체로 삭제해주시면 됩니다.<br/>
+                            caption,legend는 표내용에 맞게 바꿔주세요<br/>
+                            input 넓이는 각자의 css내에서 수정해주시면 됩니다.<br/>
+                            label아이디 중복오류,연결오류 확인해주시고, label이 없을경우엔 input title부분에 input설명을 넣어주시면 됩니다.
+                        </dd>
+                    </dl>
+                    <div class="code2">
+                        <p>* 해당 오브젝트는 아래와 같이 생성되어있습니다.  <span class="btn_open">click! (펼쳐보기)</span></p>
+                        <div class="html">
+                            <xmp>
+<div class="inputtable_wrap">
+    <form class="input_fromwrap">
+
+        <fieldset class="select_wrap">
+            <legend>캠퍼스선택,대상분류선택,관심분야 선택부분</legend>
+            <label for="campusSelect">캠퍼스 선택</label>
+            <select id="campusSelect" name="캠퍼스선택" class="">
+                <option value="">캠퍼스 선택</option>
+                <option value="" label="강남">강남</option>
+                <option value="" label="종로1">종로1</option>
+                <option value="" label="종로2">종로2</option>
+                <option value="" label="신촌">신촌</option>
+                <option value="" label="구로">구로</option>
+                <option value="" label="노원">노원</option>
+                <option value="" label="천호">천호</option>
+                <option value="" label="안양">안양</option>
+                <option value="" label="안산">안산</option>
+                <option value="" label="성남">성남</option>
+                <option value="" label="수원">수원</option>
+                <option value="" label="인천">인천</option>
+                <option value="" label="전주">전주</option>
+                <option value="" label="구리">구리</option>
+            </select>
+
+            <label for="targetSelect">대상분류</label>
+            <select id="targetSelect" name="대상분류" class="">
+                <option value="">대상분류</option>
+                <option value="학생 및 일반과정">학생 및 일반과정</option>
+                <option value="직장인국비지원과정">직장인국비지원과정</option>
+                <option value="실업자국비지원과정">실업자국비지원과정</option>
+            </select>
+
+            <label for="interestSelect">관심분야</label>
+            <select id="interestSelect" name="관심분야" class="">
+                <option value="">관심분야</option>
+                <option value="웹 디자인">웹 디자인</option>
+                <option value="웹 퍼블리싱">웹 퍼블리싱</option>
+                <option value="웹 개발">웹 개발</option>
+                <option value="편집디자인">편집디자인</option>
+                <option value="회계/세무">회계/세무</option>
+                <option value="인테리어">인테리어</option>
+                <option value="캐드">캐드</option>
+                <option value="영상 ">영상 </option>
+                <option value="OA">OA</option>
+            </select>
+        </fieldset>
+
+        <fieldset class="input_tablewrap">
+            <legend>수강료조회 양식테이블입니다.</legend>
+            <table class="input_table">
+                <caption>과정명,이름,연락처,이메일,상세내용으로 되어있는표입니다.</caption>
+                <colgroup>
+                    <col style="width:13%">
+                    <col>
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th>
+                            <label for="className">과정명</label>
+                        </th>
+                        <td>
+                            <div class="input_wrap" style="width:100%">
+                                <input id="className" type="text" />
+                                <button type="button" class="input_del">삭제버튼</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label for="aksName">이름</label>
+                        </th>
+                        <td>
+                            <div class="input_wrap" style="width:20%">
+                                <input id="aksName" type="text" />
+                                <button type="button" class="input_del">삭제버튼</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            연락처
+                        </th>
+                        <td>
+                            <div class="input_wrap" style="width:20%">
+                                <input title="연락처 맨앞번호" id="aksTell" type="text" />
+                                <button type="button" class="input_del">삭제버튼</button>
+                            </div>
+                            <span>-</span>
+                            <div class="input_wrap" style="width:20%">
+                                <label for="aksTellmiddle">연락처중간번호</label>
+                                <input id="aksTellmiddle" type="text" />
+                                <button type="button" class="input_del">삭제버튼</button>
+                            </div>
+                            <span>-</span>
+                            <div class="input_wrap" style="width:20%">
+                                <label for="aksTelllast">연락처마지막번호</label>
+                                <input title="연락처 마지막번호" id="aksTelllast" type="text" />
+                                <button type="button" class="input_del">삭제버튼</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label for="email">이메일</label>
+                        </th>
+                        <td>
+                            <div class="input_wrap" style="width:25%">
+                                <input id="email" type="text" />
+                                <button type="button" class="input_del">삭제버튼</button>
+                            </div>
+                            <span>@</span>
+                            <label for="email_adress" class="text-hide">이메일주소</label>
+                            <select id="email_adress">
+                                <option value="">이메일을 선택해 주세요.</option>
+                                <option value="naver.com">네이버</option>
+                                <option value="daum.net">다음</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label for="detailCont">상세내용</label>
+                        </th>
+                        <td>
+                            <div class="input_wrap" style="width:100%">
+                                <textarea id="detailCont"></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </form>
+</div>
+                            </xmp>
+                        </div>
+                        <div class="css">
+                            <pre>
+.input_fromwrap{
+
+
+    .select_wrap{
+        text-align: center;
+        margin: 0 0 70px;
+        font-size:0;
+        legend{
+            position: absolute;
+            font-size: 0;
+            text-indent: -9999px;
+            border: none;
+        }
+
+        label{
+            font-size:0;
+            text-indent: -9999px;
+            position:absolute;
+        }
+
+        select{
+            -webkit-appearance: none;  /* 네이티브 외형 감추기 */
+            -moz-appearance: none;
+            appearance: none;
+            background: url('/img/site_img/select_arrow.jpg') no-repeat 95% 50%;  /* 화살표 모양의 이미지 */
+            border-radius: 0;
+            border:1px solid @sub-color;
+            height:36px;
+            width:163px;
+            padding: 0 7px;
+            font-size:13px;
+            color:@content-color;
+            margin-right:9px;
+        }
+
+        /* IE 10, 11의 네이티브 화살표 숨기기 */
+        select::-ms-expand {
+          display: none;
+        }
+    }
+
+    .input_tablewrap{
+
+        legend{
+            font-size: 0;
+            text-indent: -9999px;
+            border: none;
+            position:absolute;
+        }
+
+        table.input_table{
+            width:750px;
+            margin: 0 auto 40px;
+            font-size:13px;
+            border:2px solid #7e7d87;
+            border-width: 2px 0;
+
+            caption{
+                font-size:0;
+                text-indent: -9999px;
+                margin:0;
+                height:0;
+                padding: 0;
+            }
+            tr{
+
+                th{
+                    font-size:13px;
+                    color:@content-color;
+                    border-top:1px solid #bababf;
+                }
+                td{
+                    padding:18px 0;
+                    border-top:1px solid #bababf;
+                    div{
+                        position:relative;
+                        display:inline-block;
+                        label{
+                            font-size:0;
+                            text-indent: -9999px;
+                            position:absolute;
+                        }
+                        input{
+                            border:1px solid #8c9093;
+                            height:24px;
+                            width:100%;
+                            padding:0 9px;
+                            &&:focus{
+                                ~button.input_del{
+                                    display:block
+                                }
+                            }
+
+                        }
+                        textarea{
+                            border:1px solid #8c9093;
+                            width:100%;
+                            padding:9px;
+                            min-height:95px;
+                            overflow-y: scroll;
+                            resize:none;
+                        }
+                        button.input_del{
+                            background: url('/img/site_img/input_del.jpg') no-repeat;
+                            width:7px;
+                            height:8px;
+                            font-size:0;
+                            text-indent:-9999px;
+                            position:absolute;
+                            right:6%;
+                            top:35%;
+                            display:none;
+                        }
+                    }
+                    select{
+                        -webkit-appearance: none;  /* 네이티브 외형 감추기 */
+                        -moz-appearance: none;
+                        appearance: none;
+                        background: url('/img/site_img/select_arrow.jpg') no-repeat 95% 50%;  /* 화살표 모양의 이미지 */
+                        border-radius: 0;
+                        border:1px solid @sub-color;
+                        height:24px;
+                        width:200px;
+                        padding: 0 7px;
+                        font-size:13px;
+                        color:@content-color;
+                        margin-right:9px;
+                    }
+                    /* IE 10, 11의 네이티브 화살표 숨기기 */
+                    select::-ms-expand {
+                      display: none;
+                    }
+                }
+                &&:first-child{
+                    th,td{
+                        border-top:0;
+                    }
+                }
+            }
+        }
+    }
+}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+			<section id="view_table">
+                <div class="view_cont">
+                    <h2>view_table</h2>
+                    <strong class="date-status"><span class="work-status"><time>16.11.7</time>update</span></strong>
+                </div>
+                <div class="inner-wrap">
+
+                    <h3 id="">view_table</h3>
+
+                    <div class="view_table">
+				        <table class="view_top">
+					        <caption></caption>
+					        <colgroup>
+					        	<col style="width:10%">
+					        	<col style="width:10%">
+					        	<col style="width:50%">
+					        	<col style="width:20%">
+					        	<col style="width:10%">
+					        </colgroup>
+					        <thead>
+						      <tr>
+							      <th>15</th>
+							      <th>종로</th>
+							      <th class="text-left">스마트물류 ERP정보시스템 개강!</th>
+							      <th>2016.10.29</th>
+							      <th>4885</th>
+						      </tr>
+					        </thead>
+					        <tbody>
+						        <tr>
+							        <td colspan="5">
+								        <div class="view_cont">
+									        <img src="/img/site_img/story_img.jpg" alt="새해복많이받으세요">
+								        </div>
+							        </td>
+						        </tr>
+					        </tbody>
+				        </table>
+				        <div class="view_bottom">
+					        <a class="prev" href=""><span class="icon arrow_left red">왼쪽 화살표</span>이전</a>
+					        <a class="list" href="">목록<span class="icon list red">리스트(목록)</span></a>
+					        <a class="next" href="">다음<span class="icon arrow red">오른쪽 화살표</span></a>
+				        </div>
+			        </div>
+
+                    <div class="code2">
+                        <p>* 해당 오브젝트는 아래와 같이 생성되어있습니다.  <span class="btn_open">click! (펼쳐보기)</span></p>
+                        <div class="html">
+                            <xmp>
+<div class="view_table">
+    <table class="view_top">
+        <caption></caption>
+        <colgroup>
+        	<col style="width:10%">
+        	<col style="width:10%">
+        	<col style="width:50%">
+        	<col style="width:20%">
+        	<col style="width:10%">
+        </colgroup>
+        <thead>
+	      <tr>
+		      <th>15</th>
+		      <th>종로</th>
+		      <th class="text-left">스마트물류 ERP정보시스템 개강!</th>
+		      <th>2016.10.29</th>
+		      <th>4885</th>
+	      </tr>
+        </thead>
+        <tbody>
+	        <tr>
+		        <td colspan="5">
+			        <div class="view_cont">
+				        <img src="/img/site_img/story_img.jpg" alt="새해복많이받으세요">
+			        </div>
+		        </td>
+	        </tr>
+        </tbody>
+    </table>
+    <div class="view_bottom">
+        <a class="prev" href=""><span class="icon arrow_left red">왼쪽 화살표</span>이전</a>
+        <a class="list" href="">목록<span class="icon list red">리스트(목록)</span></a>
+        <a class="next" href="">다음<span class="icon arrow red">오른쪽 화살표</span></a>
+    </div>
+</div>
+                            </xmp>
+                        </div>
+                        <div class="css">
+                            <pre>
+.view_table{
+	width:1024px;
+	margin:0 auto;
+
+	table{
+		width:100%;
+		cpation{
+			font-size:0;
+			text-indent:-9999px;
+			position:absolute;
+		}
+		th{
+			text-align:center;
+			color:@white-color;
+			height:50px;
+			vertical-align:middle;
+			background:#252e33;
+			font-weight:@subject-weight;
+
+			.text-left{
+				text-align: left;
+			}
+		}
+
+		tbody{
+
+			.view_cont{
+				padding:50px 0;
+				text-align: center;
+				background:@white-color;
+			}
+		}
+	}
+	.view_bottom{
+		height:50px;
+		width:100%;
+		padding:0 52px;
+		background:#252e33;
+		text-align: center;
+
+		a{
+			display:inline-block;
+			color:@white-color;
+			font-weight:@subject-weight;
+			padding:14px;
+			span{
+				margin-left:20px;
+			}
+		}
+		a.prev{
+			float:left;
+			span{
+				margin:0 20px 0 0;
+			}
+
+		}
+		a.next{
+			float:right
+
+		}
+	}
+}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inner-wrap">
+                    <h3 id="course_table">course_table-campus</h3>
+                    <strong class="indication">object</strong>
+                    <!--  -->
+                    <div class="scroll_table wow fadeInUp" data-wow-duration="1s">
+                        <table class="course_table">
+                            <colgroup>
+                                <col style="width:12%">
+                                <col style="width:11%">
+                                <col style="width:13%">
+                                <col>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th colspan="2">구분</th>
+                                    <th>자비부담률</th>
+                                    <th>비고</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="3" class="br-lf-none">중소기업</td>
+                                    <td>정규직</td>
+                                    <td>20%</td>
+                                    <td class="text-left">-</td>
+                                </tr>
+                                <tr>
+                                    <td>비정규직</td>
+                                    <td>0%</td>
+                                    <td class="text-left">
+                                        파견 근로자 / 기간제 근로자 / 단시간 근로자<br>
+                                        일용 근로자 : 신청일 이전 90일 이내에 10일이상 근로내용이 있는 피보험자
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>무급 휴직자</td>
+                                    <td>0%</td>
+                                    <td class="text-left">경영상의 이유로 90일 이상 무급휴직, 휴업중인 피보험자</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="4" class="br-lf-none">대규모 기업</td>
+                                    <td>비정규직</td>
+                                    <td>0%</td>
+                                    <td class="text-left">
+                                        파견 근로자 / 기간제 근로자 / 단시간 근로자<br>
+                                        일용 근로자 : 신청일 이전 90일 이내에 10일이상 근로내용이 있는 피보험자
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>무급 휴직자</td>
+                                    <td>0%</td>
+                                    <td class="text-left">
+                                        경영상의 이유로 90일 이상 무급휴직, 휴업중인 피보험자
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>50세 이상 정규직</td>
+                                    <td>20%</td>
+                                    <td class="text-left">대규모기업에 고용된 50세이상인 피보험자</td>
+                                </tr>
+                                <tr>
+                                    <td>3년간 미참여자</td>
+                                    <td>20%</td>
+                                    <td class="text-left">3년간 사업주훈련 및 근로자 개인훈련지원 이력이 없는 자</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="br-lf-none">자영업자</td>
+                                    <td>0%</td>
+                                    <td class="text-left">
+                                        고용보험 체납액이 없는 자영업자 - 가입즉시 신청가능
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--  -->
+                    <div class="code2">
+                        <p>* 반응형시 scroll처리 되어야 하는 table이라면 table위에있는 div에 클래스 scroll_table 을 추가해주세</p>
+                        <p>* 해당 오브젝트는 아래와 같이 생성되어있습니다.  <span class="btn_open">click! (펼쳐보기)</span></p>
+                        <div class="html">
+                            <xmp>
+<div class="scroll_table wow fadeInUp" data-wow-duration="1s">
+    <table class="course_table">
+        <colgroup>
+            <col style="width:12%">
+            <col style="width:11%">
+            <col style="width:13%">
+            <col>
+        </colgroup>
+        <thead>
+            <tr>
+                <th colspan="2">구분</th>
+                <th>자비부담률</th>
+                <th>비고</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="3" class="br-lf-none">중소기업</td>
+                <td>정규직</td>
+                <td>20%</td>
+                <td class="text-left">-</td>
+            </tr>
+            <tr>
+                <td>비정규직</td>
+                <td>0%</td>
+                <td class="text-left">
+                    파견 근로자 / 기간제 근로자 / 단시간 근로자<br>
+                    일용 근로자 : 신청일 이전 90일 이내에 10일이상 근로내용이 있는 피보험자
+                </td>
+            </tr>
+            <tr>
+                <td>무급 휴직자</td>
+                <td>0%</td>
+                <td class="text-left">경영상의 이유로 90일 이상 무급휴직, 휴업중인 피보험자</td>
+            </tr>
+            <tr>
+                <td rowspan="4" class="br-lf-none">대규모 기업</td>
+                <td>비정규직</td>
+                <td>0%</td>
+                <td class="text-left">
+                    파견 근로자 / 기간제 근로자 / 단시간 근로자<br>
+                    일용 근로자 : 신청일 이전 90일 이내에 10일이상 근로내용이 있는 피보험자
+                </td>
+            </tr>
+            <tr>
+                <td>무급 휴직자</td>
+                <td>0%</td>
+                <td class="text-left">
+                    경영상의 이유로 90일 이상 무급휴직, 휴업중인 피보험자
+                </td>
+            </tr>
+            <tr>
+                <td>50세 이상 정규직</td>
+                <td>20%</td>
+                <td class="text-left">대규모기업에 고용된 50세이상인 피보험자</td>
+            </tr>
+            <tr>
+                <td>3년간 미참여자</td>
+                <td>20%</td>
+                <td class="text-left">3년간 사업주훈련 및 근로자 개인훈련지원 이력이 없는 자</td>
+            </tr>
+            <tr>
+                <td colspan="2" class="br-lf-none">자영업자</td>
+                <td>0%</td>
+                <td class="text-left">
+                    고용보험 체납액이 없는 자영업자 - 가입즉시 신청가능
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+                            </xmp>
+                        </div>
+                        <div class="css">
+                            <pre>
+table.course_table{
+    width:100%;
+    font-size:@menu-size;
+    text-align: center;
+    border-bottom:1px solid @sub-color-second;
+    tr{
+        height:55px;
+    }
+    thead{
+        background:@sub-color-second;
+        color:@white-color;
+        th{
+            text-align: center;
+            border-left:1px solid @white-color
+        }
+        th:first-child{
+            border-left:none;
+        }
+    }
+    tbody{
+        td{
+            font-weight: @gnb-weight;
+            padding:10px;
+            border-top:1px solid @sub-color-second;
+            border-left:1px solid @sub-color-second;
+        }
+        .text-left{
+            font-weight: @subject-weight;
+        }
+    }
+    .border_lnone{border-left:none;}
+}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            <section id="review">
+                <div class="guid_title_group">
+                    <h2>review_table</h2>
+                    <strong class="date-status"><span class="work-status"><time>16.10.20</time>update</span></strong>
+                </div>
+                <div class="inner-wrap">
+                    <h3>review_table</h3>
+                    <strong class="indication">object</strong>
+                    <!--  -->
+                    <div class="appraisal_tablewrap">
+                        <table class="appraisal_table wow fadeInUp" data-wow-duration="1s">
+                            <caption></caption>
+                            <colgroup>
+                                <col style="width:20%">
+                                <col style="width:80%">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        <div>
+                                            <span class="name">박희수</span>
+                                            <p class="star_wrap_bord">
+                                                <span class="star on">1점</span>
+                                                <span class="star on">2점</span>
+                                                <span class="star on">3점</span>
+                                                <span class="star on">4점</span>
+                                                <span class="star on">5점</span>
+                                            </p>
+                                            <span class="class">웹디자인 · 웹 퍼블리싱</span>
+                                        </div>
+                                    </th>
+                                    <td>
+                                        안양 하이미디어 캠퍼스 전산세무회계 (회계1급+세무2급), (전산세무1급 법인세 )수업 들었습니다ㅎㅎ<br>
+                                        아무것도 모르고 처음 수업들으며 할수 있을지 걱정이 많았는데 하이미디어 학원에서 자격증부터 실무 취업까지 하나하나 신경써주셔서<br>
+                                        자격증도 다 따고 취업도움도 받고 있습니다<br>
+                                        수업도 이해하기 쉽게 너무 잘 설명해주시고 잘챙겨주셔서 다니는 동안 너무 좋았어요 >_<<br>
+                                        특히 상훈샘 ㅠㅠ 진짜 끝까지 이끌어 주셔서 너무 감사합니다.<br>
+                                        학과장님듀요 ㅠㅠ<br>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <div>
+                                            <span class="name">박희수</span>
+                                            <p class="star_wrap_bord">
+                                                <span class="star on">1점</span>
+                                                <span class="star on">2점</span>
+                                                <span class="star on">3점</span>
+                                                <span class="star on">4점</span>
+                                                <span class="star on">5점</span>
+                                            </p>
+                                            <span class="class">웹디자인 · 웹 퍼블리싱</span>
+                                        </div>
+                                    </th>
+                                    <td>
+                                        안양 하이미디어 캠퍼스 전산세무회계 (회계1급+세무2급), (전산세무1급 법인세 )수업 들었습니다ㅎㅎ<br>
+                                        아무것도 모르고 처음 수업들으며 할수 있을지 걱정이 많았는데 하이미디어 학원에서 자격증부터 실무 취업까지 하나하나 신경써주셔서<br>
+                                        자격증도 다 따고 취업도움도 받고 있습니다<br>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <div>
+                                            <span class="name">박희수</span>
+                                            <p class="star_wrap_bord">
+                                                <span class="star on">1점</span>
+                                                <span class="star on">2점</span>
+                                                <span class="star on">3점</span>
+                                                <span class="star on">4점</span>
+                                                <span class="star on">5점</span>
+                                            </p>
+                                            <span class="class">웹디자인 · 웹 퍼블리싱</span>
+                                        </div>
+                                    </th>
+                                    <td>
+                                        안양 하이미디어 캠퍼스 전산세무회계 (회계1급+세무2급), (전산세무1급 법인세 )수업 들었습니다ㅎㅎ<br>
+                                        아무것도 모르고 처음 수업들으며 할수 있을지 걱정이 많았는데 하이미디어 학원에서 자격증부터 실무 취업까지 하나하나 신경써주셔서<br>
+                                        자격증도 다 따고 취업도움도 받고 있습니다<br>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="btn-seemore wow fadeIn" data-wow-duration="1s">
+                            <button type="button" onclick="location.href='reviewWrite.html'";>수강 후기 작성
+                            <span class="icon check red">체크(확인)</span></button>
+                        </div>
+                    </div>
+                    <!--  -->
+                    <div class="code2">
+                        <p>* 해당 오브젝트는 아래와 같이 생성되어있습니다.  <span class="btn_open">click! (펼쳐보기)</span></p>
+                        <div class="html">
+                            <xmp>
+<div class="appraisal_tablewrap">
+    <table class="appraisal_table wow fadeInUp" data-wow-duration="1s">
+        <caption></caption>
+        <colgroup>
+            <col style="width:20%">
+            <col style="width:80%">
+        </colgroup>
+        <tbody>
+            <tr>
+                <th>
+                    <div>
+                        <span class="name">박희수</span>
+                        <p class="star_wrap_bord">
+                            <span class="star on">1점</span>
+                            <span class="star on">2점</span>
+                            <span class="star on">3점</span>
+                            <span class="star on">4점</span>
+                            <span class="star on">5점</span>
+                        </p>
+                        <span class="class">웹디자인 · 웹 퍼블리싱</span>
+                    </div>
+                </th>
+                <td>
+                    안양 하이미디어 캠퍼스 전산세무회계 (회계1급+세무2급), (전산세무1급 법인세 )수업 들었습니다ㅎㅎ<br>
+                    아무것도 모르고 처음 수업들으며 할수 있을지 걱정이 많았는데 하이미디어 학원에서 자격증부터 실무 취업까지 하나하나 신경써주셔서<br>
+                    자격증도 다 따고 취업도움도 받고 있습니다<br>
+                    수업도 이해하기 쉽게 너무 잘 설명해주시고 잘챙겨주셔서 다니는 동안 너무 좋았어요 >_<<br>
+                    특히 상훈샘 ㅠㅠ 진짜 끝까지 이끌어 주셔서 너무 감사합니다.<br>
+                    학과장님듀요 ㅠㅠ<br>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <div>
+                        <span class="name">박희수</span>
+                        <p class="star_wrap_bord">
+                            <span class="star on">1점</span>
+                            <span class="star on">2점</span>
+                            <span class="star on">3점</span>
+                            <span class="star on">4점</span>
+                            <span class="star on">5점</span>
+                        </p>
+                        <span class="class">웹디자인 · 웹 퍼블리싱</span>
+                    </div>
+                </th>
+                <td>
+                    안양 하이미디어 캠퍼스 전산세무회계 (회계1급+세무2급), (전산세무1급 법인세 )수업 들었습니다ㅎㅎ<br>
+                    아무것도 모르고 처음 수업들으며 할수 있을지 걱정이 많았는데 하이미디어 학원에서 자격증부터 실무 취업까지 하나하나 신경써주셔서<br>
+                    자격증도 다 따고 취업도움도 받고 있습니다<br>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <div>
+                        <span class="name">박희수</span>
+                        <p class="star_wrap_bord">
+                            <span class="star on">1점</span>
+                            <span class="star on">2점</span>
+                            <span class="star on">3점</span>
+                            <span class="star on">4점</span>
+                            <span class="star on">5점</span>
+                        </p>
+                        <span class="class">웹디자인 · 웹 퍼블리싱</span>
+                    </div>
+                </th>
+                <td>
+                    안양 하이미디어 캠퍼스 전산세무회계 (회계1급+세무2급), (전산세무1급 법인세 )수업 들었습니다ㅎㅎ<br>
+                    아무것도 모르고 처음 수업들으며 할수 있을지 걱정이 많았는데 하이미디어 학원에서 자격증부터 실무 취업까지 하나하나 신경써주셔서<br>
+                    자격증도 다 따고 취업도움도 받고 있습니다<br>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="btn-seemore wow fadeIn" data-wow-duration="1s">
+        <button type="button" onclick="location.href='reviewWrite.html'";>수강 후기 작성
+        <span class="icon check red">체크(확인)</span></button>
+    </div>
+</div>
+                            </xmp>
+                        </div>
+                        <div class="css">
+                            <pre>
+.appraisal_tablewrap{
+    margin:70px auto 0;
+    width:1024px;
+    caption{
+        width:0;
+        height:0;
+    }
+    .appraisal_table{
+        border-top:2px solid #7E7D87;
+        border-width:2px 0;
+        width:100%;
+        tr{
+            border-bottom:1px solid #bababf;
+            &&:first-child{
+                border-top:0;
+            }
+            th{
+                text-align: center;
+                font-weight: @subject-weight;
+                >div{
+                    border-right:1px solid #bababf;
+                }
+                .name{
+                    font-weight: @gnb-weight;
+                    font-size: @menu-size;
+                    padding-right:5px;
+                }
+                .star_wrap_bord{
+                    line-height: 20px;
+                    .inlineblock();
+
+                    span{
+                        display:inline-block;
+                        *display:inline;
+                        *zoom:1;
+                        width:13px;
+                        height:12px;
+                        background:url('/img/site_img/staroff.png') no-repeat;
+                        text-indent:-9999px;
+                        font-size:0;
+                    }
+                    span.on{
+                        background:url('/img/site_img/staron.png') no-repeat;
+                    }
+                }
+                span.class{
+                    display:block;
+                    font-size:13px;
+                }
+            }
+            td{
+                padding:20px;
+                font-size:13px;
+                color:@content-color;
+            }
+        }
+    }
+
+    .btn-seemore{
+        margin: 30px auto 0;
+    }
+}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <section id="portfolio_review">
+                <div class="portfolio_review">
+                    <h2>포트폴리오</h2>
+                    <strong class="date-status"><span class="work-status"><time>16.12.24</time>update</span></strong>
+                </div>
+                <div class="inner-wrap">
+
+                    <h3>포트폴리오</h3>
+                    <strong class="indication">object</strong>
+                    <div class="portfolio-list">
+                        <div class="portfolio-list wow fadeInUp" data-wow-duration="1s">
+                            <div class="lists modallink" modallink="example1">
+                                <a href="#">
+                                    <img src="/img/site_img/pfweb_star.png" alt="" />
+                                    <div></div>
+                                    <img class="pofo_on" src="/img/icon/over.png" alt="" />
+                                    <div class="portfolio-name">
+                                        <span class="campus-name">강남캠퍼스</span>
+                                        <span class="portfolio-info">
+                    						<span>박정은</span> &nbsp;&nbsp;
+                                        <span>|</span>&nbsp;&nbsp;
+                                        <span>디지털디자인B</span> &nbsp;&nbsp;
+                                        <span>|</span>&nbsp;&nbsp;
+                                        <span>개인포트폴리오</span>
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="code2">
+                        <p>포트폴리오 css는 portfolio.less로 통합되어져있습니다. </p>
+                        <p>* 해당 오브젝트는 아래와 같이 생성되어있습니다.  <span class="btn_open">click! (펼쳐보기)</span></p>
+                        <div class="html">
+                            <xmp>
+<div class="portfolio-list">
+    <div class="lists modallink item{{item.portfolioId}}" modallink="example1">
+        <a href="#">
+            <div style="width:1024px;height:370px;overflow:hidden;">
+                <img src="{{item.AttachFile.url}}" alt="포트폴리오 이미지" style="width:100%;"/>
+            </div>
+            <img class="pofo_on" src="/img/icon/over.png" alt="" />
+            <div class="portfolio-name">
+                <span class="campus-name">{{item.Branch.branchName}}캠퍼스</span>
+                <span class="portfolio-info">
+                <span>{{item.name}}</span> &nbsp;&nbsp;
+                <span>|</span>&nbsp;&nbsp;
+                <span>{{item.courseName}}</span> &nbsp;&nbsp;
+                <span>|</span>&nbsp;&nbsp;
+                <span class="portfolioType">{{item.CodeInfo.codeName}}</span>
+                </span>
+            </div>
+        </a>
+    </div>
+</div>
+                            </xmp>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="teacher">
+                <div class="portfolio_review">
+                    <h2>강사소개</h2>
+                    <strong class="date-status"><span class="work-status"><time>16.12.24</time>update</span></strong>
+                </div>
+                <div class="inner-wrap">
+
+                    <h3>강사소개</h3>
+                    <strong class="indication">object</strong>
+                        <div class="allTeacher-basebox-wrapper">
+                            <div class="common_wrap">
+                                {% if teachers.length == 0 %}
+                                    <p class="text-center" style="margin: 50px 0; font-size:15px; color:#333;">해당 분류에는 강사님이 없습니다</p>
+                                {% else %}
+                                <ul>
+                                    {% for teacher in teachers %}
+                                        <li class="teacher-box seeMore wow fadeInUp">
+                                            <div class="teacher-pic" style="background-image:url('{{teacher.AttachFile.url}}');"></div>
+                                            <div class="teacher-info">
+                                                <span class="teacher-name">{{teacher.name}} 강사님</span>
+                                                <span class="teacher-class">{{teacher.CourseField.fieldName}}</span>
+                                                <div class="modal_btn_Wrap">
+                                                    <a href="#" class="modallink profile_btn" modallink="teacher1" data-toggle="tooltip" data-placement="top"title="프로필보기"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+                                                    <a href="#" class="modallink video_btn ie8DisplayNone" modallink="teacher2" data-toggle="tooltip" data-placement="top"title="영상보기"><span class="glyphicon glyphicon-expand" aria-hidden="true"></span></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                            <div class="btn-seemore" showNum="9" plusNum="6" targetClass="seeMore">
+                                <button type="button">See more<span class="icon plus red"></span></button>
+                            </div>
+                        </div>
+                    <div class="code2">
+                        <p>강사소개 css는 allTeacher.less로 통합되어져있습니다. </p>
+                        <p>* 해당 오브젝트는 아래와 같이 생성되어있습니다.  <span class="btn_open">click! (펼쳐보기)</span></p>
+                        <div class="html">
+                            <xmp>
+<div class="allTeacher-basebox-wrapper">
+    <div class="common_wrap">
+        {% if teachers.length == 0 %}
+            <p class="text-center" style="margin: 50px 0; font-size:15px; color:#333;">해당 분류에는 강사님이 없습니다</p>
+        {% else %}
+        <ul>
+            {% for teacher in teachers %}
+                <li class="teacher-box seeMore wow fadeInUp">
+                    <div class="teacher-pic" style="background-image:url('{{teacher.AttachFile.url}}');"></div>
+                    <div class="teacher-info">
+                        <span class="teacher-name">{{teacher.name}} 강사님</span>
+                        <span class="teacher-class">{{teacher.CourseField.fieldName}}</span>
+                        <div class="modal_btn_Wrap">
+                            <a href="#" class="modallink profile_btn" modallink="teacher1" data-toggle="tooltip" data-placement="top"title="프로필보기"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+                            <a href="#" class="modallink video_btn ie8DisplayNone" modallink="teacher2" data-toggle="tooltip" data-placement="top"title="영상보기"><span class="glyphicon glyphicon-expand" aria-hidden="true"></span></a>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div class="btn-seemore" showNum="9" plusNum="6" targetClass="seeMore">
+        <button type="button">See more<span class="icon plus red"></span></button>
+    </div>
+</div>
+                            </xmp>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="open_progress">
+                <div class="open_progress">
+                    <h2>개설과정</h2>
+                    <strong class="date-status"><span class="work-status"><time>16.12.21</time>update</span></strong>
+                </div>
+                <div class="inner-wrap">
+
+                    <h3>개설과정</h3>
+                    <strong class="indication">object</strong>
+                    <div class="type_bottom title-m">
+                        <h2>개설 과정</h2>
+                        <p>
+                            하이미디어컴퓨터학원에 개설되어 있는 과정들입니다.<br>
+                            <span>각 과정명을 클릭하시면 해당 과정 소개 페이지로 이동합니다.</span>
+                        </p>
+                        <form>
+                            <div class="check_box_wrap">
+                                <div class="title">캠퍼스</div>
+                                <div class="check_box campus_box">
+                                    {% for branch in branches %}
+                                        {% if branch.branchCode != 'himedia' %}
+                                            <span class="checks"><input id="location{{loop.index}}" type="checkbox" name="branchCode" value="{{branch.branchCode}}"><label for="location{{loop.index}}">{{branch.branchName}}</label></span>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="check_box_wrap">
+                                <div class="title">분야</div>
+                                <div class="check_box field_box">
+                                    {% for field in courseFields %}
+                                        <span class="checks"><input id="filed{{loop.index}}" type="checkbox" name="fieldName" value="{{field.fieldName}}"><label for="filed{{loop.index}}">{{field.fieldName}}</label></span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="btn_wrap">
+                                <input class="common_btn red_btn" type="submit" name="name" value="검색">
+                            </div>
+                            <div class="class_btn_wrap">
+                                <a href="courseDetail.html">[NCS]스마트웹&콘텐츠개발 <span>모집중</span></a>
+                                <a href="courseDetail.html">웹에이전시 전문가 취업반 <span>모집중</span></a>
+                                <a href="courseDetail.html">웹퍼블리셔전문가 <span>모집중</span></a>
+                                <br>
+                                <a href="courseDetail.html">웹&앱 스마트 콘텐츠 제작</a>
+                                <a href="courseDetail.html">스마트웹&콘텐츠플렛폼개발</a>
+                                <a href="courseDetail.html">웹퍼블리셔전문가</a>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="code2">
+                        <p>포트폴리오 css는 portfolio.less로 통합되어져있습니다. </p>
+                        <p>* 해당 오브젝트는 아래와 같이 생성되어있습니다.  <span class="btn_open">click! (펼쳐보기)</span></p>
+                        <div class="html">
+                            <xmp>
+<div class="type_bottom title-m">
+    <h2>개설 과정</h2>
+    <p>
+        하이미디어컴퓨터학원에 개설되어 있는 과정들입니다.<br>
+        <span>각 과정명을 클릭하시면 해당 과정 소개 페이지로 이동합니다.</span>
+    </p>
+    <form>
+        <div class="check_box_wrap">
+            <div class="title">캠퍼스</div>
+            <div class="check_box campus_box">
+                {% for branch in branches %}
+                    {% if branch.branchCode != 'himedia' %}
+                        <span class="checks"><input id="location{{loop.index}}" type="checkbox" name="branchCode" value="{{branch.branchCode}}"><label for="location{{loop.index}}">{{branch.branchName}}</label></span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="check_box_wrap">
+            <div class="title">분야</div>
+            <div class="check_box field_box">
+                {% for field in courseFields %}
+                    <span class="checks"><input id="filed{{loop.index}}" type="checkbox" name="fieldName" value="{{field.fieldName}}"><label for="filed{{loop.index}}">{{field.fieldName}}</label></span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="btn_wrap">
+            <input class="common_btn red_btn" type="submit" name="name" value="검색">
+        </div>
+        <div class="class_btn_wrap">
+            <a href="courseDetail.html">[NCS]스마트웹&콘텐츠개발 <span>모집중</span></a>
+            <a href="courseDetail.html">웹에이전시 전문가 취업반 <span>모집중</span></a>
+            <a href="courseDetail.html">웹퍼블리셔전문가 <span>모집중</span></a>
+            <br>
+            <a href="courseDetail.html">웹&앱 스마트 콘텐츠 제작</a>
+            <a href="courseDetail.html">스마트웹&콘텐츠플렛폼개발</a>
+            <a href="courseDetail.html">웹퍼블리셔전문가</a>
+        </div>
+    </form>
+</div>
+                            </xmp>
+                        </div>
+                        <div class="css">
+                            <pre>
+.type_bottom{
+    background:@base-color;
+    padding:70px 0;
+    margin:0;
+    text-align: center;
+    clear:both;
+    h2{
+        font-size:@summery-size;
+        font-weight: @title-weight+100;
+        color:@content-color;
+    }
+    p{
+        font-size:@menu-size;
+        line-height:@summery-size;
+        color:@subject-color;
+        font-weight: @gnb-weight;
+        span{
+            color:@content-color;
+        }
+    }
+    form{
+        width:890px;
+        margin:30px auto 0;
+        text-align: left;
+        >div:first-child{
+            border-bottom:1px solid @sub-color-second;
+        }
+        .check_box_wrap{
+            overflow:hidden;
+            font-size:0;
+            display:block;
+            background:@white-color;
+            vertical-align: middle;
+            .title{
+                .inlineblock();
+                padding:32px 0 32px 33px;
+                width:10%;
+                height:auto;
+                font-size:@menu-size;
+                color:@content-color;
+                font-weight: @gnb-weight;
+            }
+            .check_box{
+                width:90%;
+                float:right;
+                padding:16px 40px;
+                font-size:0;
+                .checks {
+                    position: relative;
+                    .inlineblock();
+                    margin:0 1% 5px;
+                    label{
+                        font-size:14px;
+                        font-weight: 400;
+                        margin-bottom:0;
+                        vertical-align: middle;
+                    }
+                    input[type="checkbox"]{
+                        margin:0 10px 0 0;
+                    }
+                }
+            }
+            .campus_box{
+                .checks {
+                    width:12.2857%;
+                    min-width:55px;
+                }
+            }
+            .field_box{
+                .checks {
+                    width:23%;
+                    min-width:155px;
+                }
+            }
+        }
+        .btn_wrap{
+            text-align: center;
+            margin:28px 0 70px;
+        }
+        .class_btn_wrap{
+            text-align: center;
+            font-size:0;
+            >a{
+                .inlineblock();
+                padding:0 20px;
+                height:40px;
+                line-height: 40px;
+                border:1px solid @sub-color;
+                font-size:17px;
+                font-weight: @gnb-weight;
+                background:@white-color;
+                color:@sub-color;
+                margin:0 10px 10px 0;
+                >span{
+                    .inlineblock();
+                    font-size:13px;
+                    width:50px;
+                    height:25px;
+                    background:@main-color;
+                    color:@white-color;
+                    line-height: 23px;
+                    .radius(20px);
+                    vertical-align: top;
+                    margin-top: 8px;
+                }
+                &&:hover{
+                    background:@sub-color;
+                    color:@white-color;
+                }
+            }
+        }
+    }
+    @media(max-width:@tablet-size){
+        form{
+            width: 93%;
+            .check_box_wrap{
+                .title{
+                    width:100%;
+                    padding-left:0;
+                    text-align: center;
+                }
+                .check_box{
+                    width:100%;
+                    float:none;
+                    padding:16px 3%;
+                    .checks{
+                        width:23%;
+                    }
+                }
+            }
+        }
+    }
+}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+        </div>
+    </div>
+
+    <footer class="container-fluid text-center">
+        Copyright © 2016 freeive. all rights reserved.
+    </footer>
+</body>
+</html>

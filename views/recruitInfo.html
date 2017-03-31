@@ -1,0 +1,189 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="recruitInfo">
+    <!-- 본문 -->
+    <div class="contents">
+        <!-- 서브 네비 -->
+        <div class="sub-navi">
+            <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+            <span>취업지원센터</span><span>&#183;</span>
+            <span class="this-page">채용 정보</span>
+        </div>
+        <!-- // 서브 네비 -->
+
+        <!-- 대제목 -->
+        <div class="title-l">
+            <div class="bg">Job Center</div>
+            <div class="text-box">
+                <h1>채용 정보</h1>
+                <p>하이미디어에서 알려 드리는 채용 정보</p>
+            </div>
+        </div>
+        <!-- // 대제목 -->
+        <form class="recruitInfo_form wow fadeInUp" data-wow-duration="1s" method="post" action="recruitInfo.html">
+            <fieldset>
+                <legend class="sr-only">채용정보 검색</legend>
+                <div class="button_box common_wrap">
+                    <dl class="field">
+                        <dt>
+                             모집 분야
+                             <button type="button"></button>
+                        </dt>
+                        <dd>
+                            <ul class="search1">
+                                {% for recruitField in jobCode.recruitFields %}
+                                    <li class="field_li"><input type="checkbox" id="field{{loop.index}}" name="recruitField" value="{{recruitField.key}}"><label for="field{{loop.index}}">{{recruitField.value}}</label></li>
+                                {% endfor %}
+                            </ul>
+                        </dd>
+                    </dl>
+                    <dl class="form">
+                        <dt>
+                             고용 형태
+                             <button type="button"></button>
+                        </dt>
+                        <dd>
+                            <ul class="search2">
+                                {% for recruitType in jobCode.recruitTypes %}
+                                    <li class="employment"><input type="checkbox" id="employment{{loop.index}}" value="{{recruitType.key}}" name="recruitType"><label for="employment{{loop.index}}">{{recruitType.value}}</label></li>
+                                {% endfor %}
+                            </ul>
+                        </dd>
+                    </dl>
+                    <dl class="area">
+                        <dt>
+                             근무 지역
+                             <button type="button"></button>
+                        </dt>
+                        <dd>
+                            <ul class="search3">
+                                {% for workAreaCode in jobCode.workAreaCodes %}
+                                    <li class="workArea"><input type="checkbox" id="location1{{loop.index}}" value="{{workAreaCode.key}}" name="workAreaCode"><label for="location1{{loop.index}}">{{workAreaCode.value}}</label></li>
+                                {% endfor %}
+                            </ul>
+                        </dd>
+                    </dl>
+                    <div class="btns_wrap">
+                        <button type="submit" class="common_btn arrow_nay_btn">조건검색<span class="icon arrow red">오른쪽 화살표</span></button>
+                        <button type="reset" class="common_btn arrow_white_btn">초기화<span class="icon arrow red">오른쪽 화살표</span></button>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="recruitInfo_bg">
+                <div class="scroll_table">
+                    <p class="scroll_tablenotice text-left pc_none"><span class="scroll_icon"></span> 좌우로 스크롤이 가능한 표입니다.</p>
+                    <table class="list_table hover_effect wow fadeInUp" data-wow-duration="1s">
+        		        <caption class="sr-only"></caption>
+        		        <colgroup>
+        		        	<col style="width:6%">
+        		        	<col style="width:18%">
+        		        	<col style="width:34%">
+        		        	<col style="width:11%">
+        		        	<col style="width:9%">
+                            <col style="width:11%">
+                            <col style="width:">
+        		        </colgroup>
+        		        <tbody>
+                            {% for info in infos.rows %}
+            			        <tr onclick="location.href='recruitInfoView.html?recruitId={{info.recruitId}}&page={{page}}'">
+            			        	<td>{{info.recruitId}}</td>
+            			        	<td><span>{{info.companyName}}</span></td>
+            			        	<td class="text-left cont">
+                                        <!-- <a href="recruitInfoView.html?recruitId={{info.recruitId}}&page={{page}}"> -->
+                                            <span>{{info.recruitSubject}}</span>
+                                        <!-- </a> -->
+                                    </td>
+            			        	<td>
+                                        {% for field in jobCode.recruitFields %}
+                                            {% if field.key == info.recruitField %}
+                                                {{field.value}}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+            			        	<td>
+                                        {% for recruitType in jobCode.recruitTypes %}
+                                            {% if recruitType.key == info.recruitType %}
+                                                {{recruitType.value}}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    {% set dataNum = 0 %}
+                                    {% for workAreaCode in jobCode.workAreaCodes %}
+                                        {% if workAreaCode.key == info.workAreaCode %}
+                                            <td>{{workAreaCode.value}}&nbsp;{{info.workArea}}</td>
+                                            {% set dataNum = 1 %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if dataNum == 0 %}
+                                        <td>{{info.workArea}}</td>
+                                    {% endif %}
+                                    <td>{{info.recruitEndDate}}</td>
+            			        </tr>
+                            {% endfor %}
+        		        </tbody>
+        	        </table>
+                </div>
+                <div class="enter_button common_wrap">
+                    <button class="common_btn big_btn" onclick="location.href='register.html';return false;">채용 정보 등록<span class="icon check red">체크(확인)</span></button>
+                </div>
+                <!-- <div class="help_cont">
+                    <p>이 페이지가 도움이 되셨습니까?  <button class="yes" type="button">예</button>/<button class="no" type="button">아니요</button></p>
+                </div> -->
+                {% include "./blocks/pagination.html" %}
+            </div>
+        </form>
+
+        <form method="get" class="goPage">
+            <input type="hidden" name="page" value="1">
+        </form>
+
+        <script>
+            function goPage(page){
+                $("input[name='page']").val(page);
+                $(".goPage").submit();
+            }
+        </script>
+    </div>
+    <!-- // 본문 -->
+</div>
+<script>
+    var searched={{JSON.stringify(searched,0,4)}};
+    //체크
+    for( i in searched.recruitField){
+        $('.search1 li').each(function(j,e){
+            $(e).children('input[name=recruitField]').attr('value') == searched.recruitField[i] ? $(e).children('input').attr('checked','true') : '';
+        });
+    }
+    for( i in searched.recruitType){
+        $('.search2 li').each(function(j,e){
+            $(e).children('input[name=recruitType]').attr('value') == searched.recruitType[i] ? $(e).children('input').attr('checked','true') : '';
+        });
+    }
+    for( i in searched.workArea){
+        $('.search3 li').each(function(j,e){
+            $(e).children('input[name=workArea]').attr('value') == searched.workArea[i] ? $(e).children('input').attr('checked','true') : '';
+        });
+    }
+    for(i=0;i<$('.field_li').length;i++){
+        if( i%2 == 1 && i != 0){
+            $('.field_li').eq(i).css('marginRight',0);
+        }
+    }
+    for(i=0;i<$('.employment').length;i++){
+        if( i%2 == 1 && i != 0){
+            $('.employment').eq(i).css('marginRight',0);
+        }
+    }
+    for(i=0;i<$('.workArea').length;i++){
+        if( i%4 == 3 && i != 0){
+            $('.workArea').eq(i).css('marginRight',0);
+        }
+    }
+    $('.pagination').addClass('gray');
+
+    $('.button_box dt button').click(function(){
+        $(this).addClass('on').parent().siblings().addClass('on');
+        $(this).parent().parent().siblings().children().removeClass('on').children().removeClass('on')
+    })
+</script>
+{% endblock %}

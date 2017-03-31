@@ -1,0 +1,89 @@
+.login{
+    .inputtable_wrap{
+        table.input_table{
+            width:333px;
+            margin-bottom:0;
+            th.id{
+                background:url('/img/site_img/id_bg.jpg') no-repeat 0 50%;
+                label{
+                    padding-left:35px;
+                }
+            }
+            th.pw{
+                background:url('/img/site_img/pw_bg.jpg') no-repeat 0 50%;
+                label{
+                    padding-left:35px;
+                }
+            }
+        }
+        .find{
+            display:block;
+            text-align:right;
+            width:330px;
+            margin: 10px auto;
+            color:@subject-color;
+            font-size:13px;
+        }
+        .btns_wrap{
+            text-align: center;
+            width:330px;
+            margin:0 auto;
+            padding-top:10px;
+            input{
+                height:40px;
+                background:@main-color;
+                color:@white-color;
+                border:none;
+                width:100%;
+                margin-bottom:10px;
+            }
+            a{
+                height:40px;
+                background:@sub-color;
+                color:@white-color;
+                border:none;
+                width:100%;
+                margin-bottom:10px;
+                display:block;
+                line-height:40px;
+            }
+        }
+    }
+    .log_text{
+        text-align: center;
+        margin:60px 0 70px;
+        p.title{
+            font-size:@summery-size;
+            color:@content-color;
+            font-weight: @gnb-weight;
+            margin-bottom:10px;
+        }
+        p.text{
+            color:@subject-color;
+            span{
+                display:block;
+                font-weight:@subject-weight;
+            }
+        }
+    }
+    @media(max-width:@mobile-size){
+        .inputtable_wrap{
+            table.input_table,.find,.btns_wrap{
+                width:97%;
+            }
+        }
+        .log_text{
+            p.title{
+                font-size:@menu-size;
+            }
+            p.text{
+                width:97%;
+                margin:0 auto;
+                font-size:@mobilefont-size;
+                span{
+                    display:inline;
+                }
+            }
+        }
+    }
+}

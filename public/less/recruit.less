@@ -1,0 +1,89 @@
+.recruit{
+    word-break: keep-all;
+    b{
+        color:@title-color;
+        font-weight: @title-weight;
+    }
+
+    .recruit-basebox-wrapper{
+        width:100%;
+        background-color: @base-color;
+
+        .title-m{
+            margin:0;
+            padding:50px 0;
+        }
+    }
+
+    .recruitInfo-wrapper{
+        font-size:@menu-size;
+        >div{
+            width:50%;
+            float:left;
+        }
+        .recruitInfo-box1{
+            border-right:1px #7E7D87 solid;
+        }
+        .title-m{
+            .recruitInfo-content{
+                span{
+                    color:@content-color;
+                    position:relative;
+                    margin-top:70px;
+                    display:block;
+                    font-weight: @gnb-weight;
+
+                    &:after{
+                        content:"";
+                        width:20px;
+                        height:20px;
+                        .inlineblock();
+                        position:absolute;
+                        background: url('../img/icon/btn_plus_red.png') no-repeat center center;
+                        top:-50px;
+                        left:50%;
+                        margin-left:-10px;
+                        // transform: translateX(-50%);
+                    }
+                    &:first-child{
+                        margin-top:60px;
+                    }
+                    &:first-child:after{
+                        width:0;
+                        height:0;
+                    }
+                }
+            }
+        }
+    }
+    @media(max-width: @mobile-size){
+        .recruitInfo-wrapper{
+            width:97%;
+            margin:0 auto;
+            >div{
+                width:100%;
+                float:none;
+                border:none !important;
+            }
+            .recruitInfo-box1:after{
+                content: "";
+                display:block;
+                width:80%;
+                height:1px;
+                background:@sub-color;
+                margin:70px auto;
+            }
+            .title-m{
+                .recruitInfo-content{
+                    font-size:@mobilefont-size+1;
+                    span{
+                        margin-top:57px;
+                        &:after{
+                            top:-36px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

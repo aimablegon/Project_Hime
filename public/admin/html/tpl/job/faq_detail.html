@@ -1,0 +1,101 @@
+<script type="text/javascript">
+
+angular.module('app').controller('myCtrl', ['$scope', '$rootScope', '$http', '$sce', '$stateParams', '$location', 
+	'$state', '$httpParamSerializerJQLike',
+	function($scope, $rootScope, $http, $sce, $stateParams, $location, $state, $httpParamSerializerJQLike) {
+
+		$scope.mode = $stateParams.id ? 'modify' : 'new';
+	    $scope.basePath = '#'+$location.$$path;
+	    $scope.parentPath = $location.$$path.substring(0, $location.$$path.indexOf("/detail"));
+
+		if($scope.mode == "modify") {
+			$http({
+				method : "POST",
+				url : "/admin/api/jobFaq/"+$stateParams.id
+			}).success(function(data) {
+				console.log(data);
+				$scope.data = data;
+			});			
+		}
+		
+		$scope.submit = function () {
+
+			var url = "";
+			if($scope.mode == "modify") {
+				url = "/admin/api/jobFaq/"+$stateParams.id+"/update";
+			} else {
+				url = "/admin/api/jobFaq/insert";
+			}
+				
+			$http({
+					method : "POST",
+					url : url,
+					data: $scope.data
+			}).success(function(data) {
+
+				if($scope.mode == "modify") {
+					alert("저장되었습니다.");
+				}else {
+					$location.path($scope.parentPath);
+				}
+			});
+
+		};
+
+	}]
+);
+
+
+</script>
+<style>
+	.form-horizontal .ignore .form-group{
+		margin-left : 0px;
+		margin-right : 0px;
+	}
+</style>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">FAQ 관리</h1>
+</div>
+<div class="wrapper-md">
+	<div class="panel panel-default" ng-controller="myCtrl">
+		<div class="panel-heading">{{mode == 'modify' ? '변경' : '신규'}}</div>
+		<div class="panel-body">
+			<form class="form-horizontal" method="get" ng-submit="submit()">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">질문</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" rows="6" placeholder="내용을 입력하세요." ng-model="data.question" required="required"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">답변</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" rows="6" placeholder="내용을 입력하세요." ng-model="data.answer" required="required"></textarea> 
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">노출여부</label>
+					<div class="col-sm-10">
+						<label class="i-switch m-t-xs m-r"><input type="checkbox" ng-true-value="'Y'" ng-false-value="'N'" ng-model="data.showYn" ng-init="data.showYn = 'Y'"> <i></i></label>
+					</div>
+				</div>
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+				<div class="form-group">
+					
+					<div class="col-sm-5 col-sm-offset-2">
+						
+						<button type="button" onclick="history.back()" class="btn btn-default m-r-sm">목록</a>
+						<button type="button" ng-click="delete()" class="btn btn-danger" ng-show="mode=='modify'">삭제</button>
+						
+	
+					</div>
+	
+					<div class="col-sm-5 text-right">
+						<button type="submit" class="btn btn-primary">변경사항 저장</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div> 
+</div>

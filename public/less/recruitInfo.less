@@ -1,0 +1,361 @@
+.recruitInfo{
+    .recruitInfo_form{
+        .button_box{
+            margin:0 auto 70px;
+            dl{
+                .inlineblock();
+                font-size:0;
+                vertical-align: top;
+                min-height:160px;
+                dt{
+                    font-size:@summery-size;
+                    font-weight: @title-weight;
+                    text-align: left;
+                    height:38px;
+                    border-bottom:2px solid @sub-color;
+                    button{disiplay:none;}
+                    span{
+                        background:@main-color;
+                        height:2px;
+                        width:69px;
+                        display:block;
+                        margin:10px auto;
+                    }
+                }
+                dd{
+                    font-size: 13px;
+                    margin-top:30px;
+                    text-align: center;
+                    ul{
+                        text-align: left;
+                        width:98%;
+                        margin:0 auto;
+                    }
+                    input{
+                        margin:0 4px 0 0;
+                    }
+                    label{
+                        font-size:13px;
+                        font-weight: @subject-weight;
+                    }
+                    li{
+                        .inlineblock();
+                        margin-right:10px;
+
+                    }
+                }
+            }
+            .field{
+                width:373px;
+                padding-right:92px;
+                background:url('/img/icon/recruitinfo_icon.png') no-repeat 308px 50%;
+                ul{
+                    li{
+                        width:47%;
+                    }
+                }
+            }
+            .form{
+                width:362px;
+                padding-right:92px;
+                background:url('/img/icon/recruitinfo_icon.png') no-repeat 297px 50%;
+                dd{
+
+                    ul{
+                        li{
+                            width:47%;
+                        }
+                    }
+                }
+            }
+            .area{
+                width:281px;
+                dd{
+
+                    ul{
+                        li{
+                            width:21%;
+                        }
+                    }
+                }
+            }
+            .btns_wrap{
+                text-align:center;
+                font-size:0;
+                margin-top:40px;
+                .common_btn{
+                    width:182px;
+                    margin-left:10px;
+                }
+                .arrow_nay_btn{
+                    padding-left:2%;
+                    &&:hover{
+                        background:@main-color;
+                        >span{background-position: -80px 0;}
+                    }
+                }
+            }
+        }
+        .recruitInfo_bg{
+            background:@base-color;
+            padding:70px 0 0 0;
+            .list_table{
+                tbody{
+                    tr{
+                        height:65px;
+                        border-top: 1px solid @base-color;
+                        cursor: pointer;
+                        &&:first-child{border-top:0;}
+                        td{
+                            padding:0 10px;
+                            font-size:13px;
+                        }
+                        .cont{
+                            font-weight: @gnb-weight;
+                            a{
+                                font-size:13px;
+                            }
+                        }
+                    }
+                }
+            }
+            .enter_button{
+                color:@white-color;
+                text-align: center;
+                margin-bottom:70px;
+                button{
+                    &&:hover{
+                        background:@main-color;
+                        span{background-position: -40px -250px;}
+                    }
+                }
+            }
+        }
+    }
+    @media(max-width:@tablet-size){
+        .recruitInfo_form{
+            .button_box{
+                text-align: center;
+                .field,.form,.area{
+                    width:97%;
+                    margin:0 auto;
+                    background:none;
+                    padding:0;
+                }
+                dl{
+                    min-height:auto;
+                    position:relative;
+                    button{
+                        display: block;
+                        position:absolute;
+                        width:100%;
+                        height:33px;
+                        top:0;
+                        left:0;
+                        background:url('../img/icon/icon_arrow_navy_down.png') no-repeat 97% 50%;
+                    }
+                    button.on{
+                        background:url('../img/icon/icon_arrow_navy_up.png') no-repeat 97% 50%;
+                    }
+                    dt{
+                        font-size:16px;
+                        height:33px;
+                    }
+                    dd{
+                        height:0;
+                        overflow: hidden;
+                    }
+                    dd.on{
+                        height:auto;
+                        overflow: hidden;
+                        margin-bottom:30px;
+                    }
+                }
+                .btns_wrap{
+                    .common_btn{
+                        width:137px;
+                    }
+                    button[type="submit"]{
+                        margin-left:0;
+                    }
+                }
+            }
+            .recruitInfo_bg{
+                padding:70px 0;
+            }
+        }
+        .list_table{
+            min-width:585px;
+        }
+        .big_btn{
+            display: none;
+        }
+    }
+}
+
+//채용정보 view
+.recruitInfoView{
+    .recruitInfoView_top_wrap{
+        position:relative;
+    }
+    .recruitInfoView_top{
+        border:1px solid @sub-color-second;
+        padding:70px;
+        background:@white-color;
+        text-align: center;
+        position:relative;
+        z-index: 5;
+        .title-m{
+            margin:0;
+            >p{
+                margin:0;
+                font-size:@menu-size;
+                color:@content-color;
+            }
+            >p.short_intro{
+                margin-top:48px;
+            }
+        }
+        .company{
+            font-size:@menu-size;
+            color:@subject-color;
+            margin-bottom:5px;
+        }
+    }
+    .recruitInfoView_top_bg{
+        width:1024px;
+        background:@main-color;
+        position:absolute;
+        height:100%;
+        left:10px;
+        top:10px;
+    }
+    .cont{
+        width:1024px;
+        margin:0 auto;
+        .cont_head{
+            width:100%;
+            height:50px;
+            line-height: 50px;
+            background:@sub-color;
+            color:@white-color;
+            fon-size:16px;
+            font-weight: @gnb-weight;
+            text-align: center;
+            margin-top:70px;
+        }
+        caption{
+            width:0;
+            height:0;
+            padding:0;
+            margin:0;
+        }
+        table{
+            border-bottom:2px solid #7E7D87;
+            width:100%;
+            margin:0 0 40px 0;
+            font-size:13px;
+            tr{
+                height:65px;
+                border-top:1px solid #7E7D87;
+                &&:first-child{border-top:0}
+                td{
+                    padding:20px;
+                }
+            }
+        }
+        div{
+            textarea{
+                width:100%;
+                height:245px;
+                padding:10px;
+                resize:none;
+            }
+        }
+        .button_wrap{
+            text-align: left;
+            margin:40px 0 70px;
+            .notice_hide{
+                padding-left:10px;
+                display:none;
+            }
+            .arrow_nay_btn{
+                width:180px;
+                &&:hover{
+                    background:@main-color;
+                    span{
+                        background-position: -80px 0;
+                    }
+                }
+            }
+            .btns_wrap{
+                float:right;
+                color:@white-color;
+                font-size:0;
+            }
+        }
+    }
+    .recruitInfo_footer{
+        background:@base-color;
+        padding:70px;
+        .title-m{
+            .inlineblock();
+            text-align: center;
+            font-size:0;
+            padding:0 10%;
+            margin:0;
+            .info1{
+                font-size:@menu-size;
+                margin:0 0 10px 0;
+                color:@content-color;
+            }
+            .info3{
+                font-size:13px;
+                line-height:20px;
+                color:@subject-color;
+            }
+        }
+    }
+    @media(max-width:@tablet-size){
+        .recruitInfoView_top_wrap{
+            width:92%;
+        }
+        .recruitInfoView_top_bg{
+            width:100%;
+        }
+        .cont{
+            width:97%;
+            .button_wrap{
+                .arrow_nay_btn{
+                    width:149px;
+                }
+                >button{
+                    display: none;
+                }
+                .btns_wrap{
+                    float:none;
+                    text-align: right;
+                }
+            }
+        }
+        .recruitInfo_footer{
+            padding:70px 0 0 0;
+            .title-m{
+                padding:0 0 70px 0;
+                h2{
+                    font-size:18px;
+                }
+                .info1{
+                    font-size:@menu-size;
+                    margin:0 0 10px 0;
+                    color:@content-color;
+                }
+                .info3{
+                    font-size:13px;
+                    line-height:20px;
+                    color:@subject-color;
+                }
+            }
+        }
+    }
+}

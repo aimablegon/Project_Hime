@@ -1,0 +1,96 @@
+.history{
+	.historyWrap{
+		position:relative;
+		overflow:hidden;
+		margin:0 auto 70px;
+
+		.history_year{
+			width:6px;
+			height:100%;
+			background:url('/img/site_img/history_barbg.png') repeat-y;
+			right:50%;
+			margin-right: -3px;
+			position:absolute;
+			z-index:2;
+			top:15px;
+			display:block;
+		}
+
+		.history_cont{
+			position:relative;
+			top:0;
+			.notice_bar{
+				display:block;
+				position:absolute;
+				width:109px;
+				height:16px;
+				z-index: 10;
+				top: 10px;
+			}
+			div.left{
+				text-align: right;
+				margin: 0 633px 30px 0;
+				position:relative;
+				z-index: 10;
+				top: 5px;
+				.notice_bar{
+					background:url('/img/icon/year_notice1.png') no-repeat;
+					right: -130px;
+				}
+			}
+			div.right{
+				text-align: left;
+				margin: 0 0 30px 634px;
+				position:relative;
+				z-index:10;
+				.notice_bar{
+					background:url('/img/icon/year_notice.png') no-repeat;
+					left: -130px;
+				}
+			}
+			.year{
+				color:@content-color;
+				font-size:30px;
+				font-weight: @gnb-weight+100;
+			}
+			.real_cont{
+				font-size:13px;
+				color:#222222;
+				span{
+					display:block;
+				}
+			}
+		}
+	}
+	@media (max-width: @tablet-size){
+		.historyWrap{
+			.history_year{
+				display:none;
+			}
+			.history_cont{
+				padding:0 3%;
+				>div{
+					text-align: left !important;
+					margin: 30px 0 !important;
+				}
+				.year,.real_cont{
+					text-align: center;
+				}
+				.year{
+					font-size:20px;
+					&:after{
+						content:"";
+						display: block;
+						width:30px;
+						height:2px;
+						background:@main-color;
+						margin:10px auto;
+					}
+				}
+				.notice_bar{
+					display: none;
+				}
+			}
+		}
+	}
+}

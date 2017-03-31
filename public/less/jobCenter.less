@@ -1,0 +1,290 @@
+.jobCenter{
+    .jobCenter_bg{
+        width:100%;
+        background:@base-color;
+        padding:70px 0;
+        text-align: center;
+        .title-m{
+            margin-top:0;
+            >p{
+                color:@subject-color;
+                font-size:@menu-size;
+            }
+        }
+        .jobCenter_people{
+            font-size:0;
+            margin:30px auto 0;
+            text-align: left;
+            li{
+                width:240px;
+                .inlineblock();
+                color:@white-color;
+                text-align: left;
+                margin:0 21px 21px 0;
+                vertical-align: top;
+                >div{
+                    padding:35px 20px 20px;
+                    background:@sub-color;
+                    .img_wrapper{
+                        margin : 0 auto 30px;
+                        overflow:hidden;
+                        width:150px;
+                        height:150px;
+                        img{
+                            width:100%;
+                        }
+                    }
+                    .name{
+                        font-size:@summery-size;
+                    }
+                    .position{
+                        font-size:13px;
+                    }
+                    .red_bar{
+                        display: block;
+                        width:31px;
+                        height:2px;
+                        background:@main-color;
+                        margin:15px 0;
+
+                    }
+                    .tel{
+                        padding-left:30px;
+                        background:url('/img/icon/tel_icon.png') no-repeat 0 50%;
+                        font-size:13px;
+                        margin-bottom:11px;
+                        display:block;
+                        color:@white-color;
+                    }
+                    .e-mail{
+                        padding-left:30px;
+                        background:url('/img/icon/e-mail_icon.png') no-repeat 0 50%;
+                        font-size:13px;
+                        color:@white-color;
+                    }
+                }
+            }
+        }
+    }
+    .jobsystem{
+        padding:70px 0;
+        text-align: center;
+        .jobsystem_wrap{
+            height:430px;
+            width:430px;
+            margin:70px auto 0;
+            background:url('/img/site_img/system_bg.png') no-repeat 50%;
+            position:relative;
+            >p{
+                font-size:@subject-size;
+                color:@white-color;
+                text-align: center;
+                padding-top:183px;
+                >span{
+                    display:block;
+                    font-weight: @subject-weight;
+                }
+            }
+            .system_list{
+                position: absolute;
+                width: 100%;
+                height:auto;
+                top:0;
+                li{
+                    position:absolute;
+                    min-width:320px;
+                    .cont{
+                        >p{
+                            color:@subject-color;
+                        }
+                        .title{
+                            font-weight: @subject-weight;
+                            color:@content-color;
+                        }
+                        .red_bar{
+                            display: inline-block;
+                            width:14px;
+                            height: 2px;
+                            background: @main-color;
+                            margin: 6px 0;
+                        }
+                    }
+                }
+                li.left{
+                    .cont{
+                        float:left;
+                        text-align: left;
+                    }
+                    img{
+                        float:left;
+                        margin-right:30px;
+                    }
+                }
+                li.right{
+                    .cont{
+                        float:right;
+                        text-align: right;
+                    }
+                    img{
+                        float:right;
+                        margin-left:30px;
+                    }
+                }
+                .system1{
+                    right:-161px;
+                }
+                .system2{
+                    top:156px;
+                    right:-248px;
+                }
+                .system3{
+                    top: 326px;
+                    right:-161px;
+                }
+                .system4{
+                    top: 326px;
+                    left:-161px;
+                }
+                .system5{
+                    top:156px;
+                    left:-248px;
+                }
+                .system6{
+                    left:-161px;
+                }
+            }
+        }
+    }
+    .jobCenter_bg2{
+        background:@sub-color;
+        padding:70px 0;
+        .wrap{
+            color: @white-color;
+            h2{
+                float:left;
+                margin-right:80px;
+                font-size:@subject-size;
+            }
+            ul{
+                li{
+                    margin-left:25px;
+                    .inlineblock();
+                    vertical-align: top;
+                    p{
+                        font-size:@summery-size;
+                        font-weight: @subject-weight;
+                        &&:after{
+                            content: "";
+                            display: block;
+                            height:2px;
+                            width:30px;
+                            background:@main-color;
+                            margin: 15px 0;
+                        }
+                    }
+                    span{
+                        font-size:@menu-size;
+                        >span{
+                            font-weight: @subject-weight;
+                        }
+                    }
+                }
+                li:first-child{
+                    margin-left:0;
+                }
+            }
+        }
+    }
+    @media(max-width:@tablet-size){
+        .jobCenter_bg{
+            .jobCenter_people{
+                width: 97%;
+                li{
+                    margin-right:0;
+                    width:50%;
+                    div{
+                        width:240px;
+                        margin:0 auto;
+                    }
+                }
+            }
+        }
+        .jobsystem{
+            .jobsystem_wrap{
+                width: 97%;
+                background:none;
+                height: auto;
+                >p{
+                    display: none;
+                }
+                .system_list{
+                    font-size:0;
+                    position: relative;
+                    li.left,li.right{
+                        position: relative;
+                        left:0 ;
+                        right:0;
+                        width: 50% ;
+                        display: inline-block;
+                        top: 0 ;
+                        font-size:@mobilefont-size;
+                        margin-bottom:25px;
+                        min-width: 100px;
+                        vertical-align: top;
+                        >img,.cont{
+                            margin:0;
+                            float: none;
+                            text-align: center;
+                            color:@subject-color;
+                            p.title{
+                                margin-top:20px;
+                                font-weight:@gnb-weight;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .jobCenter_bg2{
+            .wrap{
+                width: 97%;
+                h2{
+                    width: 9%;
+                    min-width:112px;
+                    font-size:@summery-size;
+                    margin-right:7%;
+                }
+                ul{
+                    width:73%;
+                    display: inline-block;
+                    float:left;
+                    max-width: 165px;
+                    li{
+                        width:100%;
+                        margin:20px 0 0 0;
+                        >p{
+                            font-size:@menu-size+1;
+                        }
+                        span{
+                            font-size:@mobilefont-smallsize;
+                            font-weight: 200;
+                        }
+                        &:first-child{
+                            margin-top:0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @media(max-width:525px){
+        .jobCenter_bg{
+            .jobCenter_people{
+                li{
+                    margin-right:0;
+                    width:100%;
+                }
+            }
+        }
+    }
+}

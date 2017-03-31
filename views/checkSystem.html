@@ -1,0 +1,198 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="checkSystem">
+    <!-- 본문 -->
+    <div class="contents common_wrap">
+        <!-- 서브 네비 -->
+        <div class="sub-navi">
+            <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+            <span>교육과정</span><span>&#183;</span>
+            <span class="this-page">자격 확인 시스템</span>
+        </div>
+        <!-- // 서브 네비 -->
+
+        <!-- 대제목 -->
+        <div class="title-l">
+            <div class="bg">Course</div>
+            <div class="text-box">
+                <h1>자격 확인 시스템</h1>
+                <p>자신에게 맞는 교육 유형을 스스로 확인해볼 수 있는 하이미디어만의 시스템입니다.</p>
+            </div>
+        </div>
+        <!-- // 대제목 -->
+        <div class="check_wrap">
+            <div class="step1 boxes on first">
+                <p class="first_check">check</p>
+                <p>자신이 <span>국비지원대상자</span>인지 확인해보시겠습니까?</p>
+                <button type="button" class="btn-red">START</button>
+            </div>
+            <div class="step2 boxes age_check">
+                <p>당신의 나이는 <span>만 15세 이상</span>인가요?</p>
+                <button type="button" class="btn-navy s2y">
+                    <img src="/img/site_img/checkSystem_no.png" alt="맞음">
+                    <span>YES</span>
+                    <p>네, <span>만 15세이상</span>입니다.</p>
+                </button>
+                <button type="button" class="btn-red s2n">
+                    <img src="/img/site_img/checkSystem_05.png" alt="틀림">
+                    <span>NO</span>
+                    <p>아니오, <span>만 15세미만</span>입니다.</p>
+                </button>
+            </div>
+
+            <div class="step3 step3-y boxes">
+                <p>당신은 <span>학생 신분</span> 인가요?</p>
+                <button type="button" class="btn-red s3y">예</button>
+                <button type="button" class="btn-navy s3n">아니오</button>
+            </div>
+            <div class="step3 step3-n boxes">
+                <p>당신은 국비지원대상자가 <span>아닙니다.</span></p>
+                <button type="button" class="btn-red restart" onclick="javascript:location.href='checkSystem.html'">돌아가기</button>
+            </div>
+
+            <!-- <div class="step4 step4-y boxes">
+                <p>당신은 <span>'학생 및 일반과정'</span>을 수강하실 수 있습니다.</p>
+                <a href="general.html" class="btn-red">확인</a>
+                <a href="onlineCounsel.html" type="button" class="btn-navy">상담</a>
+                <div class="tip">
+                	<span class="question">?</span>
+                    <span class="tooltip-text"> <span>'확인'</span>을 누르시면 헤당 과정유형의 정보를 볼 수 있는 페이지로, <span>'상담'</span>을 누르시면 온라인 상담 페이지로 이동합니다.</span>
+                </div>
+            </div> -->
+            <div class="step4 step4-y boxes">
+                <p>당신은 고등학교 혹은 대학(전문대학) 최종학년 재학생으로 <span>졸업예정자</span>입니까?</p>
+                <button type="button" class="btn-red s4yy">예</button>
+                <button type="button" class="btn-navy s4yn">아니오</button>
+            </div>
+            <div class="step4 step4-n boxes">
+                <p>당신은 현재 <span>회사</span>를 다니고 있나요?</p>
+                <button type="button" class="btn-red s4y">예</button>
+                <button type="button" class="btn-navy s4n">아니오</button>
+            </div>
+            <div class="step5 step5-y-y boxes">
+                <p> 당신은 <span>국비지원대상자</span>일 수 있으니, 상담을 받으시길 권합니다.</p>
+                <a href="onlineCounsel.html" type="button" class="btn-navy">상담</a>
+                <div class="tip">
+                	<span class="question">?</span>
+                    <span class="tooltip-text"> <span>'확인'</span>을 누르시면 헤당 과정유형의 정보를 볼 수 있는 페이지로, <span>'상담'</span>을 누르시면 온라인 상담 페이지로 이동합니다.</span>
+                </div>
+            </div>
+            <div class="step5 step5-y-n boxes">
+                <p>당신은 국비지원대상자가 <span>아닙니다.</span></p>
+                <button type="button" class="btn-red restart" onclick="javascript:location.href='checkSystem.html'">돌아가기</button>
+            </div>
+            <div class="step5 step5-y boxes">
+                <p>당신은 실제 <span>1년 이상 정규직으로 근무 중</span>인가요?</p>
+                <button type="button" class="btn-red s5yy">예</button>
+                <button type="button" class="btn-navy s5yn">아니오</button>
+            </div>
+            <div class="step5 step5-n boxes">
+                <p>당신은 <span>워크넷 홈페이지에서 구직 등록/신청</span>을 하신 적이 있나요?</p>
+                <button type="button" class="btn-red s5ny">예</button>
+                <button type="button" class="btn-navy s5nn">아니오</button>
+            </div>
+            <div class="step6 step6-y-y boxes">
+                <p>당신은 정규직 대상자로 <span>'직장인 국비지원과정'</span>을 수강하실 수 있습니다.</p>
+                <a href="worker.html" class="btn-red">확인</a>
+                <a href="onlineCounsel.html.html" class="btn-navy">상담</a>
+                <div class="tip">
+                	<span class="question">?</span>
+                    <span class="tooltip-text"> <span>'확인'</span>을 누르시면 헤당 과정유형의 정보를 볼 수 있는 페이지로, <span>'상담'</span>을 누르시면 온라인 상담 페이지로 이동합니다.</span>
+                </div>
+            </div>
+            <div class="step6 step6-y-n boxes">
+                <p>당신은 비정규직 대상자로 <span>'직장인 국비지원과정'</span>을 수강하실 수 있습니다.</p>
+                <a href="worker.html" class="btn-red">확인</a>
+                <a href="onlineCounsel.html.html" class="btn-navy">상담</a>
+                <div class="tip">
+                	<span class="question">?</span>
+                    <span class="tooltip-text"> <span>'확인'</span>을 누르시면 헤당 과정유형의 정보를 볼 수 있는 페이지로, <span>'상담'</span>을 누르시면 온라인 상담 페이지로 이동합니다.</span>
+                </div>
+            </div>
+            <div class="step6 step6-n-y boxes">
+                <p>당신은 취업 대상자(실업자/휴직자)로 <span>'구직자 국비지원과정'</span>을 수강하실 수 있습니다.</p>
+                <a href="jobSeeker.html" class="btn-red">확인</a>
+                <a href="onlineCounsel.html" class="btn-navy">상담</a>
+                <div class="tip">
+                	<span class="question">?</span>
+                    <span class="tooltip-text"> <span>'확인'</span>을 누르시면 헤당 과정유형의 정보를 볼 수 있는 페이지로, <span>'상담'</span>을 누르시면 온라인 상담 페이지로 이동합니다.</span>
+                </div>
+            </div>
+            <div class="step6 step6-n-n boxes">
+            <p>당신은 '구직자 국비지원과정'을 <span>수강하실 수 없습니다.</span> 워크넷 홈페이지에서 구직 등록을 하시고 수강하시겠습니까?</p>
+            <a href="http://www.work.go.kr/" target="_blank" title="새창열림" class="btn-red">이동</a>
+        </div>
+        </div>
+    </div>
+    <!-- // 본문 -->
+</div>
+<script>
+    function movement(target){
+
+        var className = $(target).attr('class');
+        var idx = className.substring(className.indexOf('step')+4,className.indexOf('step')+5);
+        for(i=Number(idx); i<7;i++){
+            var inputClass = ".step"+i;
+            $(inputClass).css({
+                opacity:0,
+                marginTop:'-50px'
+            }).removeClass('on');
+        }
+
+        target.addClass('on').animate({
+            opacity:1,
+            marginTop:0
+        })
+
+    }
+    $('.step1').click(function(){
+        movement($('.step2'));
+    });
+    $('.s2y').click(function(){
+        movement($('.step3-y'));
+    });
+    $('.s2n').click(function(){
+        movement($('.step3-n'));
+    });
+    $('.s3y').click(function(){
+        movement($('.step4-y'));
+    });
+    $('.s3n').click(function(){
+        movement($('.step4-n'));
+    });
+    $('.s4y').click(function(){
+        movement($('.step5-y'));
+    });
+    $('.s4n').click(function(){
+        movement($('.step5-n'));
+    });
+    $('.s4yy').click(function(){
+        movement($('.step5-y-y'))
+    })
+    $('.s4yn').click(function(){
+        movement($('.step5-y-n'))
+    })
+    $('.s5yy').click(function(){
+        movement($('.step6-y-y'));
+    });
+    $('.s5yn').click(function(){
+        movement($('.step6-y-n'));
+    });
+    $('.s5ny').click(function(){
+        movement($('.step6-n-y'));
+    });
+    $('.s5nn').click(function(){
+        movement($('.step6-n-n'));
+    });
+
+
+    $('.tip').mouseenter(function(){
+        $(this).children('.tooltip-text').show(200);
+    });
+    $('.tip').mouseleave(function(){
+        $(this).children('.tooltip-text').hide(200);
+    });
+
+
+</script>
+{% endblock %}

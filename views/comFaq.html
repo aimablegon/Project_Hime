@@ -1,0 +1,183 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+angular.module('searchFn',[]).filter('Search',search)
+    .controller('SearchCtrl', SearchCtrl)
+    function SearchCtrl($scope){
+        $scope.list = {{JSON.stringify(faqs,0,4)}};
+    }
+    function search(){
+        return function(array,searchText){
+            if(!searchText) return array;
+
+            var result = [];
+            var text = searchText.toLowerCase();
+
+            angular.forEach(array,function(e){
+               if( e.body.toLowerCase().indexOf(text) != -1){
+                   result.push(e)
+               }
+            })
+            return result;
+        }
+    }
+</script> -->
+<div class="comFaq">
+        <!-- 본문 -->
+        <div class="contents">
+            <!-- 서브 네비 -->
+            <div class="sub-navi">
+                <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+                <span>고객센터</span><span>&#183;</span>
+                <span class="this-page">FAQ</span>
+            </div>
+            <!-- // 서브 네비 -->
+
+            <!-- 대제목 -->
+            <div class="title-l">
+                <div class="bg">Customer</div>
+                <div class="text-box">
+                    <h1>FAQ</h1>
+                    <p>가장 궁금해하는 질문들을 모아 답변해보았습니다</p>
+                </div>
+            </div>
+            <!-- // 대제목 -->
+            <div class="tab tab-customer">
+                <ul>
+    		        <li><a href="notice.html">공지사항/<br>이벤트</a></li>
+    		        <li><a href="askCost.html">수강료<br>조회</a></li>
+    		        <li><a href="askTime.html">시간표<br>조회</a></li>
+    		        <li><a href="onlineCounsel.html">온라인<br>상담</a></li>
+    		        <li><a href="onlinePay.html">온라인<br>결제</a></li>
+    		        <li class="on"><a href="comFaq.html">FAQ</a></li>
+    		        <li><a href="qna.html">Q&amp;A</a></li>
+    		    </ul>
+            </div>
+            <div class="notice-wrapper">
+                <!-- <div class="class-box">
+                    <table class="list_table">
+                        <caption class="sr-only"></caption>
+                        <colgroup>
+        		        	<col width="16.666%">
+        		        	<col width="16.666%">
+                            <col width="16.666%">
+                            <col width="16.666%">
+                            <col width="16.666%">
+                            <col width="16.666%">
+        		        </colgroup>
+                        <tbody>
+                            <tr class="type">
+                                <td class="type0" onclick='location.href="comFaq.html"'>전체</td>
+                                {%for code in codes.FAQ_TYPE.list %}
+	                                <td faqType='{{code.codeId}}' onclick='location.href="?faqType={{code.codeId}}"'>{{code.codeName}}</td>
+	                            {%endfor%}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> -->
+                <div class="class-box dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="tab-customer-class" data-toggle="dropdown" aria-expanded="true">
+                      {% if !query.faqType %}
+                      	전체
+                      {% else%}
+                      	{{codeNames[query.faqType]}}
+                      {% endif %}
+                      <span class="icon arrowDown navy"></span>
+                    </button>
+                    <ul class="dropdown-menu type list_tab" role="menu" aria-labelledby="tab-customer-class">
+                        <li class="type0"><a href="comFaq.html">전체</a></li>
+                        {%for code in faqTypeList %}
+                            <li faqType='{{code.codeId}}'><a href="?faqType={{code.codeId}}">{{code.codeName}}</a></li>
+                        {%endfor%}
+                    </ul>
+                </div>
+                <div class="notice-box" ng-app="searchFn">
+                    <table class="list_table wow fadeInUp">
+        		        <caption class="sr-only"></caption>
+        		        <colgroup>
+        		        	<col style="width:8%">
+        		        	<col style="width:9%">
+        		        	<col style="width:72%">
+        		        	<col style="width:9%">
+        		        </colgroup>
+        		        <tbody ng-controller="SearchCtrl">
+                            {% for faq in faqs %}
+                                <tr class="question">
+                                    <td>{{faqs.length - loop.index + 1}}</td>
+                                    <td>{{codeNames[faq.faqType]}}</td>
+                                    <td class="text-left pre">{{faq.question}}</td>
+                                    <td><span class="icon arrowDown red">아래쪽 화살표</span></td>
+                                </tr>
+                                <tr class="answer-box">
+                                    <td></td>
+                                    <td></td>
+                                    <td colspan="2" class="text-left text-box pre"><span class="line"></span><span class="apoint">A.</span>{{faq.answer}}</td>
+                                </tr>
+                            {% endfor %}
+                            <!-- <tr ng-repeat="item in list | Search:searchText" class="question">
+                                <td>{{list.length - $index + 1}}</td>
+                                <td>{{codeNames[item.faqType]}}</td>
+                                <td class="text-left pre">{{item.question}}</td>
+                                <td><span class="icon arrowDown red">아래쪽 화살표</span></td>
+                            </tr>
+                            <tr class="answer-box">
+                                <td></td>
+                                <td></td>
+                                <td colspan="2" class="text-left text-box pre"><span class="line"></span><span class="apoint">A.</span>{{faq.answer}}</td>
+                            </tr> -->
+        		        </tbody>
+        	        </table>
+                    <!-- <div class="search-wrapper">
+                        <form method="get">
+                            <fieldset class="search">
+                                <lable for="searchText"><input ng-model="searchText" type="text" id="searchText" name="searchText" placeholder="search..." required value="{{query.searchText}}"/></lable><input type="submit" />
+                            </fieldset>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <!-- // 본문 -->
+</div>
+<script>
+    // 클릭시 오픈
+    $('.question').click(function(){
+        $(this).addClass('onHere').siblings().removeClass('onHere');
+        if($(this).next('tr').attr('class').indexOf('in') != -1){
+            $(this).removeClass('onHere');
+            $(this).next('tr').removeClass('in').hide().prev().find('.arrowUp').removeClass('arrowUp').addClass('arrowDown');
+        }else{
+            var idx = $('.in').index();
+            if(idx >= 0){
+                $('.notice-box .list_table tr').eq(idx).removeClass('in').hide().prev().find('.arrowUp').removeClass('arrowUp').addClass('arrowDown');
+                $(this).next('tr').show("fast").addClass('in').prev().find('.arrowDown').removeClass('arrowDown').addClass('arrowUp');
+            }else{
+                $(this).next('tr').show("fast").addClass('in').prev().find('.arrowDown').removeClass('arrowDown').addClass('arrowUp');
+            }
+        }
+    });
+    //첫째행 on
+    $('.answer-box').first().addClass('in');
+    $('.question').first().addClass('onHere').find('.icon').removeClass('arrowDown').addClass('arrowUp')
+
+    //tab
+    function makeOn(){
+        var query = '{{query.faqType}}';
+        if(query == '') {
+        	$(".type li").eq(0).addClass('on');
+        } else {
+        	$(".type li[faqType='"+query+"']").addClass('on');
+        }
+    }
+    makeOn();
+
+    //ie
+    var agent = navigator.userAgent.toLowerCase();
+    if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
+        $(".answer-box").css("cssText", "opacity: 1 !important;");
+    }
+
+</script>
+{% endblock %}

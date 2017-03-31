@@ -1,0 +1,128 @@
+.allTeacher{
+    min-height:600px;
+    .allTeacher-basebox-wrapper{
+        background:none;
+        div.allteacher_table{
+            width:1024px;
+            margin:0 auto;
+            border-bottom:2px solid #666;
+            ul{
+                width:100%;
+            }
+            li.seeMore{
+                display:table;
+                border-top:2px solid #666;
+                width:100%;
+                >div{
+                    padding:25px 15px;
+                    display:table-cell;
+                }
+                div.teacher{
+                    padding:0;
+                    font-size: @menu-size;
+                    width:119px;
+                    border-right:1px solid #ccc;
+                    font-weight: @gnb-weight;
+                    vertical-align: middle;
+                    span{
+                        font-size:@mobilefont-size;
+                        display: block;
+                        font-weight: @subject-weight;
+
+                    }
+                }
+                div.field{
+                    width:152px;
+                    text-align: center;
+                    vertical-align: middle;
+                    font-size:14px;
+                    border-right:1px solid #ccc;
+                    padding:0 2px;
+                }
+                ul.career{
+                    padding:0;
+                    width:752px;
+                    display: table-cell;
+                    >li{
+                        padding:30px 25px;
+                        display: block;
+                        border-top: 1px solid #ccc;
+                        >span{
+                            font-size: 14px;
+                            font-weight: @gnb-weight;
+                        }
+                        &:first-child{
+                            border-top:0;
+                        }
+                    }
+                    ul{
+                        font-size:0;
+                        li{
+                            .inlineblock();
+                            width:50%;
+                            vertical-align: top;
+                            text-align: left;
+                            font-size:@mobilefont-size;
+                            line-height: 20px;
+                            color:#666666;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @media(max-width: @tablet-size){
+        .allTeacher-basebox-wrapper{
+            margin-top:0;
+            div.allteacher_table{
+                width:97%;
+                margin:0 auto;
+                ul{
+                    margin:0;
+                    width:100%;
+                }
+                li.seeMore{
+                    display:block;
+                    div.teacher{
+                        padding:15px 6px;
+                        width:50%;
+                        vertical-align: top;
+                        border-right:0;
+                        float:left;
+                        text-align: center;
+                        >span{
+                            text-align: center;
+                        }
+                    }
+                    div.field{
+                        float: left;
+                        width:50%;
+                        border-right:0;
+                        border-left:1px solid #ccc;
+                        padding:25px 15px;
+                    }
+                    ul.career{
+                        clear:both;
+                        width:100%;
+                        display:block;
+                        border-top:1px solid #ccc;
+                        >li{
+                            padding:14px 16px;
+                            ul{
+                                margin:0;
+                                li{
+                                    display:block;
+                                    width:100%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .btn-seemore{
+                display:block !important;
+                margin:70px auto !important;
+            }
+        }
+    }
+}

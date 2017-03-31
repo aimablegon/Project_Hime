@@ -1,0 +1,158 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="studentInterview">
+    <!-- 본문 -->
+    <div class="contents">
+        <!-- 서브 네비 -->
+        <div class="sub-navi">
+            <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+            <span>하이커뮤니티</span><span>&#183;</span>
+            <span class="this-page">학생 인터뷰</span>
+        </div>
+        <!-- // 서브 네비 -->
+
+        <!-- 대제목 -->
+        <div class="title-l">
+            <div class="bg">Community</div>
+            <div class="text-box">
+                <h1>학생 인터뷰</h1>
+                <p>하이미디어의 주인공은 바로 우리! 학생 인터뷰!</p>
+            </div>
+        </div>
+        <!-- // 대제목 -->
+        <div class="studentInterview_wrap">
+            <ul>
+                <li class="studentbox">
+                    <a href="studentInterviewDetail.html">
+                        <img src="/img/site_img/student.gif" alt="학생이미지">
+                        <div>
+                            <span class="campus">신촌캠퍼스</span>
+                            <p class="name">권미주</p>
+                            <span class="white_bar"></span>
+                            <p class="text">
+                                웹디자인 과정 취업대비반 한 줄
+                            </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="studentbox">
+                    <a href="studentInterviewDetail.html">
+                        <img src="/img/site_img/student.gif" alt="학생이미지">
+                        <div>
+                            <span class="campus">신촌캠퍼스</span>
+                            <p class="name">권미주</p>
+                            <span class="white_bar"></span>
+                            <p class="text">
+                                웹디자인 과정 취업대비반 한 줄
+                            </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="studentbox">
+                    <a href="studentInterviewDetail.html">
+                        <img src="/img/site_img/student.gif" alt="학생이미지">
+                        <div>
+                            <span class="campus">신촌캠퍼스</span>
+                            <p class="name">권미주</p>
+                            <span class="white_bar"></span>
+                            <p class="text">
+                                웹디자인 과정 취업대비반 한 줄
+                            </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="studentbox">
+                    <a href="studentInterviewDetail.html">
+                        <img src="/img/site_img/student.gif" alt="학생이미지">
+                        <div>
+                            <span class="campus">신촌캠퍼스</span>
+                            <p class="name">권미주</p>
+                            <span class="white_bar"></span>
+                            <p class="text">
+                                웹디자인 과정 취업대비반 한 줄
+                            </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="studentbox">
+                    <a href="studentInterviewDetail.html">
+                        <img src="/img/site_img/student.gif" alt="학생이미지">
+                        <div>
+                            <span class="campus">신촌캠퍼스</span>
+                            <p class="name">권미주</p>
+                            <span class="white_bar"></span>
+                            <p class="text">
+                                웹디자인 과정 취업대비반 한 줄
+                            </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="studentbox">
+                    <a href="studentInterviewDetail.html">
+                        <img src="/img/site_img/student.gif" alt="학생이미지">
+                        <div>
+                            <span class="campus">신촌캠퍼스</span>
+                            <p class="name">권미주</p>
+                            <span class="white_bar"></span>
+                            <p class="text">
+                                웹디자인 과정 취업대비반 한 줄
+                            </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="studentbox">
+                    <a href="studentInterviewDetail.html">
+                        <img src="/img/site_img/student.gif" alt="학생이미지">
+                        <div>
+                            <span class="campus">신촌캠퍼스</span>
+                            <p class="name">권미주</p>
+                            <span class="white_bar"></span>
+                            <p class="text">
+                                웹디자인 과정 취업대비반 한 줄
+                            </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="studentbox">
+                    <a href="studentInterviewDetail.html">
+                        <img src="/img/site_img/student.gif" alt="학생이미지">
+                        <div>
+                            <span class="campus">신촌캠퍼스</span>
+                            <p class="name">권미주</p>
+                            <span class="white_bar"></span>
+                            <p class="text">
+                                웹디자인 과정 취업대비반 한 줄
+                            </p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            <div class="pagination">
+                <a href="#" class="first">처음</a><a href="#" class="prev">이전</a>
+                <span>
+                    <a href="#" class="on">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>
+                    <a href="#">6</a>
+                    <a href="#">7</a>
+                    <a href="#">8</a>
+                    <a href="#">9</a>
+                    <a href="#">10</a>
+                </span>
+                <a href="#" class="next">다음</a><a href="#" class="last">마지막</a>
+            </div>
+        </div>
+
+    </div>
+    <!-- // 본문 -->
+</div>
+<script>
+for(i=0;i<$('.studentbox').length;i++){
+    if( i%4 == 3 && i != 0){
+        $('.studentbox').eq(i).css('marginRight',0);
+    }
+}
+</script>
+{% endblock %}

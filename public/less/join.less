@@ -1,0 +1,101 @@
+.join{
+    .bottom_checkbox{
+        margin-top:70px;
+    }
+    .step_wrap{
+        padding-top:0;
+    }
+    .btns_wrap{
+        text-align: center;
+        margin:40px 0 70px;
+        font-size:0;
+    }
+
+    //join write
+    .check_id{
+        width:69px;
+        height:26px;
+        background:@sub-color;
+        color:@white-color;
+        font-size:13px;
+        letter-spacing: -1px;
+        margin-left:5px;
+    }
+    .sub_cont{
+        padding-left:5px;
+        font-size:13px;
+    }
+    .input_fromwrap {
+        .input_tablewrap{
+            margin-top:70px;
+            table.input_table{
+                tr{
+                    td{
+                        div.radio_wrap{
+                            width:100%;
+                            label{
+                                font-weight:@subject-weight;
+                                font-size:13px;
+                                text-indent:0;
+                                position:relative;
+                                margin:0 26px 0 0;
+                            }
+                            input{
+                                width:auto;
+                                margin:0 3px 0 0;
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    //joinFinish
+    .finishcont{
+        border:1px solid #7e7d87;
+        border-width: 2px 0 2px 0;
+        width:750px;
+        margin: 0 auto;
+        text-align: center;
+        padding:70px 0;
+        line-height:23px;
+        >img{
+            margin-bottom:40px;
+        }
+        .name{
+            font-size:@summery-size;
+            line-height:30px;
+            padding-bottom:5px;
+            span{
+                font-weight:@title-weight;
+            }
+        }
+        .title{
+            font-weight: @gnb-weight;
+        }
+        .title,.sub_title{
+            font-size:@menu-size;
+        }
+    }
+    .finish_btn{
+        text-align: center;
+        padding:70px 0 40px;
+        font-size:0;
+        a{
+            padding:0 21px;
+            line-height:40px;
+            width:auto;
+        }
+    }
+    @media(max-width:@tablet-size){
+        .bottom_checkbox{
+            width:97%;
+
+        }
+        .finishcont{
+            width: 97%;
+            max-width: 650px;
+        }
+    }
+}

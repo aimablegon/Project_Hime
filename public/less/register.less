@@ -1,0 +1,116 @@
+.register{
+    .cont{
+        width:1024px;
+        margin:0 auto;
+        caption{
+            width:0;
+            height:0;
+            padding:0;
+            margin:0;
+        }
+        .register_top{
+            text-align: center;
+            background:@sub-color;
+            color:@white-color;
+            line-height:50px;
+            font-size:16px;
+            font-weight: @gnb-weight;
+        }
+        .register_table{
+            border-bottom:2px solid #7E7D87;
+            width:100%;
+            margin:0 0 70px 0;
+            font-size:13px;
+            tr{
+                height:65px;
+                border-top:1px solid #7E7D87;
+                &&:first-child{border-top:0}
+            }
+            td{
+                padding:10px;
+                font-size:12px;
+                color:@subject-color;
+                textarea{
+                    // width:80%;
+                    // height:150px;
+                    resize:none;
+                }
+                .input_wrap{
+                    position:relative;
+                    .inlineblock();
+                    label{
+                        font-size:0;
+                        text-indent: -9999px;
+                        position:absolute;
+                    }
+                    input{
+                        border:1px solid #8c9093;
+                        height:26px;
+                        width:100%;
+                        padding:0 9px;
+                        font-size:12px;
+                        color:@subject-color;
+                        &&:focus{
+                            ~button.input_del{
+                                display:block
+                            }
+                        }
+
+                    }
+                    .input_del{
+                        background: url('/img/site_img/input_del.jpg') no-repeat 50% 50%;
+                        z-index:2;
+                        width: 21px;
+                        height: 100%;
+                        font-size: 0;
+                        text-indent: -9999px;
+                        position: absolute;
+                        right: 9px;
+                        top: 0;
+                        display:none;
+                        &&:focus,&&:hover{
+                            display:block;
+                        }
+                    }
+                }
+                span{
+                    input{
+                        margin:0 10px;
+                    }
+                    label{
+                        position:relative;
+                        text-indent: 0;
+                        font-size:13px;
+                        font-weight: @subject-weight;
+                    }
+                }
+                .notice{
+                    color:@content-color;
+                    font-size:13px;
+                    padding-left:10px;
+                }
+            }
+        }
+    }
+    .btns_wrap{
+        text-align: center;
+        margin-bottom:70px;
+        input{
+            margin-right:10px;
+            font-size:16px;
+            font-weight: @gnb-weight;
+            height:40px;
+            color:@white-color;
+        }
+        input[type="submit"]{
+            border:none;
+            width:150px;
+            background:@main-color;
+        }
+        input[type="reset"]{
+            border:none;
+            width:80px;
+            background:@sub-color;
+        }
+    }
+}

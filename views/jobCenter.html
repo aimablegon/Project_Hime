@@ -1,0 +1,152 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="jobCenter Career_center">
+    <!-- 본문 -->
+    <div class="contents">
+        <!-- 서브 네비 -->
+        <div class="sub-navi">
+            <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+            <span class="this-page">취업지원센터</span>
+        </div>
+        <!-- // 서브 네비 -->
+
+        <!-- 대제목 -->
+        <div class="title-l">
+            <div class="bg">Career center</div>
+            <div class="text-box">
+                <h1>취업지원센터</h1>
+                <p>취업성공을 위한 하이미디어만의 노하우를 지원 받으세요!</p>
+            </div>
+        </div>
+        <!-- // 대제목 -->
+        <div class="jobCenter_bg">
+            <div class="title-m">
+                <h2>전문 HR 컨설턴트</h2>
+                <p>수강생들의 성공취업을 위해 전문가들이 뭉쳤습니다.</p>
+            </div>
+            <ul class="jobCenter_people common_wrap">
+                {% for list in lists %}
+                <li class="people wow fadeInUp" data-wow-duration="1s">
+                    <div>
+                        <div class="img_wrapper">
+                            <img src="{{list.AttachFile.url}}" alt="{{list.name}}{{list.rank}} 사진">
+                        </div>
+                        <p class="name">{{list.name}}</p>
+                        <span class="position">{{list.position}}</span>
+                        <span class="red_bar"></span>
+                        <a href="tel:{{list.tel}}"class="tel">{{list.tel|replace('-','.','g')}}&nbsp;</a>
+                        <a href="mailto:{{list.email}}" class="e-mail">{{list.email}}&nbsp;</a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="jobsystem">
+            <div class="title-m">
+                <h2>취업지원시스템</h2>
+                <p>하이미디어 수강생만을 위한 취업전략!</p>
+            </div>
+            <div class="jobsystem_wrap">
+                <p>하이미디어<span>취업지원센터</span></p>
+                <ul class="system_list">
+                    <li class="left system1 wow fadeInRight" data-wow-duration="1s">
+                        <img src="/img/icon/system_icon1.png">
+                        <div class="cont">
+                            <p class="title">면접클리닉</p>
+                            <span class="red_bar"></span>
+                            <p>-각 분야별 면접 노하우 제공</p>
+                            <p>-면접 전 후 코칭</p>
+                        </div>
+                    </li>
+                    <li class="left system2 wow fadeInRight" data-wow-duration="1s">
+                        <img src="/img/icon/system_icon2.png">
+                        <div class="cont">
+                            <p class="title">취업알선</p>
+                            <span class="red_bar"></span>
+                            <p>- 다양한 구인채널 보유</p>
+                            <p>- 잡매칭 전문인력 배치</p>
+                            <p>- 그룹매칭 및 1:1 맞춤매칭 </p>
+                        </div>
+                    </li>
+                    <li class="left system3 wow fadeInRight" data-wow-duration="1s">
+                        <img src="/img/icon/system_icon3.png">
+                        <div class="cont">
+                            <p class="title">취업관리</p>
+                            <span class="red_bar"></span>
+                            <p>- 취업 후 적응 관리</p>
+                            <p>- 수료 후 6개월간 지속 관리</p>
+                        </div>
+                    </li>
+                    <li class="right system4 wow fadeInLeft" data-wow-duration="1s">
+                        <img src="/img/icon/system_icon4.png">
+                        <div class="cont">
+                            <p class="title">1:1 맞춤상담</p>
+                            <span class="red_bar"></span>
+                            <p>- 취업 전략 상담</p>
+                            <p>- 개인 직무 분석</p>
+                            <p>- 맞춤 분야 추천</p>
+                        </div>
+                    </li>
+                    <li class="right system5 wow fadeInLeft" data-wow-duration="1s">
+                        <img src="/img/icon/system_icon5.png">
+                        <div class="cont">
+                            <p class="title">입사지원서 클리닉</p>
+                            <span class="red_bar"></span>
+                            <p>- 취업희망자서류접수<br>입사지원서 작성 가이드</p>
+                            <p>- 최신 양식 제공<br>입사지원서 개별 첨삭</p>
+                        </div>
+                    </li>
+                    <li class="right system6 wow fadeInLeft" data-wow-duration="1s">
+                        <img src="/img/icon/system_icon6.png">
+                        <div class="cont">
+                            <p class="title">취업특강</p>
+                            <span class="red_bar"></span>
+                            <p>- 각 분야별 채용시장 동향 및<br>구직전략 제시</p>
+                            <p>- 수강생 취업 니즈 조사</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="jobCenter_bg2">
+            <div class="wrap wow fadeIn common_wrap" data-wow-duration="2s">
+                <h2>취업지원센터<br>이용안내</h2>
+                <ul>
+                    <li>
+                        <p>이용대상</p>
+                        <span>
+                            <span>정규과정을 80%이상</span> 이수한 수료생에<br>
+                            한하여 별도의 신청절차 없이 <span>취업지원</span><br>
+                            <span>서비스가</span> 제공됩니다.
+                        </span>
+                    </li>
+                    <li>
+                        <p>상담채널</p>
+                        <span>
+                            <span>전화/문자</span> : 상단 커리어 매니저의 직통번호<br>
+                            <span>이메일</span> : 상단 커리어 매니저의 이메일<br>
+                            <span>카카오톡 ID</span> : hidreamer999
+                        </span>
+                    </li>
+                    <li>
+                        <p>운영시간</p>
+                        <span>
+                            <span>평일</span> 09:00~19:00<br>
+                            <span>점심시간</span> 12:30~13:30
+                        </span>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    <!-- // 본문 -->
+</div>
+<script>
+    for(i=0;i<$('.people').length;i++){
+        if( i%4 == 3 && i != 1){
+            $('.people').eq(i).css('marginRight',0);
+        }
+    }
+</script>
+{% endblock %}

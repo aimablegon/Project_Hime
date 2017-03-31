@@ -1,0 +1,56 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="onlineCounsel onlineCounselFinish">
+        <!-- 본문 -->
+        <div class="contents">
+            <!-- 서브 네비 -->
+            <div class="sub-navi">
+                <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+                <span>고객센터</span><span>&#183;</span>
+                <span class="this-page">온라인상담</span>
+            </div>
+            <!-- // 서브 네비 -->
+
+            <!-- 대제목 -->
+            <div class="title-l">
+                <div class="bg">Customer</div>
+                <div class="text-box">
+                    <h1>온라인 상담</h1>
+                    {% if query.form != 'footer' %}
+                    <p>17초 작성완료! 전문가 온라인 상담 신청</p>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- // 대제목 -->
+
+            <!-- 탭부분1 -->
+            <div class="tab tab-customer">
+    		    <ul>
+    		        <li><a href="notice.html">공지사항/<br>이벤트</a></li>
+    		        <li><a href="askCost.html">수강료<br>조회</a></li>
+    		        <li><a href="askTime.html">시간표<br>조회</a></li>
+    		        <li class="on"><a href="#">온라인<br>상담</a></li>
+    		        <li><a href="onlinePay.html">온라인<br>결제</a></li>
+    		        <!-- <li><a href="comFaq.html">FAQ</a></li> -->
+    		        <li><a href="qna.html">Q&amp;A</a></li>
+    		    </ul>
+    		</div>
+            <!-- //탭부분 -->
+
+            <!-- 컨텐츠 -->
+            <div class="finishcont">
+                <img src="/img/site_img/finish_img.jpg" alt="">
+                <p class="title"><span>온라인 상담</span> 신청이 완료되었습니다.</p>
+                <p class="sub_title">상담문의가 접수되었습니다.</p>
+                <p class="call"><img src="/img/site_img/call_icon.jpg" alt="">1588-7805</p>
+            </div>
+            <div class="btns_wrap">
+                <button type="button" onclick="location.href='main.html'" class="common_btn red_btn">메인페이지로 가기</button>
+                <button type="button" onclick="location.href='notice.html'" class="common_btn navy_btn m_margin0">고객센터 바로가기</button>
+            </div>
+
+            <!-- //컨텐츠 -->
+        </div>
+        <!-- // 본문 -->
+</div>
+{% endblock %}

@@ -1,0 +1,120 @@
+<script type="text/javascript">
+
+
+angular.module('app').controller('myCtrl', ['$scope', '$rootScope', '$http', '$sce', '$stateParams', '$location',
+	function($scope, $rootScope, $http, $sce, $stateParams, $location) {
+		
+		$scope.searchText	= $stateParams.searchText;
+		$scope.pageSize = $rootScope.pageSize ? $rootScope.pageSize : "10";
+		$scope.Math=Math;
+		$scope.basePath = '#'+$location.$$path;
+		
+		console.log($location);
+
+		$scope.loadData = function () {
+			
+			$http({
+				method : "POST",
+				url : "/admin/api/branch",
+				data : {
+					page : $stateParams.page,
+					pageSize : $scope.pageSize,
+					searchText : $stateParams.searchText
+				}
+			}).success(function(data) {
+				console.log(data);
+				console.log(data.currentPage)
+				$scope.data = data;
+			});
+		};
+		
+		$scope.pageChanged = function (idx){
+			$location.path($location.$$path).search({page: $scope.data.currentPage,searchText: $scope.searchText});
+		};
+
+		$scope.search = function () {
+			console.log($location);
+			$location.path($location.$$path).search({searchText: $scope.searchText});
+		}
+
+		$scope.pageSizeChanged = function () {
+			$rootScope.pageSize =  $scope.pageSize;
+			$scope.loadData();
+
+		};
+
+
+	}]
+);
+
+
+</script>
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">지점 정보</h1>
+</div>
+<div class="wrapper-md">
+	<div class="panel panel-default" ng-controller="myCtrl" ng-init="loadData()">
+		<div class="panel-heading">목록</div>
+		<div class="row wrapper">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-right">
+				<div class="input-group">
+					<input type="text" class="input-sm form-control" ng-model="searchText"
+						placeholder="검색어를 입력하세요."> <span class="input-group-btn">
+						<button class="btn btn-sm btn-default" type="button" ng-click="search()">검색</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="row wrapper" ng-show="data.totalCount">
+			<div class="col-sm-6 text-left">
+			
+				총 {{data.totalCount}} 건
+			</div>
+			<div class="col-sm-6 text-right">
+				<select class="input-sm form-control w-sm inline v-middle" ng-model="pageSize" ng-change="pageSizeChanged()">
+					<option value="10">10개 보기</option>
+					<option value="20">20개 보기</option>
+					<option value="50">50개 보기</option>
+					<option value="100">100개 보기</option>
+				</select>
+			</div>
+		</div>
+		<div class="table-responsive">
+			<table class="table table-striped b-t b-light" >
+				<thead>
+					<tr>
+						<th width="20%" class=text-center>지점코드</th>
+						<th width="30%" class="text-left">지점명</th>
+						<th width="50%" class="text-left">주소</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in data.list">
+						<td class="text-center">{{item.branchCode}}</td>
+						<td class="text-left"><a href="{{basePath}}/detail/{{item.branchCode}}">{{item.branchName}}</a></td>
+						<td class="text-left">{{item.address}}</td>
+					</tr>
+				</tbody>
+			</table>
+			
+
+		</div>
+		<div class="row wrapper" ng-show="data.totalCount == 0">
+			<div class="col-sm-12 text-center">
+				등록/검색된 데이터가 없습니다.
+			</div>
+		</div>
+		<footer class="panel-footer">
+			<div class="row">
+				<div class="col-sm-12 text-center">
+				    <pagination boundary-links="true" class="m-t-none m-b-none"  ng-model="data.currentPage" max-size="10" total-items="data.totalCount" ng-change="pageChanged()" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" items-per-page="pageSize"></pagination>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12 text-right">
+				    <a href="{{basePath}}/detail" class="btn btn-primary">새 지점 등록</a>
+				</div>
+			</div>
+		</footer>
+	</div>
+</div>

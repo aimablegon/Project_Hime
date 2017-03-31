@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <style>
+        body {color:#666; font-size:12px; background-color:#ffffff; position: relative;
+    	      	font-family: 'NanumGothic', '나눔고딕','NanumGothicWeb', '맑은 고딕', 'Malgun Gothic', Dotum;}
+        h1, h2, h3, h4, h5, h6, p, dt, dd {font-size:100%; font-weight:normal;margin:0;padding:0;}
+        hr {display:none;}
+        a {color:inherit;}
+        a, a:link {color:#555555; text-decoration:none;}	a:visited {color:#555555;}	 a:hover, a:active {color:#555555; text-decoration:none;}
+        table { border-collapse:collapse; border-spacing:0px; border:0; }
+        .tb_write		{ width:100%; font-size:12px; margin-bottom:30px; }
+	      .tb_write th	{ background:#e8e8e8; border-bottom:1px solid #d5d6d8;border-right:1px solid #d5d6d8; color:#555555; text-align:left; padding-top:17px;padding-left:20px;padding-bottom:16px; }
+		    .tb_write .tit	{ background:#787878; border-right:0; color:#ffffff; padding-top:12px;padding-bottom:11px; }
+        .tb_write td	{ border-bottom:1px solid #d5d6d8; font-family:Dotum; text-align:left; padding-left:11px;padding-top:11px;padding-bottom:10px; }
+        .tb_write input[type="text"]{ height:23px; border:1px solid #c6c6c6; background:#f5f5f5; vertical-align:middle; padding-top:3px; margin-right:2px; }
+        .tb_write textarea	{ border:1px solid #c6c6c6; background:#f5f5f5; }
+        .tb_write select	{ vertical-align:middle; margin-right:6px; }
+        .tb_write .text		{ line-height:17px; padding-top:17px;padding-bottom:15px;padding-right:60px; }
+        .tb_write .top	{ border-top:1px solid #d5d6d8; }
+
+        .con_right .tb_write input[type="text"]		{ background:#ffffff; }
+        .con_right .tb_write textarea		{ background:#ffffff; }
+
+        .b		{font-weight:bold;}
+        .aL 	{ text-align:left; }
+        .aM 	{ vertical-align:middle; }
+        .aC 	{ text-align:center; }
+        .F_s12 { font-size:12px; }
+        .sp_01 { letter-spacing:-1px; }
+        .m_r19	{ margin-right:19px; }
+        .m_b20	{ margin-bottom:20px; }
+        .gray95	{ color:#959595; }
+        .btn, .btn button { position:relative; margin:0; display:-moz-inline-stack; display:inline-block; border:0; white-space:nowrap;      font-size:14px;overflow:visible; }
+        .btn { height:38px; padding:0; vertical-align:top; margin-right:2px; }
+        .btn button { vertical-align:top; cursor:pointer; height:38px; padding:0 16px 0 16px; line-height:20px; }
+        .btn.gray3 { background-color:#565656; }
+        .btn.gray3 button	{ color:#ffffff; padding:0 13px 0 13px; background-color: transparent;}
+        .btn.gray3.small	{ height:27px; }
+        .btn.gray3.small button	{ height:27px; font-size:13px; padding:0 10px 0 10px; }
+
+        .hand	{ cursor:pointer; }
+        .payment_img{width: 100%;}
+        #smogLayer		{ position:absolute; top:0;left:0; bottom:0; right:0; width:100%;height:100%;
+          background:#000000; filter:Alpha(Opacity=50);opacity:0.5; z-index:10; display: block !important;}
+
+
+        .box_pop{position:absolute; top:150px; left:50%; font-size:13px; color:#8a8a8a; z-index:11; display: block !important;}
+        .box_pop h2	{ font-size:24px; color:#000000; line-height:29px; letter-spacing:-1px; padding-bottom:4px; }
+      	.box_pop h3	{ font-size:18px; color:#000000; line-height:18px; padding-bottom:5px; }
+      	.box_pop h4	{ font-size:14px; color:#000000; line-height:17px; }
+      	.box_pop input[type="text"]{ height:26px; border:1px solid #adadad; background:#f1f1f1; vertical-align:middle; padding-top:3px; }
+        .box_pop.pay{width:770px; margin-left:-385px; z-index:280;}
+        .box_pop .in_top		{ height:38px; }
+    		.box_pop .in_top .left	{ float:left; width:50%; background:url(/img/payment/bg_box_popup.png) top left no-repeat; height:38px; }
+    		.box_pop .in_top .right	{ float:right; width:50%;  background:url(/img/payment/bg_box_popup.png) top right no-repeat; height:19px; text-align:right; padding-top:19px; }
+    	  .box_pop .in_btm 		{ height:21px; }
+    		.box_pop .in_btm .left		{ float:left; width:50%; background:url(/img/payment/bg_box_popup.png) bottom left no-repeat; height:21px; }
+    		.box_pop .in_btm .right		{ float:right; width:50%; background:url(/img/payment/bg_box_popup.png) bottom right no-repeat; height:21px; }
+    	  .box_pop .in_body		{ clear:both; border-left:3px solid #000000;border-right:3px solid #000000; background:#ffffff; overflow:hidden; }
+        .pay_info	{ width:700px; border-top:1px solid #b2b2b2; color:#757575; line-height:18px; padding-top:17px; margin-top:16px; }
+        .pay_check	{ background:url(/img/payment/bg_pay_check.gif) top left no-repeat; width:700px;height:134px; margin-top:16px;margin-bottom:20px; }
+        .pay_check p	{ font-size:12px; color:#000000; text-align:left; line-height:18px; padding-top:22px;padding-left:123px; }
+    </style>
+
+  </head>
+  <body>
+
+
+<!--       <div id="smogLayer" name="smogLayer"></div> -->
+      <img class="payment_img" src="/img/payment/background_main.png" alt="">
+      <div class="blind" style="background-color:#000;z-index:10;opacity:0.4;position:absolute;top:0;bottom:0;left:0;right:0;"></div>
+      <div id="PayInfo" class="box_pop pay" style="">
+
+        <form name="settlementForm" method="post" action="http://himedia.co.kr/customer/proc/onLineSettlementProc.asp">
+          <div class="in_top">
+              <p class="left"></p>
+              <p class="right">
+                <!-- <a onclick="closeLayer('PayInfo')" class="hand"> -->
+                <a class="hand" onclick="javascript:window.close();">
+                  <img src="/img/payment/btn_close_pop.gif" alt="close" class="m_r19" />
+                </a>
+              </p>
+          </div>
+          <div class="in_body aL" style="padding-left:30px;padding-right:35px;padding-bottom:10px;">
+              <h3 class="b sp_01">온라인결제</h3>
+              <p>온라인 결제를 이용하여 편리하고 안전하게 수강신청을 할 수 있습니다.</p>
+              <div class="pay_info">
+                  결제하기 버튼을 누르면 고객님의 안전한 결제를 위하여 암호화 프로그램의 설치가 필요합니다.<br />
+                  통신환경에 따라 다소 시간이 걸리수도 있으니 결제결과가 표시 될때까지 잠시만 기다려 주십시오<br />
+                  <div class="pay_check">
+                    <p>
+                      혹시 익스플로러 10을 사용하고 계신가요?<br />
+                      익스플로러로 10 64bit일경우 결제가 정상적으로 되지 않을수 있습니다.<br /><br />
+                      조치방법 1 : 도구>인터넷옵션>고급탭> 향상된 보호모드사용 체크후 재부팅<br />
+                      조치방법 2 : (조치1미해결시) 우측 보안플러그인 설치/테스트 프로그램 다운후 설치 <a href="/file/INIpayWizard.exe"><span style="color:#1D36CE;">보안플러그인 다운</span></a>
+                    </p>
+                  </div>
+                  <table class="tb_write" style="margin-bottom:15px;">
+
+                      <colgroup><col width="150"><col width=""></colgroup>
+                      <tr>
+                        <th class="top">캠퍼스선택</th>
+                        <td class="top">
+                            <select name="officeIdx" style="width:270px;height:28px;">
+                                <option value="" selected="selected">:::캠퍼스를 선택하세요:::</option>
+                                <option value="2" >강남 캠퍼스
+                                <option value="3" >종로 캠퍼스
+                                <option value="14" >종로2 캠퍼스
+                                <option value="4" >신촌 캠퍼스
+                                <option value="1" >구로 캠퍼스
+                                <option value="5" >노원 캠퍼스
+                                <option value="15" >천호 캠퍼스
+                                <option value="7" >안양 캠퍼스
+                                <option value="6" >안산 캠퍼스
+                                <option value="13" >성남 캠퍼스
+                                <option value="11" >수원 캠퍼스
+                                <option value="8" >인천 캠퍼스
+                                <option value="19" >전주 캠퍼스
+                            </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>결제방법</th>
+                        <td>
+				<input type="radio" name="settlementType" value="1" checked="">무통장입금 
+				<input type="radio" name="settlementType" value="2">신용카드결제 
+				<input type="radio" name="settlementType" value="3">실시간계좌이체 
+			</td>                        
+                      <tr>
+                        <th>수강과목</th>
+                        <td>
+                              <input maxlength="50" type="text" name="className" value="" style="width:270px;">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>결제금액</th>
+                        <td><input type="text" maxlength="20" name="settlementMoney" style="ime-mode:disabled;width:270px;" onkeypress="if ((event.keyCode<48)||(event.keyCode>57)) event.returnValue=false;" > 예)10000 <font color="red">* 숫자만 가능합니다.<font></td>
+                      </tr>
+                      <tr>
+                        <th>신청자이름</th>
+                        <td><input type="text" maxlength="20" size="22" style="width:270px;" name="userName" value="" maxlength="100"> 예)홍길동</td>
+                      </tr>
+                      <tr>
+                        <input type="hidden" name="userEmail" value="">
+                        <th>이메일주소</th>
+                        <td>
+                            <input type="text" name="userEmail1" style="width:165px;" value=""> @
+                                <span id="popEmailDisplay"><input type="text" name="userEmail2"	value=""   style="width:165px;"></span>
+                                <select name="popSelEmail" onchange="popEmailDomain(this.form, this.value);"  style="width:165px;height:28px;">
+                                    <option value="">이메일을 선택해 주세요</option>
+                                    <option value="nate.com">nate.com</option>
+                                    <option value="daum.net">daum.net</option>
+                                    <option value="dreamwiz.com">dreamwiz.com</option>
+                                    <option value="empal.com">empal.com</option>
+                                    <option value="freechal.com">freechal.com</option>
+                                    <option value="hanmail.net">hanmail.net</option>
+                                    <option value="hotmail.com">hotmail.com</option>
+                                    <option value="korea.com">korea.com</option>
+                                    <option value="lycos.co.kr">lycos.co.kr</option>
+                                    <option value="naver.com">naver.com</option>
+                                    <option value="netian.com">netian.com</option>
+                                    <option value="yahoo.co.kr">yahoo.co.kr</option>
+                                    <option value="99999999">직접입력</option>
+                                </select>
+                            <!--<input type="text" maxlength="100" style="width:270px;" name="userEmail" value=""> 예)user@himedia.co.kr-->
+                        </td>
+                      </tr>
+                      <tr>
+                          <th>연락처</th>
+                          <td>
+                            <select name="userPhone1" style="width:73px;text-align:center;height:28px;">
+                                <option value="010">010
+                                <option value="011">011
+                                <option value="016">016
+                                <option value="017">017
+                                <option value="018">018
+                                <option value="019">019
+
+                            </select>
+                                  <!--input type="text" maxlength="3" name="userPhone1" style="ime-mode:disabled;width:73px;text-align:center;" onkeypress="if ((event.keyCode<48)||(event.keyCode>57)) event.returnValue=false;--> -
+                                  <input type="text" maxlength="4"  name="userPhone2" style="ime-mode:disabled;width:80px;text-align:center;" onkeypress="if ((event.keyCode<48)||(event.keyCode>57)) event.returnValue=false;">  -
+                                  <input type="text" maxlength="4" name="userPhone3" style="ime-mode:disabled;width:80px;text-align:center;" onkeypress="if ((event.keyCode<48)||(event.keyCode>57)) event.returnValue=false;"><input type="hidden" maxlength="20" size="22" name="theClerk" value="기획부">
+                          </td>
+                        </tr>
+                   </table>
+
+            <!-- 2015-07-27 개인정보취급방침관련 추가 : 김태호 -->
+                  <div class="roundbox_01 m_b20">
+                    <div class="in_top"></div>
+                    <div class="mini aL">
+                      <p>개인정보취급방침 동의</p>
+                      <div class="terms_680">
+                          <table  border="0" cellspacing="0" cellpadding="0" style="padding-top:35px;">
+                              <tr>
+                                <td class="yak_title">개인정보 처리방침<br /><br /></td>
+                              </tr>
+                              <tr>
+                                  <td class="yak"><b>[개인정보의 수집 및 이용목적]</b> <br /><br />
+                                    "개인정보"라 함은 생존하는 개인에 관한 정보로서, 당해 정보에 포함되어 있는 성명, EMail 등의 사항에 의하여 당해 개인을 식별할 수 있는 정보(당해
+                                    정보만으로는 특정 개인을 식별할 수 없더라도 다른 정보와 용이하게 결합하여 식별할 수 있는 것을 포함)를 말합니다. <br />
+                                    회사는 서비스(게임, 홈피, 아바타, 쇼핑몰) 등을 통하여 이용자들에게 맞춤식 서비스를 비롯한, 보다 더 향상된 양질의 서비스를 제공하기 위하여 이용자 개인의 정보를 수집하고 있습니다.<br />
+                                    회사는 이용자의 사전 동의 없이는 이용자의 개인정보를 함부로 공개하지 않으며, 수집된 정보는 아래와 같이 이용하고 있습니다. <br /><br />
+                                    첫째 이용자들이 제공한 개인정보를 바탕으로 보다 더 유용한 서비스를 개발할 수 있습니다.<br />
+                                    회사는 신규 서비스개발이나 컨텐츠의 확충 시에 기존 이용자들이 회사에 제공한 개인정보를 바탕으로 개발해야 할 서비스의 우선 순위를 보다 더 효율적으로 정하고, 이용자들이 필요로 하는 컨텐츠를 합리적으로 선택하여 제공할 수 있습니다.<br /><br />
+                                    둘째 이용자들이 등록하신 개인정보는 서비스와 관련된 뉴스, 이벤트, 업데이트 등의 소식을 받아보실 수 있도록 이용자님의 동의를 구하고 발송하는 뉴스레터 등 서비스를 보다 원활하게 제공하기 위한 목적으로 사용됩니다. <br /><br />
+                                    셋째 회사는 게임 및 각종 무료 서비스를 제공하기 위해서 광고를 게재하고 있는데, 이용자들에 대한 정확한 개인정보를 바탕으로 각 서비스나 메뉴 등에 적절하게 광고와 내용들을 전달해 드릴 수 있으며, 이것은 궁극적으로 이용자 여러분들께 드리는 또 하나의 정보로서의 가치를 지니게 됩니다. <br />
+                                    회사는 광고주들로부터 광고를 받아 광고주들이 대상으로 하려는 이용자의 유형에 맞게 광고를 보여줄 뿐, 광고주들에게는 절대로 이용자들의 개인정보를 보여주거나 공하지 않습니다. <br /><br />
+                                    넷째 이용자의 인터넷 쇼핑 서비스, 커뮤니케이션 서비스를 위한 목적으로 사용됩니다.<br /><br /><br />
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td class="yak"><b>[수집하는 개인 정보 항목 및 수집 방법]</b> <br /><br />
+                                    회사에서는 이용자들이 회원제 서비스를 이용하기 위해 회원으로 가입하실 때 서비스 제공을 위한 필수적인 정보를 온라인상에서 입력 받고 있습니다.<br />
+                                    회원 가입 시 받는 필수 정보는 이름, 생년월일, 전화번호(또는 핸드폰번호 중 택일), 전자우편 주소입니다.<br /><br />
+                                    또한 회사가 주관하는 경매, 설문조사나 이벤트 행사 시 통계분석이나 경품제공 등을 위해 선별적으로 개인정보 입력을 요청할 수 있고, 회사가 발송하는 광고 메일 수신과 함께 이벤트, 경품 등의 혜택을 받는 광고 메일 수신자가 되는 경우에도 선별적으로 개인정보 입력을 요청 받을 수 있습니다.<br /><br />
+                                    그러나 이러한 경우에도 이용자의 기본적 인권침해의 우려가 있는 민감한 개인정보 (인종, 사상 및 신조, 출신지 및 본적지, 정치적 성향 및 범죄기록, 성생활 등)는 가급적 수집하지 않으며 부득이하게 수집하는 경우 이용자들의 사전 동의를 반드시 구할 것입니다.<br /><br />
+                                    회사는 입력하신 정보를 이용자들에게 사전에 밝힌 목적 이외에 다른 목적으로는 사용하지 않으며 외부로 유출하지 않습니다. 단, 서비스 페이지에 링크되어 있는 웹사이트들이 개인정보를 수집하는 행위에 대해서는 회사의 '개인정보취급방침'이 적용되지 않음을 알려드립니다.<br /><br /><br />
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td class="yak"><b>[수집하는 개인정보의 보유 및 이용기간, 개인정보의 파기절차 및 방법]</b>  <br /><br />
+                                    회원의 동의 하에 수집된 개인정보는 회원 자격이 유지되는 동안 보유 및 이용되며, 해지를 요청한  경우에는 재생할 수 없는 방법에 의하여 디스크에서 완전히 삭제하며 추후 열람이나 이용이 불가능한 상태로 처리됩니다. <br /><br />
+                                    단, 회사는 개인정보 도용 등으로 인한 피해 발생시 복구와 피해자 보호 등을 위해 회원의 ID, 성명, 전자우편 주소는 해지한 날로부터 최대 3개월 동안은 임시로 보관할 수 있으며 이후에는 재생할 수 없는 방법으로 완전히 삭제합니다. 또한 아래의 각호에 해당되는 경우는 예외로 합니다. <br /><br /><br />
+                                  </td>
+                              </tr>
+                          </table>
+                <!-- 하이미디어컴퓨터디자인학원의 개인정보취급방침은 다음과 같은 내용을 담고 있습니다.<br/>
+                            가. 수집하는 개인정보 항목 및 수집방법<br/>
+                            나. 개인정보의 수집 및 이용목적<br/>
+                            다. 수집한 개인정보의 보유 및 이용기간<br/>
+                          <br/>
+                          가.수집하는 개인정보 항목 및 수집방법<br/>
+                            하이미디어컴퓨터디자인학원은 고객님의 온라인상담(온라인상담, 수강료조회, 고용보험환급,<br/>
+                            병역관련문의)을 위해 개인정보를 아래와 같이 수집하고 있습니다.<br/>
+                            - 이름, 핸드폰, 이메일, 직업, 나이 기록<br/>
+                            하이미디어컴퓨터디자인학원은 다음과 같은 방법으로 개인정보를 수집합니다.<br/>
+                            - 홈페이지 내 수강가이드(온라인상담, 수강료조회, 고용보험환급, 병역관련문의)<br/>
+                          <br/>
+                          나.개인정보 수집 및 이용목적<br/>
+                            하이미디어컴퓨터디자인학원은 수집한 개인정보를 다음의 목적을 위해 활용합니다.<br/>
+                            - 과정문의에 대한 학과담당자들의 전화 및 이메일 상담<br/>
+                            - 신규 서비스(강좌) 개발 및 특화, 이벤트 등 광고성 정보 전달<br/>
+                          <br/>
+                          다.수집한 개인정보의 보유 및 이용기간<br/>
+                            원칙적으로 개인정보 수집 및 이용목적이 달성된 후에는 해당 정보를 지체 없이 파기합니다. -->
+                        </div>
+                        <input type="checkbox" class="aM" name="userInfoAgreeChk"> <span class="F_s12">개인정보취급방침에 동의합니다</span><br /><br />
+                      </div>
+                  </div>
+
+                <p class="aC F_s12 gray95">
+                  *결제하시기전에 반드시 담당자와통화후 할인적용된 금액을 결제 하시기 바랍니다.<br /><br />
+                  <span class="btn gray3"><button type="button" onclick="popInputCheck(document.settlementForm);"><b>결제</b>하기</button></span>
+                </p>
+              </div>
+          </div>
+          <div class="in_btm"><p class="left"></p><p class="right"></p></div>
+        </form>
+      </div>
+
+
+
+      <script>
+	      function isCheckMail(strMail) 
+	      { 
+	      	var check1 = /(@.*@)|(\.\.)|(@\.)|(\.@)|(^\.)/; 
+	      	var check2 = /^[a-zA-Z0-9\-\.\_]+\@[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,4})$/; 
+	      	if ( !check1.test(strMail) && check2.test(strMail) ) 
+	      	{ 
+	      		return false; 
+	      	}else{ 
+	      		return true; 
+	      	} 
+	      } 
+            function popInputCheck(f)
+            {
+              f.userEmail.value = f.userEmail1.value+"@"+f.userEmail2.value;
+
+              if (f.settlementType.value==""){
+                alert("결재방법을 선택해 주세요 ");
+                f.settlementType.focus();
+                return;
+              }else if (f.className.value==""){
+                alert("수강과목을 정확히 입력하세요");
+                f.className.focus();
+                return;
+              }else if(f.settlementMoney.value==""){
+                alert("담당자에 의해 확인된 \n\n 금액을 입력해주세요..");
+                f.settlementMoney.focus();
+                return;
+              }else if(f.userName.value==""){
+                alert("신청자 이름을 입력해주세요");
+                f.userName.focus();
+                return;
+              }else if(isCheckMail(f.userEmail.value)){
+                alert("이메일을 정확히 입력해주세요..");
+                f.userEmail.focus();
+                return;
+              }else if(f.userPhone1.value==""){
+                alert("연락처를 정확히 입력해주세요..");
+                f.userPhone1.focus();
+                return;
+              }else if(f.userPhone2.value==""){
+                alert("연락처를 정확히 입력해주세요..");
+                f.userPhone2.focus();
+                return;
+              }else if(f.userPhone3.value==""){
+                alert("연락처를 정확히 입력해주세요..");
+                f.userPhone3.focus();
+                return;
+              } else if(f.userInfoAgreeChk.checked != true) {
+                alert("개인정보취급방침에 동의해 주세요.");
+                f.userInfoAgreeChk.focus();
+                return;
+              }else{
+                var win = 		window.open("","settlementPop","width=618,height=618,scrollbars=no");
+                f.target="settlementPop";
+                f.submit();
+                win.focus();
+                location.replace('main.html')
+                // closeLayer('PayInfo');
+                // $("#PayInfo").empty();
+              }
+            }
+
+            function popEmailDomain(frm, vEmail) {
+            		if (vEmail == "99999999") {
+            			$("#popEmailDisplay").show();
+            			$("select[name=popSelEmail").hide();
+            			frm.userEmail2.readOnly= false;
+            			frm.userEmail2.value = "";
+            			frm.userEmail2.focus();
+            		} else {
+            			$("#emailDisplay").hide();
+            			$("select[name=selEmail").show();
+            			frm.userEmail2.readOnly= true;
+            			frm.userEmail2.value = vEmail;
+            		}
+            	}
+
+
+             /*  $('body').not('#PayInfo').click(function(e){
+        	      console.log("???")
+                e.stopPropagation();
+                location.href="http://himedia.co.kr"
+              }) */
+              var over = 0;
+              $('#PayInfo').mouseover(function(){
+        	      over = 1;
+              }).mouseleave(function(){
+        	      over = 0;
+              })
+              $('body').click(function(){
+        	      if(!over){        	      
+                              location.href="http://himedia.co.kr"
+                      }      
+              })
+              
+      </script>
+
+  </body>
+</html>

@@ -1,0 +1,205 @@
+<script type="text/javascript">
+
+angular.module('app').controller('myCtrl', ['$scope', '$rootScope', '$http', '$sce', '$stateParams', '$location', 
+	'$state', '$httpParamSerializerJQLike',
+	function($scope, $rootScope, $http, $sce, $stateParams, $location, $state, $httpParamSerializerJQLike) {
+
+		$scope.mode = $stateParams.id ? 'modify' : 'new';
+	    $scope.basePath = '#'+$location.$$path;
+	    $scope.parentPath = $location.$$path.substring(0, $location.$$path.indexOf("/detail"));
+	    $scope.data = {};
+
+		if($scope.mode == "modify") {
+			$http({
+				method : "POST",
+				url : "/admin/api/popup/"+$stateParams.id
+			}).success(function(data) {
+				console.log(data);
+				$scope.data = data;
+			});			
+		}
+		
+		$scope.submit = function () {
+
+			var url = "";
+			if($scope.mode == "modify") {
+				url = "/admin/api/popup/"+$stateParams.id+"/update";
+			} else {
+				url = "/admin/api/popup/insert";
+			}
+				
+			$http({
+					method : "POST",
+					url : url,
+					data: $scope.data
+			}).success(function(data) {
+
+				if($scope.mode == "modify") {
+					alert("저장되었습니다.");
+				}else {
+					$location.path($scope.parentPath);
+				}
+			});
+
+		};
+		
+	    $scope.delete = function () {
+	    	if(confirm("삭제 하시겠습니까?")) {
+
+				$http({
+					method : "POST",
+					url : "/admin/api/popup/"+$stateParams.id+'/delete',
+				}).success(function(data) {
+					$location.path($scope.parentPath);
+				});			
+
+	    	}
+	    }
+
+		$scope.removeThumb = function() {
+			$scope.data.AttachFile.delYn = 'Y';
+			$scope.data.fileUUID = null;
+		}
+		
+
+	    //listen for the file selected event
+	    $scope.$on("fileSelected", function (event, args) {
+	    	
+	    	var files = [];	
+	    	for(i=0;i<args.files.length;i++) {
+	    		files.push(args.files[i]);	
+	    	}
+	    	
+			$http({
+				method : "POST",
+				url : "/admin/api/attach",
+				headers : {'Content-Type': undefined},
+	            transformRequest: function (data, headersGetter) {
+	                var formData = new FormData();
+	                for (var i = 0; i < files.length; i++) {
+	                	formData.append("files", files[i]);
+	                }
+	                return formData;
+	            }
+			}).success(function(data) {
+				
+				for(i=0;i<data.length;i++) {
+					$scope.data.AttachFile = data[i];
+					$scope.data.fileUUID = data[i].fileUUID;
+				}
+				
+			});
+	    });
+	    
+	    $scope.sortableOptions = {
+		        containment: '#horizontal-container',
+		        //restrict move across columns. move only within column.
+		        accept: function (sourceItemHandleScope, destSortableScope) {
+		            return sourceItemHandleScope.itemScope.sortableScope.$id === destSortableScope.$id;
+		        },
+		        containerPositioning : 'relative'
+		};
+	    
+	    $scope.list = function () {
+	    	if(window.history.length == 1) {
+	    		$location.path($scope.parentPath);	
+	    	} else {
+	    		history.back();
+	    	}
+	    }
+
+	}]
+);
+
+
+</script>
+<style>
+	.form-horizontal .ignore .form-group{
+		margin-left : 0px;
+		margin-right : 0px;
+	}	
+	#horizontal-container {
+	    display: inline-block;
+	}
+	
+	#horizontal-container .as-sortable-item,
+	#horizontal-container .as-sortable-placeholder {
+	    display: inline-block;
+	    width: 962px;
+	    height: 122px;
+	    float: left;
+	    border: solid 1px darkgrey;
+	    background-color: #ffffff;
+	    margin:10px;
+	}
+	
+	#horizontal-container .sortable-row:after {
+	    content: ".";
+	    display: block;
+	    height: 0;
+	    clear: both;
+	    visibility: hidden;
+	}
+</style>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">팝업관리</h1>
+</div>
+<div class="wrapper-md">
+	<div class="panel panel-default" ng-controller="myCtrl">
+		<div class="panel-heading">{{mode == 'modify' ? '변경' : '신규'}}</div>
+		<div class="panel-body">
+			<form class="form-horizontal" method="get" ng-submit="submit()">
+
+					
+				<div class="form-group">
+					<label class="col-sm-2 control-label">팝업 명(관리용도)</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.popupName" required="required"> 
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">링크 URL(또는 MAP)</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" rows="6" placeholder="내용을 입력하세요.&#13;&#10;예시) &#13;&#10; <a href='#' style='display:block;height:100%;width:50%;position:absolute;left:0'></a>" ng-model="data.linkUrl" required="required"></textarea>
+						<span style="color:red">예시) &lt;a href='#' style='display:block;height:100%;width:50%;position:absolute;left:0'&gt;&lt/a&gt;</span> 
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">이미지</label>
+					<div class="col-sm-10">
+						<div class="wrapper-sm b-a bg-white m-r-xs m-b-xs">
+							<div class="bg-light">
+								<div id="horizontal-container">
+								    <div ng-show="data.AttachFile && data.AttachFile.delYn != 'Y'" style="width:960px;">
+							            <img ng-src="{{data.AttachFile.url}}" style="width:960px;vertical-align:middle;height:60px;">
+							            <button type="button" ng-click="removeThumb()" style="width:100%;" class="btn btn-default">삭제</button>
+								    </div>
+								</div>
+								<div class="bg-light text-center v-center" ng-show="!data.AttachFile || data.AttachFile.delYn == 'Y'" style="width:100%;height:60px; line-height:60px;font-size:36px">1920 X 120</div>
+								<input ui-jq="filestyle" type="file" accept="image/*" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control v-middle input-s" file-upload>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+				<div class="form-group">
+					
+					<div class="col-sm-5 col-sm-offset-2">
+						
+						<button type="button" ng-click="list()" class="btn btn-default m-r-sm">목록</a>
+						<button type="button" ng-click="delete()" class="btn btn-danger" ng-show="mode=='modify'">삭제</button>
+						
+	
+					</div>
+	
+					<div class="col-sm-5 text-right">
+						<button type="submit" class="btn btn-primary">변경사항 저장</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div> 
+</div>

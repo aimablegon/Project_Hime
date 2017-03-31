@@ -1,0 +1,623 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+{% set matched = 0 %}
+{% if query.branchCode %}
+	{% set branchCode = query.branchCode %}
+{% endif %}
+{% for course in courseInfo.BranchCourses %}
+	{% if branchCode == course.branchCode and course.branchCode != 'himedia' %}
+		{% set periodEducation = course.periodEducation %}
+		{% set matched = 1 %}
+		{% set matchedIndex = loop.index - 1 %}
+		{% set recruitmentPersons =  course.recruitmentPersons %}
+		{% set curriculumJson =  JSON.parse(course.curriculumJson)%}
+		{% set courseInfo.price = course.price%}
+		{% set courseInfo.priceJobSeeker = course.priceJobSeeker%}
+		{% set courseInfo.priceAtypicalJob = course.priceAtypicalJob%}
+		{% set courseInfo.priceStandardJob = course.priceStandardJob%}
+	{% endif %}
+{% endfor %}
+<!-- 지점에 과정이 없는 경우 -->
+{% if matched == 0 %}
+	<!-- 지점이 여러개인 경우 -->
+	{% if courseInfo.BranchCourses.length >= 1 %}
+    		{% for course in courseInfo.BranchCourses %}
+			{% if course.branchCode == 'himedia' %}
+				{% set periodEducation = course.periodEducation %}
+				{% set curriculumJson =  JSON.parse(course.curriculumJson)%}
+				{% set recruitmentPersons = course.recruitmentPersons %}
+			{% endif %}
+    		{% endfor %}
+	<!-- 값이 없는 경우 -->
+	{% else %}
+		{% set recruitmentPersons =  '-' %}
+	{% endif %}
+{% endif %}
+{% set calFirst = curriculumJson[0] %}
+{% if !calFirst.title or !calFirst.items[0].title %}
+	{% set curriculumJson =  JSON.parse(courseInfo.curriculumJson)%}
+{% endif %}
+{% set calFirst = curriculumJson[0] %}
+<div class="courseDetail">
+    <!-- 본문 -->
+    <div class="contents">
+        <!-- 서브 네비 -->
+        <div class="sub-navi">
+						<a href="#">
+							<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+						</a>
+						<span>&#183;</span>
+            <span>웹 디자인</span>
+						<span>&#183;</span>
+            <span class="this-page">{{courseInfo.courseName}}</span>
+        </div>
+        <!-- // 서브 네비 -->
+
+		<!--lnb-->
+		<div class="lnb-course">
+            <div>
+                <div class="inner wow fadeInUp">
+                    <ul>
+                        {% for field in fields %}
+                            <li>
+                                <button href="#">
+                                    <span class="img-box"><img src="{{field.AttachFile.url}}" alt="{{field.fieldName}}" /></span>
+                                    <span class="txt-box">{{field.fieldNameHTML|safe}}</span>
+                                </button>
+                                <div class="location">
+                                    <img src="/img/icon/lnb_position.png" alt="화살표">
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- Add Arrows -->
+               <div class="lnb_btn_left"></div>
+               <div class="lnb_btn_right"></div>
+            </div>
+            {% for  data in courseData %}
+	        <div class="hide_cont">
+	            <div class="wrap">
+	                <div class="box box1">
+	                    <p>{{data.courses[0].codeName}}</p>
+	                    <ul>
+	                    	{% set temp = data.courses[0] %}
+	                    	{% for item in temp.list %}
+	                        	<li title="{{item.courseName}}"><a href="courseDetail.html?courseId={{item.courseId}}">{{item.courseName}}</a></li>
+	                        {% endfor %}
+	                    </ul>
+	                </div>
+	                <div class="box box2">
+	                    <p>{{data.courses[1].codeName}} </p>
+	                    <ul>
+	                 	{% set temp = data.courses[1] %}
+	                    	{% for item in temp.list %}
+	                        	<li title="{{item.courseName}}"><a href="courseDetail.html?courseId={{item.courseId}}">{{item.courseName}}</a></li>
+	                        {% endfor %}
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+         {% endfor %}
+        </div>
+		<!--//lnb-->
+
+        <div class="class-info">
+            <div class="left-box wow fadeInLeft" data-wow-duration="1s">
+                <div class="class-icon-bg" style="background:{{courseInfo.thumbBgColor}}">
+			<div class="icon_wrap">
+				<div class="class-icon">
+					{% for field in fields %}
+						{% if field.fieldId == courseInfo.fieldId %}
+							{% set courseSrc = field.AttachFile.url %}
+							<span><img src="{{courseSrc}}" alt="강의아이콘"></span>
+						{% endif %}
+					{% endfor %}
+				</div>
+				<span>{{fieldNames[courseInfo.fieldId]}}</span>
+			</div>
+                </div>
+            </div>
+            <div class="right-box  wow fadeInRight" data-wow-duration="1s">
+                <div class="class-title">
+                    <div>{{courseInfo.courseName}}</div>
+			{% set bc = query.branchCode %}
+			{% if !query.branchCode %}
+				{% set bc = branchCode %}
+			{% endif%}
+
+			{% for branchCourse in courseInfo.BranchCourses %}
+				{% if branchCourse.branchCode == bc %}
+                    		<div class="title_disc">
+					<p>
+						{{branchCourse.branchTitle | safe}}
+					</p>
+				</div>
+				{%endif%}
+			{% endfor%}
+                </div>
+                <div class="info_list">
+                    <span class="info_left">교육기간</span>
+                    <span class="info_right">{{periodEducation}}</span>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="info_list">
+                    <span class="info_left">모집인원</span>
+                    <span class="info_right">{{recruitmentPersons}}</span>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="info_list">
+                    <span class="info_left">개강일</span>
+                    <span class="info_right open">
+			<!-- 지점에 과정이 있는 경우 해당지점만 노출 -->
+			{% if matched == 1 %}
+				{% set matchedGroup = courseInfo.BranchCourses[matchedIndex] %}
+				{% set openText = matchedGroup.openDate %}
+				{{branchNames[courseInfo.BranchCourses[matchedIndex].branchCode]}} <span class="color-red">/</span>{% if openText %}{{openText}}{% else %}다음달 첫째주{% endif %}<br/>
+			<!-- 지점에 과정이 없는 경우 전 지점 노출 -->
+			{% elseif matched == 0 %}
+				<!-- 지점이 여러개인 경우  -->
+				{% if courseInfo.BranchCourses.length >= 2 %}
+					{% for branch in branches %}
+				    		{% for course in courseInfo.BranchCourses %}
+			    				{% if course.branchCode != 'himedia' and branch.branchCode == course.branchCode %}
+			    					{{branchNames[course.branchCode]}} <span class="color-red">/</span>{% if course.openDate %}{{course.openDate}}{% else %}다음달 첫째주{% endif %}<br/>
+			    				{% endif %}
+				    		{% endfor %}
+				    	{% endfor %}
+				{% elseif courseInfo.BranchCourses.length == 1 %}
+					{{courseInfo.BranchCourses[0].openDate}}
+				{% else %}
+					다음달 첫째주
+				{% endif %}
+			{% endif %}
+                    </span>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="info_list">
+                    <span class="info_left">수강료</span>
+                    <div class="info_right open tuition">
+                        <span>{{courseInfo.price}}</span>
+                        {% if courseInfo.priceJobSeeker %}
+                        	<span>구직자 : {{courseInfo.priceJobSeeker}}</span>
+                        {% endif %}
+                        {% if courseInfo.priceAtypicalJob %}
+                        	<span>비정규직 : {{courseInfo.priceAtypicalJob}}</span>
+                        {% endif %}
+                        {% if courseInfo.priceStandardJob %}
+                        	<span>정규직 : {{courseInfo.priceStandardJob}}</span>
+                        {% endif %}
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="info_list last">
+                    <span class="info_left">수강문의</span>
+                    <span class="info_right last">
+                        <form action="" class="input_fromwrap">
+                            <fieldset class="select_wrap">
+                                <select id="campusSelect" name="캠퍼스선택" class="">
+                                	<option>지점을 선택하세요</option>
+                                	{% if query.branchCode %}
+                                		{% set branchCode = query.branchCode %}
+                                	{% endif %}
+									{% if courseInfo.BranchCourses.length >= 2 %}
+					                {% for branch in branches %}
+					                    {% for course in courseInfo.BranchCourses %}
+											{% if course.branchCode == branch.branchCode and course.branchCode != 'himedia' %}
+												<option value="{{branch.branchCode}}"  {% if branchCode == branch.branchCode %}selected{% set getTel = branch.tel %}{% endif %}>{{branch.branchName}} {{branch.tel}}</option>
+							                {% endif %}
+					                    {% endfor %}
+									{% endfor %}
+									{% elseif courseInfo.BranchCourses.length == 1 and courseInfo.BranchCourses[0].branchCode != 'himedia' %}
+										<option value="{{branches[0].branchCode}}" >{{branches[0].branchName}} {{branches[0].tel}}</option>
+									{% else %}
+										<option value="" disabled selected style="display:none;">준비중입니다</option>
+									{% endif %}
+								</select>
+							<form action="onlineCounselStep2.html" method="post" class="hidden" id="counselForm">
+								<input type="hidden" name="courseId" value="{{courseInfo.courseId}}" />
+								<input type="hidden" name="branchCode" value="{{branchCode}}" />
+							</form>
+							{% if getTel.length != 0 %}
+								<a class="mobile_callicon" href="tel:{{getTel}}" data-rel="external">전화걸기</a>
+							{% endif %}
+                                <button class="next_btn sub_color"  id="counselBtn">온라인 상담<span class="icon arrow red">오른쪽 화살표</span></button>
+                                <a class="next_btn white_color" href="askTime.html?courseId={{courseInfo.courseId}}&branchCode={{branchCode}}">시간표 조회<span class="icon arrow red">오른쪽 화살표</span></a>
+                            </fieldset>
+						</form>
+                    </span>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div class="img-mid wow fadeIn" data-wow-duration="1s">
+            {{courseInfo.subInfo | safe}}
+        </div>
+        <div class="fixwrap">
+
+            <div class="sm-rect-btns-wrapper">
+            	{% if courseInfo.titleInfo or courseInfo.description or courseInfo.composition  or courseInfo.target or courseInfo.prospect %}
+                	<button class="sm-rect-btns intro" onclick="location.href='#intro'">과정소개</button>
+        	{% endif%}
+
+                 {% if calFirst.title && calFirst.items[0].title %}
+                <button class="sm-rect-btns curriculum" onclick="location.href='#curriculum'">커리큘럼</button>
+                {% endif %}
+                {% if portfolios %}
+                <button class="sm-rect-btns portfolio" onclick="location.href='#portfolio'">포트폴리오</button>
+                {% endif %}
+                <button class="sm-rect-btns last review" onclick="location.href='#review'">수강후기</button>
+            </div>
+
+
+
+            <div class="tab_cont_wrap">
+            	{% if courseInfo.titleInfo or courseInfo.description or courseInfo.composition  or courseInfo.target or courseInfo.prospect %}
+                <div class="type type1 on" id="intro">
+                	{%if courseInfo.titleInfo %}
+				<div class="intro-main wow fadeInUp" data-wow-duration="1s">
+					{{courseInfo.titleInfo | safe}}
+				</div>
+                    	{% endif %}
+                    	{%if courseInfo.description %}
+				<div class="intro-class wow fadeInUp" data-wow-duration="1s">
+					{{courseInfo.description | safe}}
+				</div>
+                    	{% endif %}
+                   	{% if courseInfo.composition %}
+				<div class="intro-composition wow fadeInUp" data-wow-delay="0.3s" data-wow-duration="1s">
+                        		{{courseInfo.composition | safe}}
+				</div>
+                	{% endif %}
+			{% if courseInfo.target %}
+				<div class="intro-target wow fadeInUp" data-wow-duration="1s">
+					{{courseInfo.target | safe}}
+				</div>
+			{% endif %}
+			{% if courseInfo.prospect %}
+				<div class="intro-prospect wow fadeInUp" data-wow-delay="0.3s" data-wow-duration="1s">
+					{{courseInfo.prospect | safe}}
+				</div>
+			{% endif %}
+
+
+                    <!-- // 본문 -->
+
+                </div>
+                {% endif %}
+
+
+                {% if calFirst.title && calFirst.items[0].title %}
+                <div class="type type2 on" id="curriculum" >
+                    <p>Curriculum<br><span>※ 커리큘럼은 지점별로 상이할 수 있습니다.</span></p>
+                    <div class="curri_cont">
+                        <div class="curri_wrap">
+				{% for curri in curriculumJson %}
+    		                        <div class="left wow fadeInLeft" data-wow-duration="1s">
+    		                            <div class="num_title">
+    		                                <div class="num_bg">{% if loop.index <= 9 %}0{% endif %}{{loop.index}}</div>
+    		                                <p>{{curri.title}}</p>
+    		                            </div>
+    		                            <div class="text_cont">
+    		                                <span class="red_bar"></span>
+    		                                <div>
+    		                                {% for item in curri.items %}
+    		                                    - {{item.title}}<br>
+    						{% endfor %}
+    		                                </div>
+    		                            </div>
+    		                        </div>
+				{% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if portfolios.length != 0 %}
+                <div class="type type3 on" id="portfolio">
+                    <div class="portfolio">
+                        <div class="title-m">
+                            <h2 class="title">Portfolio</h2>
+                        </div>
+                         {% for item in portfolios %}
+		        <div class="portfolio-list wow fadeInUp" data-wow-duration="1s">
+		            <div class="lists modallink2 item{{item.portfolioId}}" modallink="example1">
+		                <a href="#" style="height:370px;overflow:hidden;background:url('{{item.AttachFile.url}}') no-repeat 50%" id="slideAtag{{loop.index-1}}">
+		                    <div class="pofo_over">
+		                        <img class="pofo_on" src="/img/icon/over2.png" alt="" />
+		                        <p>See more<span class="icon plus red">플러스(더하기)</span></p>
+		                    </div>
+		                </a>
+		                <div class="portfolio-name">		                    
+		                    <span class="portfolio-info">
+		                    <span>{{item.name}}</span> &nbsp;&nbsp;
+		                    <span>|</span>&nbsp;&nbsp;
+		                    <span>{{item.courseName}}</span> &nbsp;&nbsp;
+		                    <span>|</span>&nbsp;&nbsp;
+		                    <span class="portfolioType">{{item.CodeInfo.codeName}}</span>
+		                    </span>
+		                </div>
+		            </div>
+		        </div>
+		        {% endfor %}
+                        <div class="btn-seemore">
+                            <button type="button" onclick="location.href='portfolio.html?codeId={{portfolioField}}';">포트폴리오 더보기
+                            <span class="icon check red">체크(확인)</span></button>
+                        </div>
+                        <div class="pofol modalPopup2" style="width:960px" id="example1">
+                        <!-- 타이틀 -->
+                        <div class="modal-title text-left">
+                            <div>
+                                <span class="pop_name"></span>
+                                <span class="popUp-line">|</span>
+                                <span class="pop_course"></span>
+                                <span class="popUp-line">|</span>
+                                <span class="pop_type"></span>
+                                <!-- <span class="popUp-line">|</span>
+                                <span class="pop_campus"></span> -->
+                            </div>
+
+                            <div class="close-box"><a href="#" class="modal2-closeBtn" target="_blank">close<i class="icon close-x red"></i></a></div>
+                        </div>
+
+                        <div class="modal-contents">
+
+                            <!-- 바디 -->
+                            <div class="modal-body">
+                                <div class="modal-main">
+                                    <img src="/img/site_img/pfweb_pop1.jpg" alt="" />
+                                </div>
+                                <button class="icon arrow-slide left">왼쪽으로</button>
+                                <button class="icon arrow-slide right">오른쪽으로</button>
+                            </div>
+
+                            <div class="text-right boxP-wrapper">
+                                <div class="boxP">
+                                    <div>
+                                        <a href="http://www.i-make.kr:8080/STARBUCKS_jieun" target="_blank"><span>웹 사이트로 보기</span>&nbsp;
+                                        <div class="icon arrow red-mini">오른쪽 화살표</div></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="type type4 on" id="review">
+                    <div class="title-m">
+                        <h2 class="title">Review</h2>
+                    </div>
+					<div class="review_bg">
+	                    <div class="appraisal_tablewrap wow fadeInUp" data-wow-duration="1s">
+			{% if reviews.length != 0 %}
+	                        <table class="appraisal_table">
+	                            <caption></caption>
+	                            <colgroup>
+					<col style="width:20%">
+                                    	<col style="width:80%">
+	                            </colgroup>
+	                            <tbody>
+					{% for review in reviews %}
+				        <tr>
+				            <th>
+				                <div>
+				                    <span class="name star{{review.score}}">{{review.name}}</span>
+				                    <p class="star_wrap_bord">
+				                        <span class="star">1점</span>
+				                        <span class="star">2점</span>
+				                        <span class="star">3점</span>
+				                        <span class="star">4점</span>
+				                        <span class="star">5점</span>
+				                    </p>
+				                    <span class="class">{{fieldNames[review.fieldId]}} <br />{{review.courseName}}</span>
+				                </div>
+				            </th>
+				            <td style="white-space:pre-wrap;"><div>{{review.content}}</div></td>
+					</tr>
+					{% endfor %}
+	                            </tbody>
+	                        </table>
+	                        <div class="btn-seemore">
+	                            <button type="button" onclick="location.href='review.html'" ;>수강 후기 더보기
+	                                <span class="icon check red">체크(확인)</span></button>
+	                        </div>
+                        {% else %}
+                        	<table class="appraisal_table">
+	                            <caption></caption>
+	                            <colgroup>
+	                            </colgroup>
+	                            <tbody>
+				        <tr>
+			        		<td class="text-center" id="noData">등록된 수강후기가 없습니다</td>
+					</tr>
+	                            </tbody>
+	                        </table>
+			{% endif %}
+	                    </div>
+			</div>
+		</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+	// sm-rect-btns active
+	$('.sm-rect-btns').first().addClass('active');
+
+	//과정 image 삽입
+	var courseSrc = '{{courseSrc}}';
+	if(courseSrc) $('.title-wrapper').prepend('<img src="'+courseSrc+'" alt="아이콘">');
+
+	//filling stars
+	if($('#noData').length == 0){
+		for(i=0; i<$('.appraisal_table tr').length; i++){
+		    if($('.appraisal_table tr').eq(i).find('.name').attr('class').split('star')[1]){
+		        var starNum = $('.appraisal_table tr').eq(i).find('.name').attr('class').split('star')[1];
+		        for(j=0;j<starNum;j++){
+		            $('.star_wrap_bord').eq(i).children('.star').eq(j).addClass('on')
+		        }
+		    }
+		}
+	}
+
+    $('.sm-rect-btns').click(function () {
+        $(this).addClass('active').siblings().removeClass('active');
+    })
+    $('.curri_wrap>div:odd').removeClass('left').addClass('right')
+
+
+    //margin 보정
+    for (i = 0; i < $('.teacher-box').length; i++) {
+        if (i % 3 == 2 && i != 0) {
+            $('.teacher-box').eq(i).css('marginRight', 0);
+        }
+    }
+
+    //지점선택시
+    $('#campusSelect').change(function(){
+	var branchCode = $('#campusSelect option:selected').attr('value');
+	location.href="courseDetail.html?courseId="+{{query.courseId}}+"&branchCode="+branchCode;
+    });
+
+    //온라인상담버튼
+    $('#counselBtn').click(function(){
+	    $('#counselForm').submit();
+	    return false;
+    })
+    //포트폴리오
+    var data = {{JSON.stringify(portfolios,0,4)}};    
+    var index = null;
+
+    $('.lists a').click(function(){
+	index = $(this).attr('id').split('slideAtag')[1];
+	var e = data[index];
+	
+	$('.modalPopup2 .pop_name').text(e.name);
+	$('.modalPopup2 .pop_course').text(e.courseName);
+	$('.modalPopup2 .pop_type').text(e.CodeInfo.codeName);
+	/* $('.modalPopup2 .pop_campus').text(e.Branch.branchName+'캠퍼스'); */
+	$('.modalPopup2 .modal-main img').attr('src',e.AttachSets[0].url);
+	if(e.url){
+	    $('.boxP-wrapper').css('display','block');
+	    $('.modalPopup2 .boxP-wrapper a').attr('href',e.url);
+	}        
+        btnShow(index);
+    });
+    $('#example1 button.right').click(function(){
+        if(index < data.length - 1){
+            index++;
+            slideGo(index);
+            btnShow(index);
+        }
+    });
+    $('#example1 button.left').click(function(){
+        if(index > 0){
+            index--;
+            slideGo(index);
+            btnShow(index);
+        }
+    });
+    function slideGo(index){
+        $('.modal-main img').fadeOut('fast',function(){
+            $('.modal-main img').remove();
+            $('.modal-main').append('<img class="pf-img" style="display:none;" src="'+data[index].AttachSets[0].url+'" alt="포트폴리오 모달 이미지">').find('.pf-img').fadeIn('fast');
+            $('.modalPopup2 .pop_name').text(data[index].name);
+            $('.modalPopup2 .pop_course').text(data[index].courseName);
+            $('.modalPopup2 .pop_type').text(data[index].CodeInfo.codeName);
+            /* $('.modalPopup2 .pop_campus').text(data[index].Branch.branchName+'캠퍼스'); */
+        });
+        if(data[index].url){
+            $('.boxP').fadeIn('fast',function(){});
+            $('.modalPopup2 .boxP-wrapper a').attr('href',data[index].url);
+        }else{
+            $('.boxP').fadeOut('fast',function(){});
+        }
+    }
+    function btnShow(index){
+        if(index == data.length - 1){
+            $('.icon.right').hide();
+        }else if(index == 0){
+            $('.icon.left').hide();
+        }else{
+            $('.icon.left').show();
+            $('.icon.right').show();
+        }
+    }
+	var cam_select = $('#campusSelect option:selected').val();	
+	if (cam_select.match(/[^a-zA-Z0-9]/) != null ) {
+
+	  $('.mobile_callicon').css({'display':'none'})
+	}
+
+	// 과정구성내용 li
+	var heights = $('.composition-box .txt-box').map(function(){
+		return $(this).height();
+	}).get(),
+	maxheight = Math.max.apply(null, heights);
+	$('.composition-box .txt-box').height(maxheight);
+
+	var processLiLen = $('.composition-box').find('.first-li').length;
+	var processLiWidthPer = (100 / processLiLen);
+	var processLiWidthPx = (1024 / processLiLen);
+	$('.composition-box .first-li').width(processLiWidthPer + '%');
+
+
+	var stepLeft = [];
+	$('.step-box > span').each(function(i,e){
+		var value = $(e).attr('class').substring(4,5) * processLiWidthPx + 15;
+		$(e).css({"left" : value});
+		stepLeft.push(value);
+	});
+	var toolTdWidth = [];
+	$('table.tool td').each(function(i,e){
+		var value = $(e).attr('class').substring(5,6) * processLiWidthPer + '%';
+		$(e).width(value);
+		toolTdWidth.push(value);
+	});
+
+$('.type').on('scrollSpy:enter', function() {
+	var class_value='.'+$(this).attr('id');
+	$('.fixwrap').find(class_value).addClass('active').siblings().removeClass('active')
+});
+
+$('.type').on('scrollSpy:exit', function() {
+	console.log('exit:', $(this).attr('id'));
+});
+$('.type').scrollSpy();
+
+// var sample_intro = $('#intro').offset().top;
+// var sample_curriculum = $('#curriculum').offset().top;
+// var sample_portfolio = $('#portfolio').offset().top;
+// var sample_review = $('#review').offset().top;
+// function tab_scroll(){
+// 	$(window).scroll(function () {
+// 		var height = $(document).scrollTop();
+// 		if(sample_intro<height && sample_curriculum>height){
+// 			console.log('인트로')
+// 		}else if (sample_curriculum<height &&  sample_portfolio>height ) {
+// 			console.log('커리큘럼')
+// 		}else if (sample_portfolio<height &&  sample_review>height ) {
+// 			console.log('포트폴리오')
+// 		}
+// 	})
+// }
+// tab_scroll()
+
+/* 	window.onload= function(){
+		var time = 0;
+		$(window).scroll(function(){
+			if(time == 0){
+				if(confirm("전화 연결을 하시겠습니까?")){
+					window.event.returnValue = false;
+					document.location.href = 'tel:{{getTel}}';
+				}
+				time = 1;
+			}
+		});
+		// location.href='tel:'+$('.mobile_callicon').attr('href').replace(/\D/g,'');
+	} */
+</script>
+{% endblock %}

@@ -1,0 +1,143 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="reviewWrite">
+    <!-- 본문 -->
+    <div class="contents">
+        <!-- 서브 네비 -->
+        <div class="sub-navi">
+            <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+            <span>하이커뮤니티</span><span>&#183;</span>
+            <span class="this-page">수강 후기</span>
+        </div>
+        <!-- // 서브 네비 -->
+
+        <!-- 대제목 -->
+        <div class="title-l">
+            <div class="bg">Community</div>
+            <div class="text-box">
+                <h1>수강 후기</h1>
+                <p>수강생들이 직접 작성한 리얼 100% 수강 후기!</p>
+            </div>
+        </div>
+        <!-- // 대제목 -->
+        {% if (review.userId == session.member.userId and query.to =='modify') or query.length == 0 %}
+        <div class="inputtable_write">
+            <form class="input_fromwrap" action="{% if query.to == 'modify' %}reviewUpdate{% else %}reviewWrite{% endif %}" method="post">
+                <fieldset class="input_tablewrap wow fadeInUp" data-wow-duration="1s">
+                    <legend>수강료조회 양식테이블입니다.</legend>
+                    <table class="input_table">
+                        <caption>과정명,이름,연락처,이메일,상세내용으로 되어있는표입니다.</caption>
+                        <colgroup>
+                            <col style="width:13%">
+                                <col>
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <label for="aksName">이름</label>
+                                </th>
+                                <td>
+                                    <p class="input_wrap w_20p">
+                                        <input id="aksName" type="text" name="name" value="{{session.member.userName}}" disabled required/>                                        
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="campusSelect">캠퍼스</label>
+                                </th>
+                                <td>
+                                    <select id="campusSelect" name="branchCode" class="" required>
+                                        <option value="" style="display:none;" selected disabled>캠퍼스 선택</option>
+                                        {% for branch in branches %}
+                                            {% if branch.branchCode != 'himedia'%}
+                                                <option value="{{branch.branchCode}}" label="{{branch.branchName}}"{% if branch.branchCode ==  review.branchCode %}selected{% endif %}>{{branch.branchName}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="interestSelect">분야</label>
+                                </th>
+                                <td>
+                                    <select id="interestSelect" name="fieldId" class="" required>
+                                        <option value="" style="display:none;" selected disabled>분야 선택</option>
+                                        {% for field in fields %}
+                                            <option value="{{field.fieldId}}" label="{{field.fieldName}}" {% if field.fieldId == review.fieldId %}selected{% endif %}>{{field.fieldName}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                            </tr>
+                            <!-- <tr>
+                                <th>
+                                    <label for="className">과정명</label>
+                                </th>
+                                <td>
+                                    <p class="input_wrap" style="width:100%">
+                                        <input id="className" type="text" name="courseName" required/>
+                                        <button type="button" class="input_del">삭제버튼</button>
+                                    </p>
+                                </td>
+                            </tr> -->
+                            <tr>
+                                <th>
+                                    <label for="detailCont">내용</label>
+                                </th>
+                                <td>
+                                    <p class="input_wrap" style="width:100%">
+                                        <textarea id="detailCont" name="content" required>{{review.content}}</textarea>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="grade">평점</label>
+                                </th>
+                                <td  class="star_wrap">
+                                    <p class="input_wrap star{{review.score}}" style="width:100%">
+                                        <span class="star">1점</span>
+                                        <span class="star">2점</span>
+                                        <span class="star">3점</span>
+                                        <span class="star">4점</span>
+                                        <span class="star">5점</span>
+                                    </p>
+                                </td>
+                                <input class="score" type="hidden" name="score" value="">                                
+                            </tr>                        
+                    </table>
+                    <div class="text-center btnsr">
+                        <input class="common_btn red_btn" type="submit" value="{% if query.to == 'modify' %}수정{% else %}확인{% endif %}">
+                        <input class="common_btn navy_btn" type="reset" value="취소" class="modal-closeBtn" onclick="location.href='review.html?page={{query.page}}&branchCode={{query.branchCode}}'">
+                    </div>
+                    <input type="hidden" name="reviewId"  value="{{query.reviewId}}">
+                    <input type="hidden" name="qBranchCode"  value="{{query.branchCode}}">
+                    <input type="hidden" name="qPage"  value="{{query.page}}">
+                </fieldset>
+            </form>
+        </div>
+        {% else %}
+       	<h2 class="text-center">해당페이지에는 접근 할 수 없습니다</h2>
+       	<br />
+        {% endif %}
+    </div>
+    <!-- // 본문 -->
+</div>
+<script>
+    $( '.star_wrap .star' ).click(function() {
+         $(this).parent().children('span').removeClass("on");
+         $(this).addClass("on").prevAll('span').addClass("on");
+         $('input.score').attr('value',$('.star_wrap .star.on').length);
+         return false;
+    });    
+    
+    //filling stars           
+	var starNum = $('.star_wrap p.input_wrap').attr('class').split('star')[1];
+    	starNum == 0  ? starNum = 5 : '';    	
+	for(i=0;i<starNum;i++){
+		$('.star_wrap .input_wrap .star').eq(i).addClass('on')            
+	}  
+	$('input.score').attr('value',$('.star_wrap .star.on').length);
+</script>
+{% endblock %}

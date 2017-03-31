@@ -1,0 +1,141 @@
+.onlinepay {
+    #campusSelect {
+        width: 222px;
+    }
+    .class {
+        width: 300px;
+    }
+    .pay {
+        width: 300px;
+    }
+    .aksName {
+        width: 222px;
+    }
+    .tell{
+        width: 80px;
+    }
+    #radio label {
+        font-size: 14px;
+        text-indent: 0;
+        position: static;
+        font-weight: @subject-weight;
+        margin-right: 10px;
+        input {
+            height: auto;
+            width: 13px;
+            margin: 0;
+        }
+    }
+    .pay {
+        .inlineblock();
+    }
+    .input_fromwrap .input_tablewrap table.input_table {
+        width: 650px;
+    }
+    .red {
+        color: @main-color;
+    }
+    .gray {
+        color: @content-sub-color;
+    }
+    .info {
+        padding: 0 22px;
+        margin-bottom: 20px;
+    }
+    .ex {
+        width:613px;
+        margin: 0 auto;
+        padding-left: 27px;
+        font-size: 13px;
+        margin-bottom: 35px;
+        .img {
+            position: absolute;
+        }
+        .content {
+            .inlineblock();
+            padding-left: 50px;
+            font-size: 13px;
+            .secure {
+                float: right;
+                color: #00D7CF;
+                font-weight: @gnb-weight;
+            }
+        }
+    }
+    .agree-wrapper {
+        background-color: @sub-color;
+        padding: 14px 5px 0;
+        margin-bottom: 30px;
+        .agree-title {
+            color: @white-color;
+            font-size: @menu-size;
+            padding-left: 15px;
+            margin-bottom: 10px;
+            .inlineblock();
+        }
+        .agree-box {
+            width: 625px;
+            height: 125px;
+            overflow-y: scroll;
+            margin: 0 auto;
+            background-color: #FFF;
+            padding: 10px;
+            font-size: 13px;
+        }
+        .checkbox {
+            color: @white-color;
+            float: right;
+            padding-right: 10px;
+            label {
+                padding: 0;
+                font-weight: 400;
+            }
+        }
+    }
+    .warning {
+        width: 100%;
+        margin-top: 25px;
+        margin-bottom: 25px;
+        color: red;
+    }
+    @media(max-width:@tablet-size){
+         .class{
+             width:80%;
+         }
+         .pay {
+             width:80%;
+             display: block !important;
+         }
+         .tell{
+             width: 30%;
+         }
+         .aksName{
+             width:50%;
+         }
+        .info{
+            padding:0;
+        }
+        .ex{
+            width:100%;
+            padding-left:10px;
+            text-align: center;
+            img{
+                width:20px;
+            }
+            .content{
+                padding-left:10px;
+            }
+        }
+        .inputtable_wrap{
+            width:97%;
+            margin:0 auto;
+        }
+        .input_fromwrap{
+            .input_tablewrap{
+                table.input_table{
+                    width:100%;
+                }
+            }
+        }
+    }
+}

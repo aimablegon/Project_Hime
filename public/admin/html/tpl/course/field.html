@@ -1,0 +1,130 @@
+<script type="text/javascript">
+
+
+angular.module('app').controller('myCtrl', ['$scope', '$rootScope', '$http', '$sce', '$stateParams', '$location',
+	function($scope, $rootScope, $http, $sce, $stateParams, $location) {
+		
+		$scope.pageSize = $rootScope.pageSize ? $rootScope.pageSize : "10";
+		$scope.Math=Math;
+		$scope.basePath = '#'+$location.$$path;
+		
+		console.log($location);
+
+		$scope.loadData = function () {
+			
+			$http({
+				method : "POST",
+				url : "/admin/api/courseField",
+				data : {
+					page : $stateParams.page,
+					pageSize : $scope.pageSize
+				}
+			}).success(function(data) {
+				console.log(data);
+				console.log(data.currentPage)
+				$scope.data = data;
+			});
+		};
+				
+		$scope.sortableOptions = {
+			containment: '#table-container',
+		    orderChanged: function (event) {
+		    	$scope.orderChanged = true;
+		    }
+		};
+		
+		$scope.saveOrder = function () {
+			
+			$http({
+				method : "POST",
+				url : "/admin/api/courseField/saveOrder",
+				data : $scope.data.list
+			}).success(function(data) {
+				
+				alert("저장되었습니다.");
+				$scope.orderChanged = false;
+				$scope.loadData();
+				
+			});
+			
+		};
+
+
+	}]
+);
+
+
+</script>
+<style>
+.as-sortable-item, .as-sortable-placeholder {
+	display: table-row !important;
+}
+.as-sortable-dragging {
+    display: table !important;
+    border-collapse: collapse; /* bootstrap table styling */
+}
+
+.as-sortable-dragging td {
+    display: table-cell !important;
+    padding: 8px; /* bootstrap table styling */
+    line-height: 1.42857143; /* bootstrap table styling */
+    vertical-align: top; /* bootstrap table styling */
+}
+</style>
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">분야관리</h1>
+</div>
+<div class="wrapper-md">
+	<div class="panel panel-default" ng-controller="myCtrl" ng-init="loadData()">
+		<div class="panel-heading">목록</div>
+		<div class="row wrapper" ng-show="data.totalCount">
+			<div class="col-sm-6 text-left">
+			
+				총 {{data.list.length}} 건
+			</div>
+			<div class="col-sm-6 text-right">
+	
+			</div>
+		</div>
+		<div class="table-responsive">
+
+		
+			<table id="table-container" class="table table-striped b-t b-light">
+			    <thead>
+			    <tr>
+						<th width="10%" class=text-center>No</th>
+						<th width="20%" class=text-left>분야 아이디</th>
+						<th width="30%" class=text-left>분야명</th>
+						<th width="10%" class=text-left>아이콘</th>
+						<th width="10%" class=text-center>노출여부</th>
+						<th width="20%" class=text-center>등록일시</th>
+			    </tr>
+			    </thead>
+			    <tbody data-ng-model="data.list" as-sortable="sortableOptions">
+			    <tr ng-repeat="item in data.list" as-sortable-item>
+						<td class="text-center" as-sortable-item-handle >{{$index+1}}</td>
+						<td class="text-left"><a href="{{basePath}}/detail/{{item.fieldId}}">{{item.fieldId}}</a></td>
+						<td class="text-left"><a href="{{basePath}}/detail/{{item.fieldId}}">{{item.fieldName}}</a></td>
+						<td class="text-left"><a href="{{basePath}}/detail/{{item.fieldId}}"><img ng-src="{{item.AttachFile.url}}" style="width:30px;height:'3s0px';"></a></td>
+						<td class="text-center">{{item.showYn}}</td>
+						<td class="text-center">{{item.registDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+			    </tr>
+			    </tbody>
+			</table>
+		
+		</div>
+		<div class="row wrapper" ng-show="data.list.length == 0">
+			<div class="col-sm-12 text-center">
+				등록/검색된 데이터가 없습니다.
+			</div>
+		</div>
+		<footer class="panel-footer">
+			<div class="row">
+				<div class="col-sm-12 text-right">
+					<button type="button" ng-click="saveOrder()" class="btn btn-success" ng-show="orderChanged">순서 저장</button>
+				    <a href="{{basePath}}/detail" class="btn btn-primary">등록</a>
+				</div>
+			</div>
+		</footer>
+	</div>
+</div>

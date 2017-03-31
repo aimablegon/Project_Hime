@@ -1,0 +1,116 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="qnaView">
+        <!-- 본문 -->
+        <div class="contents">
+            <!-- 서브 네비 -->
+            <div class="sub-navi">
+                <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+                <span>고객센터</span><span>&#183;</span>
+                <span class="this-page">Q&amp;A</span>
+            </div>
+            <!-- // 서브 네비 -->
+
+            <!-- 대제목 -->
+            <div class="title-l">
+                <div class="bg">Customer</div>
+                <div class="text-box">
+                    <h1>Q&amp;A</h1>
+                    <p>궁금하신 것이 있으시면 언제든지 물어보세요!</p>
+                </div>
+            </div>
+            <!-- // 대제목 -->
+            <div class="tab tab-customer">
+                <ul>
+    		        <li><a href="notice.html">공지사항/<br>이벤트</a></li>
+    		        <li><a href="askCost.html">수강료<br>조회</a></li>
+    		        <li><a href="askTime.html">시간표<br>조회</a></li>
+    		        <li><a href="onlineCounsel.html">온라인<br>상담</a></li>
+    		        <li><a href="onlinePay.html">온라인<br>결제</a></li>
+    		        <li><a href="comFaq.html">FAQ</a></li>
+    		        <li class="on"><a href="qna.html">Q&amp;A</a></li>
+    		    </ul>
+            </div>
+            <div class="notice-wrapper">
+                <div class="view_table wow fadeIn" data-wow-duration="1s">
+                    <table class="view_top">
+                        <caption class="sr-only"></caption>
+                        <colgroup>
+        		        	<col style="width:7%">
+        		        	<col style="width:10%">
+        		        	<col style="width:37%">
+        		        	<col style="width:22%">
+        		        	<col style="width:23%">
+        		        </colgroup>
+                        <thead>
+                	      <tr>
+                              {% if query.commentId %}
+                                  <th>{{query.boardNum}}</th>
+                                  <th>{{qas.Branch.branchName}}</th>
+                                  <th class="text-left">{{qas.BoardComments[0].title }}</th>
+                                  <th><img src="/img/icon/icon_hi.png" alt="하이미디어"></th>
+                                  <th>{{qas.BoardComments[0].registDate | date('Y-m-d')}}</th>
+                              {% else%}
+                                  <th>{{query.boardNum}}</th>
+                    		      <th>{{qas.Branch.branchName}}</th>
+                    		      <th class="text-left">{{qas.title}}</th>
+                    		      <th>{{qas.registUserId}}</th>
+                    		      <th>{{qas.registDate | date('Y-m-d')}}</th>
+                              {% endif %}
+                	      </tr>
+                        </thead>
+                        <tbody>
+                	        <tr>
+                		        <td colspan="5">
+                			        <div class="view_cont">
+                                        {% if query.commentId %}
+                                            {{qas.BoardComments[0].content|safe}}
+                                         {% else%}
+                                            {{qas.content|safe}}
+                                        {% endif %}
+                			        </div>
+                		        </td>
+                	        </tr>
+                        </tbody>
+                    </table>
+                    <div class="view_bottom">
+                        <a class="prev" {% if prev %}href="qnaView.html?boardId={{prev}}&branchCode={{query.branchCode}}&searchText={{query.searchText}}&page={{query.page}}"{% endif %}><span class="icon arrow_left red">왼쪽 화살표</span>이전</a>
+                        <a class="list" href="qna.html?branchCode={{query.branchCode}}&searchText={{query.searchText}}&page={{query.page}}">목록<span class="icon list red">리스트(목록)</span></a>
+                        <a class="next" {% if next %}href="qnaView.html?boardId={{next}}&branchCode={{query.branchCode}}&searchText={{query.searchText}}&page={{query.page}}"{% endif %}>다음<span class="icon arrow red">오른쪽 화살표</span></a>
+                    </div>
+                </div>
+                {% if !query.commentId %}
+                    <div class="btns_wrap">
+                        <form action="deleteQna" method="post">
+                            <a class="change" href="qnaWrite.html?boardId={{query.boardId}}&branchCode={{qas.branchCode}}&searchText={{query.searchText}}&page={{query.page}}&correction=true" style="color:white;vertical-align:top;text-align:center;padding:8px 0;">수정</a>
+                            <input type="hidden" name="boardId" value="{{query.boardId}}">
+                            <input type="button" class="delete">
+                            <input type="hidden" class ="deleteUserId" name="deleteUserId" value="{{session.member.userId}}">
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <!-- // 본문 -->
+</div>
+<script>
+    $('.delete').click(function(){
+        $.ajax({
+            method: "POST",
+            url: "deleteIdCheckAtBoard",
+            data: {
+                boardId : '{{query.boardId}}',
+                userId: '{{session.member.userId}}'
+            }
+        })
+        .done(function(msg) {
+            if (!msg.isAccess) {
+                alertMsg('수정 권한이 없습니다.');
+                return false;
+            }else{
+                $('.btns_wrap form').submit()
+            }
+        });
+    });
+</script>
+{% endblock %}

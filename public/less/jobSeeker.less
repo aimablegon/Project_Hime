@@ -1,0 +1,102 @@
+.jobSeeker {
+    .sm-rect-btns-wrapper {
+        margin-bottom: 57px;
+        .sm-rect-btns {
+            width: 32%;
+            font-size: 16px;
+        }
+    }
+
+    .jobSeeker2{
+        .sm-rect-btns-wrapper{
+            margin:57px 0;
+            font-size:0;
+            .sm-rect-btns{
+                width:49%;
+                margin-left:1%;
+                font-size:16px;
+                margin-right:0;
+            }
+            >button.margin{
+                margin-left:0;
+            }
+        }
+        .s-package{
+            >div{
+                display:none;
+            }
+            >div.on{
+                display:block;
+            }
+        }
+        .type-s1{
+            .jobseeker_support{
+                width:763px;
+                margin:0 auto;
+            }
+        }
+        .seeker_intable{
+            text-align: center;
+            table{
+                margin:20px auto;
+                tr{
+                    height:40px;
+                    th{
+                        font-size:@content-size;
+                        &:first-child{
+                            border-left:none;
+                        }
+                    }
+                    td{
+                        font-size: @content-size;
+                        border-bottom:1px solid;
+                        &:first-child{
+                            border-left:none;
+                        }
+                    }
+                }
+            }
+
+        }
+        .jobseeker2_cont{
+            span.title{
+                font-weight: 500;
+                color:inherit;
+            }
+            span{
+                color:@sub-color-second;
+            }
+        }
+    }
+    .subject{
+        font-size:28px;
+    }
+    span.cont{
+        font-size:13px;
+        color:@subject-color;
+        span{
+            color:@content-color;
+        }
+    }
+    @media(max-width:@tablet-size){
+        .subject{
+            font-size:@menu-size+3
+        }
+        .jobSeeker2{
+            .sm-rect-btns-wrapper{
+                margin: 57px auto 0;
+            }
+            .type-s1{
+                .jobseeker_support{
+                    width:97%;
+                    margin:0 auto;
+                }
+            }
+        }
+        .jobseeker_support{
+            li{
+                margin-bottom:30px;
+            }
+        }
+    }
+}

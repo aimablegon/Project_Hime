@@ -1,0 +1,128 @@
+.haseolru {
+    .gray-background {
+        width: 100%;
+        height: auto;
+        background-color: @base-color;
+        vertical-align: middle;
+        position: relative;
+        div {
+            padding-top: 50px;
+        }
+    }
+}
+
+//하설루 viewpage
+
+.haseolru {
+    .icon.redx{
+        background-position  : 0px -148px;
+    }
+    .modalPopup{
+        .btns_wrap{
+            input{
+                padding:12px 28px;
+                margin-right:10px;
+                border:none;
+                color:@white-color;
+                font-weight: @gnb-weight;
+            }
+            input[type="submit"]{
+                background-color: @main-color;
+            }
+            input[type="reset"]{
+                background-color: @sub-color;
+            }
+        }
+    }
+    .gray_bg {
+        width: 100%;
+        height: auto;
+        background-color: @base-color;
+        padding-top: 60px;
+        padding-bottom: 60px;
+        .view_table {
+            table {
+                width: 100%;
+                cpation {
+                    font-size: 0;
+                    text-indent: -9999px;
+                    position: absolute;
+                }
+                th {
+                    text-align: center;
+                    color: @white-color;
+                    height: 50px;
+                    vertical-align: middle;
+                    background: #252e33;
+                    font-weight: @subject-weight;
+                    .text-left {
+                        text-align: left;
+                    }
+                }
+                tbody {
+                    .view_cont {
+                        padding: 50px 0;
+                        text-align: center;
+                        background: @white-color;
+                    }
+                }
+            }
+        }
+    }
+    .bottom_checkbox {
+        margin-top: 60px;
+        p {
+            padding-left: 10px;
+            line-height: 55px;
+            font-size: @summery-size;
+            font-weight: @content-weight
+        }
+        .btns {
+            margin-top: 10px;
+            input {
+                padding: 12px 28px;
+                margin-right: 10px;
+                border: none;
+                color: @white-color;
+                font-weight: @gnb-weight;
+            }
+            input[type="submit"],input[type="button"] {
+                background-color: @main-color;
+            }
+        }
+    }
+    .haseolru_comment {
+        width: 1024px;
+        margin: 0 auto;
+        margin-top: 70px;
+        border-top: 2px solid #7E7D87;
+        border-bottom: 2px solid #7E7D87;
+        margin-bottom: 70px;
+        .comment_box {
+            width: 100%;
+            height: auto;
+            padding-top: 30px;
+            padding-bottom: 30px;
+            border-top: 1px solid #7E7D87;
+            padding-left: 20px;
+            font-size: @menu-size;
+            position: relative;
+            &&:first-child {
+                border-top: 0;
+            }
+            .redline {
+                border: 1px red solid;
+                margin: 0 15px 0 15px;
+                font-size: 10px;
+            }
+            div{
+                position: absolute;
+                right:0;
+            }
+
+            p {
+                padding-top: 20px;
+            }
+        }
+    }
+}

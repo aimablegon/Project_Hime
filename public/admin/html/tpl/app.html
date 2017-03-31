@@ -1,0 +1,103 @@
+<style>
+#indicatorArea {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1000;
+	margin-left: 200px;
+	/*background-color: #ffcb65;
+	opacity : 0.5;
+	*/
+}
+
+.ajax-loader {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -150px; /* -1 * image width / 2 */
+	margin-top: -150px; /* -1 * image height / 2 */
+	display: block;
+
+}
+
+.spinner {
+	width: 100px;
+	height: 100px;
+	position: relative;
+	text-align: center;
+	-webkit-animation: sk-rotate 1.0s infinite linear;
+	animation: sk-rotate 1.0s infinite linear;
+}
+
+.dot1, .dot2 {
+	width: 60%;
+	height: 60%;
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	background-color: #ffcb65;
+	border-radius: 100%;
+	-webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+	animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.dot2 {
+	top: auto;
+	bottom: 0;
+	-webkit-animation-delay: -1.0s;
+	animation-delay: -1.0s;
+}
+@-webkit-keyframes sk-rotate { 100% { -webkit-transform: rotate(360deg) }}
+@keyframes sk-rotate { 100% { transform: rotate(360deg); -webkit-transform: rotate(360deg) }}
+
+@-webkit-keyframes sk-bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bounce {
+  0%, 100% { 
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% { 
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}
+</style>
+<div id="indicatorArea" if-loading>
+	<div class="spinner ajax-loader">
+		<div class="dot1"></div>
+		<div class="dot2"></div>
+	</div>
+</div>
+
+<!-- navbar -->
+<div data-ng-include=" 'tpl/blocks/header.html' "
+	class="app-header navbar"></div>
+<!-- / navbar -->
+
+<!-- menu -->
+<div data-ng-include=" 'tpl/blocks/aside.html' "
+	class="app-aside hidden-xs {{app.settings.asideColor}}"></div>
+<!-- / menu -->
+
+<!-- content -->
+
+<div class="app-content">
+
+	<div ui-butterbar></div>
+	<a href class="off-screen-toggle hide" ui-toggle-class="off-screen"
+		data-target=".app-aside"></a>
+	<div class="app-content-body fade-in-up" ui-view></div>
+</div>
+<!-- /content -->
+
+<!-- footer -->
+<div class="app-footer wrapper b-t bg-light">
+	 <span class="pull-right">{{app.version}} <a href ui-scroll-to="app" class="m-l-sm text-muted"><i class="fa fa-long-arrow-up"></i></a></span>하이미디어학원 - made in freeive &copy; 2016 Copyright.
+</div>
+
+<!-- / footer -->

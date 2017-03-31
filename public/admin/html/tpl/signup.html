@@ -1,0 +1,329 @@
+<script type="text/javascript">
+
+
+	app.controller('MyCtrl', [ '$scope', '$http', '$state', '$cookieStore', '$location',
+		function($scope, $http, $state, $cookieStore, $location) {
+		
+			$scope.data = {
+				Teacher : {}
+			};
+			
+			$scope.submit = function () {
+
+				if(!$scope.data.checkAdminIdResult) {
+					alert("아이디 중복체크를 진행해주세요.");
+					return;
+				}
+				
+				$scope.data.birthDay = new Date($scope.data.birthDayY + "-" + $scope.data.birthDayM + "-" + $scope.data.birthDayD);
+				
+				$http({
+						method : "POST",
+						url : "/admin/api/register",
+						data: $scope.data
+				}).success(function(data) {
+
+					alert("가입 신청이 완료되었습니다.\n지점관리자의 승인 후에 로그인이 가능합니다");
+					$state.go("access.signin");
+					
+				});
+				
+			};
+			
+			$scope.checkId = function () {
+				
+				if(!$scope.data.adminId) {
+					alert("아이디를 입력해주세요.");
+					return;
+				}
+
+				$http({
+						method : "POST",
+						url : "/admin/api/checkId",
+						data: $scope.data
+				}).success(function(data) {
+					$scope.data.checkAdminIdResult = true;
+				}).error(function (data) {
+					$scope.data.checkAdminIdResult = false;
+				});
+				
+			};
+	
+	
+			$scope.removeThumb = function() {
+				$scope.data.AttachFile.delYn = 'Y';
+				$scope.data.fileUUID = null;
+			}
+		    //listen for the file selected event
+		    $scope.$on("fileSelected", function (event, args) {
+		    	
+		    	var files = [];	
+		    	for(i=0;i<args.files.length;i++) {
+		    		files.push(args.files[i]);	
+		    	}
+		    	
+				$http({
+					method : "POST",
+					url : "/admin/api/attach",
+					headers : {'Content-Type': undefined},
+		            transformRequest: function (data, headersGetter) {
+		                var formData = new FormData();
+		                for (var i = 0; i < files.length; i++) {
+		                	formData.append("files", files[i]);
+		                }
+		                return formData;
+		            }
+				}).success(function(data) {
+					
+					for(i=0;i<data.length;i++) {
+						$scope.data.AttachFile = data[i];
+						$scope.data.fileUUID = data[i].fileUUID;
+					}
+					
+				});
+		    });
+		    
+		    $scope.years = [];
+		    for(i=new Date().getFullYear();i>new Date().getFullYear()-100;i--) {
+		    	$scope.years.push({
+		    		key : ""+i,
+		    		value : ""+i
+		    	});
+		    }
+		    
+		
+		}
+	]);
+</script>
+<div class="container w-auto-xs"  ng-controller="MyCtrl">
+	<a href class="navbar-brand block m-t">{{app.name}}</a>
+	<div class="m-b-lg">
+		<div class="wrapper text-center">
+			<strong>직원 및 교강사 가입 신청</strong>
+		</div>
+		<form name="form" class="form-validation" ng-submit="submit()">
+		
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="panel panel-default">
+						<div class="panel-heading font-bold">기본 정보</div>
+						<div class="panel-body">
+		
+							<div class="form-group">
+								<label>이름</label>
+								<input type="text" class="form-control" placeholder="성명을 입력하세요" ng-model="data.name" ng-required="true">
+							</div>
+							<div class="form-group">
+								<label>생년월일</label>
+								<div>
+									<select class="input-sm form-control w-sm inline v-middle pull-left m-r-sm" required="required" ng-model="data.birthDayY"
+									ng-options="year.key as year.value for year in years" >
+										<option value="">년</option>
+									</select>
+									
+									<select class="input-sm form-control w-sm inline v-middle pull-left m-r-sm" required="required" ng-model="data.birthDayM">
+										<option value="">월</option>
+										<option value="01">1</option>
+										<option value="02">2</option>
+										<option value="03">3</option>
+										<option value="04">4</option>
+										<option value="05">5</option>
+										<option value="06">6</option>
+										<option value="07">7</option>
+										<option value="08">8</option>
+										<option value="09">9</option>
+										<option value="10">10</option>
+										<option value="11">11</option>
+										<option value="12">12</option>
+									</select> 
+									<select class="input-sm form-control w-sm inline v-middle"  required="required" ng-model="data.birthDayD">
+										<option value="">일</option>
+										<option value="01">1</option>
+										<option value="02">2</option>
+										<option value="03">3</option>
+										<option value="04">4</option>
+										<option value="05">5</option>
+										<option value="06">6</option>
+										<option value="07">7</option>
+										<option value="08">8</option>
+										<option value="09">9</option>
+										<option value="10">10</option>
+										<option value="11">11</option>
+										<option value="12">12</option>
+										<option value="13">13</option>
+										<option value="14">14</option>
+										<option value="15">15</option>
+										<option value="16">16</option>
+										<option value="17">17</option>
+										<option value="18">18</option>
+										<option value="19">19</option>
+										<option value="20">20</option>
+										<option value="21">21</option>
+										<option value="22">22</option>
+										<option value="23">23</option>
+										<option value="24">24</option>
+										<option value="25">25</option>
+										<option value="26">26</option>
+										<option value="27">27</option>
+										<option value="28">28</option>
+										<option value="29">29</option>
+										<option value="30">30</option>
+										<option value="31">31</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label>연락처</label>
+								<input type="text" name="tel" class="form-control" placeholder="02-0000-0000" ng-model="data.tel" ng-pattern="/([0-9]{2,4})-([0-9]{3,4})-([0-9]{4})$/" >								
+							</div>
+							<div class="form-group">
+								<label>휴대폰</label>	
+								<input type="text" class="form-control" placeholder="010-0000-0000" ng-model="data.phone"  ng-pattern="/([0-9]{3})-([0-9]{3,4})-([0-9]{4})$/" required="required">
+							</div>
+							<div class="form-group">
+								<label>이메일</label>
+								<input type="email" class="form-control" placeholder="sample@himedia.co.kr" ng-model="data.email" required="required">
+							</div>
+							
+							<div class="form-group">
+								<label>아이디</label>
+								<div class="input-group">
+		              				<input type="text" class="form-control" placeholder="영문 or 숫자 3~20자" ng-model="data.adminId" ng-required="true" ng-pattern="/^[a-zA-Z0-9]{3,20}$/" ng-change="data.checkAdminIdResult = null;">
+		           					<span class="input-group-btn">
+										<button type="button" class="btn btn-default" ng-class="data.checkAdminIdResult ? 'btn-success' : data.checkAdminIdResult == false ? 'btn-danger' : 'btn-default'" ng-click="checkId()">
+											<span class="text" ng-hide="data.checkAdminIdResult">중복확인</span>
+											<span  ng-show="data.checkAdminIdResult">
+												<i class="fa fa-check"></i><span class="text">확인완료</span>
+											</span>
+										</button>
+		           					</span>
+		            			</div>
+		            			<span class="help-block m-b-none text-danger" ng-show="data.checkAdminIdResult == false">사용 불가능한 아이디입니다.</span>
+							</div>
+							
+							<div class="form-group">
+								<label>비밀번호</label>
+								<input type="password" class="form-control" placeholder="영문 or 숫자 8~20자" ng-minlength="8" ng-maxlength="20" name="pwd" ng-model="data.pwd" ng-required="true">
+							</div>		
+							<div class="form-group">
+								<label>비밀번호 확인</label>
+								<input type="password" class="form-control" placeholder="영문 or 숫자 8~20자" ng-minlength="8" ng-maxlength="20" name="pwdCheck" ng-model="data.pwdCheck" ng-required="true" ui-validate=" '$value==data.pwd' " ui-validate-watch=" 'data.pwd' ">
+								<span ng-show='data.pwdCheck.length >= 8 && form.pwdCheck.$error.validator'>비밀번호가 맞지 않습니다.</span>					
+							</div>		
+							<div class="form-group">
+								<label>사진</label>
+								<div class="wrapper-sm b-a bg-white m-r-xs m-b-xs">
+									<div class="bg-light">
+										<div id="horizontal-container">
+										    <div ng-show="data.AttachFile && data.AttachFile.delYn != 'Y'" style="width:315px;">
+									            <img ng-src="{{data.AttachFile.url}}" style="width:315px;vertical-align:middle;height:405px;">
+									            <button type="button" ng-click="removeThumb()" style="width:100%;" class="btn btn-default">삭제</button>
+										    </div>
+										</div>
+										<div class="bg-light text-center v-center" ng-show="!data.AttachFile || data.AttachFile.delYn == 'Y'" style="width:100%;height:405px; line-height:405px;font-size:36px">315 x 405</div>
+										<input ui-jq="filestyle" type="file" accept="image/*" data-icon="false" data-classButton="btn btn-default" data-classInput="form-control v-middle input-s" file-upload>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					
+					
+					<div class="panel panel-default">
+						<div class="panel-heading font-bold">직원/강사 정보</div>
+						<div class="panel-body">
+		
+							<div class="form-group">
+								<label>구분</label>
+								<div class="radio" ng-init="data.adminType = 'ADMIN_TYPE_OFFICER'">
+									<label class="i-checks">
+										<input type="radio" name="type" value="ADMIN_TYPE_OFFICER" ng-model="data.adminType"> <i></i> 직원
+									</label>
+									<label class="i-checks m-l-sm">
+										<input type="radio" name="type" value="ADMIN_TYPE_TEACHER" ng-model="data.adminType"> <i></i> 강사
+									</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label>지점</label>
+								<select class="input-sm form-control v-middle" ng-required="true"
+									ng-options="branch.branchCode as branch.branchName for branch in branches2"
+									ng-model="data.branchCode">
+									<option value="" disabled="disabled" style="display:none;">선택하세요</option>
+								</select>
+							</div>
+							<div class="form-group" ng-show="data.adminType == 'ADMIN_TYPE_OFFICER'">
+								<label>부서</label>
+								<select class="input-sm form-control v-middle" ng-required="data.adminType == 'ADMIN_TYPE_OFFICER'"
+									ng-options="items.codeId as items.codeName for items in codes.DEPT.list"
+									ng-model="data.dept">
+									<option value="" disabled="disabled" style="display:none;">선택하세요</option>
+								</select>
+							</div>
+							<div class="form-group" ng-show="data.adminType == 'ADMIN_TYPE_OFFICER'">
+								<label>직책</label>	
+								<select class="input-sm form-control v-middle" ng-required="data.adminType == 'ADMIN_TYPE_OFFICER'"
+									ng-options="items.codeId as items.codeName for items in codes.DUTY.list"
+									ng-model="data.duty">
+									<option value="" disabled="disabled" style="display:none;">선택하세요</option>
+								</select>
+							</div>
+							<div class="form-group" ng-show="data.adminType == 'ADMIN_TYPE_OFFICER'">
+								<label>직위</label>	
+								<select class="input-sm form-control v-middle" ng-required="data.adminType == 'ADMIN_TYPE_OFFICER'"
+									ng-options="items.codeId as items.codeName for items in codes.POS.list"
+									ng-model="data.pos">
+									<option value="" disabled="disabled" style="display:none;">선택하세요</option>
+								</select>
+							</div>
+							<div class="form-group" ng-show="data.adminType == 'ADMIN_TYPE_OFFICER'">
+								<label>내선번호</label>	
+								<input type="text" class="form-control" placeholder="000" ng-model="data.extension"  ng-pattern="/([0-9]{3})$/" ng-required="data.adminType == 'ADMIN_TYPE_OFFICER'">
+							</div>
+							
+							<div class="form-group" ng-show="data.adminType == 'ADMIN_TYPE_TEACHER'">
+								<label>분야</label>	
+								<select class="input-sm form-control v-middle" ng-required="data.adminType == 'ADMIN_TYPE_TEACHER'"
+									ng-options="field.fieldId as field.fieldName for field in fields"
+									ng-model="data.Teacher.fieldId" required="required">
+									<option value="" disabled="disabled" style="display:none;">선택하세요</option>
+								</select>
+							</div>
+							<div class="form-group" ng-show="data.adminType == 'ADMIN_TYPE_TEACHER'">
+								<label class="control-label">실무경력</label>
+								<textarea class="form-control" rows="5" placeholder="ex)&#13;&#10;현 XX회사 신규사업 개발자&#13;&#10;OO클라우드 프론트엔드 개발" ng-model="data.Teacher.career"></textarea>
+							</div>
+							<div class="form-group" ng-show="data.adminType == 'ADMIN_TYPE_TEACHER'">
+								<label class="control-label">강의경력</label>
+								<textarea class="form-control" rows="5" placeholder="ex)&#13;&#10;현 XX학원 강의&#13;&#10;OO기업 강의" ng-model="data.Teacher.lectureExp"></textarea> 
+							</div>
+							<div class="form-group" ng-show="data.adminType == 'ADMIN_TYPE_TEACHER'">
+								<label class="control-label">자격사항</label>
+								<textarea class="form-control" rows="5" placeholder="ex)&#13;&#10;컴퓨터그래픽스운용기능사&#13;&#10;" ng-model="data.Teacher.certificate"></textarea> 
+							</div>				
+							<div class="form-group" ng-show="data.adminType == 'ADMIN_TYPE_TEACHER'">
+								<label class="control-label">저서</label>
+								<textarea class="form-control" rows="5" placeholder="ex)&#13;&#10;초보자를 위한 XX 입문" ng-model="data.Teacher.books"></textarea>
+							</div>
+							
+						</div>
+					</div>
+					
+					<div>
+						<p style="color:red; text-align:right">※모든 입력창이 녹색이고 아이디 중복확인을 완료하셔야 가입 신청이 가능합니다.</p>
+						<p style="color:red; text-align:right">※가입신청 후 로그인은 지점 관리자의 승인 후에 가능합니다.</p>						
+					</div>
+					<button type="submit" class="btn btn-lg btn-primary btn-block" ng-disabled='form.$invalid'>가입 신청</button>
+				
+				</div>
+				
+			</div>
+	
+
+		</form>
+	</div>
+	<div class="text-center" ng-include="'tpl/blocks/page_footer.html'">
+		{% include 'blocks/page_footer.html' %}</div>
+</div>

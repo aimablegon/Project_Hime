@@ -1,0 +1,486 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta property="og:url" content="https://himedia.co.kr/">
+    <meta property="og:title" content="하이미디어컴퓨터학원">
+    <meta property="og:type" content="himedia">
+    <meta property="og:image" content="/img/unit/meta_img.png">
+    <meta property="og:description" content="IT국가기관전략사업 컴퓨터학원 하이미디어">
+    <meta name="description" content="IT국가기관전략사업 컴퓨터학원 하이미디어">
+    <meta name="keywords" content="컴퓨터학원,국가기관전략사업,웹퍼블리셔,전산세무회계,게임,사무자동화,OA,자격증,편집디자인,영상,실내건축,기계설계,국비지원,실무">
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/lib/bootstrap-3.3.2-dist/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/js/ie.js"></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/mobileScript.js"></script>
+    <script src="/js/swiper.min.js"></script>
+    <script src="/js/wow.min.js"></script>
+    <script src="/js/jquery-ui.js"></script>
+    <script src="/js/scrollspy.js"></script>
+    <link rel="icon" href="/img/icon/favicon.png">
+    <link rel="stylesheet" href="/css/animate.css" />
+    <link rel="stylesheet" href="/css/swiper.min.css" />
+    <link rel="stylesheet" href="/lib/bootstrap-3.3.2-dist/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery-ui.css" />
+    <link rel="stylesheet" href="/css/font.css" />
+    <link rel="stylesheet" type="text/css" href="/css/site_style.css" />
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!--[if lt IE 9]>
+        <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
+    <![endif]-->
+    <title>하이미디어 컴퓨터학원</title>
+</head>
+<body>
+    {% if isMain == 1 and popups.length != 0%}
+    <div class="top_banner">
+        <div class="top_banner_Wrap">
+
+            <div id="carousel-top_banner" class="carousel slide fadebanner">
+
+              <!-- Wrapper for slides -->
+                <ul class="" >
+			{% for popup in popups %}
+	                    <li class="item {% if loop.first %}active{% endif %}">
+	                        <div style="background:url('{{popup.AttachFile.url}}') 50% no-repeat;">
+	                            <div class="top_btn_location">
+					{{ popup.linkUrl | safe }}
+	                            </div>
+	                        </div>
+	                    </li>
+			{% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="button_wrap">
+            <button class="close close_btn">
+                <img src="/img/icon/topbanner_btn.png" alt="닫기">
+            </button>
+            <button class="close_today close_btn">
+                오늘 하루 안보기
+            </button>
+        </div>
+    </div>
+    {% endif %}
+    <div class="wrapper" id="top_btn">
+        <!-- gnb -->
+        <div class="gnb_wrap">
+        <div class="gnb">
+            <div class="innerwrap">
+                <nav>
+                    <ul class="chain"  id="campus_nav">
+                        {% for branch in branches %}
+                                <li  {%if branchCode == branch.branchCode%}class="on"{%endif%}>
+                                    <a href="/{{branch.branchCode}}/main.html">
+
+                                    {%if branch.branchCode == 'himedia' %}
+                                     <!-- 여기에 아이콘 넣으세요 -->
+                                    	<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                                    {%endif%}
+
+                                    	{{branch.branchName}}</a>
+                                    <span class="moblie_en">{{branch.branchCode}} campus</span>
+
+                                </li>
+                        {% endfor %}
+                    </ul>
+                    <ul class="option">
+                    {% if session.member %}
+                        <li><a href="logout">로그아웃</a></li>
+                        <li><a href="myPage.html">마이페이지</a></li>
+                    {% else %}
+                        <li><a href="login.html">로그인</a></li>
+                        <li><a href="join.html">회원가입</a></li>
+                    {% endif %}
+
+                    	<li class="option_btn">
+                    		<form action="search.html" method="get" id="searchForm">
+					<p class="btn_search">
+						<a class="searchBtn" style="cursor:pointer">
+							<img alt="검색" src="/img/icon/icon_search.png">
+						</a>
+						<input id="totalSearch" placeholder="검색" type="text" name="searchText" value="{{query.searchText}}">
+					</p>
+				</form>
+                        </li>
+                       </ul>
+                </nav>
+            </div>
+        </div>
+        </div>
+        <!-- gnb end -->
+        <div class="lnb">
+            <div class="lnb-header">
+                <div class="innerwrap">
+                    <h1 class="logo">
+                        <a href="main.html">
+                        <span class="logo_img"></span>
+                        </a>
+                    </h1>
+
+                    {% if isMain == 1 %}
+                    <div class="main_quick">
+                        <ul>
+                            <li class="call">
+                                <a href="">
+                                    <img src="/img/site_img/main_quick1.png" alt="">
+					{%for branch in branches%}
+						{%if branchCode == branch.branchCode%}
+							{{branchInfo.tel}}
+						{%endif%}
+					{%endfor%}
+                                </a>
+                                <button class="c_btn"></button>
+                            </li>
+                            <li class="edue">
+                                <a href="http://www.edupass.or.kr/" target="_blank">
+                                    애듀패스<br>(온라인 수강)
+                                    <img src="/img/site_img/main_quick2.png" alt="">
+                                </a>
+                                <button class="c_btn"></button>
+                            </li>
+                            <li class="info">
+                                <a href="recruitInfo.html">
+                                    <img src="/img/site_img/main_quick3.png" alt="">
+                                    채용정보
+                                </a>
+                                <button class="c_btn"></button>
+                            </li>
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                    <div class="menu">
+                        <nav>
+                            <div class="pc_none menu_btns">
+                                {% if session.member %}
+                                <div class="info_btns">
+                                    <button class="menu_btns1" onclick="location.href='logout'">로그아웃</button>
+                                    <button class="menu_btns2" onclick="location.href='myInfo.html'">마이페이지</button>
+                                </div>
+                                {% else %}
+                                <div class="info_btns">
+                                    <button class="menu_btns1" onclick="location.href='login.html'">로그인</button>
+                                    <button class="menu_btns2" onclick="location.href='join.html'">회원가입</button>
+                                </div>
+                                {% endif %}
+                                <div class="moblie_close">
+                                    <button>닫기버튼</button>
+                                </div>
+                            </div>
+                            <ul>
+                                <li class="tab-menu pc_none"><a href="#">캠퍼스선택</a>
+                                    <ul class="snb1 mobile_campus">
+                                        {% for branch in branches %}
+                                            {%if branchCode == branch.branchCode%}
+                                                <li class="on m_campus_menu">
+                                                    <a href="/{{branch.branchCode}}/main.html">{{branch.branchName}}</a><span>/</span>
+                                                    <!---->
+                                                </li>
+                                            {%else%}
+                                                <li class="m_campus_menu">
+                                                    <a href="/{{branch.branchCode}}/main.html">{{branch.branchName}}</a><span>/</span>
+                                                </li>
+                                            {%endif%}
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                {% for branch in branches %}
+                                    {%if branchCode == branch.branchCode%}
+                                        {%if branch.branchCode == 'himedia' %}
+                                            <li class="tab-menu pc_first"><a href="#">{{branch.branchName}}</a>
+                                                <ul class="snb1">
+                                                    <li><a href="intro.html">하이미디어 소개</a></li>
+                                                    <li><a href="campusIntro.html" class="hit">캠퍼스 소개</a></li>
+                                                    <li><a href="allTeacher.html">전체 강사 소개</a></li>
+                                                    <li><a href="recruit.html">채용안내</a></li>
+                                                    <li><a href="franchise.html">프랜차이즈 안내</a></li>
+                                                </ul>
+                                            </li>
+                                        {%else%}
+                                            <li class="on tab-menu pc_first"><a href="#">{{branch.branchName}}캠퍼스</a>
+                                                <ul class="snb1">
+                                                    <li><a href="campusIntro.html" class="hit">{{branch.branchName}}캠퍼스 소개</a></li>
+                                                    <li><a href="allTeacher.html">강사 소개</a></li>
+                                                </ul>
+                                            </li>
+                                        {%endif%}
+                                    {%endif%}
+                                {% endfor %}
+                                <li class="tab-menu"><a href="#">교육과정</a>
+                                    <ul class="snb2">
+                                        <li><a href="courseMain.html">교육과정 소개</a></li>
+                                        <li><a href="jobSeeker.html" class="hit">구직자 국비지원과정</a></li>
+                                        <li><a href="worker.html">직장인 국비지원과정</a></li>
+                                        <li><a href="general.html">학생 및 일반과정</a></li>
+                                    </ul>
+                                </li>
+                                <li class="tab-menu"><a href="#">포트폴리오</a>
+                                    <ul class="snb3">
+                                        {% for portfolio in codes.PORTFOLIO_FIELD.list %}
+                                            <li><a href="portfolio.html?codeId={{portfolio.codeId}}">{{portfolio.codeName}}</a></li>
+                                        {% endfor %}
+                                        <!-- <li><a href="editDesign.html">편집 디자인</a></li>
+                                        <li><a href="interior.html">실내건축</a></li>
+                                        <li><a href="productDesign.html">제품디자인</a></li> -->
+                                    </ul>
+                                </li>
+                                <li class="tab-menu"><a href="#">취업지원센터</a>
+                                    <ul class="snb4">
+                                        <li><a href="jobCenter.html">취업지원센터</a></li>
+                                        <li><a href="jobFaq.html">FAQ</a></li>
+                                        <li><a href="recruitInfo.html">채용정보</a></li>
+                                        <li><a href="saramin.html">사람인채용정보</a></li>
+                                        <!-- <li><a href="talentInfo.html">인재 정보</a></li> -->
+                                        <li><a href="postscript.html">취업생 인터뷰</a></li>
+                                        <li><a href="condition.html">취업현황</a></li>
+                                    </ul>
+                                </li>
+                                <li class="tab-menu"><a href="#">고객센터</a>
+                                    <ul class="snb5">
+                                        <li><a href="notice.html">공지사항/이벤트</a></li>
+                                        <li><a href="askCost.html">수강료 조회</a></li>
+                                        <li><a href="askTime.html">시간표 조회</a></li>
+                                        <li><a href="onlineCounsel.html">온라인 상담</a></li>
+                                        <li><a href="onlinePay.html">온라인 결제</a></li>
+                                        <!-- <li><a href="comFaq.html">FAQ</a></li> -->
+                                        <li><a href="qna.html">Q&amp;A</a></li>
+                                    </ul>
+                                </li>
+                                <li class="tab-menu"><a href="#">하이커뮤니티</a>
+                                    <ul class="snb6">
+                                        <li><a href="review.html">수강 후기</a></li>
+                                        <!-- <li><a href="studentInterview.html">학생 인터뷰</a></li> -->
+                                        <!-- <li><a href="teacherInterview.html">강사 인터뷰</a></li> -->
+                                        <li><a href="haseolru.html">하설루</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="close-snb">
+                                <span>close</span>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="mobile_btn_wrap">
+                        <button class="campus_btn">CAMPUS</button>
+                        <span></span>
+                        <button class="menu_btn"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- lnb end -->
+        <div id="content">
+
+            {% block content %}{% endblock %}
+
+            <!--quick_sub-->
+        </div>
+        <!-- footer -->
+        <div class="footer">
+            <div class="top">
+                <div class="logo">
+                    <a href="main.html"><img src="/img/unit/logo_footer.png" alt="하이미디어 로고"></a>
+                </div>
+                <div class="info-link-box">
+                    <div>
+                    <!-- <div class="left"> -->
+                        <a class="float_left" href="service.html">이용약관</a>
+                        <a class="float_right" href="privacy.html"><span class="txt-red">개인정보처리방침</span></a>
+
+                        <!-- <a href="#">이메일무단수집거부</a> -->
+                    <!-- </div> -->
+                    <!-- <div class="right"> -->
+                        <button modallink="foot_modal1" class="modallink2 footerCooperate float_right border_none">제휴문의</button>
+                        <button  modallink="foot_modal2" class="modallink footerEmail float_left">이메일무단수집거부</button>
+                        <!-- <a href="#">제휴문의</a> -->
+                        <!-- <a href="footerFranchise.html">프랜차이즈모집문의</a> -->
+                        <button modallink="foot_modal3" class="modallink2 footerFranchise float_left">프랜차이즈모집문의</button>
+                        <a href="notice.html" class="float_right border_none">고객지원</a>
+                    <!-- </div> -->
+                    </div>
+                </div>
+                <div class="address">
+                    {% for branch in branches %}
+                        {%if branchCode == branch.branchCode%}
+                            <address>{{branch.address}} (주)하이미디어컴퓨터학원</address>
+                            <p>사업자등록번호: {{branch.licenseNumber}} / 통신판매업신고 : {{branch.mallNumber}}</p>
+                            <p>학원등록번호 : {{branch.academyNumber}} / 대표자 : {{branch.ceoName}}</p>
+                            <p class="copyright">COPYRIGHT ⓒHIMEDIA COMPUTER INSTITUTE. ALL RIGHTS RESERVED</p>
+                        {%endif%}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="sns-link">
+                <div class="inner">
+                    <a href="https://www.youtube.com/channel/UC9L81llQqmVHFSQebBTdD5Q"><img src="/img/icon/icon_footer_youtube.png" alt="유튜브 아이콘"></a>
+                    <a href="https://www.facebook.com/%ED%95%98%EC%9D%B4%EB%AF%B8%EB%94%94%EC%96%B4%EC%BB%B4%ED%93%A8%ED%84%B0%ED%95%99%EC%9B%90-183703775167103/"><img src="/img/icon/icon_footer_facebook.png" alt="페이스북 아이콘"></a>
+                    <a href="https://www.instagram.com/himedia1993"><img src="/img/icon/icon_footer_instagram.png" alt="인스타그램 아이콘"></a>
+                    <a href="https://twitter.com/himediacom"><img src="/img/icon/icon_footer_twitter.png" alt="트위터 아이콘"></a>
+                </div>
+            </div>
+        </div>
+        <!-- end footer -->
+    </div>
+    <!-- end wrapper -->
+
+    <div class="modal_foot modalPopup2" id="foot_modal1">
+        <div class="modal_body"></div>
+        <!-- 타이틀 -->
+    </div>
+    <div class="modal_foot modalPopup" id="foot_modal2" style="margin-left:-282px;margin-top:-152px;">
+        <div class="modal_body"></div>
+        <!-- 타이틀 -->
+    </div>
+    <div class="modal_foot modalPopup2" id="foot_modal3">
+        <div class="modal_body"></div>
+        <!-- 타이틀 -->
+    </div>
+    {% if isMain !=  1 %}
+	<div class="quick_sub">
+		<p id="branchTel">
+		{{branchInfo.tel}}
+		</p>
+	       		 <ul>
+				<li>
+	                <a href="http://www.edupass.or.kr/" target="_blank">
+	                    <img src="/img/site_img/sub_quick2.png" alt="">
+	                    애듀패스<br>(온라인수강)
+	                </a>
+	            </li>
+	            <li>
+	                <a href="recruitInfo.html">
+	                    <img src="/img/site_img/sub_quick3.png" alt="">
+	                    채용정보
+	                </a>
+	            </li>
+	            <li>
+	                <a href="onlinePay.html">
+	                    <img src="/img/site_img/sub_quick4.png" alt="">
+	                    온라인결제
+	                </a>
+	            </li>
+	        </ul>
+	        <a href="#top_btn">
+	            <span>TOP</span>
+	        </a>
+	    </div>
+	</div>
+	{% endif%}
+
+<script>
+    //login href
+    var exUrl = '{{menuUrl}}'.split('/');
+    var query = {{JSON.stringify(query,0,4)}};
+
+    exUrl = exUrl[exUrl.length - 1].split('.')[0];
+    if(query.length != 0){
+	var queryLen = 0;
+        var temp = '';
+        var j = 0;
+        for(i in query){
+        	queryLen++;
+        }
+        for(i in query){
+            j == 0 ? temp += '&' : '';
+            temp += i;
+            temp += '=';
+            temp += query[i];
+            j++;
+            j !=  queryLen ? temp += '&' : '';
+        }
+        $('.gnb a[href="login.html"]').attr('href','login.html?exUrl='+exUrl+'.html'+temp);
+    }else{
+        $('.gnb a[href="login.html"]').attr('href','login.html');
+    }
+
+
+    //tab on
+    function tabOn(){
+        var addr = location.href.split('/');
+        addr = addr[addr.length - 1].split('.')[0];
+
+        if(addr == 'login' || addr == 'join'){
+            var exUrl = '{{query.exUrl}}';
+            addr = exUrl.split('.')[0];
+        };
+        $('.menu .tab-menu a').each(function(i,e){
+
+            if($(e).attr('href') == addr+'.html'){
+                $(e).parents('.tab-menu').addClass('on').siblings().removeClass('on');
+            }else{
+                if( $(e).attr('href') == addr.split('View')[0]+'.html' ){
+                    $(e).parents('.tab-menu').addClass('on').siblings().removeClass('on');
+                };
+                if( $(e).attr('href') == addr.split('Detail')[0]+'.html' ){
+                    $(e).parents('.tab-menu').addClass('on').siblings().removeClass('on');
+                };
+            };
+        });
+        if( $('.tab.tab-customer li.on').length != 0 ){
+            $('.snb5').parent('.tab-menu').addClass('on').siblings().removeClass('on');
+        };
+        if(addr == 'main' || addr == 'history' || addr == 'identity'){
+            $('.snb1').parent('.tab-menu').addClass('on').siblings().removeClass('on');
+        };
+        if(addr == 'condition'){
+            $('.snb4').parent('.tab-menu').addClass('on').siblings().removeClass('on');
+        }
+    };
+    tabOn();
+
+    //mobile_캠퍼스메뉴
+    for(i=0;i<$('.m_campus_menu').length;i++){
+        if( i%4 == 3 && i != 0){
+            $('.m_campus_menu').eq(i).find('span').css('display','none');
+        }
+    }
+
+    //전화번호
+    var tel = $('#branchTel').text();
+    tel = tel.replace(/-/g,'.<br>');
+    $('#branchTel').html(tel);
+
+    //검색
+    var clickTime=0;
+    $('.searchBtn').click(function(){
+    	if(clickTime > 0){
+    		if(!$('#totalSearch').val()){
+        		alertMsg('검색어를 입력하세요');
+        	}else{
+        		location.href="search.html?searchText="+$('#totalSearch').val();
+        	}
+    	}
+    	clickTime++;
+    	return false;
+    });
+</script>
+<script>
+	if(location.href.indexOf('himedia.co.kr') > -1) {
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		  	  var title = document.title;
+		  	  if($(".class-title div").length > 0) {
+		  		 title = '과정-' + $(".class-title div:first").text();
+		  	  }else if($('.title-l h1').length > 0) {
+		  		 title = $('.title-l h1').text();
+		  	  }
+
+			  ga('create', 'UA-96192802-1', 'auto');
+			  ga('send', 'pageview', {
+				  title : title
+			  });
+	}
+</script>
+</body>
+</html>

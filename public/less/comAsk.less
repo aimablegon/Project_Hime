@@ -1,0 +1,25 @@
+.comAsk{
+	.btns_wrap{
+		margin:41px 0 60px;
+		text-align: center;
+		input{
+			width:80px;
+			height:41px;
+			color:@white-color;
+			text-align: center;
+			font-size:16px;
+			font-weight: @gnb-weight;
+			margin-left:10px;
+			border:0;
+			&&[type="submit"]{
+				background-color:@main-color;
+			}
+			&&[type="cancle"]{
+				background-color:#252e33;
+			}
+		}
+	}
+	@media(max-width:@tablet-size){
+		select{width:95px;}
+	}
+}

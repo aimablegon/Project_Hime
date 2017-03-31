@@ -1,0 +1,194 @@
+.onlineCounsel{
+    .onlineCounsel_bg{
+        background:@base-color;
+        width:100%;
+        padding-bottom:40px;
+    }
+    .page1_tab{
+        margin-bottom:70px;
+        p{
+            width:1024px;
+            margin:0 auto;
+            font-size:@summery-size;
+            margin-bottom:20px;
+            font-weight:@gnb-weight;
+            line-height: 18px;
+        }
+        >button{
+            padding:30px 0 0 0;
+            display:block;
+            margin:0 auto;
+            background:none;
+            text-align: left;
+            border:none;
+            font-weight:@gnb-weight;
+            font-size:@summery-size;
+
+            span{
+                display:none;
+            }
+        }
+        .tab{
+            margin:0 auto;
+            ul {overflow:hidden;}
+            li {
+                float: left;
+                margin-left:5px;
+                &&:first-child{
+                    margin-left:0
+                }
+                button {
+                    display:block;
+                    width:100%;
+                    height:50px;
+                    color:@subject-color;
+                    font-weight:@gnb-weight;
+                    text-align: center;
+                    vertical-align: middle;
+                    background:@white-color;
+                    padding: 0 20px;
+                }
+                &:hover {
+                    button {
+                        background:@sub-color-first;
+                        color:@white-color;
+                    }
+                }
+            }
+            li.on {
+                button {
+                    color:@white-color;
+                    background:@main-color;
+                }
+            }
+        }
+    }
+    .finishcont{
+        border:1px solid #7e7d87;
+        border-width: 2px 0 2px 0;
+        width:750px;
+        margin: 0 auto;
+        text-align: center;
+        padding:70px 0;
+        line-height:23px;
+        >img{
+            margin-bottom:40px;
+        }
+        .title{
+            font-size:@summery-size;
+            line-height:30px;
+            span{
+                font-weight: @gnb-weight;
+            }
+        }
+        .sub_title{
+            font-size:@menu-size;
+        }
+        .call{
+            margin-top:20px;
+            font-size:@summery-size;
+            img{margin-right:9px}
+        }
+    }
+    .btn_wrap{
+        text-align: center;
+        padding:30px 0;
+        button{
+            width:100px;
+            height:50px;
+            &&:hover{
+                background:@main-color;
+                span{background-position: -80px 0;}
+            }
+        }
+    }
+    @media(max-width:@tablet-size){
+        form{
+            padding:0 1%;
+        }
+        .page1_tab{
+            margin-bottom:20px;
+            >p{
+                display: none;
+            }
+            p#noResult{
+                 background:@base-color;
+                 width:100%;
+             }
+            >button{
+                padding-top:0;
+                height:40px;
+                margin:0 auto;
+                padding:0;
+            }
+            .tab{
+                li{
+                    margin-left:0;
+                    float:none;
+                }
+            }
+        }
+        .finishcont{
+            width:90%;
+            .title{
+                font-size:18px;
+            }
+            .call{
+                font-size:18px;
+            }
+        }
+        .dropdown{
+            width:300px !important;
+            >button{
+                .ellipsis();
+                padding-right:35px !important;
+            }
+        }
+    }
+}
+
+
+.onlineCounselinner{
+    .inputtable_wrap{
+        margin-top:70px;
+    }
+    .ui-datepicker-trigger{
+        margin-left:7px;
+    }
+    .ui-widget-header .ui-icon-circle-triangle-w{ background:url("/img/icon/ui-icons_444444_256x240.png");background-position: -80px -192px;}
+    .ui-widget-header .ui-icon-circle-triangle-e{background:url("/img/icon/ui-icons_444444_256x240.png");background-position: -48px -192px;}
+}
+.onlineCounselStep3{
+    .btn_wrap{
+        text-align: center;
+        padding:30px 0;
+        button{
+            width:80px;
+            height:40px;
+            &&:hover{
+                background:@main-color;
+                span{background-position: -80px 0;}
+            }
+        }
+    }
+    @media(max-width:@tablet-size){
+        .w_calp{
+            margin-bottom:5px;
+        }
+    }
+}
+
+
+//온라인상담 완료페이지
+.onlineCounselFinish{
+    .btns_wrap{
+        text-align: center;
+        padding:70px 0 40px;
+        font-size:0;
+        .common_btn{
+            padding:0 21px;
+            width:auto;
+        }
+    }
+}
+//커밋

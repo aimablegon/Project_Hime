@@ -1,0 +1,127 @@
+<div class="footerCooperate footer-modal">
+    <!-- 타이틀 -->
+    <div class="modal-title text-right">
+        <span class="title-box text-left">제휴문의</span>
+        <span class="close-box"><a href="#" class="modal2-closeBtn">close<i class="icon close-x red"></i></a></span>
+        <div class="clearfix"></div>
+    </div>
+    <!-- 바디 -->
+    <div class="modal-body">
+        <div class="bodal-body-wrapper text-center">
+            보다 자세하게 문의를 원하시면   info@himedia.co.kr로 메일을 보내주시거나<br>
+            고객센터 1588-7805로 연락주시면 친절히 안내해 드립니다.<br/><br/>
+        </div>
+        <div class="inputtable_wrap">
+            <form action="writeCooperate" method="post" class="input_fromwrap" id="footer2">
+                <fieldset class="input_tablewrap">
+                    <legend class="sr-only">프랜차이즈 모집</legend>
+                    <table class="input_table">
+                        <caption>제목,이름,이메일,내용,개인정보수집동의로 구성된 표입니다.</caption>
+                        <colgroup>
+                            <col width="30%">
+                            <col width="70%">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <label for="cooperate_title2">제목</label>
+                                </th>
+                                <td>
+                                    <p class="input_wrap" style="width:100%">
+                                        <input id="cooperate_title2" type="text" name="title" required/>
+                                        <button type="button" class="input_del">삭제버튼</button>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="cooperate_name2">이름</label>
+                                </th>
+                                <td>
+                                    <p class="input_wrap w_30p">
+                                        <input id="cooperate_name2" type="text" name="writer" value="{%if session.member.userName%}{{session.member.userName}}{%endif%}" required/>
+                                        <button type="button" class="input_del">삭제버튼</button>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="cooperate_email2">이메일</label>
+                                </th>
+                                <td>
+                                    <p class="input_wrap" style="width:100%">
+                                        <input id="cooperate_email2" type="text" name="email" value="{%if session.member.userEmail%}{{session.member.userEmail}}{%endif%}" required/>
+                                        <button type="button" class="input_del">삭제버튼</button>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="cooperate_Cont2">내용</label>
+                                </th>
+                                <td>
+                                    <p class="input_wrap" style="width:100%">
+                                        <textarea id="cooperate_Cont2" name="content" required></textarea>
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="bottom_checkbox">
+                        <p>개인정보 처리방침 동의 (*필수)</p>
+                        <div class="cont">
+                            개인정보 처리방침<br><br>
+
+                            [개인정보의 수집 및 이용목적] <br><br>
+
+                            "개인정보"라 함은 생존하는 개인에 관한 정보로서, 당해 정보에 포함되어 있는 성명, EMail 등의 사항에 의하여 당해 개인을 식별할 수 있는 정보(당해 정보만으로는 특정 개인을 식별할 수 없더라도 다른 정보와 용이하게 결합하여 식별할 수 있는 것을 포함)를 말합니다.
+                            회사는 서비스(게임, 홈피, 아바타, 쇼핑몰) 등을 통하여 이용자들에게 맞춤식 서비스를 비롯한, 보다 더 향상된 양질의 서비스를 제공하기 위하여 이용자 개인의 정보를 수집하고 있습니다.
+                            회사는 이용자의 사전 동의 없이는 이용자의 개인정보를 함부로 공개하지 않으며, 수집된 정보는 아래와 같이 이용하고 있습니다. <br><br>
+
+                            첫째 이용자들이 제공한 개인정보를 바탕으로 보다 더 유용한 서비스를 개발할 수 있습니다.<br>
+                            회사는 신규 서비스개발이나 컨텐츠의 확충 시에 기존 이용자들이 회사에 제공한 개인정보를 바탕으로 개발해야 할 서비스의 우선 순위를 보다 더 효율적으로 정하고, 이용자들이 필요로 하는 컨텐츠를 합리적으로 선택하여 제공할 수 있습니다.<br><br>
+
+                            둘째 이용자들이 등록하신 개인정보는 서비스와 관련된 뉴스, 이벤트, 업데이트 등의 소식을 받아보실 수 있도록 이용자님의 동의를 구하고 발송하는 뉴스레터 등 서비스를 보다 원활하게 제공하기 위한 목적으로 사용됩니다.<br><br>
+
+                            셋째 회사는 게임 및 각종 무료 서비스를 제공하기 위해서 광고를 게재하고 있는데, 이용자들에 대한 정확한 개인정보를 바탕으로 각 서비스나 메뉴 등에 적절하게 광고와 내용들을 전달해 드릴 수 있으며, 이것은 궁극적으로 이용자 여러분들께 드리는 또 하나의 정보로서의 가치를 지니게 됩니다.
+                            회사는 광고주들로부터 광고를 받아 광고주들이 대상으로 하려는 이용자의 유형에 맞게 광고를 보여줄 뿐, 광고주들에게는 절대로 이용자들의 개인정보를 보여주거나 공하지 않습니다.<br><br>
+
+                            넷째 이용자의 인터넷 쇼핑 서비스, 커뮤니케이션 서비스를 위한 목적으로 사용됩니다.<br><br><br>
+
+
+                            [수집하는 개인 정보 항목 및 수집 방법]<br><br>
+
+                            회사에서는 이용자들이 회원제 서비스를 이용하기 위해 회원으로 가입하실 때 서비스 제공을 위한 필수적인 정보를 온라인상에서 입력 받고 있습니다.<br>
+                            회원 가입 시 받는 필수 정보는 이름, 생년월일, 전화번호(또는 핸드폰번호 중 택일), 전자우편 주소입니다.<br>
+
+                            또한 회사가 주관하는 경매, 설문조사나 이벤트 행사 시 통계분석이나 경품제공 등을 위해 선별적으로 개인정보 입력을 요청할 수 있고, 회사가 발송하는 광고 메일 수신과 함께 이벤트, 경품 등의 혜택을 받는 광고 메일 수신자가 되는 경우에도 선별적으로 개인정보 입력을 요청 받을 수 있습니다.<br><br>
+
+                            그러나 이러한 경우에도 이용자의 기본적 인권침해의 우려가 있는 민감한 개인정보 (인종, 사상 및 신조, 출신지 및 본적지, 정치적 성향 및 범죄기록, 성생활 등)는 가급적 수집하지 않으며 부득이하게 수집하는 경우 이용자들의 사전 동의를 반드시 구할 것입니다.<br><br>
+
+                            회사는 입력하신 정보를 이용자들에게 사전에 밝힌 목적 이외에 다른 목적으로는 사용하지 않으며 외부로 유출하지 않습니다. 단, 서비스 페이지에 링크되어 있는 웹사이트들이 개인정보를 수집하는 행위에 대해서는 회사의 '개인정보취급방침'이 적용되지 않음을 알려드립니다.<br><br>
+
+
+                            [수집하는 개인정보의 보유 및 이용기간, 개인정보의 파기절차 및 방법]<br><br>
+
+                            회원의 동의 하에 수집된 개인정보는 회원 자격이 유지되는 동안 보유 및 이용되며, 해지를 요청한 경우에는 재생할 수 없는 방법에 의하여 디스크에서 완전히 삭제하며 추후 열람이나 이용이 불가능한 상태로 처리됩니다.<br><br>
+
+                            단, 회사는 개인정보 도용 등으로 인한 피해 발생시 복구와 피해자 보호 등을 위해 회원의 ID, 성명, 전자우편 주소는 해지한 날로부터 최대 3개월 동안은 임시로 보관할 수 있으며 이후에는 재생할 수 없는 방법으로 완전히 삭제합니다. 또한 아래의 각호에 해당되는 경우는 예외로 합니다.<br>
+                        </div>
+                        <div class="checkbox">
+                            <input type="checkbox" id="agreeCheck2" required>
+                            <label for="agreeCheck2" style="padding-left:0;">
+                                 개인정보처리방침에 동의합니다.
+                            </label>
+                        </div>
+                    </div>
+                    <div class="btns text-center">
+                        <input type="submit" id="btn1"  class="common_btn red_btn" value="확인">
+                        <input type="reset" id="btn2" onclick="franchiseBtn2($('.footerFranchise'))" class="common_btn navy_btn" value="취소">
+                    </div>
+                    <input type="hidden" name="registId" value="{%if session.member.userId%}{{session.member.userId}}{%endif%}">
+                </fieldset>
+            </form>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

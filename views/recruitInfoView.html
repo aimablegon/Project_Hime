@@ -1,0 +1,245 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="recruitInfoView Career_center">
+    <!-- 본문 -->
+    <div class="contents">
+        <!-- 서브 네비 -->
+        <div class="sub-navi">
+            <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+            <span>취업지원센터</span><span>&#183;</span>
+            <span class="this-page">채용정보</span>
+        </div>
+        <!-- // 서브 네비 -->
+
+        <!-- 대제목 -->
+        <div class="title-l">
+            <div class="bg">Career center</div>
+            <div class="text-box">
+                <h1>채용정보</h1>
+                <p>하이미디어와 함께할 인재를 모십니다.</p>
+            </div>
+        </div>
+        <!-- // 대제목 -->
+        <div class="recruitInfoView_top_wrap common_wrap">
+            <div class="recruitInfoView_top common_wrap">
+                <p class="company">{{infos.companyName}}</p>
+                <div class="title-m">
+                    <h2 class="title">{{infos.recruitSubject}}</h2>
+                    <p class="short_intro">대표자 : {{infos.companyOwner}} / 업종 : {{infos.businessType}} / 사원수 : {{infos.staffNum}}명</p>
+                    <p>주소 : {{infos.companyAddr}}</p>
+                </div>
+            </div>
+            <div class="recruitInfoView_top_bg"></div>
+        </div>
+
+        <div class="cont">
+            <div class="cont_head">모집요강</div>
+            <table class="recruit_table1">
+                <caption></caption>
+                <colgroup>
+                    <col style="width:10%">
+                    <col style="width:40%">
+                    <col style="width:10%">
+                    <col style="width:40%">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th>모집분야</th>
+                        <td>
+                            {% for field in jobCode.recruitFields %}
+                                {% if field.key == infos.recruitField %}
+                                    {{field.value}}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <th>모집인원</th>
+                        <td>
+                            {% for num in jobCode.recruitNums %}
+                                {% if num.key == infos.recruitNum %}
+                                    {{num.value}}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>고용형태</th>
+                        <td>
+                            {% for type in jobCode.recruitTypes %}
+                                {% if type.key == infos.recruitType %}
+                                    {{type.value}}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <th>경력</th>
+                        <td>
+                            {% for condition in jobCode.careerConditions %}
+                                {% if condition.key == infos.careerCondition %}
+                                    {{condition.value}}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>채용직급</th>
+                        <td>{{infos.recruitPosition}}</td>
+                        <th>급여조건</th>
+                        <td>{{infos.payCondition}}</td>
+                    </tr>
+                    <tr>
+                        <th>근무지역</th>
+                        {% set dataNum = 0 %}
+                        {% for workAreaCode in jobCode.workAreaCodes %}
+                            {% if workAreaCode.key == infos.workAreaCode %}
+                                <td>{{workAreaCode.value}}&nbsp;{{infos.workArea}}</td>
+                                {% set dataNum = 1 %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if dataNum == 0 %}
+                            <td>{{infos.workArea}}</td>
+                        {% endif %}
+
+                        <th>성별</th>
+                        <td>
+                            {% for recruitSex in jobCode.recruitSexs %}
+                                {% if recruitSex.key == infos.recruitSex %}
+                                    {{recruitSex.value}}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>나이제한</th>
+                        <td>{{infos.ageCondition}}</td>
+                        <th>최종학력</th>
+                        <td>
+                            {% for educationLevel in jobCode.educationLevels %}
+                                {% if educationLevel.key == infos.educationLevel %}
+                                    {{educationLevel.value}}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>근무시간</th>
+                        <td>{{infos.workTime}}</td>
+                        <th>우대조건</th>
+                        <td>{{infos.specialCondition}}</td>
+                    </tr>
+                    <tr>
+                        <th>복리후생</th>
+                        <td>{{infos.welfareCondition}}</td>
+                        <th>자격증</th>
+                        <td>{{infos.licenseCondition}}</td>
+                    </tr>
+                    <tr>
+                        <th>마감일</th>
+                        <td colspan="3">{{infos.recruitEndDate}}</td>
+                    </tr>
+                    <tr>
+                        <th>상세요강</th>
+                        <td colspan="3">
+                            {{infos.recruitContent | safe}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>오시는길 (주소)</th>
+                        <td colspan="3">{{infos.companyMap}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="recruitInfo_footer">
+            <div class="common_wrap">
+                <div class="title-m col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <p class="info1">전화문의</p>
+                    <h2 class="info2">02-2671-8264</h2>
+                    <p class="info3">하이미디어 잡매칭 전문 컨설턴트가 본 공고 지원과 관련한 자세한 안내와 상담을 진행해드립니다.</p>
+                </div>
+                <div class="title-m col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <p class="info1">이메일문의</p>
+                    <h2 class="info2">findurjob@himedia.co.kr</h2>
+                    <p class="info3">이메일을 통해서도 지원문의가 가능하니, 검토 후 빠른 답변 드리도록 하겠습니다.</p>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="cont">
+            <div class="button_wrap">
+                <button type="button" onclick="location.href='register.html'" class="common_btn arrow_nay_btn">채용정보등록<span class="icon arrow red">오른쪽 화살표</span></button>
+                <span class="notice_hide">'채용정보 등록'을 원하시는 업체는 좌측버튼을 클릭하여 등록해주세요.</span>
+                <form class="btns_wrap">
+                    <input type="button" class="common_btn red_btn" onclick="location.href='register.html?recruitId={{query.recruitId}}&correction=true'" value="수정">
+                    <input type="button" class="common_btn delete_btn modallink" modallink="example">
+                    <!-- <input type="button" class="common_btn delete_btn" onclick="location.href='register.html?recruitId={{query.recruitId}}&del=true&correction=true'"> -->
+                    <button type="button" onclick="location.href='recruitInfo.html?page={{query.page}}'" class="common_btn navy_btn">목록</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- // 본문 -->
+</div>
+<div class="modalPopup" id="example">
+    <!-- 타이틀 -->
+    <div class="modal-title text-right">
+        <span class="title-box text-left">채용정보 삭제</span>
+        <span class="close-box"><a href="#" class="modal-closeBtn">close<i class="icon close-x red"></i></a></span>
+        <div class="clearfix"></div>
+    </div>
+    <!-- 바디 -->
+    <div class="modal-body">
+        <form class="cont input_fromwrap" action="registRecruit" method="POST">
+        	<fieldset>
+        		<label for="pw">비밀번호 입력
+        			<input type="password" id="pw" style="width:100%;"/>
+        		</label>
+        		<input type="hidden" value='true' name="del">
+        		<input type="hidden" value='{{query.recruitId}}' name="recruitId">
+        		<br />
+        		<br />
+        		<br />        		
+        		<p class="text-center">
+	        		<input type="button" class="common_btn red_btn submitBtn" value="삭제">
+        		</p>
+        	</fieldset>
+        </form>
+    </div>
+</div>
+
+<script>
+
+    $('.enter').mouseenter(function(){
+        $('.notice_hide').css({'display':'inline-block'});
+    });
+    $('.enter').mouseleave(function(){
+        $('.notice_hide').css({'display':'none'});
+    });
+    
+    $('.submitBtn').click(function(){
+
+        if(!$('#pw').val()){
+            alertMsg('비밀번호를 입력하세요');
+            return false;
+        }        
+		$.ajax({
+		    method: "POST",
+		    url: "deletePwCheckAtJob",
+		    data: {
+		        recruitId : '{{query.recruitId}}',
+		        recruitPass: $('#pw').val()
+		    }
+		})
+		.done(function(msg) {        	
+		    if (!msg.isAccess) {
+		        alertMsg('비밀번호가 일치하지 않습니다');
+		        return false;
+		        
+		    }else if(msg.isAccess){
+		        $('.cont').submit();
+		    }
+		});
+		return false;
+
+    });
+</script>
+{% endblock %}

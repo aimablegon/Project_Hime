@@ -1,0 +1,159 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="allTeacher">
+    <!-- 본문 -->
+    <div class="contents">
+        <!-- 서브 네비 -->
+        <div class="sub-navi">
+            <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>·</span>
+            <span>하이미디어</span><span>·</span>
+            <span class="this-page">전체 강사 소개</span>
+        </div>
+        <!-- // 서브 네비 -->
+
+        <!-- 대제목 -->
+        <div class="title-l">
+            <div class="bg">Teacher</div>
+            <div class="text-box">
+                <h1>전체 강사 소개</h1>
+                <p>하이미디어의 강사진을 소개합니다.</p>
+            </div>
+        </div>
+        <!-- // 대제목 -->
+        <!-- <div class="sm-rect-btns-wrapper common_wrap">
+            <button class="more">
+                모바일전체보기<img src="/img/icon/icon_arrow_white_down.png" alt="더보기">
+            </button>
+            <button class="sm-rect-btns {% if !query.field %}active{% endif %}"  onclick="javascript:location.href='allTeacher.html'">전체 보기</button>
+            {% for course in courseFields %}
+                <button class="sm-rect-btns {% if query.field == course.fieldId %}active{% endif %}" onclick="javascript:location.href='allTeacher.html?field={{course.fieldId}}'">{{course.fieldName}}</button>
+            {% endfor %}
+
+        </div> -->
+        <div class="dropdown sm-rect-btns-wrapper common_wrap">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+         {% if !query.field %}
+         전체보기
+         {% else %}
+            {% for course in fields %}
+	    	{% if course.fieldId == query.field and course.teacherYn == 'Y' and course.showYn == 'Y'%}
+            		{{course.fieldName}}
+    		{% endif %}
+            {% endfor %}
+	{% endif %}
+
+            <span class="icon arrowDown navy"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+               <li class="sm-rect-btns  {% if !query.field %}active{% endif %}" role="presentation"><a href="allTeacher.html" tabindex="-1" href="#">전체보기</a></li>
+               {% for course in fields %}
+			{% if course.teacherYn == 'Y' and  course.showYn == 'Y' %}
+				<li class="sm-rect-btns {% if query.field == course.fieldId %}active{% endif %}" role="presentation"><a href="allTeacher.html?field={{course.fieldId}}" tabindex="-1" href="#">{{course.fieldName}}</a></li>
+			{% endif %}
+               {% endfor %}
+          </ul>
+        </div>
+        <div class="allTeacher-basebox-wrapper">
+            <div class="wow fadeInUp" data-wow-duration="1s">
+                <div class="allteacher_table">
+                    <ul>
+                    	{% for teacher in teachers %}
+                        <li class="seeMore">
+                            <div class="teacher">
+                            {% set branchSet = teacher.BranchTeachers[0] %}
+                                <span>{% for branch in teacher.BranchTeachers %}{{branchNames[branch.branchCode]}}캠퍼스 {% endfor %}</span>
+                                {{teacher.Admin.name}} 강사님
+                            </div>
+                            <div class="field">
+                                {{fieldNames[teacher.fieldId]}}
+                            </div>
+                            <ul class="career">
+				{% if teacher.career.length != 0 %}
+                                <li>
+                                    <span class="">실무경력</span>
+                                        {{teacher.career |safe}}
+                                </li>
+				{% endif %}
+				{% if teacher.lectureExp.length != 0 %}
+                                <li>
+                                    <span class="">강의경력</span>
+                                        {{teacher.lectureExp|safe}}
+                                </li>
+                                {% endif %}
+                                {% if teacher.certificate.length != 0 %}
+                                <li>
+                                    <span class="">자격증</span>
+                                        {{teacher.certificate|safe}}
+                                </li>
+                                {% endif %}
+                                {% if teacher.books.length != 0 %}
+                                <li>
+                                    <span class="">저서</span>
+                                        {{teacher.books|safe}}
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                </div>
+            <div class="btn-seemore" showNum="10" plusNum="10" targetClass="seeMore">
+                <button type="button">See more<span class="icon plus red"></span></button>
+            </div>
+        </div>
+    </div>
+    <!-- // 본문 -->
+
+</div>
+<!-- <script>
+    //margin 보정
+    for(i=0;i<$('.teacher-box').length;i++){
+        if( i%3 == 2 && i != 0){
+            $('.teacher-box').eq(i).css('marginRight',0);
+        }
+    }
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+    //modal
+    var data = {{JSON.stringify(teachers,0,4)}};
+    var branches = {{JSON.stringify(branches,0,4)}};
+    $('.profile_btn').click(function(){
+	//초기화
+	$('#teacher1 .sub-title').text('');
+        $('#teacher1 .teacher_img img').attr('src','');
+        $('#teacher1 .name').text(''+' 강사님');
+        $('#teacher1 .career').text('');
+        $('#teacher1 .lecture').text('');
+        $('#teacher1 .certificate').text('');
+        $('#teacher1 .books').text('');
+
+        var idx = $(this).parents('li.teacher-box').index();
+        var temp = '';
+        for(i in data[idx].BranchTeachers){
+            for(j in branches){
+                if(branches[j].branchCode == data[idx].BranchTeachers[i].branchCode){
+                    temp += branches[j].branchName+"캠퍼스";
+                    (i != data[idx].BranchTeachers.length - 1) ? temp += '\n' : '';
+                }
+            }
+        }
+        $('#teacher1 .sub-title').text(temp);
+        $('#teacher1 .teacher_img img').attr('src',data[idx].Admin.AttachFile.url);
+        $('#teacher1 .name').text(data[idx].Admin.name+' 강사님');
+        $('#teacher1 .career').text(data[idx].career);
+        $('#teacher1 .lecture').text(data[idx].lectureExp);
+        $('#teacher1 .certificate').text(data[idx].certificate);
+        $('#teacher1 .books').text(data[idx].books);
+        /* $('#teacher1 .field').text(data[idx].CourseField.fieldName); */
+
+
+    });
+    $('.video_btn').click(function(){
+	    var idx = $(this).parents('li.teacher-box').index();
+	    $('#teacher2 #modal_video source').attr('src',data[idx].videoUrl).parents('video').load();
+    });
+</script> -->
+{% endblock %}

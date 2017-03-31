@@ -1,0 +1,403 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="register Career_center">
+    <!-- 본문 -->
+    <div class="contents">
+        <!-- 서브 네비 -->
+        <div class="sub-navi">
+            <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+            <span>취업지원센터</span><span>&#183;</span>
+            <span class="this-page">채용정보</span>
+        </div>
+        <!-- // 서브 네비 -->
+        <!-- 대제목 -->
+        <div class="title-l">
+            <div class="bg">Career center</div>
+            <div class="text-box">
+                <h1>채용정보</h1>
+                <p>하이미디어에서 알려 드리는 채용정보</p>
+            </div>
+        </div>
+        <!-- // 대제목 -->
+        <form class="cont input_fromwrap" action="registRecruit" method="POST">
+            <fieldset>
+                <div class="register_top">기업정보</div>
+                <table class="register_table">
+                    <caption></caption>
+                    <colgroup>
+                        <col style="width:10%">
+                        <col style="width:40%">
+                        <col style="width:10%">
+                        <col style="width:40%">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th><label for="company_name">회사명</label></th>
+                            <td>
+                                <p class="input_wrap" style="width:90%">
+                                    <input id="company_name" type="text" name="companyName" value="{% if info.companyName %}{{info.companyName}}{% endif %}" required/>
+                                    <button type="button" class="input_del">삭제버튼</button>
+                                </p>
+                            </td>
+                            <th><label for="ceo">대표자</label></th>
+                            <td>
+                                <p class="input_wrap" style="width:40%">
+                                    <input id="ceo" type="text" name="companyOwner" value="{% if info.companyOwner %}{{info.companyOwner}}{% endif %}" required/>
+                                    <button type="button" class="input_del">삭제버튼</button>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="type">업종</label></th>
+                            <td>
+                                <p class="input_wrap" style="width:40%">
+                                    <input id="type" type="text" name="businessType" value="{% if info.businessType %}{{info.businessType}}{% endif %}" required/>
+                                    <button type="button" class="input_del">삭제버튼</button>
+                                </p>
+                            </td>
+                            <th><label for="staff_num">사원수</label></th>
+                            <td>
+                                <p class="input_wrap" style="width:20%">
+                                    <input id="staff_num" type="text" name="staffNum" value="{% if info.staffNum %}{{info.staffNum}}{% endif %}" required/>
+                                    <button type="button" class="input_del">삭제버튼</button>
+                                </p>
+                                명
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="adress">주소</label></th>
+                            <td colspan="3">
+                                <p class="input_wrap" style="width:80%">
+                                    <input id="adress" type="text" name="companyAddr" value="{% if info.companyAddr %}{{info.companyAddr}}{% endif %}" required/>
+                                    <button type="button" class="input_del">삭제버튼</button>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+            <fieldset>
+                <div class="register_top">모집요강</div>
+                <table class="register_table">
+                    <caption></caption>
+                    <colgroup>
+                        <col style="width:10%">
+                        <col style="width:40%">
+                        <col style="width:10%">
+                        <col style="width:40%">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th><label for="register_title">채용제목</label></th>
+                            <td colspan="3">
+                                <p class="input_wrap" style="width:80%">
+                                    <input id="register_title" type="text" name="recruitSubject" value="{% if info.recruitSubject %}{{info.recruitSubject}}{% endif %}" required/>
+                                    <button type="button" class="input_del">삭제버튼</button>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="register_field">모집분야</label></th>
+                            <td>
+                                <select id="register_field" name="recruitField" required>
+                                    <option style="display:none;" disabled {% if !info.recruitField %}selected{% endif %} >모집 분야를 선택하세요.</option>
+                                    {% for recruitField in jobCode.recruitFields %}
+                                        <option value="{{recruitField.key}}" {% if info.recruitField and info.recruitField == recruitField.key %}selected{% endif %}>{{recruitField.value}}</option>
+                                    {% endfor %}
+                    			</select>
+                            </td>
+                            <th><label for="register_num">모집인원</label></th>
+                            <td>
+                                <select id="register_num" name="recruitNum" required>
+                                    {% for recruitNum in jobCode.recruitNums %}
+                                        {% if index.loop == 1 %}
+                                            <option value="{{recruitNum.key}}" {% if !info.recruitNum or info.recruitNum == recruitNum.key %}selected{% endif %}>{{recruitNum.value}}</option>
+                                        {% else %}
+                                            <option value="{{recruitNum.key}}" {% if info.recruitNum and info.recruitNum == recruitNum.key %}selected{% endif %}>{{recruitNum.value}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="register_employment">고용형태</label></th>
+                            <td>
+                                <select id="register_employment" name="recruitType" required>
+                                    <option style="display:none;" disabled {% if !info.recruitType %}selected{% endif %}>고용 형태를 선택하세요.</option>
+                                    {% for recruitType in jobCode.recruitTypes %}
+                                        <option value="{{recruitType.key}}" {% if info.recruitType and info.recruitType == recruitType.key %}selected{% endif %}>{{recruitType.value}}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                            <th><label for="register_career">경력사항</label></th>
+                            <td>
+                                <select id="register_career" name="careerCondition" required>
+                                    <option style="display:none;" disabled {% if !info.careerCondition %}selected{% endif %} >경력사항을 선택하세요.</option>
+                                    {% for careerCondition in jobCode.careerConditions %}
+                                        <option value="{{careerCondition.key}}" {% if info.careerCondition and info.careerCondition == careerCondition.key %}selected{% endif %}>{{careerCondition.value}}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="register_pay">채용직급</label></th>
+                            <td>
+                                <p class="input_wrap" style="width:40%">
+                                    <input id="register_pay" type="text" name="recruitPosition" value="{% if info.recruitPosition %}{{info.recruitPosition}}{% endif %}" required/>
+                                    <button type="button" class="input_del">삭제버튼</button>
+                                </p>
+                            </td>
+                            <th><label for="register_pay">급여조건</label></th>
+                            <td>
+                                <p class="input_wrap" style="width:40%">
+                                    <input id="register_pay" type="text" name="payCondition" value="{% if info.payCondition %}{{info.payCondition}}{% endif %}" required/>
+                                    <button type="button" class="input_del">삭제버튼</button>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="register_area">근무지역</label></th>
+                            <td>
+                                <select name="workAreaCode" required>
+                                    <option style="display:none;" disabled {% if !info.workAreaCode %}selected{% endif %}>지역을 선택하세요.</option>
+                                    {% for workAreaCode in jobCode.workAreaCodes %}
+                                        <option value="{{workAreaCode.key}}" {% if info.workAreaCode and info.workAreaCode == workAreaCode.key %}selected{% endif %}>{{workAreaCode.value}}</option>
+                                    {% endfor %}
+                                </select>
+                                <p class="input_wrap" style="width:50%">
+                                    <input id="register_area" type="text" placeholder="상세 지역 ex. 강남구" name="workArea" value="{% if info.workArea %}{{info.workArea}}{% endif %}" required/>
+                                    <button type="button" class="input_del">삭제버튼</button>
+                                </p>
+                            </td>
+                            <th><label for="register_sex">성별</label></th>
+                            <td>
+                                <select id="register_sex" name="recruitSex" required>
+                                    <option style="display:none;" disabled {% if !info.recruitSex %}selected{% endif %}>성별을 선택하세요.</option>
+                                    {% for recruitSex in jobCode.recruitSexs %}
+                                        <option value="{{recruitSex.key}}" {% if info.recruitSex and info.recruitSex == recruitSex.key %}selected{% endif %}>{{recruitSex.value}}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="register_age">나이제한</label></th>
+                            <td>
+                                <p class="input_wrap" style="width:80%">
+                                    <input id="register_age" type="text" name="ageCondition" value="{% if info.ageCondition %}{{info.ageCondition}}{% endif %}" required/>
+                                    <button type="button" class="input_del">삭제버튼</button>
+                                </p>
+                            </td>
+                            <th><label for="register_academic">최종학력</label></th>
+                            <td>
+                                <select id="register_academic" name="educationLevel" required>
+                                    <option style="display:none;" disabled {% if !info.educationLevel %}selected{% endif %}>최종학력을 선택하세요.</option>
+                                    {% for educationLevel in jobCode.educationLevels %}
+                                        <option value="{{educationLevel.key}}" {% if info.educationLevel and info.educationLevel == educationLevel.key %}selected{% endif %}>{{educationLevel.value}}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="register_houer">근무시간</label></th>
+                            <td>
+                                <p class="input_wrap" style="width:80%">
+                                    <input id="register_houer" type="text" placeholder="ex. 주 5일(월~금) 오전 9시~오후6시" name="workTime" value="{% if info.workTime %}{{info.workTime}}{% endif %}" required/>
+                                    <button type="button" class="input_del">삭제버튼</button>
+                                </p>
+                            </td>
+                            <th><label for="register_preferential">우대조건</label></th>
+                            <td>
+                                <p class="input_wrap" style="width:80%">
+                                    <input id="register_preferential" type="text" name="specialCondition" value="{% if info.specialCondition %}{{info.specialCondition}}{% endif %}"/>
+                                    <button type="button" class="input_del">삭제버튼</button>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="register_welfare">복리후생</label></th>
+                            <td>
+                                <p class="input_wrap" style="width:80%">
+                                    <input id="register_welfare" type="text" name="welfareCondition" value="{% if info.welfareCondition %}{{info.welfareCondition}}{% endif %}"/>
+                                    <button type="button" class="input_del">삭제버튼</button>
+                                </p>
+                            </td>
+                            <th><label for="register_license">자격증</label></th>
+                            <td>
+                                <p class="input_wrap" style="width:80%">
+                                    <input id="register_license" type="text" name="licenseCondition" value="{% if info.licenseCondition %}{{info.licenseCondition}}{% endif %}"/>
+                                    <button type="button" class="input_del">삭제버튼</button>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="register_closingdate">마감일</label></th>
+                            <td colspan="3">
+                                <p class="input_wrap" style="width:35%">
+                                    <input id="register_closingdate" type="text" name="recruitEndDate" value="{% if info.recruitEndDate %}{{info.recruitEndDate}}{% endif %}" required/>
+                                    <button type="button" class="input_del">삭제버튼</button>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="register_cont">상세요강</label></th>
+                            <td colspan="3">
+                                <textarea rows="5" cols="134" id="register_cont" style="width:100%;" name="recruitContent" value="{% if info.recruitContent %}{{info.companyName}}{% endif %}">상세 내용을 기입해주세요.</textarea>
+                            </td>
+                        </tr>                        
+                        <tr>
+                            <th><label for="register_file">첨부파일</label></th>
+                            <td colspan="3">
+                                <input type="file" id="register_file">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+            <fieldset>
+                <div class="register_top">담당자 정보</div>
+                <table class="register_table">
+                    <caption></caption>
+                    <colgroup>
+                        <col style="width:10%">
+                        <col style="width:40%">
+                        <col style="width:10%">
+                        <col style="width:40%">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th><label for="charge_name">담당자명</label></th>
+                            <td>
+                                <p class="input_wrap" style="width:40%">
+                                    <input id="charge_name" type="text" name="theClerkName" value="{% if info.theClerkName %}{{info.theClerkName}}{% endif %}" required/>
+                                    <button type="button" class="input_del">삭제버튼</button>
+                                </p>
+                            </td>
+                            <th><label for="charge_department">담당부서</label></th>
+                            <td>
+                                <p class="input_wrap" style="width:40%">
+                                    <input id="charge_department" type="text" name="theClerkPlace" value="{% if info.theClerkPlace %}{{info.theClerkPlace}}{% endif %}" required/>
+                                    <button type="button" class="input_del">삭제버튼</button>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="charge_tell">연락처</label></th>
+                            <td>
+                                <p class="input_wrap" style="width:40%">
+                                    <input id="charge_tell" type="text" name="theClerkPhone" value="{% if info.theClerkPhone %}{{info.theClerkPhone}}{% endif %}" required/>
+                                    <button type="button" class="input_del">삭제버튼</button>
+                                </p>
+                            </td>
+                            <th><label for="charge_fax">팩스번호</label></th>
+                            <td>
+                                <p class="input_wrap" style="width:40%">
+                                    <input id="charge_fax" type="text" name="theClerkFax" value="{% if info.theClerkFax %}{{info.theClerkFax}}{% endif %}"/>
+                                    <button type="button" class="input_del">삭제버튼</button>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="charge_email">이메일</label></th>
+                            <td>
+                                <p class="input_wrap" style="width:80%">
+                                    <input id="charge_email" type="text" name="theClerkEmail" value="{% if info.theClerkEmail %}{{info.theClerkEmail}}{% endif %}" required/>
+                                    <button type="button" class="input_del">삭제버튼</button>
+                                </p>
+                            </td>
+                            <th><label for="charge_site">홈페이지</label></th>
+                            <td>
+                                <p class="input_wrap" style="width:80%">
+                                    <input id="charge_site" type="text" name="companySite" value="{% if info.companySite %}{{info.companySite}}{% endif %}"/>
+                                    <button type="button" class="input_del">삭제버튼</button>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="charge_papers">제출서류</label></th>
+                            <td>
+                                <p class="input_wrap" style="width:80%">
+                                    <input id="charge_papers" type="text" name="anExhibit" value="{% if info.anExhibit %}{{info.anExhibit}}{% endif %}"/>
+                                    <button type="button" class="input_del">삭제버튼</button>
+                                </p>
+                            </td>
+                            <th><label for="charge_method">접수방법</label></th>
+                            <td>
+                                <p class="input_wrap" style="width:80%">
+                                    <input id="charge_method" type="text" name="acceptType" value="{% if info.acceptType %}{{info.acceptType}}{% endif %}"/>
+                                    <button type="button" class="input_del">삭제버튼</button>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+            <fieldset>
+                <div class="register_top">비밀번호</div>
+                <table class="register_table">
+                    <caption></caption>
+                    <colgroup>
+                        <col style="width:10%">
+                        <col style="width:90%">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th><label for="pw">비밀번호</label></th>
+                            <td>
+                                <p class="input_wrap" style="width:20%">
+                                    <input id="pw" type="password" name="recruitPass" required/>
+                                    <button type="button" class="input_del">삭제버튼</button>
+                                </p>
+                                <span class="notice">* 차후 채용정보 수정 시 필요합니다.</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+            <div class="btns_wrap">
+                <input type="submit" class="submitBtn" value="{% if !query.del and query.correction == 'true' %}채용공고수정{% elseif query.del == 'true' %}채용공고삭제{% else %}채용공고등록{% endif %}">
+                <input type="reset" value="취소" onclick="location.href='recruitInfo.html'">
+            </div>
+            <input type="hidden" value={{session.member.userId}} name="registUserId">
+            <input type="hidden" value={{query.recruitId}} name="recruitId">
+            {% if query.del == 'true' %}
+                <input type="hidden" value='true' name="del">
+            {% elseif query.correction == 'true' and query.del != 'true' %}
+                <input type="hidden" value='true' name="correction">
+            {% endif%}
+        </form>
+
+    </div>
+    <!-- // 본문 -->
+</div>
+<script>
+
+$('.submitBtn').click(function(){
+
+/*     if(!$('#pw').val()){
+        alertMsg('비밀번호를 입력하세요');
+        return false;
+    } */
+
+    {% if query.correction == 'true' %}
+        $.ajax({
+            method: "POST",
+            url: "deletePwCheckAtJob",
+            data: {
+                recruitId : '{{query.recruitId}}',
+                recruitPass: $('#pw').val()
+            }
+        })
+        .done(function(msg) {        	
+            if (!msg.isAccess) {
+                alertMsg('비밀번호가 일치하지 않습니다');
+                return false;
+                
+            }else if(msg.isAccess){
+                $('.cont').submit();
+            }
+        });
+        return false;
+    {% endif %}
+});
+</script>
+{% endblock %}

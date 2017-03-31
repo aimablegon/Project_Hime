@@ -1,0 +1,169 @@
+<script type="text/javascript">
+
+angular.module('app').controller('myCtrl', ['$scope', '$rootScope', '$http', '$sce', '$stateParams', '$location', 
+	'$state', '$httpParamSerializerJQLike',
+	function($scope, $rootScope, $http, $sce, $stateParams, $location, $state, $httpParamSerializerJQLike) {
+
+		$scope.mode = $stateParams.id ? 'modify' : 'new';
+	    $scope.basePath = '#'+$location.$$path;
+	    $scope.parentPath = $location.$$path.substring(0, $location.$$path.indexOf("/detail"));
+	    $scope.data = {
+	    	toonType : 'TOON_TYPE_HASULU',
+	    	readCount : 0
+	    };    
+	    
+		if($scope.mode == "modify") {
+			$http({
+				method : "POST",
+				url : "/admin/api/toon/"+$stateParams.id
+			}).success(function(data) {
+				console.log(data);
+				$scope.data = data;
+			});			
+		}
+		
+		$scope.submit = function () {
+
+			var url = "";
+			if($scope.mode == "modify") {
+				url = "/admin/api/toon/"+$stateParams.id+"/update";
+			} else {
+				url = "/admin/api/toon/insert";
+			}
+				
+			$http({
+					method : "POST",
+					url : url,
+					data: $scope.data
+			}).success(function(data) {
+
+				if($scope.mode == "modify") {
+					alert("저장되었습니다.");
+				}else {
+					$location.path($scope.parentPath);
+				}
+			});
+
+		};
+
+	    $scope.delete = function () {
+			$http({
+				method : "POST",
+				url : "/admin/api/toon/"+$stateParams.id+'/delete',
+			}).success(function(data) {
+				$location.path($scope.parentPath);
+			});	    	
+	    }
+	    
+
+ 	    $scope.imageUpload = function(files, args) {
+			$http({
+					method : "POST",
+					url : "/admin/api/upload",
+					headers : {'Content-Type': undefined},
+		            transformRequest: function (data, headersGetter) {
+		                var formData = new FormData();
+		                for(var i = 0 ; i < files.length ; i++) {
+		                	formData.append("files", files[i]);
+		                }
+		                return formData;
+		            }
+			}).success(function(data) {
+				for(var i = 0; i < data.length ;i++) {
+					console.log(data[i].path);
+					$scope.editor.summernote("editor.insertImage", data[i].path);	
+				}
+			});
+
+	    }
+ 	    
+ 	    $scope.deleteComment = function(item){
+ 	    	if(confirm("삭제 하시겠습니까?")) {
+
+				$http({
+					method : "POST",
+					url : "/admin/api/toon/deleteComment",
+					data: item
+				}).success(function(data) {
+					alert("삭제되었습니다.");
+					$http({
+						method : "POST",
+						url : "/admin/api/toon/"+$stateParams.id
+					}).success(function(data) {
+						console.log(data);
+						$scope.data = data;
+					});
+				});			
+
+	    	} 	    	
+ 	    }
+
+
+	}]
+);
+
+
+</script>
+<style>
+	.form-horizontal .ignore .form-group{
+		margin-left : 0px;
+		margin-right : 0px;
+	}
+</style>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">하설루</h1>
+</div>
+<div class="wrapper-md">
+	<div class="panel panel-default" ng-controller="myCtrl">
+		<div class="panel-heading">정보</div>
+		<div class="panel-body">
+			<form class="form-horizontal" method="get" ng-submit="submit()">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">회수</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.num" required="required"> 
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">제목</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" ng-model="data.title" required="required"> 
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">내용</label>
+					<div class="col-sm-10 ignore">
+						<summernote min-height="300" ng-model="data.content" on-image-upload="imageUpload(files)" editor="editor"></summernote>					
+					</div>
+				</div>
+				
+				<div class="form-group" ng-repeat="item in data.ToonComments">
+					<label class="col-sm-2 control-label">댓글 {{$index+1}}</label>
+					<div class="col-sm-10">
+						<p class="form-control-static">
+							{{item.comment}}
+							<span class="pull-right" style="padding-right:20px;"><a ng-click="deleteComment(item)" tabindex="0"><i class="fa fa-times text-danger text"></i></a></span>	
+						</p> 
+					</div>
+				</div>
+				
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+				<div class="form-group">
+					
+					<div class="col-sm-5 col-sm-offset-2">
+						
+						<button type="button" onclick="history.back()" class="btn btn-default m-r-sm">목록</a>
+						<button type="button" ng-click="delete()" class="btn btn-danger" ng-show="mode=='modify'">삭제</button>
+						
+	
+					</div>
+	
+					<div class="col-sm-5 text-right">
+						<button type="submit" class="btn btn-primary">변경사항 저장</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div> 
+</div>

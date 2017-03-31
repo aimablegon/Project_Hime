@@ -1,0 +1,119 @@
+<script type="text/javascript">
+
+angular.module('app').controller('myCtrl', ['$scope', '$rootScope', '$http', '$sce', '$stateParams', '$location', 
+	'$state', '$httpParamSerializerJQLike',
+	function($scope, $rootScope, $http, $sce, $stateParams, $location, $state, $httpParamSerializerJQLike) {
+		
+	    $scope.basePath = '#'+$location.$$path;
+	    $scope.parentPath = $location.$$path.substring(0, $location.$$path.indexOf("/detail"));
+	    
+			$http({
+				method : "POST",
+				url : "/admin/api/adminGetData",
+				data: { adminId : $rootScope.currentUser.adminId }
+			}).success(function(data) {
+				console.log(data);
+				$scope.data = data;
+				$scope.data.birthday = new Date($scope.data.birthday).getFullYear() +'-'+ (new Date($scope.data.birthday).getMonth()+1) +'-'+ new Date($scope.data.birthday).getDay(); 
+			});					
+		
+		$scope.submit = function () {
+
+			var url = "/admin/api/adminGetData/update";			
+							
+			$http({
+					method : "POST",
+					url : url,
+					data: $scope.data
+			}).success(function(data) {				
+				alert("저장되었습니다.");			
+			});
+		};
+	}]
+);
+
+</script>
+<style>
+	.form-horizontal .ignore .form-group{
+		margin-left : 0px;
+		margin-right : 0px;
+	}	
+</style>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">My Page</h1>
+</div>
+<div class="wrapper-md">
+	<div class="panel panel-default" ng-controller="myCtrl">
+		<div class="panel-heading">정보</div>
+		<div class="panel-body">
+			<form class="form-horizontal" method="get" ng-submit="submit()" name="adminForm">
+			
+				<div class="form-group">
+					<label class="col-sm-2 control-label">아이디</label>
+					<div class="col-sm-10">
+						<span class="help-block m-b-none">{{data.adminId}}</span> 
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">비밀번호</label>
+					<div class="col-sm-10">
+						<input type="password" class="form-control" placeholder="영문 or 숫자 8~20자" ng-minlength="8" ng-maxlength="20" name="pwd" ng-model="data.pwd" ng-required="true">
+					</div>
+				</div>
+				<div class="form-group" ng-show="adminForm.pwd.$dirty">
+					<label class="col-sm-2 control-label">비밀번호 확인</label>
+					<div class="col-sm-10">
+						<input type="password" class="form-control" placeholder="영문 or 숫자 8~20자" ng-minlength="8" ng-maxlength="20" name="pwdCheck" ng-model="data.pwdCheck" ng-required="adminForm.pwd.$dirty" ui-validate=" '$value==data.pwd || !adminForm.pwd.$dirty'" ui-validate-watch=" 'data.pwd' ">
+						<span ng-show='data.pwdCheck.length >= 8 && adminForm.pwdCheck.$error.validator'>비밀번호가 맞지 않습니다.</span>
+					</div>										
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">이름</label>
+					<div class="col-sm-10">
+						<span class="help-block m-b-none">{{data.name}}</span>
+					</div>
+				</div>				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">연락처</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" placeholder="02-0000-0000" ng-model="data.tel" ng-pattern="/([0-9]{2,4})-([0-9]{3,4})-([0-9]{4})$/" required="required"> 
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">휴대폰</label>
+					<div class="col-sm-10">
+						<input ty pe="text" class="form-control" placeholder="010-0000-0000" ng-model="data.phone"  ng-pattern="/([0-9]{3})-([0-9]{3,4})-([0-9]{4})$/" required="required"> 
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">이메일</label>
+					<div class="col-sm-10">
+						<input type="email" class="form-control" placeholder="sample@himedia.co.kr" ng-model="data.email" required="required"> 
+					</div>
+				</div>				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">가입일시</label>
+					<div class="col-sm-10">
+						<span class="help-block m-b-none">{{data.registDate | date:'yyyy-MM-dd HH:mm:ss'}}</span>  
+					</div>
+				</div>				
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+				<div class="form-group">
+					
+					<div class="col-sm-5 col-sm-offset-2">
+						
+						<button type="button" onclick="history.back()" class="btn btn-default m-r-sm">목록</a>
+						<button type="button" ng-click="delete()" class="btn btn-danger" ng-show="mode=='modify'">삭제</button>
+						
+	
+					</div>
+	
+					<div class="col-sm-5 text-right">
+						<button type="submit" class="btn btn-primary" ng-disabled='adminForm.$invalid'>변경사항 저장</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div> 
+</div>

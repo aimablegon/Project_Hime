@@ -1,0 +1,131 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="franchise">
+        <!-- 본문 -->
+        <div class="contents">
+            <!-- 서브 네비 -->
+            <div class="sub-navi">
+                <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>&#183;</span>
+                <span>하이미디어</span><span>&#183;</span>
+                <span class="this-page">프랜차이즈 안내</span>
+            </div>
+            <!-- // 서브 네비 -->
+
+            <!-- 대제목 -->
+            <div class="title-l">
+                <div class="bg">Franchise</div>
+                <div class="text-box">
+                    <h1>프랜차이즈 안내</h1>
+                    <p>하이미디어 컴퓨터학원만의 오랜 노하우가 함께합니다.</p>
+                </div>
+            </div>
+            <!-- // 대제목 -->
+
+            <div class="franchise-basebox-wrapper">
+                <div class="title-m text-center wow fadeInUp">
+                    <h2>FRANCHISE SYSTEM</h2>
+                    <p>하이미디어컴퓨터학원을 선택하신 예비점주님을 환영합니다. <br>
+                    가맹점 개설부터, 사후관리까지 시작부터 끝까지 점주님들의 동반자로서 함께
+                    할 것입니다.<br>
+                    <b>하이미디어컴퓨터학원은 다음과 같은 지원을 약속드립니다.</b></p>
+                    <div class="franchise-basebox-icons">
+                        <span class="basebox-icon-box"><span><img src="../img/icon/pic_franchise1.png" alt="체계적인 교육"></span><span class="basebox-contents">체계적인 교육</span></span>
+                        <span class="basebox-icon-box"><span><img src="../img/icon/pic_franchise2.png" alt="지속적인 마케팅"></span><span class="basebox-contents">지속적인 마케팅</span></span>
+                        <span class="basebox-icon-box"><span><img src="../img/icon/pic_franchise3.png" alt="전문 학원 경영"></span><span class="basebox-contents">전문 학원 경영</span></span>
+                        <span class="basebox-icon-box"><span><img src="../img/icon/pic_franchise4.png" alt="CI,BI 관리"></span><span class="basebox-contents">CI&amp;BI 관리</span></span>
+                        <span class="basebox-icon-box"><span><img src="../img/icon/pic_franchise5.png" alt="통일된 운영 메뉴얼 제공"></span><span class="basebox-contents">통일된 운영 메뉴얼 제공</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="processInfo-wrapper">
+                <div class="title-m wow fadeInUp">
+                    <h2>개설 절차 안내</h2>
+                    <p>프랜차이즈 개설 절차는 다음과 같습니다.</p>
+                </div>
+                <div class="process-box">
+                    <div class="common_wrap">
+                        <ul class="list-inline wow fadeInUp">
+                            <li class="roundbox pull-left">
+                                <div>
+                                    <div>
+                                        <span class="roundbox-title">STEP <span class="num">1</span></span>
+                                        <span class="roundbox-content">가맹점 문의</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="roundbox pull-left">
+                                <div>
+                                    <div>
+                                        <span class="roundbox-title">STEP <span class="num">2</span></span>
+                                        <span class="roundbox-content">가맹점 신청</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="roundbox pull-left">
+                                <div>
+                                    <div>
+                                        <span class="roundbox-title">STEP <span class="num">3</span></span>
+                                        <span class="roundbox-content">계약 체결</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="roundbox pull-left">
+                                <div>
+                                    <div>
+                                        <span class="roundbox-title">STEP <span class="num">4</span></span>
+                                        <span class="roundbox-content">인프라 구축</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="roundbox pull-right">
+                                <div>
+                                    <div>
+                                        <span class="roundbox-title">STEP <span class="num">5</span></span>
+                                        <span class="roundbox-content">강사 및 지원<br>채용/교육</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="roundbox pull-right">
+                                <div>
+                                    <div>
+                                        <span class="roundbox-title">STEP <span class="num">6</span></span>
+                                        <span class="roundbox-content">마케팅</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="roundbox pull-right">
+                                <div>
+                                    <div>
+                                        <span class="roundbox-title">STEP <span class="num">7</span></span>
+                                        <span class="roundbox-content">정식오픈&amp;개강</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="roundbox pull-right">
+                                <div>
+                                    <div>
+                                        <span class="roundbox-title">STEP <span class="num">8</span></span>
+                                        <span class="roundbox-content">사후관리</span>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="text-center common_wrap btn_wrap">
+                        <a href="#" id="fFormBtn" class="modallink2 common_btn arrow_nay_btn">프랜차이즈 모집 문의<span class="icon arrow red"></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- // 본문 -->
+</div>
+<script>
+	$(window).load(function(){
+		$("#fFormBtn").click(function(){
+			$('.footerFranchise[modallink="foot_modal3"]').click(); 
+		})
+	})
+</script>
+{% endblock %}

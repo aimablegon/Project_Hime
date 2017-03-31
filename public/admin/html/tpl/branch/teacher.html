@@ -1,0 +1,148 @@
+<script type="text/javascript">
+
+
+angular.module('app').controller('myCtrl', ['$scope', '$rootScope', '$http', '$sce', '$stateParams', '$location',
+	function($scope, $rootScope, $http, $sce, $stateParams, $location) {
+
+		$scope.searchText = $stateParams.searchText;
+		
+		$scope.fieldId = $stateParams.fieldId;
+		$scope.pageSize = $rootScope.pageSize ? $rootScope.pageSize : "10";
+		$scope.Math=Math;
+		$scope.branchCodes	= $stateParams.branchCodes ? $stateParams.branchCodes : [];
+				
+		$scope.basePath = '#'+$location.$$path;		
+		
+		$rootScope.currentUser.adminRoll == 'D' ? data.adminId = $rootScope.currentUser.adminId : ''; 
+		
+		$scope.loadData = function () {
+			
+			var data = {
+				page : $stateParams.page,
+				pageSize : $scope.pageSize,				
+				branchCodes : $stateParams.branchCodes,
+				searchText : $stateParams.searchText,
+				fieldId : $stateParams.fieldId					
+			}
+			
+			$http({
+				method : "POST",
+				url : "/admin/api/teacher",
+				data : data
+			}).success(function(data) {
+				console.log(data);
+				$scope.data = data;
+			});
+		};
+		
+		$scope.pageChanged = function (idx){			
+			$location.path($location.$$path).search({json : JSON.stringify({page: $scope.data.currentPage, searchText: $scope.searchText, fieldId : $scope.fieldId, branchCodes: $scope.branchCodes})});
+		};
+
+		$scope.search = function () {			
+			$location.path($location.$$path).search({json : JSON.stringify({searchText: $scope.searchText, fieldId : $scope.fieldId, branchCodes: $scope.branchCodes})});
+		}
+		
+	}]
+);
+
+
+</script>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">강사 프로필 관리</h1>
+</div>
+<div class="wrapper-md"  ng-controller="myCtrl"  ng-init="loadData()">
+	<div class="panel panel-default" >
+		<div class="panel-heading">목록</div>
+
+		<div class="row wrapper" ng-if="currentUser.adminRoll != 'D'">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-left">
+				<div class="input-group">
+					<label class="checkbox-inline i-checks" ng-repeat="branch in branches">
+						<input type="checkbox" checklist-model="branchCodes"  checklist-value="branch.branchCode"><i></i> {{branch.branchName}}
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row wrapper" ng-show="currentUser.adminRoll != 'D'">
+
+			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-left">
+				<div class="input-group">
+
+					<select class="input-sm form-control w-sm inline v-middle" style="min-width:200px;"
+						ng-options="field.fieldId as field.fieldName for field in fields"
+						ng-selected="fieldId == field.fieldId"
+						ng-model="fieldId">
+						<option value="">전체</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 pull-right">
+				<div class="input-group">
+					<input type="text" class="input-sm form-control"  ng-model="searchText"  placeholder="검색어를 입력하세요."> <span class="input-group-btn">
+						<button class="btn btn-sm btn-default" type="button" ng-click="search()">검색</button>
+					</span>					
+				</div>
+			</div>
+		</div>
+		<div class="row wrapper" ng-show="data.totalCount">
+			<div class="col-sm-6 text-left">				
+				총 {{data.totalCount}} 건
+			</div>
+			<div class="col-sm-6 text-right">
+
+			</div>
+		</div>
+		<div class="table-responsive">
+
+
+			<table id="table-container" class="table table-striped b-t b-light">
+			    <thead>
+			    <tr>
+						<th width="10%" class=text-center>No</th>
+						<th width="20%" class=text-left>지점</th>
+						<th width="20%" class=text-left>분야</th>
+						<th width="10%" class=text-left>아이디</th>
+						<th width="10%" class=text-left>이름</th>						
+						<th width="10%" class=text-left>연락처</th>
+						<th width="10%" class=text-center>노출여부</th>
+						<th width="10%" class=text-center>등록일시</th>
+			    </tr>
+			    </thead>
+			    <tbody>
+			    <tr ng-repeat="item in data.list">
+						<td class="text-center">{{data.totalCount - Math.floor((data.currentPage-1) * pageSize) - $index}}</td>
+						<td class="text-left"><a href="{{basePath}}/detail/{{item.teacherSeq}}"><span ng-repeat="field in item.BranchTeachers"><span ng-show="$index > 0">,</span>{{branchNames2[field.branchCode]}}</span></a></td>
+						<td class="text-left"><a href="{{basePath}}/detail/{{item.teacherSeq}}">{{fieldNames[item.fieldId]}}</a></td>
+						<td class="text-left"><a href="{{basePath}}/detail/{{item.teacherSeq}}">{{item.Admin.adminId}}</a></td>
+						<td class="text-left"><a href="{{basePath}}/detail/{{item.teacherSeq}}">{{item.Admin.name}}</a></td>						
+						<td class="text-left"><a href="{{basePath}}/detail/{{item.teacherSeq}}">{{item.Admin.phone}}</a></td>
+						<td class="text-center">{{item.showYn}}</td>
+						<td class="text-center">{{item.registDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+			    </tr>
+			    </tbody>
+			</table>
+
+		</div>
+		<div class="row wrapper" ng-show="data.list.length == 0">
+			<div class="col-sm-12 text-center">
+				등록/검색된 데이터가 없습니다.
+			</div>
+		</div>
+		<footer class="panel-footer">
+			<div class="row">
+				<div class="col-sm-12 text-center">
+				    <pagination boundary-links="true" class="m-t-none m-b-none"  ng-model="data.currentPage" max-size="10" total-items="data.totalCount" ng-change="pageChanged()" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" items-per-page="pageSize"></pagination>
+				</div>
+			</div>
+			<div class="row" ng-if="false">
+				<div class="col-sm-12 text-right">
+					<button type="button" ng-click="saveOrder()" class="btn btn-success" ng-show="orderChanged">순서 저장</button>
+				    <a href="{{basePath}}/detail" class="btn btn-primary">등록</a>
+				</div>
+			</div>
+		</footer>
+	</div>
+</div>

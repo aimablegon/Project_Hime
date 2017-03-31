@@ -1,0 +1,179 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="portfolio">
+    <div class="contents">
+        <!-- 서브 네비 -->
+        <div class="sub-navi">
+            <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
+            <span>·</span>
+            <span>포트폴리오</span>
+            <span>·</span>
+            {% for code in codes.PORTFOLIO_FIELD %}
+                {% if loop.key == query.codeId %}
+                    <span class="this-page">{{code.codeName}}</span>
+                </div>
+                <!-- // 서브 네비 -->
+                    <div class="title-l">
+                        <div class="bg">
+                            <b>Portfolio</b>
+                        </div>
+                        <div class="text-box">
+                        <h1>{{code.codeName}}</h1>
+                        <p>{{code.additionalInfo1}}</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% for item in list %}
+        <div class="portfolio-list">
+            <div class="lists modallink2 item{{item.portfolioId}}" modallink="example1">
+                <a href="#" style="height:370px;overflow:hidden;background:url('{{item.AttachFile.url}}') no-repeat 50%">
+                    <div class="pofo_over">
+                        <img class="pofo_on" src="/img/icon/over2.png" alt="" />
+                        <p>See more<span class="icon plus red">플러스(더하기)</span></p>
+                    </div>
+                </a>
+                <div class="portfolio-name">
+                    <!-- <span class="campus-name">{{item.Branch.branchName}}캠퍼스</span> -->
+                    <div class="portfolio-info">
+                      <span>{{item.name}}</span> &nbsp;&nbsp;
+                      <span>|</span>&nbsp;&nbsp;
+                      <span>{{item.courseName}}</span> &nbsp;&nbsp;
+                      <span>|</span>&nbsp;&nbsp;
+                      <span class="portfolioType">{{item.CodeInfo.codeName}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- 페이지-->
+        {% include "./blocks/pagination.html" %}
+        <div class="ifNoData text-center" style="display:none;">
+            <div style="padding:100px 20px; font-size:20px; color:#333;">
+                <p>해당 분류에는 포트폴리오가 없습니다.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modalPopup2 pofol" style="width:960px" id="example1">
+        <!-- 타이틀 -->
+        <div class="modal-title text-left">
+            <div>
+                <span class="pop_name"></span>
+                <span class="popUp-line">|</span>
+                <span class="pop_course"></span>
+                <span class="popUp-line">|</span>
+                <span class="pop_type"></span>
+                <!-- <span class="popUp-line">|</span>
+                <span class="pop_campus"></span> -->
+            </div>
+            <div class="close-box"><a href="#" class="modal2-closeBtn">close<i class="icon close-x red"></i></a></div>
+        </div>
+
+        <div class="modal-contents">
+
+            <!-- 바디 -->
+            <div class="modal-body">
+                <div class="modal-main">
+                    <img src="" alt="포트폴리오 모달 이미지" />
+                </div>
+                <button class="icon arrow-slide left">왼쪽으로</button>
+                <button class="icon arrow-slide right">오른쪽으로</button>
+            </div>
+            <div class="text-right boxP-wrapper" style="display:none;">
+                <div class="boxP" id="box1">
+                    <div>
+                        <a href="http://www.i-make.kr:8080/STARBUCKS_jieun" target="_blank"><span>웹 사이트로 보기</span>&nbsp;
+                        <div class="icon arrow red-mini">오른쪽 화살표</div></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var data = {{JSON.stringify(list,0,4)}};
+    var index = null;
+
+    function goPage(page) {
+        location.href = "portfolio.html?codeId={{query.codeId}}&page="+page;
+    }
+
+    function slideGo(index){
+        $('.modal-main img').fadeOut('fast',function(){
+            $('.modal-main img').remove();
+            $('.modal-main').append('<img class="pf-img" style="display:none;" src="'+data[index].AttachSets[0].url+'" alt="포트폴리오 모달 이미지">').find('.pf-img').fadeIn('fast');
+            $('.modalPopup2 .pop_name').text(data[index].name);
+            $('.modalPopup2 .pop_course').text(data[index].courseName);
+            $('.modalPopup2 .pop_type').text(data[index].CodeInfo.codeName);
+            // $('.modalPopup2 .pop_campus').text(data[index].Branch.branchName+'캠퍼스');
+        });
+        if(data[index].url){
+            $('.boxP').fadeIn('fast',function(){});
+            $('.modalPopup2 .boxP-wrapper a').attr('href',data[index].url);
+        }else{
+            $('.boxP').fadeOut('fast',function(){});
+        }
+    }
+    function btnShow(index){
+        if(index == data.length - 1){
+            $('.icon.right').hide();
+        }else if(index == 0){
+            $('.icon.left').hide();
+        }else{
+            $('.icon.left').show();
+            $('.icon.right').show();
+        }
+    }
+    if({{nodata}}){
+        $('.pagination').css('display','none');
+        $('.ifNoData').css('display','block');
+    }
+    $('.lists').click(function(){
+        index = $(this).parents('.portfolio-list').index() - 2;
+        var listId = $(this).attr('class').split('item')[1];
+        jQuery.each(data,function(i,e){
+            if(e.portfolioId == listId){
+                $('.modalPopup2 .pop_name').text(e.name);
+                $('.modalPopup2 .pop_course').text(e.courseName);
+                $('.modalPopup2 .pop_type').text(e.CodeInfo.codeName);
+                // $('.modalPopup2 .pop_campus').text(e.Branch.branchName+'캠퍼스');
+                $('.modalPopup2 .modal-main img').attr('src',e.AttachSets[0].url);
+                if(e.url){
+                    $('.boxP-wrapper').css('display','block');
+                    $('.modalPopup2 .boxP-wrapper a').attr('href',e.url);
+                }
+            }
+        })
+        // data.forEach(function(e,i){
+        //     if(e.portfolioId == listId){
+        //         $('.modalPopup2 .pop_name').text(e.name);
+        //         $('.modalPopup2 .pop_course').text(e.courseName);
+        //         $('.modalPopup2 .pop_type').text(e.CodeInfo.codeName);
+        //         $('.modalPopup2 .pop_campus').text(e.Branch.branchName+'캠퍼스');
+        //         $('.modalPopup2 .modal-main img').attr('src',e.AttachSets[0].url);
+        //         if(e.url){
+        //             $('.boxP-wrapper').css('display','block');
+        //             $('.modalPopup2 .boxP-wrapper a').attr('href',e.url);
+        //         }
+        //     }
+        // });
+        btnShow(index);
+    });
+    $('#example1 button.right').click(function(){
+        if(index < data.length - 1){
+            index++;
+            slideGo(index);
+            btnShow(index);
+        }
+    });
+    $('#example1 button.left').click(function(){
+        if(index > 0){
+            index--;
+            slideGo(index);
+            btnShow(index);
+        }
+    });
+</script>
+{% endblock %}

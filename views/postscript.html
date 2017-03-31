@@ -1,0 +1,96 @@
+{% extends "./blocks/layout.html" %}
+{% block content %}
+<div class="postscript Career_center">
+    <!-- 본문 -->
+    <div class="contents">
+        <!-- 서브 네비 -->
+        <div class="sub-navi">
+            <a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a><span>·</span>
+            <span>취업지원센터</span><span>·</span>
+            <span class="this-page">취업생 인터뷰</span>
+        </div>
+        <!-- // 서브 네비 -->
+
+        <!-- 대제목 -->
+        <div class="title-l">
+            <div class="bg">Career center</div>
+            <div class="text-box">
+                <h1>취업생 인터뷰</h1>
+                <p>하이미디어에서 알려 드리는 취업 후기</p>
+            </div>
+        </div>
+        <!-- // 대제목 -->
+        <!-- <div class="tab tab-sub">
+            <ul>
+                <li class="on"><a href="#">취업생 인터뷰</a></li>
+                <li><a href="condition.html">취업 현황</a></li>
+            </ul>
+        </div> -->
+        <div class="postscript_bg">
+            <div class="video_interview common_wrap">
+                <p>하이미디어에서 각 과정 수료 후 취업에 성공한 수강생들의 생생한 인터뷰입니다.</p>
+                <span class="red_Bar"></span>
+                <div class="video_wrap">
+                    <ul class="wow fadeInUp" data-wow-duration="1s">
+                        {% for list in lists %}
+                            {% if list.contentType == 'CONTENT_TYPE_VIDEO'%}
+                                <li class="interview_box seeMore wow col-md-4 col-sm-4 col-xs-6">
+                                    <a href="postscriptViewVideo.html?interviewId={{list.interviewId}}&contentType=CONTENT_TYPE_VIDEO">
+                                        <div class="video_img_wrap">
+                                            <img src="{{list.AttachFile.url}}" alt="">
+                                            <div class="mouseactive"></div>
+                                        </div>
+                                        <p class="box_cont">
+                                            <span>{{list.courseName}}</span>
+                                            <span class="class_name">{{list.name}} / {{list.Branch.branchName}}캠퍼스</span>
+                                        </p>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                    <div class="btn-seemore" showNum="3" plusNum="3" targetClass="seeMore">
+                        <button type="button">See more<span class="icon plus red"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text_interview">
+            <div class="text_wrap common_wrap">
+                <ul class="wow fadeInUp" data-wow-duration="1s">
+                    {% for list in lists %}
+                        {% if list.contentType == 'CONTENT_TYPE_HTML'%}
+                            <li class="interview_box2 seeMore2 col-md-4 col-sm-4 col-xs-6">
+                                <a href="postscriptViewText.html?interviewId={{list.interviewId}}&contentType=CONTENT_TYPE_HTML" alt="">
+                                    <img src="/img/site_img/text_{{list.fieldId}}.png" alt="">
+                                    <p class="box_cont">
+                                        <span>{{list.courseName}}</span>
+                                        <span class="class_name">{{list.name}} / {{list.Branch.branchName}}캠퍼스</span>
+                                    </p>
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+                <div class="btn-seemore" showNum="6" plusNum="3" targetClass="seeMore2">
+                    <button type="button">See more<span class="icon plus red"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- // 본문 -->
+</div>
+<script>
+for(i=0;i<$('.interview_box').length;i++){
+    if( i%3 == 2 && i != 0){
+        $('.interview_box').eq(i).css('marginRight',0);
+    }
+}
+
+for(i=0;i<$('.interview_box2').length;i++){
+    if( i%3 == 2 && i != 0){
+        $('.interview_box2').eq(i).css('marginRight',0);
+    }
+}
+</script>
+{% endblock %}

@@ -1,0 +1,104 @@
+.saramin{
+    .tab-saramin{
+        text-align: center;
+        font-size:0;
+        li{
+            .inlineblock();
+            width:248px;
+            height: 40px;
+            border:1px solid #242D33;
+            font-size:@menu-size;
+            font-weight: @title-weight;
+            margin-left:10px;
+            &&:first-child{
+                margin-left:0;
+            }
+            button{
+                width:100%;
+                height:100%;
+            }
+        }
+        li:hover{
+            border:1px solid @main-color;
+            color:@main-color;
+        }
+        li.on{
+            background:@main-color;
+            color:@white-color;
+            border:1px solid @main-color;
+        }
+    }
+    .saramin_bg{
+        background:@base-color;
+        padding:40px 0 0;
+        .saramin_tablewrap{
+            width:1024px;
+            margin:0 auto;
+            p{
+                color:@content-sub-color;
+                font-size:14px;
+                margin: 0 0 20px 10px;
+                span{
+                    color:@content-color;
+                }
+                .total_num{
+                    color:@main-color;
+                }
+            }
+            .list_table{
+                margin-bottom:70px;
+                tbody{
+                    tr{
+                        height:80px;
+                        border-top: 1px solid @base-color;
+                        &&:first-child{border-top:0;}
+                        td{
+                            padding:0;
+                            font-size:13px;
+                        }
+                        .cont{
+                            font-weight: @gnb-weight;
+                            a{
+                                // overflow: hidden;
+                				// white-space: nowrap;
+                				// text-overflow: ellipsis;
+                                .inlineblock();
+                                .ellipsis();
+                                max-width:380px;
+                                font-size:13px;
+                                .cont2{
+                                    .ellipsis();
+                                    display:block;
+                                    color:@content-sub-color;
+                                    font-weight: @subject-weight;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @media(max-width:@tablet-size){
+        .saramin_bg{
+            .saramin_tablewrap{
+                width:100%;
+                .scroll_table{
+                    > table{
+                        width:211% !important;
+                    }
+                }
+            }
+        }
+        .dropdown{
+            margin-bottom:70px;
+            .tab-saramin{
+                li{
+                    border:none;
+                    border-bottom: 1px solid #999999;
+                    margin-left:0;
+                }
+            }
+        }
+    }
+}

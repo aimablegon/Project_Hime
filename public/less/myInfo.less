@@ -1,0 +1,73 @@
+.myInfo{
+    .input_fromwrap {
+        .input_tablewrap{
+            margin-top:70px;
+            table.input_table{
+                tr{
+                    td{
+                        div.radio_wrap{
+                            width:100%;
+                            label{
+                                font-weight:@subject-weight;
+                                font-size:13px;
+                                text-indent:0;
+                                position:relative;
+                                margin:0 26px 0 0;
+                            }
+                            input{
+                                width:auto;
+                                margin:0 3px 0 0;
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .check_id{
+        width:69px;
+        height:26px;
+        background:@sub-color;
+        color:@white-color;
+        font-size:13px;
+        letter-spacing: -1px;
+        margin-left:5px;
+    }
+    .sub_cont{
+        padding-left:5px;
+        font-size:13px;
+    }
+    .step_wrap{
+        padding-top:0;
+    }
+    .btns_wrap{
+        text-align: center;
+        input{
+            border:0;
+            color:@white-color;
+            width:182px;
+            height:40px;
+            font-size:16px;
+            font-weight: @gnb-weight;
+        }
+        input.btn1{
+            background:@main-color;
+        }
+        input.btn2{
+            background:@sub-color;
+            margin-bottom:70px;
+        }
+    }
+    @media(max-width:@tablet-size){
+        .inputtable_wrap{
+            width:97%;
+            margin:0 auto;
+        }
+    }
+    @media(max-width: @mobile-size){
+        .sub_cont{
+            display: block;
+        }
+    }
+}

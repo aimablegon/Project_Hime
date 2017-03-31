@@ -1,0 +1,90 @@
+//공통 랩핑
+.common_wrap{
+    margin:0 auto;
+    width:1024px;
+    @media(max-width: @tablet-size){
+        width:100%;
+    }
+}
+.clear{
+    clear:both;
+}
+
+//글씨 포인트색상
+.txt-red{
+    color:@main-color;
+}
+//margin
+.mt15{margin-top:15px;}
+.mt20{margin-top:20px;}
+.mt25{margin-top:25px;}
+.mt30{margin-top:30px;}
+
+.mb15{margin-bottom:15px;}
+.mb20{margin-bottom:20px;}
+.mb25{margin-bottom:25px;}
+.mb30{margin-bottom:30px;}
+
+//pc&모바일시 안보이고 보이게 하기
+.pc_none{
+    display:none !important;
+    @media(max-width: @tablet-size){
+        display:inline-block !important;
+    }
+}
+
+.pc_block{
+    display:inline-block !important;
+    @media(max-width: @tablet-size){
+        display:none !important;
+    }
+}
+
+//input width
+.w_20p{
+    width:20% !important;
+    @media(max-width:@tablet-size){
+        width:45% !important;
+        max-width: 150px;
+    }
+}
+.w_11p{
+    width:11%;
+    @media(max-width:@tablet-size){
+        width:27%;
+        max-width:115px;
+    }
+}
+.w_25p{
+    width:25%;
+    @media(max-width:@tablet-size){
+        width:45%;
+        max-width:200px;
+    }
+}
+.w_join_birth{
+    width:15%;
+    @media(max-width:@tablet-size){
+        width:22%;
+
+    }
+}
+.w_id_pw{
+    width:15%;
+    @media(max-width:@tablet-size){
+        width:68%;
+        max-width: 220px;
+
+    }
+}
+.w_calp{
+    width:27%;
+    @media(max-width:@tablet-size){
+        width:86%;
+    }
+}
+.m_margin0{
+    @media(max-width:@tablet-size){
+        margin:0;
+    }
+}
